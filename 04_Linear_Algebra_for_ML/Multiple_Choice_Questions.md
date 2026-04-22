@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Linear Algebra for ML
 
+📺 **Video Lecture:** https://youtu.be/YpckH7F5vj0
+
+
 Test your understanding of linear algebra concepts essential for machine learning.
 
 ---
@@ -185,3 +188,7 @@ The determinant of [[a, b], [c, d]] is ad − bc. If this equals zero, the matri
 
 **Q15. Answer: B**
 Truncated SVD (keeping top-k singular values) provides the best rank-k approximation (Eckart-Young theorem). This is used for dimensionality reduction, denoising, and compression in recommender systems and NLP.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

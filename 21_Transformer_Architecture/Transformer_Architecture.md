@@ -1,5 +1,8 @@
 # Transformer Architecture
 
+📺 **Video Lecture:** https://youtu.be/yPTi4Ot5qoM
+
+
 ## Interview Anchor
 - **Self-Attention Mechanism:** Each position attends to all other positions; compute relevance via query-key-value matrices; O(n²) complexity but highly parallelizable
 - **Multi-Head Attention:** Multiple parallel attention heads capture diverse aspects; concatenate and project outputs

@@ -1,5 +1,8 @@
 # Time Series Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/YqHagchJ20Y
+
+
 ## Interview Anchor
 - **Stationarity:** Time-invariant statistical properties (mean, variance, autocorrelation); essential for classical time series methods
 - **Trend and Seasonality:** Deterministic components capturing long-term movement and regular periodic patterns
@@ -144,3 +147,7 @@ Time series analysis is critical in finance, forecasting, and sensor data applic
 - **Show caution with imputation:** Never impute across regime changes; acknowledge domain-specific missing data challenges
 - **Mention modern alternatives:** ARIMA is classical; mention Prophet, TBATS, deep learning for complex patterns; but master ARIMA basics first
 - **Prepare visual examples:** Sketch a series with trend and seasonality, draw its decomposition, show ACF/PACF patterns for AR and MA
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

@@ -1,5 +1,8 @@
 # Multiple Choice Questions: NLP Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/956n9PUi-zg
+
+
 Test your understanding of natural language processing fundamentals for AI/ML interviews.
 
 ---

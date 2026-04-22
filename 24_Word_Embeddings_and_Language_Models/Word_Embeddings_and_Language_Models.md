@@ -1,5 +1,8 @@
 # Word Embeddings and Language Models
 
+📺 **Video Lecture:** https://youtu.be/jBVeerEkcSk
+
+
 ## Interview Anchor
 - **Word2Vec:** Neural approach learning word embeddings via predicting context (Skip-gram) or word from context (CBOW)
 - **BERT:** Bidirectional encoder transformer with MLM (masked language model) and NSP (next sentence prediction) objectives

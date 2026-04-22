@@ -1,5 +1,8 @@
 # Unsupervised Learning: Clustering
 
+📺 **Video Lecture:** https://youtu.be/h7cfnNGl9mU
+
+
 ## Interview Anchor
 - **K-means:** Partitional clustering minimizing within-cluster variance; fast, interpretable, requires K specification.
 - **Hierarchical Clustering:** Builds dendrogram via agglomerative (bottom-up) or divisive (top-down) merging; dendrograms enable visual inspection.
@@ -136,3 +139,7 @@ Clustering is a cornerstone of unsupervised learning and one of the most frequen
 - **Q:** High-dimensional clustering: problem? **A:** Curse of dimensionality; distances become meaningless; apply dimensionality reduction first.
 - **Q:** EM convergence: guaranteed? **A:** Converges to local maximum (monotonic likelihood increase); initialization matters.
 - **Q:** ARI/NMI require what? **A:** Ground truth labels; measure agreement between predicted and true clusterings.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Tree-Based Models
 
+📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
+
+
 Test your understanding of decision trees, random forests, and gradient boosting.
 
 ---
@@ -185,3 +188,7 @@ A smaller learning rate shrinks each tree's contribution, requiring more trees t
 
 **Q15. Answer: B**
 Trees make binary decisions (is feature > threshold?), which is unaffected by monotonic transformations of features. Multiplying a feature by 100 changes the threshold but not the split's effect.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

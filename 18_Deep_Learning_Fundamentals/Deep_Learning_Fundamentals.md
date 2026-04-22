@@ -1,5 +1,8 @@
 # Deep Learning Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/96bvudFrdhg
+
+
 ## Interview Anchor
 - **Perceptron to MLP:** Evolution from linear classifiers to universal function approximators via hidden layers and nonlinearity
 - **Backpropagation:** Efficient gradient computation via chain rule; backbone of neural network training

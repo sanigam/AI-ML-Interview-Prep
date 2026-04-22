@@ -1,5 +1,8 @@
 # Ensemble Methods
 
+📺 **Video Lecture:** https://youtu.be/m06esXrTdIc
+
+
 ## Interview Anchor
 - **Bagging vs. Boosting:** Bagging trains parallel models on bootstrap samples, reducing variance; boosting trains sequential models on residuals/misclassified samples, reducing bias.
 - **Stacking:** Combines diverse models via a meta-learner; more flexible but complex than simple averaging.
@@ -139,3 +142,7 @@ Ensemble methods are a cornerstone of modern machine learning, frequently domina
 - **Q:** Weighted voting vs. equal weights? **A:** Weighted better (high-accuracy models get higher influence); equal weights assume equal quality.
 - **Q:** When prune ensemble? **A:** Production (latency critical); may also improve generalization (removes noisy models).
 - **Q:** AdaBoost sensitive to? **A:** Noisy data (noise reweighted as hard samples, exponentially amplified); requires > 50% weak learner accuracy.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

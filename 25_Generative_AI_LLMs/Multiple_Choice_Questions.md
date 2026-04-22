@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Generative AI and Large Language Models
 
+📺 **Video Lecture:** https://youtu.be/q728r276RA0
+
+
 Test your understanding of generative AI and LLM concepts for AI/ML interviews.
 
 ---

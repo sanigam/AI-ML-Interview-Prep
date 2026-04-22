@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Time Series Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/YqHagchJ20Y
+
+
 Test your understanding of time series analysis concepts essential for AI/ML interviews.
 
 ---
@@ -185,3 +188,7 @@ Time series cross-validation (walk-forward validation) always trains on past dat
 
 **Q15. Answer: C**
 Holt-Winters extends exponential smoothing by adding both a trend equation and a seasonal equation, enabling it to forecast series with both trend and seasonality.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

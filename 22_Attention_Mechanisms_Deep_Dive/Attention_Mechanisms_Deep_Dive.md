@@ -1,5 +1,8 @@
 # Attention Mechanisms: Deep Dive
 
+📺 **Video Lecture:** https://youtu.be/te7D9Al7mpw
+
+
 ## Interview Anchor
 - **Self-Attention:** Mechanism where each token attends to all other tokens in a sequence to compute weighted representations
 - **Attention Score:** Computed as similarity measure between query and key vectors, normalized via softmax

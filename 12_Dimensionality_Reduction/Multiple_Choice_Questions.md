@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Dimensionality Reduction
 
+📺 **Video Lecture:** https://youtu.be/n3xBHnBuZHQ
+
+
 Test your understanding of PCA, t-SNE, and other dimensionality reduction techniques.
 
 ---
@@ -185,3 +188,7 @@ Keeping components that explain 90-95% of variance retains most information whil
 
 **Q15. Answer: B**
 Autoencoders learn encoder (compression) and decoder (reconstruction) networks. The bottleneck layer is a non-linear low-dimensional representation, generalizing PCA's linear projection.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

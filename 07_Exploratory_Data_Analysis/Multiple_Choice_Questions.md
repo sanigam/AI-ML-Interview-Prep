@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Exploratory Data Analysis
 
+📺 **Video Lecture:** https://youtu.be/Io0lkeQqUXY
+
+
 Test your understanding of EDA techniques for understanding and visualizing data.
 
 ---
@@ -185,3 +188,7 @@ Violin plots show both the box plot summary statistics and the kernel density es
 
 **Q15. Answer: B**
 Good EDA combines descriptive statistics (mean, median, std) with visualizations (histograms, scatter plots, box plots) and investigates anomalies. Skipping EDA risks building models on misunderstood data.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

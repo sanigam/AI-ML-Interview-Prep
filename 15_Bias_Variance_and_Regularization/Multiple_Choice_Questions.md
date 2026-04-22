@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Bias-Variance Tradeoff and Regularization
 
+📺 **Video Lecture:** https://youtu.be/VsvnNYoMDZY
+
+
 Test your understanding of overfitting, underfitting, and regularization techniques.
 
 ---
@@ -185,3 +188,7 @@ The validation set tunes hyperparameters (learning rate, regularization, model a
 
 **Q15. Answer: B**
 Weight decay subtracts λ×w from weights each step, which is equivalent to adding λ||w||² to the loss function — this is L2 regularization.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

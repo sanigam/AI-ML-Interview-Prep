@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Attention Mechanisms Deep Dive
 
+📺 **Video Lecture:** https://youtu.be/te7D9Al7mpw
+
+
 Test your understanding of attention mechanism concepts for AI/ML interviews.
 
 ---

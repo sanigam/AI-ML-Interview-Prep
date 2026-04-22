@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Ensemble Methods
 
+📺 **Video Lecture:** https://youtu.be/m06esXrTdIc
+
+
 Test your understanding of bagging, boosting, stacking, and ensemble techniques.
 
 ---
@@ -185,3 +188,7 @@ Performance typically improves rapidly with initial models, then plateaus. For b
 
 **Q15. Answer: B**
 Blending uses a simple train/validation split to generate meta-features (simpler, faster), while stacking uses full cross-validation (more data-efficient, less biased). Both train a meta-learner.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

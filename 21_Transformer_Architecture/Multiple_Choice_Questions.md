@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Transformer Architecture
 
+📺 **Video Lecture:** https://youtu.be/yPTi4Ot5qoM
+
+
 Test your understanding of transformer architecture concepts for AI/ML interviews.
 
 ---

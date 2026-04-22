@@ -1,5 +1,8 @@
 # Calculus and Optimization
 
+📺 **Video Lecture:** https://youtu.be/QSOVolxsaWg
+
+
 ## Interview Anchor
 - **Gradient:** ∇f, vector of partial derivatives; points in direction of steepest increase
 - **Hessian:** H = ∇²f, matrix of second partial derivatives; describes local curvature
@@ -131,3 +134,7 @@ Modern ML relies heavily on stochastic optimization variants (SGD, Adam) that ba
 - **Q: Why use mini-batches instead of full batch gradient descent?** **A:** Better generalization (gradient noise acts as regularization), faster iterations overall, practical memory/computational efficiency
 - **Q: When would you use second-order methods?** **A:** Small-to-medium problems (n ~ 10^4) where quadratic convergence is worth the extra computation; rarely in modern deep learning
 - **Q: How do you escape a saddle point?** **A:** Use noisy/stochastic gradients (SGD helps), restart from different initialization, or use explicit noise injection
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

@@ -1,5 +1,8 @@
 # Tree-Based Models
 
+📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
+
+
 ## Interview Anchor
 - **Decision Trees:** Recursive partitioning of feature space using splitting criteria; interpretable but prone to overfitting.
 - **Ensemble Methods:** Bagging (Random Forests) and boosting (XGBoost, LightGBM) combine trees to improve robustness and accuracy.
@@ -136,3 +139,7 @@ Tree-based models dominate practical machine learning due to their ability to ca
 - **Q:** What's the drawback of tree importance? **A:** Biased toward features near root and high-cardinality features; permutation importance is more reliable.
 - **Q:** Why does CatBoost use ordered boosting? **A:** Uses only earlier samples to compute gradients, preventing information leakage; improves generalization.
 - **Q:** Should you scale features before training trees? **A:** No—trees are scale-invariant (splits use thresholds, not magnitudes); scaling matters for linear/distance-based models.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

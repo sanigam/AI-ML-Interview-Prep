@@ -1,5 +1,8 @@
 # Convolutional Neural Networks
 
+📺 **Video Lecture:** https://youtu.be/K1xfB-H_Ii4
+
+
 ## Interview Anchor
 - **Convolution Operation:** Sliding filter over inputs to extract local features; fundamental building block of vision models
 - **Architecture Evolution:** LeNet → AlexNet → VGG → ResNet → EfficientNet; deeper, wider, smarter architectures

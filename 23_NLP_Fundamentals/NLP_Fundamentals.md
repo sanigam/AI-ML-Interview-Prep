@@ -1,5 +1,8 @@
 # NLP Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/956n9PUi-zg
+
+
 ## Interview Anchor
 - **Tokenization:** Process of splitting text into meaningful units (words, subwords, characters) for model processing
 - **TF-IDF:** Statistical measure ranking term importance: term frequency in document × inverse frequency across corpus

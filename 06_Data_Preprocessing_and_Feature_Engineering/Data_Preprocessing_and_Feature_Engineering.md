@@ -1,5 +1,8 @@
 # Data Preprocessing and Feature Engineering
 
+📺 **Video Lecture:** https://youtu.be/cDMa4ukiDF0
+
+
 ## Interview Anchor
 - **Missing Data Mechanisms:** MCAR (completely random), MAR (random given observed), MNAR (depends on unobserved values)
 - **Feature Scaling:** Transforming features to comparable ranges; essential for distance-based and gradient-descent algorithms
@@ -130,3 +133,7 @@ Interviewers test this knowledge because it separates practitioners who understa
 - **Q: What's the difference between oversampling and SMOTE?** **A:** Oversampling duplicates minority samples (overfitting risk); SMOTE generates synthetic samples via interpolation (more diversity)
 - **Q: How do you detect multicollinearity?** **A:** Compute VIF (>5-10 indicates high collinearity) or correlation matrix (|r| > 0.8-0.9)
 - **Q: Why is stratified train/test split important?** **A:** Maintains class distribution in both sets; prevents imbalance where one set is skewed toward majority class
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

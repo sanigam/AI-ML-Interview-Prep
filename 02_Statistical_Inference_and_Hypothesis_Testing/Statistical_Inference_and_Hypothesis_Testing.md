@@ -1,5 +1,8 @@
 # Statistical Inference and Hypothesis Testing
 
+📺 **Video Lecture:** https://youtu.be/4NlWsOKGBLc
+
+
 ## Interview Anchor
 - **Point Estimation:** Using sample data to estimate an unknown population parameter with a single value
 - **Hypothesis Testing:** A statistical procedure to decide between competing hypotheses about a parameter using evidence from data
@@ -128,3 +131,7 @@ Understanding the relationship between p-values, confidence intervals, and effec
 - **Q: How does sample size affect p-value?** **A:** Larger n makes p-values smaller for fixed effect size; same effect is "more significant" with more data
 - **Q: What's the difference between FWER and FDR?** **A:** FWER controls probability of any false positive; FDR controls expected proportion of false positives
 - **Q: How do you choose effect size for sample size calculation?** **A:** Use prior research, pilot data, or minimum practically meaningful difference (e.g., 10% improvement)
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

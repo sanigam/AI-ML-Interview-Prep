@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Supervised Learning — Linear Models
 
+📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
+
+
 Test your understanding of linear regression, logistic regression, and related models.
 
 ---
@@ -185,3 +188,7 @@ Softmax converts logits z₁,...,zₖ into probabilities: P(class j) = e^zⱼ / 
 
 **Q15. Answer: B**
 Well-behaved residuals are independent, homoscedastic, and normally distributed around zero. Patterns in residuals (e.g., funnel shape, curvature) indicate model misspecification.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

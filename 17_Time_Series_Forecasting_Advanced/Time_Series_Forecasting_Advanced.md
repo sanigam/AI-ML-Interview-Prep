@@ -1,5 +1,8 @@
 # Time Series Forecasting: Advanced Methods
 
+📺 **Video Lecture:** https://youtu.be/ziH9_Ahgq4s
+
+
 ## Interview Anchor
 - **ARIMA/SARIMA:** Autoregressive Integrated Moving Average models; statistical frameworks combining AR, differencing, and MA components
 - **Modern Approaches:** Deep learning (LSTM, CNN, Transformer), Prophet, state space models; handle complex patterns and exogenous variables

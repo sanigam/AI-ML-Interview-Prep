@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Deep Learning Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/96bvudFrdhg
+
+
 Test your understanding of deep learning fundamentals for AI/ML interviews.
 
 ---

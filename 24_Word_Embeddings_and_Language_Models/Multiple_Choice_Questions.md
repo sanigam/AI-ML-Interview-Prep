@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Word Embeddings and Language Models
 
+📺 **Video Lecture:** https://youtu.be/jBVeerEkcSk
+
+
 Test your understanding of word embeddings and language models for AI/ML interviews.
 
 ---

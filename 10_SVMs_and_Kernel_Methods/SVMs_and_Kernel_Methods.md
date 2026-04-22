@@ -1,5 +1,8 @@
 # SVMs and Kernel Methods
 
+📺 **Video Lecture:** https://youtu.be/tmCPYgbE-vk
+
+
 ## Interview Anchor
 - **Maximum Margin Classifier:** Finds the hyperplane with largest distance to nearest samples, maximizing generalization.
 - **Kernel Trick:** Implicitly computes dot products in high-dimensional feature spaces without explicit transformation.
@@ -135,3 +138,7 @@ Support Vector Machines (SVMs) represent a peak of classical machine learning th
 - **Q:** How does KPCA capture nonlinearity? **A:** Maps data via kernel φ, applies PCA in high-dim space; captures manifold structure.
 - **Q:** Soft-margin vs. hard-margin: which is realistic? **A:** Soft-margin; real data has noise/overlap; hard-margin is theoretical ideal, infeasible in practice.
 - **Q:** Why are support vectors special? **A:** Only data points with α_i > 0 determine decision boundary; others irrelevant; sparse, interpretable solution.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

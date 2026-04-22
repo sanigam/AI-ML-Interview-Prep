@@ -1,5 +1,8 @@
 # RNNs and Sequence Models
 
+📺 **Video Lecture:** https://youtu.be/G3vQTk-kq9g
+
+
 ## Interview Anchor
 - **Vanilla RNN:** Recurrent connections process sequences; simple but suffers vanishing gradients due to BPTT
 - **LSTM & GRU:** Gating mechanisms preserve long-term dependencies; LSTM with 4 gates (forget, input, output, cell), GRU with 2 gates (reset, update)

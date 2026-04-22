@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Time Series Forecasting — Advanced Methods
 
+📺 **Video Lecture:** https://youtu.be/ziH9_Ahgq4s
+
+
 Test your understanding of advanced time series forecasting methods for AI/ML interviews.
 
 ---

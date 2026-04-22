@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Calculus and Optimization
 
+📺 **Video Lecture:** https://youtu.be/QSOVolxsaWg
+
+
 Test your understanding of calculus and optimization concepts used in machine learning.
 
 ---
@@ -185,3 +188,7 @@ The loss function must be differentiable with respect to model parameters so tha
 
 **Q15. Answer: B**
 Mini-batches balance between the noisy but fast updates of SGD (batch=1) and the accurate but slow updates of full-batch. The noise acts as implicit regularization and helps escape sharp local minima.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

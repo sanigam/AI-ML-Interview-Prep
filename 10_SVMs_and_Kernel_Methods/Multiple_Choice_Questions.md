@@ -1,5 +1,8 @@
 # Multiple Choice Questions: SVMs and Kernel Methods
 
+📺 **Video Lecture:** https://youtu.be/tmCPYgbE-vk
+
+
 Test your understanding of Support Vector Machines and kernel-based learning.
 
 ---
@@ -185,3 +188,7 @@ A polynomial kernel K(x,y) = (x·y + c)^d implicitly creates all polynomial feat
 
 **Q15. Answer: B**
 The margin is the perpendicular distance from the decision boundary to the closest point(s). For the full margin (both sides): margin = 2/||w||. Maximizing the margin is the SVM objective.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

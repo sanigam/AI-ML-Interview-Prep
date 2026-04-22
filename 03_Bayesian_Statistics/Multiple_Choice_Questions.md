@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Bayesian Statistics
 
+📺 **Video Lecture:** https://youtu.be/YpckH7F5vj0
+
+
 Test your understanding of Bayesian inference, priors, posteriors, and computational methods for AI/ML interviews.
 
 ---
@@ -185,3 +188,7 @@ With increasing data, the likelihood dominates and the prior's influence diminis
 
 **Q15. Answer: B**
 Uninformative (or weakly informative) priors attempt to express minimal prior knowledge so the data drives the inference. Truly uninformative priors don't technically exist, and they are not always uniform.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

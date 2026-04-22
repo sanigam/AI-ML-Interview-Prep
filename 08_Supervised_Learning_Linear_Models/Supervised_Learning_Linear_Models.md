@@ -1,5 +1,8 @@
 # Supervised Learning: Linear Models
 
+📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
+
+
 ## Interview Anchor
 - **Linear Regression:** Predicts continuous values using a linear relationship between input features and output.
 - **Logistic Regression:** Binary/multiclass classifier that models probability using the logistic sigmoid function.
@@ -134,3 +137,7 @@ Linear models form the foundation of machine learning and are frequently tested 
 - **Q:** When would you use polynomial regression? **A:** When residual plots show systematic nonlinear patterns; avoid high degrees due to overfitting.
 - **Q:** How does softmax differ from one-vs-rest logistic regression? **A:** Softmax models joint distribution over K classes; one-vs-rest trains K binary classifiers independently.
 - **Q:** What does adjusted R² = 0.92 vs. R² = 0.93 suggest? **A:** The extra feature(s) slightly hurt adjusted performance; likely overfitting to noise.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

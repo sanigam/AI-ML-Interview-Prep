@@ -1,5 +1,8 @@
 # Generative AI and Large Language Models
 
+📺 **Video Lecture:** https://youtu.be/q728r276RA0
+
+
 ## Interview Anchor
 - **Large Language Model (LLM):** Transformer-based neural network (100M-100B+ parameters) trained via next-token prediction on massive text corpora
 - **Scaling Laws:** Empirical relationships showing loss decreases as power law with model size and training data (Chinchilla laws)

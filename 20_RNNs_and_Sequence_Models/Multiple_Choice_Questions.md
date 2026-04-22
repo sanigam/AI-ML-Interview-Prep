@@ -1,5 +1,8 @@
 # Multiple Choice Questions: RNNs and Sequence Models
 
+📺 **Video Lecture:** https://youtu.be/G3vQTk-kq9g
+
+
 Test your understanding of recurrent neural networks and sequence modeling for AI/ML interviews.
 
 ---

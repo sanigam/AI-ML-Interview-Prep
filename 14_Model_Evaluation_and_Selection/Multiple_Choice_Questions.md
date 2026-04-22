@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Model Evaluation and Selection
 
+📺 **Video Lecture:** https://youtu.be/F-JCSIv_gDo
+
+
 Test your understanding of metrics, cross-validation, and model selection techniques.
 
 ---
@@ -185,3 +188,7 @@ Log loss = −[y log(p) + (1−y)log(1−p)]. A confident wrong prediction (e.g.
 
 **Q15. Answer: B**
 Nested CV has an outer loop for performance estimation and inner loop for hyperparameter tuning. This prevents the optimistic bias that occurs when the same CV is used for both tuning and evaluation.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

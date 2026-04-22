@@ -1,5 +1,8 @@
 # Bias, Variance, and Regularization
 
+📺 **Video Lecture:** https://youtu.be/VsvnNYoMDZY
+
+
 ## Interview Anchor
 - **Bias:** Error from overly simplistic model assumptions; model's inability to capture underlying patterns
 - **Variance:** Error from model sensitivity to training data fluctuations; instability across different datasets
@@ -142,3 +145,7 @@ Bias-variance tradeoff is foundational to machine learning and critical in inter
 - **Discuss trade-offs:** Every regularization technique has costs; show you've considered computational impact and interpretability
 - **Mention modern trends:** Reference double descent and implicit regularization to show you read recent literature
 - **Prepare visualization explanations:** Be ready to sketch decision boundaries, learning curves, or parameter distributions on a whiteboard
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

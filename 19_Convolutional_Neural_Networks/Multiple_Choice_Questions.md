@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Convolutional Neural Networks
 
+📺 **Video Lecture:** https://youtu.be/K1xfB-H_Ii4
+
+
 Test your understanding of CNN concepts essential for AI/ML interviews.
 
 ---

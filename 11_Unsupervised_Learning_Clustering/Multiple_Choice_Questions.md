@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Unsupervised Learning — Clustering
 
+📺 **Video Lecture:** https://youtu.be/h7cfnNGl9mU
+
+
 Test your understanding of clustering algorithms and unsupervised learning concepts.
 
 ---
@@ -185,3 +188,7 @@ Soft clustering assigns probability distributions over clusters for each point. 
 
 **Q15. Answer: B**
 Mini-batch K-Means uses random subsets per iteration instead of the full dataset, dramatically reducing computation time for large datasets with minimal quality loss.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

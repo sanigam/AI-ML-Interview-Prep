@@ -1,5 +1,8 @@
 # Linear Algebra for Machine Learning
 
+📺 **Video Lecture:** https://youtu.be/YpckH7F5vj0
+
+
 ## Interview Anchor
 - **Eigenvalues and Eigenvectors:** For matrix A, non-zero vector v where Av = λv; λ is eigenvalue, v is eigenvector
 - **Matrix Decomposition:** Factoring A into simpler matrices (SVD, QR, LU); reveals structure and enables efficient computation
@@ -128,3 +131,7 @@ Interviewers test linear algebra knowledge because it separates practitioners wh
 - **Q: Why is orthogonality important numerically?** **A:** Orthogonal transformations preserve norms, have condition number 1, avoid rounding errors
 - **Q: How does ridge regression change conditioning?** **A:** Adds λ to diagonal of A^T A, shifts small eigenvalues upward, improves condition number
 - **Q: What's the relationship between SVD and PCA?** **A:** SVD on centered data directly gives PCA: columns of V are principal components, singular values relate to variance
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

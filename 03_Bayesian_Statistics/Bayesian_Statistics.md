@@ -1,5 +1,8 @@
 # Bayesian Statistics
 
+📺 **Video Lecture:** https://youtu.be/YpckH7F5vj0
+
+
 ## Interview Anchor
 - **Prior Distribution:** P(θ) representing your beliefs about parameter θ before observing data
 - **Likelihood:** P(data | θ) representing how probable the observed data is under parameter value θ
@@ -128,3 +131,7 @@ Understanding Bayesian inference helps you recognize when to use prior knowledge
 - **Q: What's the relationship between MAP and regularization?** **A:** MAP = MLE + prior acts as regularization; Gaussian prior → L2, Laplace → L1
 - **Q: How do you choose between MCMC and variational inference?** **A:** MCMC for accuracy and small-medium problems; variational for speed and large-scale problems
 - **Q: How does posterior predictive account for uncertainty?** **A:** Averages predictions over all plausible parameter values weighted by posterior probability; includes both parameter and noise uncertainty
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

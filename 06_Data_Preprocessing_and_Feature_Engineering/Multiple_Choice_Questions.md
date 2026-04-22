@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Data Preprocessing and Feature Engineering
 
+📺 **Video Lecture:** https://youtu.be/cDMa4ukiDF0
+
+
 Test your understanding of data preparation and feature engineering for ML pipelines.
 
 ---
@@ -185,3 +188,7 @@ Feature transformations must be fit on the training set only, then applied to th
 
 **Q15. Answer: B**
 Interaction features model situations where the effect of one feature depends on another. For example, the effect of education on income may depend on years of experience.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

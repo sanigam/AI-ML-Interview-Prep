@@ -1,5 +1,8 @@
 # Multiple Choice Questions: Statistical Inference and Hypothesis Testing
 
+📺 **Video Lecture:** https://youtu.be/4NlWsOKGBLc
+
+
 Test your understanding of statistical inference, hypothesis testing, and experimental design for AI/ML interviews.
 
 ---
@@ -185,3 +188,7 @@ Repeated peeking ("optional stopping") inflates the true Type I error rate well 
 
 **Q15. Answer: C**
 The chi-square test for independence tests whether two categorical variables are associated by comparing observed cell frequencies in a contingency table to expected frequencies under independence.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

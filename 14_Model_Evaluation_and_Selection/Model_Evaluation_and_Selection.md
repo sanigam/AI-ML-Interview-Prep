@@ -1,5 +1,8 @@
 # Model Evaluation and Selection
 
+📺 **Video Lecture:** https://youtu.be/F-JCSIv_gDo
+
+
 ## Interview Anchor
 - **Classification Metrics:** Accuracy, precision, recall, F1; choose based on class distribution and cost asymmetry.
 - **ROC Curve & AUC:** Plots TPR vs. FPR; AUC summarizes classifier quality; threshold-independent.
@@ -145,3 +148,7 @@ Model evaluation and selection are fundamental to ML practice, yet frequently mi
 - **Q:** AIC vs. BIC: difference? **A:** BIC penalizes complexity more (log(n) factor); BIC favors simpler models.
 - **Q:** Test set leakage: what? **A:** Using test data during training/tuning; invalidates performance estimates; must keep test set separate.
 - **Q:** Multiple metrics or just AUC? **A:** Always multiple; confusion matrix + precision + recall + calibration gives complete picture.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

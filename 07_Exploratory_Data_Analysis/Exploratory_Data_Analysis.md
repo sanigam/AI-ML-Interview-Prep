@@ -1,5 +1,8 @@
 # Exploratory Data Analysis (EDA)
 
+📺 **Video Lecture:** https://youtu.be/Io0lkeQqUXY
+
+
 ## Interview Anchor
 - **Summary Statistics:** Mean, median, std, min, max, quantiles; provide first understanding of data shape
 - **Data Visualization:** Graphical representation revealing patterns, outliers, distributions that numbers alone miss
@@ -128,3 +131,7 @@ The goal of EDA is not just creating visualizations, but systematically understa
 - **Q: What's the relationship between skewness and mean/median?** **A:** Right-skewed: mean > median; left-skewed: mean < median; symmetric: mean ≈ median
 - **Q: When should you remove outliers?** **A:** Only if confirmed errors; genuine rare events should be investigated (modeling separately, robust methods)
 - **Q: How does EDA inform preprocessing?** **A:** Skewness → transformation; missing data patterns → imputation strategy; multicollinearity → regularization; class imbalance → class weights
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

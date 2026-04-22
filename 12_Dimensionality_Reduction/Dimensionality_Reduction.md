@@ -1,5 +1,8 @@
 # Dimensionality Reduction
 
+📺 **Video Lecture:** https://youtu.be/n3xBHnBuZHQ
+
+
 ## Interview Anchor
 - **PCA (Principal Component Analysis):** Linear projection maximizing variance; finds orthogonal directions; unsupervised.
 - **Manifold Learning:** Assumes data lies on a low-dimensional manifold; t-SNE, UMAP reveal structure; useful for visualization.
@@ -139,3 +142,7 @@ Dimensionality reduction is a fundamental preprocessing technique addressing the
 - **Q:** Johnson-Lindenstrauss implication? **A:** Data reducible to O(log n) dimensions with small distance distortion; justifies reduction.
 - **Q:** Curse of dimensionality main issue? **A:** Sparsity, overfitting, computational cost; solved by reduction or focusing on intrinsic dimension.
 - **Q:** Always scale before dimensionality reduction? **A:** Essentials for PCA, LDA, distance-based methods; not for tree-based models.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
