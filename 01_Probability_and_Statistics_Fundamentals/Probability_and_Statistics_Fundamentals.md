@@ -1,5 +1,7 @@
 # Probability and Statistics Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/T2v-1SwoTZQ
+
 ## Interview Anchor
 - **Probability Axioms:** Foundational rules (non-negativity, unitarity, additivity) that all probability models must satisfy
 - **Conditional Probability:** The probability of an event occurring given that another event has already occurred, denoted P(A|B)
@@ -128,3 +130,7 @@ In practice, you'll encounter probability distributions constantly: normal distr
 - **Q: How do you interpret P(A|B)?** **A:** Probability of A occurring given B has occurred; updated probability incorporating new information
 - **Q: What does it mean if Cov(X,Y) = 0?** **A:** No linear relationship, but they could still be nonlinearly dependent
 - **Q: Why does variance decrease with √n?** **A:** Standard error of sample mean is σ/√n; larger samples give more stable estimates
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*

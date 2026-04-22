@@ -1,5 +1,7 @@
 # Multiple Choice Questions: Probability and Statistics Fundamentals
 
+📺 **Video Lecture:** https://youtu.be/T2v-1SwoTZQ
+
 Test your understanding of probability and statistics concepts essential for AI/ML interviews.
 
 ---
@@ -185,3 +187,7 @@ A sufficient statistic T(X) captures all the information in the data relevant to
 
 **Q15. Answer: D**
 A correlation of −0.95 indicates a strong negative linear relationship — as one variable increases, the other decreases in a nearly linear fashion. Values near ±1 indicate strong linearity; values near 0 indicate weak or no linear relationship.
+
+---
+
+*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
