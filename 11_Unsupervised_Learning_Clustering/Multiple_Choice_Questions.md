@@ -9,135 +9,135 @@ Test your understanding of clustering algorithms and unsupervised learning conce
 
 **Q1. K-Means clustering requires the user to specify in advance:**
 
-A) The cluster shapes
-B) The number of clusters k
-C) The labels for each data point
+A) The cluster shapes  
+B) The number of clusters k  
+C) The labels for each data point  
 D) The distance between all clusters
 
 ---
 
 **Q2. The K-Means algorithm converges when:**
 
-A) All data points belong to one cluster
-B) Cluster assignments no longer change (or change below a threshold)
-C) The number of iterations reaches exactly 100
+A) All data points belong to one cluster  
+B) Cluster assignments no longer change (or change below a threshold)  
+C) The number of iterations reaches exactly 100  
 D) The centroids move to the origin
 
 ---
 
 **Q3. A major limitation of K-Means is that it:**
 
-A) Works only with categorical data
-B) Assumes clusters are spherical and of similar size
-C) Cannot handle more than 2 features
+A) Works only with categorical data  
+B) Assumes clusters are spherical and of similar size  
+C) Cannot handle more than 2 features  
 D) Requires labeled data
 
 ---
 
 **Q4. The Elbow Method for choosing k plots:**
 
-A) Accuracy vs. number of features
-B) Within-cluster sum of squares (inertia) vs. number of clusters, looking for a bend
-C) Number of outliers vs. k
+A) Accuracy vs. number of features  
+B) Within-cluster sum of squares (inertia) vs. number of clusters, looking for a bend  
+C) Number of outliers vs. k  
 D) Silhouette score vs. training time
 
 ---
 
 **Q5. DBSCAN differs from K-Means in that DBSCAN:**
 
-A) Requires specifying the number of clusters
-B) Can find arbitrarily shaped clusters and identify noise points as outliers
-C) Always produces spherical clusters
+A) Requires specifying the number of clusters  
+B) Can find arbitrarily shaped clusters and identify noise points as outliers  
+C) Always produces spherical clusters  
 D) Requires labeled data
 
 ---
 
 **Q6. In DBSCAN, the two main parameters are:**
 
-A) k and learning rate
-B) eps (neighborhood radius) and min_samples (minimum points to form a dense region)
-C) Number of clusters and max iterations
+A) k and learning rate  
+B) eps (neighborhood radius) and min_samples (minimum points to form a dense region)  
+C) Number of clusters and max iterations  
 D) Variance threshold and correlation threshold
 
 ---
 
 **Q7. The Silhouette Score measures:**
 
-A) The number of clusters
-B) How similar a point is to its own cluster compared to neighboring clusters (ranges from −1 to 1)
-C) The total distance between all points
+A) The number of clusters  
+B) How similar a point is to its own cluster compared to neighboring clusters (ranges from −1 to 1)  
+C) The total distance between all points  
 D) The variance within each cluster
 
 ---
 
 **Q8. Hierarchical clustering produces:**
 
-A) Exactly k clusters with no options
-B) A dendrogram showing nested cluster relationships at all levels
-C) Only two clusters
+A) Exactly k clusters with no options  
+B) A dendrogram showing nested cluster relationships at all levels  
+C) Only two clusters  
 D) A single centroid
 
 ---
 
 **Q9. Which linkage criterion in hierarchical clustering tends to produce compact, spherical clusters?**
 
-A) Single linkage (minimum distance between clusters)
-B) Complete linkage (maximum distance between clusters)
-C) Random linkage
+A) Single linkage (minimum distance between clusters)  
+B) Complete linkage (maximum distance between clusters)  
+C) Random linkage  
 D) No linkage affects cluster shape
 
 ---
 
 **Q10. Gaussian Mixture Models (GMMs) differ from K-Means by:**
 
-A) Being deterministic
-B) Modeling each cluster as a Gaussian distribution and providing soft (probabilistic) cluster assignments
-C) Not requiring any parameters
+A) Being deterministic  
+B) Modeling each cluster as a Gaussian distribution and providing soft (probabilistic) cluster assignments  
+C) Not requiring any parameters  
 D) Only working with 1-dimensional data
 
 ---
 
 **Q11. The K-Means++ initialization strategy improves K-Means by:**
 
-A) Using random centroid placement
-B) Choosing initial centroids that are spread far apart, reducing chance of poor convergence
-C) Fixing k to always be 3
+A) Using random centroid placement  
+B) Choosing initial centroids that are spread far apart, reducing chance of poor convergence  
+C) Fixing k to always be 3  
 D) Using the same centroid for all clusters
 
 ---
 
 **Q12. When clusters have very different densities, which algorithm is most appropriate?**
 
-A) K-Means (assumes equal-size spherical clusters)
-B) DBSCAN (density-based, adapts to local density)
-C) PCA (dimensionality reduction, not clustering)
+A) K-Means (assumes equal-size spherical clusters)  
+B) DBSCAN (density-based, adapts to local density)  
+C) PCA (dimensionality reduction, not clustering)  
 D) Linear regression
 
 ---
 
 **Q13. The "curse of dimensionality" affects clustering because:**
 
-A) Distance metrics become less meaningful as dimensionality increases
-B) Algorithms run faster in high dimensions
-C) All points become closer together
+A) Distance metrics become less meaningful as dimensionality increases  
+B) Algorithms run faster in high dimensions  
+C) All points become closer together  
 D) Labels become easier to assign
 
 ---
 
 **Q14. In soft clustering (e.g., GMMs), each data point:**
 
-A) Belongs to exactly one cluster
-B) Has a probability of belonging to each cluster
-C) Is discarded if ambiguous
+A) Belongs to exactly one cluster  
+B) Has a probability of belonging to each cluster  
+C) Is discarded if ambiguous  
 D) Must be on the cluster boundary
 
 ---
 
 **Q15. Mini-batch K-Means is preferred over standard K-Means when:**
 
-A) The dataset is very small
-B) The dataset is very large and computational efficiency is needed
-C) Perfect cluster assignments are required
+A) The dataset is very small  
+B) The dataset is very large and computational efficiency is needed  
+C) Perfect cluster assignments are required  
 D) The data has no structure
 
 ---
@@ -191,4 +191,4 @@ Mini-batch K-Means uses random subsets per iteration instead of the full dataset
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

@@ -9,135 +9,135 @@ Test your understanding of deep learning fundamentals for AI/ML interviews.
 
 **Q1. The perceptron learning algorithm is guaranteed to converge if:**
 
-A) The learning rate is sufficiently large
-B) The data is linearly separable
-C) The data has more than two features
+A) The learning rate is sufficiently large  
+B) The data is linearly separable  
+C) The data has more than two features  
 D) Batch normalization is applied
 
 ---
 
 **Q2. The universal approximation theorem states that:**
 
-A) Deep networks always generalize better than shallow networks
-B) A single hidden layer network can approximate any continuous function given enough neurons
-C) Gradient descent always finds the global minimum
+A) Deep networks always generalize better than shallow networks  
+B) A single hidden layer network can approximate any continuous function given enough neurons  
+C) Gradient descent always finds the global minimum  
 D) All neural networks converge in finite time
 
 ---
 
 **Q3. Without nonlinear activation functions, a deep neural network is equivalent to:**
 
-A) A decision tree
-B) A single linear transformation
-C) A support vector machine
+A) A decision tree  
+B) A single linear transformation  
+C) A support vector machine  
 D) A random forest
 
 ---
 
 **Q4. ReLU (Rectified Linear Unit) is preferred over sigmoid in hidden layers primarily because:**
 
-A) ReLU outputs are bounded between 0 and 1
-B) ReLU avoids the vanishing gradient problem for positive inputs
-C) ReLU is a smoother function than sigmoid
+A) ReLU outputs are bounded between 0 and 1  
+B) ReLU avoids the vanishing gradient problem for positive inputs  
+C) ReLU is a smoother function than sigmoid  
 D) ReLU always produces non-zero gradients
 
 ---
 
 **Q5. Vanishing gradients occur during backpropagation when:**
 
-A) The learning rate is too large
-B) Activation function derivatives are consistently less than 1, causing gradients to shrink exponentially through layers
-C) The batch size is too small
+A) The learning rate is too large  
+B) Activation function derivatives are consistently less than 1, causing gradients to shrink exponentially through layers  
+C) The batch size is too small  
 D) The model has too few parameters
 
 ---
 
 **Q6. He initialization (w ~ N(0, √(2/nᵢₙ))) is specifically designed for networks using:**
 
-A) Sigmoid activation functions
-B) Tanh activation functions
-C) ReLU activation functions
+A) Sigmoid activation functions  
+B) Tanh activation functions  
+C) ReLU activation functions  
 D) Softmax output layers
 
 ---
 
 **Q7. Batch normalization normalizes activations across:**
 
-A) All features within a single sample
-B) All samples in the minibatch for each feature
-C) All layers in the network simultaneously
+A) All features within a single sample  
+B) All samples in the minibatch for each feature  
+C) All layers in the network simultaneously  
 D) Only the output layer
 
 ---
 
 **Q8. Dropout during training randomly deactivates neurons with probability p. At test time:**
 
-A) Dropout is applied identically to training
-B) No dropout is applied; outputs are scaled by (1−p)
-C) Only the output layer uses dropout
+A) Dropout is applied identically to training  
+B) No dropout is applied; outputs are scaled by (1−p)  
+C) Only the output layer uses dropout  
 D) The dropout probability is doubled
 
 ---
 
 **Q9. The backpropagation algorithm computes gradients efficiently by:**
 
-A) Computing all gradients in a single matrix multiplication
-B) Reusing intermediate partial derivatives via the chain rule (dynamic programming)
-C) Approximating gradients with finite differences
+A) Computing all gradients in a single matrix multiplication  
+B) Reusing intermediate partial derivatives via the chain rule (dynamic programming)  
+C) Approximating gradients with finite differences  
 D) Using only first-order Taylor expansions
 
 ---
 
 **Q10. Which loss function is the standard choice for multi-class classification with softmax output?**
 
-A) Mean Squared Error
-B) Hinge loss
-C) Cross-entropy loss
+A) Mean Squared Error  
+B) Hinge loss  
+C) Cross-entropy loss  
 D) Huber loss
 
 ---
 
 **Q11. Exploding gradients are most commonly addressed by:**
 
-A) Using sigmoid activations in all layers
-B) Gradient clipping (capping gradient norms)
-C) Increasing the learning rate
+A) Using sigmoid activations in all layers  
+B) Gradient clipping (capping gradient norms)  
+C) Increasing the learning rate  
 D) Removing all hidden layers
 
 ---
 
 **Q12. Layer normalization differs from batch normalization in that it normalizes:**
 
-A) Across the minibatch for each feature
-B) Across features within each individual sample
-C) Only during the backward pass
+A) Across the minibatch for each feature  
+B) Across features within each individual sample  
+C) Only during the backward pass  
 D) Using population statistics rather than batch statistics
 
 ---
 
 **Q13. Learning rate warmup is used to:**
 
-A) Train only the output layer first
-B) Start with a small learning rate and gradually increase it to stabilize early training
-C) Increase the learning rate throughout the entire training
+A) Train only the output layer first  
+B) Start with a small learning rate and gradually increase it to stabilize early training  
+C) Increase the learning rate throughout the entire training  
 D) Replace the need for an optimizer
 
 ---
 
 **Q14. The "dead neuron" problem with ReLU occurs when:**
 
-A) The neuron's output is always 1
-B) The neuron receives only positive inputs
-C) The neuron's weights cause it to always output 0 for all inputs, stopping gradient flow
+A) The neuron's output is always 1  
+B) The neuron receives only positive inputs  
+C) The neuron's weights cause it to always output 0 for all inputs, stopping gradient flow  
 D) The neuron's bias is initialized to zero
 
 ---
 
 **Q15. Skip connections (as in ResNets) help deep networks train because:**
 
-A) They eliminate the need for activation functions
-B) They provide a direct gradient path, preventing vanishing gradients via the identity shortcut
-C) They reduce the total number of parameters
+A) They eliminate the need for activation functions  
+B) They provide a direct gradient path, preventing vanishing gradients via the identity shortcut  
+C) They reduce the total number of parameters  
 D) They force each layer to learn completely new features
 
 ---
@@ -191,4 +191,4 @@ The skip connection y = F(x) + x creates a gradient term of (∂F/∂x + 1). The
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

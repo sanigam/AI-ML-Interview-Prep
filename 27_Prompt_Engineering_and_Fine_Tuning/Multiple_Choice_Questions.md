@@ -1,140 +1,143 @@
 # Multiple Choice Questions: Prompt Engineering and Fine-Tuning
 
+📺 **Video Lecture:** https://youtu.be/_bCEYU-riVU
+
+
 Test your understanding of prompt engineering and fine-tuning for AI/ML interviews.
 
 ---
 
 **Q1. The primary advantage of prompt engineering over fine-tuning is:**
 
-A) Higher accuracy on all tasks
-B) Speed and cost — no model training required, just crafting better input text
-C) It works without any LLM
+A) Higher accuracy on all tasks  
+B) Speed and cost — no model training required, just crafting better input text  
+C) It works without any LLM  
 D) It permanently modifies model weights
 
 ---
 
 **Q2. Few-shot prompting improves over zero-shot by:**
 
-A) Training the model on new data
-B) Providing task examples in the prompt that the model uses for in-context pattern matching
-C) Reducing the context window
+A) Training the model on new data  
+B) Providing task examples in the prompt that the model uses for in-context pattern matching  
+C) Reducing the context window  
 D) Removing all instructions
 
 ---
 
 **Q3. Chain-of-thought (CoT) prompting improves reasoning by:**
 
-A) Using shorter prompts
-B) Asking the model to show intermediate reasoning steps before the final answer
-C) Fine-tuning on reasoning datasets
+A) Using shorter prompts  
+B) Asking the model to show intermediate reasoning steps before the final answer  
+C) Fine-tuning on reasoning datasets  
 D) Removing the model's attention mechanism
 
 ---
 
 **Q4. Prompt injection attacks exploit the fact that:**
 
-A) LLMs have unlimited context windows
-B) LLMs cannot distinguish between system instructions and malicious user input embedded in the text
-C) All LLMs are open source
+A) LLMs have unlimited context windows  
+B) LLMs cannot distinguish between system instructions and malicious user input embedded in the text  
+C) All LLMs are open source  
 D) Prompts are encrypted
 
 ---
 
 **Q5. LoRA (Low-Rank Adaptation) fine-tuning works by:**
 
-A) Updating all model parameters
-B) Inserting small trainable low-rank matrices into attention layers while keeping the original weights frozen
-C) Removing layers from the model
+A) Updating all model parameters  
+B) Inserting small trainable low-rank matrices into attention layers while keeping the original weights frozen  
+C) Removing layers from the model  
 D) Training only the embedding layer
 
 ---
 
 **Q6. Compared to full fine-tuning, LoRA uses approximately:**
 
-A) The same number of trainable parameters
-B) 10-100x fewer trainable parameters while achieving comparable accuracy
-C) More parameters and more compute
+A) The same number of trainable parameters  
+B) 10-100x fewer trainable parameters while achieving comparable accuracy  
+C) More parameters and more compute  
 D) No parameters at all
 
 ---
 
 **Q7. QLoRA extends LoRA by:**
 
-A) Using larger rank matrices
-B) Quantizing the base model to 4-bit precision before applying LoRA, enabling fine-tuning of much larger models on limited hardware
-C) Removing the LoRA adapters
+A) Using larger rank matrices  
+B) Quantizing the base model to 4-bit precision before applying LoRA, enabling fine-tuning of much larger models on limited hardware  
+C) Removing the LoRA adapters  
 D) Training in full precision only
 
 ---
 
 **Q8. Self-consistency decoding improves chain-of-thought by:**
 
-A) Using a single reasoning path
-B) Generating multiple independent reasoning paths and selecting the most common answer via majority vote
-C) Removing the reasoning steps
+A) Using a single reasoning path  
+B) Generating multiple independent reasoning paths and selecting the most common answer via majority vote  
+C) Removing the reasoning steps  
 D) Using greedy decoding only
 
 ---
 
 **Q9. Catastrophic forgetting during fine-tuning refers to:**
 
-A) The model learning new tasks too slowly
-B) The model losing previously learned knowledge when adapted to a new task
-C) The model's weights becoming too large
+A) The model learning new tasks too slowly  
+B) The model losing previously learned knowledge when adapted to a new task  
+C) The model's weights becoming too large  
 D) The model generating longer outputs
 
 ---
 
 **Q10. The optimal number of few-shot examples typically shows:**
 
-A) Linear improvement with more examples
-B) Diminishing returns — accuracy improves with 1-5 examples but plateaus beyond that
-C) Degradation with any examples
+A) Linear improvement with more examples  
+B) Diminishing returns — accuracy improves with 1-5 examples but plateaus beyond that  
+C) Degradation with any examples  
 D) Improvement only with 100+ examples
 
 ---
 
 **Q11. Role-based prompting ("You are a medical expert...") helps because:**
 
-A) It changes the model architecture
-B) It activates relevant knowledge and response patterns learned during pre-training
-C) It fine-tunes the model in real-time
+A) It changes the model architecture  
+B) It activates relevant knowledge and response patterns learned during pre-training  
+C) It fine-tunes the model in real-time  
 D) It reduces the token count
 
 ---
 
 **Q12. Parameter-efficient fine-tuning (PEFT) methods include:**
 
-A) Only full fine-tuning
-B) LoRA, adapters, prefix tuning, and prompt tuning — all updating far fewer parameters than the full model
-C) Only changing the learning rate
+A) Only full fine-tuning  
+B) LoRA, adapters, prefix tuning, and prompt tuning — all updating far fewer parameters than the full model  
+C) Only changing the learning rate  
 D) Only training on more data
 
 ---
 
 **Q13. When should you prefer fine-tuning over prompt engineering?**
 
-A) When you need quick prototyping with no labeled data
-B) When high accuracy is required on a specialized domain, sufficient labeled data is available, and compute resources permit
-C) When the task is simple and well-defined
+A) When you need quick prototyping with no labeled data  
+B) When high accuracy is required on a specialized domain, sufficient labeled data is available, and compute resources permit  
+C) When the task is simple and well-defined  
 D) When you want to avoid any compute costs
 
 ---
 
 **Q14. Tree-of-thought prompting extends chain-of-thought by:**
 
-A) Using a single linear reasoning chain
-B) Exploring multiple reasoning branches at each step and selecting the most promising paths
-C) Eliminating reasoning entirely
+A) Using a single linear reasoning chain  
+B) Exploring multiple reasoning branches at each step and selecting the most promising paths  
+C) Eliminating reasoning entirely  
 D) Using only zero-shot prompts
 
 ---
 
 **Q15. The learning rate for fine-tuning a pre-trained LLM is typically:**
 
-A) The same as pre-training (e.g., 1e-3)
-B) Much smaller (e.g., 1e-5 to 5e-5) to avoid destroying pre-trained representations
-C) Set to zero
+A) The same as pre-training (e.g., 1e-3)  
+B) Much smaller (e.g., 1e-5 to 5e-5) to avoid destroying pre-trained representations  
+C) Set to zero  
 D) Increased throughout training
 
 ---
@@ -188,4 +191,4 @@ A low learning rate prevents large weight updates that would destroy the pre-tra
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

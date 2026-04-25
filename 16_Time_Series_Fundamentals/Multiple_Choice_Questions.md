@@ -9,135 +9,135 @@ Test your understanding of time series analysis concepts essential for AI/ML int
 
 **Q1. Weak (covariance) stationarity requires all of the following EXCEPT:**
 
-A) Constant mean over time
-B) Constant variance over time
-C) Autocovariance depends only on lag, not on time
+A) Constant mean over time  
+B) Constant variance over time  
+C) Autocovariance depends only on lag, not on time  
 D) The joint distribution is identical for all time shifts
 
 ---
 
 **Q2. Which plot is used to determine the order of the MA component in an ARIMA model?**
 
-A) PACF (Partial Autocorrelation Function)
-B) ACF (Autocorrelation Function)
-C) Q-Q plot
+A) PACF (Partial Autocorrelation Function)  
+B) ACF (Autocorrelation Function)  
+C) Q-Q plot  
 D) Residual histogram
 
 ---
 
 **Q3. The Augmented Dickey-Fuller (ADF) test has the null hypothesis that:**
 
-A) The series is stationary
-B) The series has a unit root (non-stationary)
-C) The series has no trend
+A) The series is stationary  
+B) The series has a unit root (non-stationary)  
+C) The series has no trend  
 D) The series follows a normal distribution
 
 ---
 
 **Q4. First-order differencing (yₜ − yₜ₋₁) is primarily used to:**
 
-A) Remove seasonality from the series
-B) Remove a linear trend and achieve stationarity
-C) Normalize the variance of the series
+A) Remove seasonality from the series  
+B) Remove a linear trend and achieve stationarity  
+C) Normalize the variance of the series  
 D) Compute the autocorrelation function
 
 ---
 
 **Q5. A random walk yₜ = yₜ₋₁ + εₜ is non-stationary because:**
 
-A) Its mean changes over time
-B) Its variance grows linearly with time: Var(yₜ) = t·σ²
-C) Its autocorrelation is always zero
+A) Its mean changes over time  
+B) Its variance grows linearly with time: Var(yₜ) = t·σ²  
+C) Its autocorrelation is always zero  
 D) It has a deterministic trend component
 
 ---
 
 **Q6. In an ACF plot, a slow, gradual decay of autocorrelation values typically suggests:**
 
-A) The series is white noise
-B) The series is stationary
-C) The series is non-stationary and may need differencing
+A) The series is white noise  
+B) The series is stationary  
+C) The series is non-stationary and may need differencing  
 D) The series follows a pure MA process
 
 ---
 
 **Q7. For an AR(p) process, the PACF plot:**
 
-A) Decays gradually to zero
-B) Cuts off sharply after lag p
-C) Shows significant spikes at seasonal lags only
+A) Decays gradually to zero  
+B) Cuts off sharply after lag p  
+C) Shows significant spikes at seasonal lags only  
 D) Is always zero for all lags
 
 ---
 
 **Q8. The KPSS test differs from the ADF test in that:**
 
-A) KPSS tests for normality while ADF tests for stationarity
-B) KPSS has a null hypothesis of stationarity, opposite to ADF
-C) KPSS can only be applied to seasonal data
+A) KPSS tests for normality while ADF tests for stationarity  
+B) KPSS has a null hypothesis of stationarity, opposite to ADF  
+C) KPSS can only be applied to seasonal data  
 D) KPSS always agrees with ADF results
 
 ---
 
 **Q9. In multiplicative decomposition yₜ = Tₜ × Sₜ × εₜ, the seasonal component Sₜ:**
 
-A) Has constant magnitude regardless of the trend level
-B) Scales proportionally with the trend level
-C) Is always removed by first-order differencing
+A) Has constant magnitude regardless of the trend level  
+B) Scales proportionally with the trend level  
+C) Is always removed by first-order differencing  
 D) Represents the long-term movement of the series
 
 ---
 
 **Q10. White noise residuals from a time series model indicate that:**
 
-A) The model is overfitting the data
-B) The model has captured all predictable structure in the series
-C) The model needs more AR terms
+A) The model is overfitting the data  
+B) The model has captured all predictable structure in the series  
+C) The model needs more AR terms  
 D) The series was already stationary before modeling
 
 ---
 
 **Q11. Exponential smoothing differs from a simple moving average because:**
 
-A) It assigns equal weights to all past observations
-B) It assigns exponentially decreasing weights to older observations
-C) It can only handle seasonal data
+A) It assigns equal weights to all past observations  
+B) It assigns exponentially decreasing weights to older observations  
+C) It can only handle seasonal data  
 D) It requires the series to be stationary
 
 ---
 
 **Q12. Seasonal differencing (yₜ − yₜ₋ₛ) is used to:**
 
-A) Remove a linear trend from the series
-B) Remove periodic patterns with period s
-C) Compute the standard error of forecasts
+A) Remove a linear trend from the series  
+B) Remove periodic patterns with period s  
+C) Compute the standard error of forecasts  
 D) Convert a multiplicative model to additive
 
 ---
 
 **Q13. When constructing lag features for a supervised learning approach to time series, which practice causes data leakage?**
 
-A) Using yₜ₋₁ as a feature to predict yₜ
-B) Using rolling mean of past 7 values as a feature
-C) Using future values yₜ₊₁ as a feature to predict yₜ
+A) Using yₜ₋₁ as a feature to predict yₜ  
+B) Using rolling mean of past 7 values as a feature  
+C) Using future values yₜ₊₁ as a feature to predict yₜ  
 D) Using seasonal lag yₜ₋₁₂ as a feature for monthly data
 
 ---
 
 **Q14. Time series cross-validation differs from standard k-fold cross-validation because:**
 
-A) It uses fewer folds
-B) It respects temporal ordering and never trains on future data
-C) It always uses a fixed test set
+A) It uses fewer folds  
+B) It respects temporal ordering and never trains on future data  
+C) It always uses a fixed test set  
 D) It randomly shuffles observations before splitting
 
 ---
 
 **Q15. Holt-Winters exponential smoothing extends simple exponential smoothing by adding:**
 
-A) Only a trend component
-B) Only a seasonal component
-C) Both trend and seasonal components
+A) Only a trend component  
+B) Only a seasonal component  
+C) Both trend and seasonal components  
 D) An ARIMA residual correction term
 
 ---
@@ -191,4 +191,4 @@ Holt-Winters extends exponential smoothing by adding both a trend equation and a
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

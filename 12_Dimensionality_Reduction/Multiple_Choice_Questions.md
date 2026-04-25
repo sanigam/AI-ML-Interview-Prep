@@ -9,135 +9,135 @@ Test your understanding of PCA, t-SNE, and other dimensionality reduction techni
 
 **Q1. The primary goal of dimensionality reduction is to:**
 
-A) Increase the number of features for better accuracy
-B) Reduce the number of features while preserving important information or structure
-C) Remove all features except one
+A) Increase the number of features for better accuracy  
+B) Reduce the number of features while preserving important information or structure  
+C) Remove all features except one  
 D) Convert numerical features to categorical
 
 ---
 
 **Q2. In PCA, the first principal component captures:**
 
-A) The direction of least variance in the data
-B) The direction of maximum variance in the data
-C) The mean of all features
+A) The direction of least variance in the data  
+B) The direction of maximum variance in the data  
+C) The mean of all features  
 D) A random direction
 
 ---
 
 **Q3. PCA components are orthogonal (perpendicular) to each other because:**
 
-A) This is required by the algorithm's random initialization
-B) They are eigenvectors of the symmetric covariance matrix, which are always orthogonal
-C) The user specifies them to be orthogonal
+A) This is required by the algorithm's random initialization  
+B) They are eigenvectors of the symmetric covariance matrix, which are always orthogonal  
+C) The user specifies them to be orthogonal  
 D) They represent the same direction
 
 ---
 
 **Q4. The explained variance ratio in PCA tells you:**
 
-A) The total number of features
-B) The proportion of total variance captured by each principal component
-C) The accuracy of the model
+A) The total number of features  
+B) The proportion of total variance captured by each principal component  
+C) The accuracy of the model  
 D) The number of outliers
 
 ---
 
 **Q5. t-SNE is primarily used for:**
 
-A) Feature selection for linear models
-B) High-dimensional data visualization in 2D or 3D, preserving local structure
-C) Training neural networks
+A) Feature selection for linear models  
+B) High-dimensional data visualization in 2D or 3D, preserving local structure  
+C) Training neural networks  
 D) Computing exact distances between all points
 
 ---
 
 **Q6. A key limitation of t-SNE compared to PCA is:**
 
-A) t-SNE is linear
-B) t-SNE is non-deterministic, computationally expensive, and cannot transform new data points
-C) t-SNE always produces the same result
+A) t-SNE is linear  
+B) t-SNE is non-deterministic, computationally expensive, and cannot transform new data points  
+C) t-SNE always produces the same result  
 D) t-SNE only works with 2 features
 
 ---
 
 **Q7. UMAP differs from t-SNE by:**
 
-A) Being a linear method
-B) Being faster, preserving more global structure, and supporting transformation of new points
-C) Requiring labeled data
+A) Being a linear method  
+B) Being faster, preserving more global structure, and supporting transformation of new points  
+C) Requiring labeled data  
 D) Only working with categorical features
 
 ---
 
 **Q8. Before applying PCA, data should be:**
 
-A) Log-transformed
-B) Standardized (zero mean, unit variance) so all features contribute equally
-C) Converted to categorical
+A) Log-transformed  
+B) Standardized (zero mean, unit variance) so all features contribute equally  
+C) Converted to categorical  
 D) Sorted by value
 
 ---
 
 **Q9. The "scree plot" in PCA shows:**
 
-A) The original data distribution
-B) Eigenvalues (or explained variance) for each component, helping choose how many to keep
-C) The correlation between features
+A) The original data distribution  
+B) Eigenvalues (or explained variance) for each component, helping choose how many to keep  
+C) The correlation between features  
 D) Training vs. test accuracy
 
 ---
 
 **Q10. PCA can be used for noise reduction because:**
 
-A) It removes all features
-B) Lower-variance components often capture noise, so keeping only top components removes noise
-C) It adds smoothing to the data
+A) It removes all features  
+B) Lower-variance components often capture noise, so keeping only top components removes noise  
+C) It adds smoothing to the data  
 D) It replaces all values with their mean
 
 ---
 
 **Q11. Linear Discriminant Analysis (LDA) differs from PCA because LDA:**
 
-A) Is unsupervised
-B) Maximizes class separability (uses labels) rather than total variance
-C) Cannot reduce dimensions
+A) Is unsupervised  
+B) Maximizes class separability (uses labels) rather than total variance  
+C) Cannot reduce dimensions  
 D) Only works with 2 features
 
 ---
 
 **Q12. The perplexity parameter in t-SNE roughly controls:**
 
-A) The number of output dimensions
-B) The effective number of neighbors considered for each point
-C) The learning rate
+A) The number of output dimensions  
+B) The effective number of neighbors considered for each point  
+C) The learning rate  
 D) The total variance explained
 
 ---
 
 **Q13. Kernel PCA extends standard PCA by:**
 
-A) Using fewer components
-B) Applying the kernel trick to capture non-linear relationships in the data
-C) Removing the need for eigenvalue decomposition
+A) Using fewer components  
+B) Applying the kernel trick to capture non-linear relationships in the data  
+C) Removing the need for eigenvalue decomposition  
 D) Only working with categorical data
 
 ---
 
 **Q14. When choosing the number of PCA components, a common rule is to keep enough to explain:**
 
-A) Exactly 50% of variance
-B) 90-95% of total variance
-C) 100% of variance (keep all components)
+A) Exactly 50% of variance  
+B) 90-95% of total variance  
+C) 100% of variance (keep all components)  
 D) Less than 10% of variance
 
 ---
 
 **Q15. Autoencoders can be viewed as a non-linear generalization of PCA because they:**
 
-A) Use the exact same algorithm as PCA
-B) Learn compressed representations (bottleneck) that capture important structure, using neural networks
-C) Only reduce to exactly 2 dimensions
+A) Use the exact same algorithm as PCA  
+B) Learn compressed representations (bottleneck) that capture important structure, using neural networks  
+C) Only reduce to exactly 2 dimensions  
 D) Require principal components as input
 
 ---
@@ -191,4 +191,4 @@ Autoencoders learn encoder (compression) and decoder (reconstruction) networks. 
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

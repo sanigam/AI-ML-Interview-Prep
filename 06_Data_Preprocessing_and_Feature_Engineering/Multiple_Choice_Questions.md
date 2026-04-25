@@ -9,135 +9,135 @@ Test your understanding of data preparation and feature engineering for ML pipel
 
 **Q1. Standardization (z-score normalization) transforms features to have:**
 
-A) Values between 0 and 1
-B) Mean of 0 and standard deviation of 1
-C) All positive values
+A) Values between 0 and 1  
+B) Mean of 0 and standard deviation of 1  
+C) All positive values  
 D) Equal minimum and maximum values
 
 ---
 
 **Q2. Min-Max scaling is preferred over standardization when:**
 
-A) The data contains many outliers
-B) You need values in a bounded range (e.g., [0, 1]) and the data has no extreme outliers
-C) The features follow a normal distribution
+A) The data contains many outliers  
+B) You need values in a bounded range (e.g., [0, 1]) and the data has no extreme outliers  
+C) The features follow a normal distribution  
 D) The dataset is very large
 
 ---
 
 **Q3. One-hot encoding converts a categorical variable with k categories into:**
 
-A) A single numerical column with values 1 to k
-B) k binary columns, each indicating presence/absence of a category
-C) k−1 continuous columns
+A) A single numerical column with values 1 to k  
+B) k binary columns, each indicating presence/absence of a category  
+C) k−1 continuous columns  
 D) A single column of probabilities
 
 ---
 
 **Q4. The "dummy variable trap" occurs when:**
 
-A) You forget to encode categorical variables
-B) You include all k one-hot encoded columns for a k-category variable, creating perfect multicollinearity
-C) You use label encoding instead of one-hot encoding
+A) You forget to encode categorical variables  
+B) You include all k one-hot encoded columns for a k-category variable, creating perfect multicollinearity  
+C) You use label encoding instead of one-hot encoding  
 D) The categorical variable has missing values
 
 ---
 
 **Q5. Which imputation strategy is most appropriate for a feature with many outliers?**
 
-A) Mean imputation
-B) Median imputation
-C) Replacing missing values with zero
+A) Mean imputation  
+B) Median imputation  
+C) Replacing missing values with zero  
 D) Deleting the entire feature
 
 ---
 
 **Q6. Feature scaling is particularly important for which type of algorithm?**
 
-A) Decision trees
-B) Random forests
-C) Gradient descent-based algorithms (e.g., logistic regression, SVMs, neural networks)
+A) Decision trees  
+B) Random forests  
+C) Gradient descent-based algorithms (e.g., logistic regression, SVMs, neural networks)  
 D) Rule-based systems
 
 ---
 
 **Q7. Log transformation is commonly applied to features that are:**
 
-A) Normally distributed
-B) Right-skewed with a long positive tail
-C) Uniformly distributed
+A) Normally distributed  
+B) Right-skewed with a long positive tail  
+C) Uniformly distributed  
 D) Binary
 
 ---
 
 **Q8. Target encoding replaces each category with:**
 
-A) A random number
-B) The mean of the target variable for that category
-C) The category's frequency count
+A) A random number  
+B) The mean of the target variable for that category  
+C) The category's frequency count  
 D) The one-hot encoded vector
 
 ---
 
 **Q9. What is data leakage?**
 
-A) When data is stored in an insecure database
-B) When information from the test set or future data inadvertently influences the training process
-C) When features have missing values
+A) When data is stored in an insecure database  
+B) When information from the test set or future data inadvertently influences the training process  
+C) When features have missing values  
 D) When the model is too complex
 
 ---
 
 **Q10. Polynomial feature engineering (adding x², x₁x₂, etc.) helps when:**
 
-A) The relationship between features and target is strictly linear
-B) There are nonlinear relationships that a linear model cannot capture
-C) The dataset has too many features
+A) The relationship between features and target is strictly linear  
+B) There are nonlinear relationships that a linear model cannot capture  
+C) The dataset has too many features  
 D) All features are categorical
 
 ---
 
 **Q11. When handling missing data, Multiple Imputation is preferred over single imputation because:**
 
-A) It is computationally faster
-B) It accounts for the uncertainty in the imputed values by creating multiple plausible datasets
-C) It always produces the same result
+A) It is computationally faster  
+B) It accounts for the uncertainty in the imputed values by creating multiple plausible datasets  
+C) It always produces the same result  
 D) It removes the need for feature engineering
 
 ---
 
 **Q12. Binning (discretization) of a continuous variable is useful when:**
 
-A) You want to preserve the exact values of the variable
-B) The relationship with the target is non-monotonic or you want to reduce the effect of outliers
-C) The variable is already categorical
+A) You want to preserve the exact values of the variable  
+B) The relationship with the target is non-monotonic or you want to reduce the effect of outliers  
+C) The variable is already categorical  
 D) You have very few data points
 
 ---
 
 **Q13. Which technique helps detect outliers in multivariate data?**
 
-A) Checking if values exceed 3 standard deviations (works only for univariate)
-B) Mahalanobis distance, which accounts for correlations between features
-C) Counting missing values
+A) Checking if values exceed 3 standard deviations (works only for univariate)  
+B) Mahalanobis distance, which accounts for correlations between features  
+C) Counting missing values  
 D) Sorting the data by index
 
 ---
 
 **Q14. Feature engineering should be applied:**
 
-A) Only to the training set, then the same transformations (fitted on training) applied to test set
-B) Jointly on the combined training and test sets
-C) Only to the test set
+A) Only to the training set, then the same transformations (fitted on training) applied to test set  
+B) Jointly on the combined training and test sets  
+C) Only to the test set  
 D) Differently for training and test sets
 
 ---
 
 **Q15. Interaction features (e.g., x₁ × x₂) capture:**
 
-A) The individual effect of each feature
-B) The combined effect where the influence of one feature depends on the value of another
-C) The correlation between features
+A) The individual effect of each feature  
+B) The combined effect where the influence of one feature depends on the value of another  
+C) The correlation between features  
 D) The missing value pattern
 
 ---
@@ -191,4 +191,4 @@ Interaction features model situations where the effect of one feature depends on
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

@@ -1,5 +1,8 @@
 # LangChain and LangGraph
 
+📺 **Video Lecture:** https://youtu.be/iDTsOlbjKNw
+
+
 ## Interview Anchor
 - **LangChain:** A framework for building applications with LLMs, providing abstraction layers for prompts, chains, agents, and memory management
 - **LangGraph:** A stateful, graph-based orchestration layer enabling complex multi-step agent workflows with state persistence and human-in-the-loop
@@ -279,4 +282,4 @@ Sub-graphs reduce complexity: each sub-graph has clear inputs/outputs, can be te
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

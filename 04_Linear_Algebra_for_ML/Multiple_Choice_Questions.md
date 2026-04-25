@@ -9,135 +9,135 @@ Test your understanding of linear algebra concepts essential for machine learnin
 
 **Q1. The eigenvalues of a matrix A represent:**
 
-A) The dimensions of the matrix
-B) The factors by which eigenvectors are scaled when multiplied by A
-C) The sum of each row of A
+A) The dimensions of the matrix  
+B) The factors by which eigenvectors are scaled when multiplied by A  
+C) The sum of each row of A  
 D) The inverse of A
 
 ---
 
 **Q2. In Principal Component Analysis (PCA), the principal components are:**
 
-A) The rows of the original data matrix
-B) The eigenvectors of the data's covariance matrix, ordered by eigenvalue magnitude
-C) Randomly chosen directions in feature space
+A) The rows of the original data matrix  
+B) The eigenvectors of the data's covariance matrix, ordered by eigenvalue magnitude  
+C) Randomly chosen directions in feature space  
 D) The mean values of each feature
 
 ---
 
 **Q3. A matrix is singular (non-invertible) when:**
 
-A) All its eigenvalues are positive
-B) Its determinant is zero
-C) It is symmetric
+A) All its eigenvalues are positive  
+B) Its determinant is zero  
+C) It is symmetric  
 D) It has more rows than columns
 
 ---
 
 **Q4. The rank of a matrix tells you:**
 
-A) The total number of elements in the matrix
-B) The number of linearly independent rows or columns
-C) The largest element in the matrix
+A) The total number of elements in the matrix  
+B) The number of linearly independent rows or columns  
+C) The largest element in the matrix  
 D) The trace of the matrix
 
 ---
 
 **Q5. In the Singular Value Decomposition (SVD) A = UΣV^T, the diagonal entries of Σ are:**
 
-A) The eigenvalues of A
-B) The singular values of A (square roots of eigenvalues of A^T A)
-C) The determinant of A
+A) The eigenvalues of A  
+B) The singular values of A (square roots of eigenvalues of A^T A)  
+C) The determinant of A  
 D) The column means of A
 
 ---
 
 **Q6. Two vectors are orthogonal when:**
 
-A) Their dot product is 1
-B) Their dot product is 0
-C) They have the same magnitude
+A) Their dot product is 1  
+B) Their dot product is 0  
+C) They have the same magnitude  
 D) They point in the same direction
 
 ---
 
 **Q7. The condition number of a matrix is important because:**
 
-A) It measures the number of non-zero elements
-B) It indicates how sensitive the matrix inverse is to small perturbations in the input
-C) It determines whether the matrix is symmetric
+A) It measures the number of non-zero elements  
+B) It indicates how sensitive the matrix inverse is to small perturbations in the input  
+C) It determines whether the matrix is symmetric  
 D) It equals the rank of the matrix
 
 ---
 
 **Q8. What does it mean for a matrix to be positive semi-definite?**
 
-A) All elements of the matrix are positive
-B) All eigenvalues are non-negative (≥ 0)
-C) The matrix is invertible
+A) All elements of the matrix are positive  
+B) All eigenvalues are non-negative (≥ 0)  
+C) The matrix is invertible  
 D) The determinant is positive
 
 ---
 
 **Q9. In linear regression, the normal equation X^T X β = X^T y can fail to produce a unique solution when:**
 
-A) The dataset has too many samples
-B) X^T X is singular (features are linearly dependent)
-C) y contains only positive values
+A) The dataset has too many samples  
+B) X^T X is singular (features are linearly dependent)  
+C) y contains only positive values  
 D) X is a square matrix
 
 ---
 
 **Q10. The trace of a matrix (sum of diagonal elements) equals:**
 
-A) The determinant of the matrix
-B) The sum of its eigenvalues
-C) The rank of the matrix
+A) The determinant of the matrix  
+B) The sum of its eigenvalues  
+C) The rank of the matrix  
 D) The number of rows
 
 ---
 
 **Q11. The dot product of two vectors u and v can be interpreted geometrically as:**
 
-A) The area of the parallelogram formed by u and v
-B) ||u|| × ||v|| × cos(θ), where θ is the angle between them
-C) The cross product of u and v
+A) The area of the parallelogram formed by u and v  
+B) ||u|| × ||v|| × cos(θ), where θ is the angle between them  
+C) The cross product of u and v  
 D) The sum of u and v
 
 ---
 
 **Q12. Adding a small value λ to the diagonal of X^T X (as in Ridge regression) helps because:**
 
-A) It increases the rank of X
-B) It makes X^T X + λI invertible and improves numerical stability
-C) It removes all features from the model
+A) It increases the rank of X  
+B) It makes X^T X + λI invertible and improves numerical stability  
+C) It removes all features from the model  
 D) It guarantees zero training error
 
 ---
 
 **Q13. In matrix multiplication AB, the result is defined only when:**
 
-A) A and B have the same dimensions
-B) The number of columns of A equals the number of rows of B
-C) Both matrices are square
+A) A and B have the same dimensions  
+B) The number of columns of A equals the number of rows of B  
+C) Both matrices are square  
 D) A is the transpose of B
 
 ---
 
 **Q14. The determinant of a 2×2 matrix [[a, b], [c, d]] is:**
 
-A) a + d
-B) ad + bc
-C) ad − bc
+A) a + d  
+B) ad + bc  
+C) ad − bc  
 D) ac − bd
 
 ---
 
 **Q15. Low-rank matrix approximation (keeping top-k singular values in SVD) is useful in ML for:**
 
-A) Increasing the dimensionality of data
-B) Dimensionality reduction, noise reduction, and compression
-C) Making all eigenvalues equal
+A) Increasing the dimensionality of data  
+B) Dimensionality reduction, noise reduction, and compression  
+C) Making all eigenvalues equal  
 D) Converting sparse matrices to dense matrices
 
 ---
@@ -191,4 +191,4 @@ Truncated SVD (keeping top-k singular values) provides the best rank-k approxima
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

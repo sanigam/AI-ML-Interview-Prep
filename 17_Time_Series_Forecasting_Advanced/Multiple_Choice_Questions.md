@@ -9,135 +9,135 @@ Test your understanding of advanced time series forecasting methods for AI/ML in
 
 **Q1. In the Box-Jenkins methodology, the correct order of steps is:**
 
-A) Fit model → Check stationarity → Examine ACF/PACF → Diagnose residuals
-B) Check stationarity → Examine ACF/PACF → Fit model → Diagnose residuals
-C) Examine ACF/PACF → Check stationarity → Diagnose residuals → Fit model
+A) Fit model → Check stationarity → Examine ACF/PACF → Diagnose residuals  
+B) Check stationarity → Examine ACF/PACF → Fit model → Diagnose residuals  
+C) Examine ACF/PACF → Check stationarity → Diagnose residuals → Fit model  
 D) Diagnose residuals → Check stationarity → Fit model → Examine ACF/PACF
 
 ---
 
 **Q2. In ARIMA(p,d,q), the parameter d represents:**
 
-A) The number of autoregressive terms
-B) The order of differencing needed to achieve stationarity
-C) The number of moving average terms
+A) The number of autoregressive terms  
+B) The order of differencing needed to achieve stationarity  
+C) The number of moving average terms  
 D) The seasonal period
 
 ---
 
 **Q3. SARIMA(1,1,1)(1,1,1,12) has a seasonal period of 12. The seasonal differencing component removes:**
 
-A) Linear trends in the data
-B) Yearly periodic patterns in monthly data
-C) Daily cycles in hourly data
+A) Linear trends in the data  
+B) Yearly periodic patterns in monthly data  
+C) Daily cycles in hourly data  
 D) Quadratic trends in the data
 
 ---
 
 **Q4. Which information criterion penalizes model complexity more heavily for large sample sizes?**
 
-A) AIC (Akaike Information Criterion)
-B) BIC (Bayesian Information Criterion)
-C) Log-likelihood
+A) AIC (Akaike Information Criterion)  
+B) BIC (Bayesian Information Criterion)  
+C) Log-likelihood  
 D) R-squared
 
 ---
 
 **Q5. A GARCH(1,1) model is primarily used to model:**
 
-A) The mean of a time series
-B) Time-varying conditional variance (volatility clustering)
-C) Seasonal patterns in sales data
+A) The mean of a time series  
+B) Time-varying conditional variance (volatility clustering)  
+C) Seasonal patterns in sales data  
 D) Missing values in time series
 
 ---
 
 **Q6. Facebook Prophet handles multiple seasonalities by using:**
 
-A) Seasonal ARIMA components
-B) Fourier series terms
-C) Kalman filtering
+A) Seasonal ARIMA components  
+B) Fourier series terms  
+C) Kalman filtering  
 D) Recurrent neural networks
 
 ---
 
 **Q7. In a VAR(p) model for two series y and x, the equation for y includes:**
 
-A) Only lagged values of y
-B) Only lagged values of x
-C) Lagged values of both y and x
+A) Only lagged values of y  
+B) Only lagged values of x  
+C) Lagged values of both y and x  
 D) Only contemporaneous values of x
 
 ---
 
 **Q8. The Kalman filter is a sequential algorithm that provides:**
 
-A) Maximum likelihood parameter estimates
-B) Optimal state estimates with uncertainty quantification
-C) Feature importance rankings
+A) Maximum likelihood parameter estimates  
+B) Optimal state estimates with uncertainty quantification  
+C) Feature importance rankings  
 D) Seasonal decomposition only
 
 ---
 
 **Q9. What is a key disadvantage of using LSTMs for time series forecasting compared to ARIMA?**
 
-A) LSTMs cannot handle nonlinear patterns
-B) LSTMs require much larger training datasets to avoid overfitting
-C) LSTMs cannot produce multi-step forecasts
+A) LSTMs cannot handle nonlinear patterns  
+B) LSTMs require much larger training datasets to avoid overfitting  
+C) LSTMs cannot produce multi-step forecasts  
 D) LSTMs assume the data is stationary
 
 ---
 
 **Q10. In recursive multi-step forecasting, the main risk is:**
 
-A) Requiring too many separate models
-B) Error accumulation as predictions are fed back as inputs
-C) Inability to produce probabilistic forecasts
+A) Requiring too many separate models  
+B) Error accumulation as predictions are fed back as inputs  
+C) Inability to produce probabilistic forecasts  
 D) Overfitting to the test set
 
 ---
 
 **Q11. MASE (Mean Absolute Scaled Error) compares forecast accuracy against:**
 
-A) A perfect forecast (zero error)
-B) A naive baseline forecast (yₜ₋₁)
-C) The mean of the training data
+A) A perfect forecast (zero error)  
+B) A naive baseline forecast (yₜ₋₁)  
+C) The mean of the training data  
 D) A linear regression baseline
 
 ---
 
 **Q12. Granger causality tests whether:**
 
-A) X truly causes Y in a causal sense
-B) Past values of X improve prediction of Y beyond Y's own past
-C) X and Y are cointegrated
+A) X truly causes Y in a causal sense  
+B) Past values of X improve prediction of Y beyond Y's own past  
+C) X and Y are cointegrated  
 D) X and Y share the same trend
 
 ---
 
 **Q13. Two non-stationary series are cointegrated if:**
 
-A) Both become stationary after differencing
-B) A linear combination of them is stationary
-C) They have the same mean
+A) Both become stationary after differencing  
+B) A linear combination of them is stationary  
+C) They have the same mean  
 D) Their correlation is exactly 1
 
 ---
 
 **Q14. Walk-forward backtesting in time series ensures:**
 
-A) Maximum use of training data through random shuffling
-B) No future information is used during model training or evaluation
-C) The test set is always the first 20% of data
+A) Maximum use of training data through random shuffling  
+B) No future information is used during model training or evaluation  
+C) The test set is always the first 20% of data  
 D) Cross-validation folds overlap for robustness
 
 ---
 
 **Q15. The Temporal Fusion Transformer (TFT) differs from standard LSTMs by providing:**
 
-A) Only point forecasts without uncertainty
-B) Variable selection, temporal attention, and quantile regression for uncertainty
-C) Faster training on small datasets
+A) Only point forecasts without uncertainty  
+B) Variable selection, temporal attention, and quantile regression for uncertainty  
+C) Faster training on small datasets  
 D) Built-in seasonal decomposition like ARIMA
 
 ---
@@ -191,4 +191,4 @@ TFT combines variable selection networks (identifying important features), tempo
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

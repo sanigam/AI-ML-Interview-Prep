@@ -9,135 +9,135 @@ Test your understanding of bagging, boosting, stacking, and ensemble techniques.
 
 **Q1. The fundamental idea behind ensemble methods is:**
 
-A) Using a single strong model
-B) Combining multiple models to produce better predictions than any individual model
-C) Reducing the training data size
+A) Using a single strong model  
+B) Combining multiple models to produce better predictions than any individual model  
+C) Reducing the training data size  
 D) Using only linear models
 
 ---
 
 **Q2. Bagging (Bootstrap Aggregating) primarily reduces:**
 
-A) Bias
-B) Variance
-C) Both equally
+A) Bias  
+B) Variance  
+C) Both equally  
 D) Neither
 
 ---
 
 **Q3. Boosting primarily reduces:**
 
-A) Variance only
-B) Bias by iteratively focusing on hard-to-classify examples
-C) The number of features
+A) Variance only  
+B) Bias by iteratively focusing on hard-to-classify examples  
+C) The number of features  
 D) The training set size
 
 ---
 
 **Q4. In AdaBoost, misclassified samples from the previous iteration:**
 
-A) Are removed from the dataset
-B) Receive higher weights so the next classifier focuses on them
-C) Are always correctly classified in the next round
+A) Are removed from the dataset  
+B) Receive higher weights so the next classifier focuses on them  
+C) Are always correctly classified in the next round  
 D) Have no effect on subsequent models
 
 ---
 
 **Q5. Stacking (stacked generalization) differs from bagging and boosting by:**
 
-A) Using only one base model
-B) Training a meta-learner on the predictions of diverse base models
-C) Being identical to random forests
+A) Using only one base model  
+B) Training a meta-learner on the predictions of diverse base models  
+C) Being identical to random forests  
 D) Not using any base models
 
 ---
 
 **Q6. For an ensemble to be effective, the individual models should be:**
 
-A) Identical to each other
-B) Diverse (making different errors) while still being reasonably accurate
-C) As complex as possible regardless of accuracy
+A) Identical to each other  
+B) Diverse (making different errors) while still being reasonably accurate  
+C) As complex as possible regardless of accuracy  
 D) Trained on the same exact data in the same way
 
 ---
 
 **Q7. Voting ensembles use which strategy for classification?**
 
-A) Only the first model's prediction
-B) Majority vote (hard voting) or averaged probabilities (soft voting) across models
-C) Random selection of one model's prediction
+A) Only the first model's prediction  
+B) Majority vote (hard voting) or averaged probabilities (soft voting) across models  
+C) Random selection of one model's prediction  
 D) The prediction with highest confidence from any model
 
 ---
 
 **Q8. Random Forest is an example of:**
 
-A) Boosting
-B) Bagging with additional random feature selection
-C) Stacking
+A) Boosting  
+B) Bagging with additional random feature selection  
+C) Stacking  
 D) A single decision tree
 
 ---
 
 **Q9. Gradient Boosting is an example of:**
 
-A) Bagging
-B) Sequential ensemble where each model corrects residual errors of the previous ensemble
-C) Stacking
+A) Bagging  
+B) Sequential ensemble where each model corrects residual errors of the previous ensemble  
+C) Stacking  
 D) Random sampling without replacement
 
 ---
 
 **Q10. Why does boosting have a higher risk of overfitting than bagging?**
 
-A) Boosting uses fewer models
-B) Boosting sequentially fits residuals, which can include noise, leading to overfitting with too many iterations
-C) Boosting never uses regularization
+A) Boosting uses fewer models  
+B) Boosting sequentially fits residuals, which can include noise, leading to overfitting with too many iterations  
+C) Boosting never uses regularization  
 D) Boosting uses random subsets of data
 
 ---
 
 **Q11. The learning rate (shrinkage) in gradient boosting:**
 
-A) Controls the step size in gradient descent for each base model, requiring more trees but improving generalization
-B) Determines the depth of each tree
-C) Sets the number of features
+A) Controls the step size in gradient descent for each base model, requiring more trees but improving generalization  
+B) Determines the depth of each tree  
+C) Sets the number of features  
 D) Has no effect on performance
 
 ---
 
 **Q12. In a weighted majority vote, models with better performance should receive:**
 
-A) Equal weights to all other models
-B) Higher weights in the final prediction
-C) Zero weight
+A) Equal weights to all other models  
+B) Higher weights in the final prediction  
+C) Zero weight  
 D) Negative weights
 
 ---
 
 **Q13. Out-of-fold predictions in stacking are used to:**
 
-A) Speed up training
-B) Generate training data for the meta-learner without data leakage
-C) Remove outliers
+A) Speed up training  
+B) Generate training data for the meta-learner without data leakage  
+C) Remove outliers  
 D) Select features
 
 ---
 
 **Q14. Which statement about ensemble size is generally true?**
 
-A) More models always significantly improve performance
-B) Performance improves with more models but with diminishing returns after a certain point
-C) Using exactly 3 models is always optimal
+A) More models always significantly improve performance  
+B) Performance improves with more models but with diminishing returns after a certain point  
+C) Using exactly 3 models is always optimal  
 D) Fewer models always produce better results
 
 ---
 
 **Q15. Blending differs from stacking in that blending:**
 
-A) Uses cross-validation to generate meta-features
-B) Uses a simple holdout set for meta-feature generation instead of cross-validation
-C) Does not use a meta-learner
+A) Uses cross-validation to generate meta-features  
+B) Uses a simple holdout set for meta-feature generation instead of cross-validation  
+C) Does not use a meta-learner  
 D) Only works with neural networks
 
 ---
@@ -191,4 +191,4 @@ Blending uses a simple train/validation split to generate meta-features (simpler
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

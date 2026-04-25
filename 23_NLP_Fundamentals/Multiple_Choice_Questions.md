@@ -9,135 +9,135 @@ Test your understanding of natural language processing fundamentals for AI/ML in
 
 **Q1. In the text preprocessing pipeline, stop word removal should be used with caution because:**
 
-A) It always improves model accuracy
-B) It can remove semantically important words like negations ("not") that change meaning
-C) It increases vocabulary size
+A) It always improves model accuracy  
+B) It can remove semantically important words like negations ("not") that change meaning  
+C) It increases vocabulary size  
 D) It is only applicable to English text
 
 ---
 
 **Q2. The bag-of-words (BoW) model represents text as:**
 
-A) A sequence of word embeddings preserving order
-B) An unordered collection of word frequencies, ignoring grammar and word order
-C) A parse tree of grammatical relationships
+A) A sequence of word embeddings preserving order  
+B) An unordered collection of word frequencies, ignoring grammar and word order  
+C) A parse tree of grammatical relationships  
 D) A probability distribution over topics
 
 ---
 
 **Q3. TF-IDF improves upon raw term frequency by:**
 
-A) Adding word order information
-B) Downweighting terms that appear frequently across many documents (high document frequency)
-C) Using neural networks for feature extraction
+A) Adding word order information  
+B) Downweighting terms that appear frequently across many documents (high document frequency)  
+C) Using neural networks for feature extraction  
 D) Removing all stop words automatically
 
 ---
 
 **Q4. In the IDF component of TF-IDF, a word that appears in nearly every document will have:**
 
-A) A very high IDF score
-B) A very low IDF score (close to 0)
-C) An IDF score of exactly 1
+A) A very high IDF score  
+B) A very low IDF score (close to 0)  
+C) An IDF score of exactly 1  
 D) A negative IDF score
 
 ---
 
 **Q5. N-gram language models suffer from the "curse of dimensionality" because:**
 
-A) They require too much memory for any value of n
-B) The number of possible n-grams grows exponentially with n, making most n-grams unobserved in training
-C) They cannot handle unigrams
+A) They require too much memory for any value of n  
+B) The number of possible n-grams grows exponentially with n, making most n-grams unobserved in training  
+C) They cannot handle unigrams  
 D) They require GPU computation
 
 ---
 
 **Q6. Named Entity Recognition (NER) is the task of:**
 
-A) Translating text between languages
-B) Identifying and classifying named entities (persons, organizations, locations) in text
-C) Generating new text from a prompt
+A) Translating text between languages  
+B) Identifying and classifying named entities (persons, organizations, locations) in text  
+C) Generating new text from a prompt  
 D) Computing word similarity scores
 
 ---
 
 **Q7. The key assumption in Naive Bayes text classification is:**
 
-A) All words have equal importance
-B) Words are conditionally independent given the class label
-C) The document must contain at least 100 words
+A) All words have equal importance  
+B) Words are conditionally independent given the class label  
+C) The document must contain at least 100 words  
 D) The vocabulary must be fixed beforehand
 
 ---
 
 **Q8. Lemmatization differs from stemming in that:**
 
-A) Lemmatization is always faster
-B) Lemmatization produces valid dictionary words using linguistic rules, while stemming applies heuristic suffix removal
-C) Stemming always produces better results
+A) Lemmatization is always faster  
+B) Lemmatization produces valid dictionary words using linguistic rules, while stemming applies heuristic suffix removal  
+C) Stemming always produces better results  
 D) Lemmatization only works for English
 
 ---
 
 **Q9. BM25 improves upon TF-IDF by incorporating:**
 
-A) Neural embeddings for each term
-B) Term frequency saturation (diminishing returns) and document length normalization
-C) Part-of-speech tags for each word
+A) Neural embeddings for each term  
+B) Term frequency saturation (diminishing returns) and document length normalization  
+C) Part-of-speech tags for each word  
 D) Word order through n-grams
 
 ---
 
 **Q10. Sentiment analysis using a lexicon-based approach fails most notably on:**
 
-A) Long documents
-B) Text with negation ("not good"), sarcasm, or domain-specific language
-C) Documents with many stop words
+A) Long documents  
+B) Text with negation ("not good"), sarcasm, or domain-specific language  
+C) Documents with many stop words  
 D) Text written in all lowercase
 
 ---
 
 **Q11. Part-of-speech (POS) tagging assigns:**
 
-A) Sentiment labels to sentences
-B) Grammatical categories (noun, verb, adjective, etc.) to each word
-C) Topic labels to documents
+A) Sentiment labels to sentences  
+B) Grammatical categories (noun, verb, adjective, etc.) to each word  
+C) Topic labels to documents  
 D) Translation pairs to word alignments
 
 ---
 
 **Q12. Dependency parsing produces:**
 
-A) A flat list of word frequencies
-B) A directed graph showing grammatical relationships between words (subject, object, modifier)
-C) A probability distribution over topics
+A) A flat list of word frequencies  
+B) A directed graph showing grammatical relationships between words (subject, object, modifier)  
+C) A probability distribution over topics  
 D) A sequence of POS tags
 
 ---
 
 **Q13. For multi-label text classification (one document can belong to multiple categories), the appropriate output layer is:**
 
-A) Softmax (single label)
-B) Independent sigmoid activations per label
-C) Linear regression
+A) Softmax (single label)  
+B) Independent sigmoid activations per label  
+C) Linear regression  
 D) Argmax over all classes
 
 ---
 
 **Q14. In hybrid search systems, sparse retrieval (TF-IDF/BM25) is combined with dense retrieval (embeddings) because:**
 
-A) Sparse methods are always more accurate
-B) Sparse handles exact keyword matching while dense captures semantic similarity, complementing each other
-C) Dense methods cannot handle short queries
+A) Sparse methods are always more accurate  
+B) Sparse handles exact keyword matching while dense captures semantic similarity, complementing each other  
+C) Dense methods cannot handle short queries  
 D) Sparse methods are the only ones that scale
 
 ---
 
 **Q15. The F1 score for NER evaluation is preferred over accuracy because:**
 
-A) F1 is always higher than accuracy
-B) Most tokens are non-entities (class imbalance), making accuracy misleadingly high
-C) Accuracy cannot be computed for sequence labeling
+A) F1 is always higher than accuracy  
+B) Most tokens are non-entities (class imbalance), making accuracy misleadingly high  
+C) Accuracy cannot be computed for sequence labeling  
 D) F1 only considers the majority class
 
 ---
@@ -191,4 +191,4 @@ In NER, most tokens are "O" (not entities). A model predicting "O" for everythin
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

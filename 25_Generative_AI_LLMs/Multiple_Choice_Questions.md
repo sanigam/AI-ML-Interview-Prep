@@ -9,135 +9,135 @@ Test your understanding of generative AI and LLM concepts for AI/ML interviews.
 
 **Q1. A large language model (LLM) is fundamentally trained to:**
 
-A) Classify text into predefined categories
-B) Predict the next token given previous tokens (autoregressive next-token prediction)
-C) Translate between exactly two languages
+A) Classify text into predefined categories  
+B) Predict the next token given previous tokens (autoregressive next-token prediction)  
+C) Translate between exactly two languages  
 D) Generate images from text descriptions
 
 ---
 
 **Q2. Scaling laws for LLMs show that:**
 
-A) Larger models always overfit
-B) Loss decreases as a power law with both model size and training data, and neither saturates independently
-C) Only model size matters, not data
+A) Larger models always overfit  
+B) Loss decreases as a power law with both model size and training data, and neither saturates independently  
+C) Only model size matters, not data  
 D) Performance plateaus after 1 billion parameters
 
 ---
 
 **Q3. Emergent abilities in LLMs refer to:**
 
-A) Abilities that are explicitly programmed into the model
-B) Capabilities that appear only at large scale and are absent or near-random in smaller models
-C) Skills that all neural networks possess
+A) Abilities that are explicitly programmed into the model  
+B) Capabilities that appear only at large scale and are absent or near-random in smaller models  
+C) Skills that all neural networks possess  
 D) Abilities that decrease with model size
 
 ---
 
 **Q4. In-context learning differs from fine-tuning because:**
 
-A) It requires updating model weights
-B) It provides task examples in the prompt and the model learns without any parameter updates
-C) It needs millions of labeled examples
+A) It requires updating model weights  
+B) It provides task examples in the prompt and the model learns without any parameter updates  
+C) It needs millions of labeled examples  
 D) It only works with encoder models
 
 ---
 
 **Q5. Instruction tuning transforms a base LLM into a more usable assistant by:**
 
-A) Removing the attention mechanism
-B) Fine-tuning on diverse tasks with explicit instructions, teaching the model to follow instructions reliably
-C) Reducing the model size
+A) Removing the attention mechanism  
+B) Fine-tuning on diverse tasks with explicit instructions, teaching the model to follow instructions reliably  
+C) Reducing the model size  
 D) Training only on a single task
 
 ---
 
 **Q6. RLHF (Reinforcement Learning from Human Feedback) involves three stages:**
 
-A) Tokenization → Embedding → Decoding
-B) Collect human preferences → Train reward model → RL fine-tune LLM using reward model
-C) Pre-train → Prune → Quantize
+A) Tokenization → Embedding → Decoding  
+B) Collect human preferences → Train reward model → RL fine-tune LLM using reward model  
+C) Pre-train → Prune → Quantize  
 D) Data collection → Annotation → Evaluation
 
 ---
 
 **Q7. DPO (Direct Preference Optimization) improves upon RLHF by:**
 
-A) Using more human annotators
-B) Directly optimizing on preference pairs without needing a separate reward model
-C) Requiring more compute than RLHF
+A) Using more human annotators  
+B) Directly optimizing on preference pairs without needing a separate reward model  
+C) Requiring more compute than RLHF  
 D) Eliminating the need for human feedback entirely
 
 ---
 
 **Q8. LLM hallucination refers to:**
 
-A) The model refusing to answer
-B) The model generating plausible-sounding but factually incorrect or fabricated information
-C) The model producing empty outputs
+A) The model refusing to answer  
+B) The model generating plausible-sounding but factually incorrect or fabricated information  
+C) The model producing empty outputs  
 D) The model taking too long to respond
 
 ---
 
 **Q9. Retrieval-Augmented Generation (RAG) reduces hallucinations by:**
 
-A) Making the model smaller
-B) Augmenting the LLM with retrieved relevant documents as context, grounding answers in actual sources
-C) Removing the attention mechanism
+A) Making the model smaller  
+B) Augmenting the LLM with retrieved relevant documents as context, grounding answers in actual sources  
+C) Removing the attention mechanism  
 D) Training exclusively on verified facts
 
 ---
 
 **Q10. The temperature parameter during LLM sampling controls:**
 
-A) The speed of inference
-B) The randomness of generation — lower temperature produces more deterministic outputs, higher produces more diverse outputs
-C) The model size
+A) The speed of inference  
+B) The randomness of generation — lower temperature produces more deterministic outputs, higher produces more diverse outputs  
+C) The model size  
 D) The number of attention heads
 
 ---
 
 **Q11. Top-k sampling limits generation diversity by:**
 
-A) Using only the first k tokens in the vocabulary
-B) Sampling only from the k highest-probability tokens at each step
-C) Generating exactly k tokens
+A) Using only the first k tokens in the vocabulary  
+B) Sampling only from the k highest-probability tokens at each step  
+C) Generating exactly k tokens  
 D) Using k different models
 
 ---
 
 **Q12. Chinchilla scaling laws suggest that for optimal compute allocation:**
 
-A) All compute should go to model parameters
-B) Model size and training data should be scaled roughly equally (train N parameter model on ~20N tokens)
-C) Training data doesn't matter
+A) All compute should go to model parameters  
+B) Model size and training data should be scaled roughly equally (train N parameter model on ~20N tokens)  
+C) Training data doesn't matter  
 D) Smaller models are always better
 
 ---
 
 **Q13. Constitutional AI aligns LLMs by:**
 
-A) Using only human feedback
-B) Defining explicit principles (a constitution) and having the model self-critique and revise its outputs against them
-C) Removing all safety constraints
+A) Using only human feedback  
+B) Defining explicit principles (a constitution) and having the model self-critique and revise its outputs against them  
+C) Removing all safety constraints  
 D) Training on unlabeled data only
 
 ---
 
 **Q14. The context window limitation of LLMs means:**
 
-A) The model can only generate short responses
-B) The model can only attend to a fixed number of tokens in the input, limiting how much information it can process at once
-C) The model cannot handle any text input
+A) The model can only generate short responses  
+B) The model can only attend to a fixed number of tokens in the input, limiting how much information it can process at once  
+C) The model cannot handle any text input  
 D) The model requires a GPU with unlimited memory
 
 ---
 
 **Q15. Top-p (nucleus) sampling selects tokens from the smallest set whose cumulative probability exceeds p. Compared to top-k:**
 
-A) Top-p always selects fewer tokens
-B) Top-p adapts the number of candidate tokens based on the probability distribution shape
-C) Top-p ignores token probabilities
+A) Top-p always selects fewer tokens  
+B) Top-p adapts the number of candidate tokens based on the probability distribution shape  
+C) Top-p ignores token probabilities  
 D) Top-p and top-k are identical
 
 ---
@@ -191,4 +191,4 @@ Top-p dynamically selects more tokens when the distribution is flat (uncertain) 
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

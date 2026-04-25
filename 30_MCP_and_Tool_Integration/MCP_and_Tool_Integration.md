@@ -1,5 +1,8 @@
 # MCP and Tool Integration
 
+📺 **Video Lecture:** https://youtu.be/DtbQVgjjdSs
+
+
 ## Interview Anchor
 - **Model Context Protocol (MCP):** An open protocol for connecting LLMs to external tools and data sources via a standardized interface
 - **MCP Architecture:** A client-server model where an MCP host connects to MCP servers, enabling secure, scalable tool integration
@@ -153,4 +156,4 @@ The host can handle errors based on codes: transient errors (TIMEOUT) might trig
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

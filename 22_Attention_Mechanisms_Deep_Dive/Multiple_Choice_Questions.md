@@ -9,135 +9,135 @@ Test your understanding of attention mechanism concepts for AI/ML interviews.
 
 **Q1. Additive (Bahdanau) attention computes scores using:**
 
-A) Simple dot product of query and key
-B) A learned nonlinear function: score = vᵀ·tanh(W_q·q + W_k·k)
-C) Cosine similarity between query and key
+A) Simple dot product of query and key  
+B) A learned nonlinear function: score = vᵀ·tanh(W_q·q + W_k·k)  
+C) Cosine similarity between query and key  
 D) Euclidean distance between query and key
 
 ---
 
 **Q2. Scaled dot-product attention uses the formula:**
 
-A) Attention = sigmoid(QKᵀ) · V
-B) Attention = softmax(QKᵀ / √d) · V
-C) Attention = ReLU(QKᵀ) · V
+A) Attention = sigmoid(QKᵀ) · V  
+B) Attention = softmax(QKᵀ / √d) · V  
+C) Attention = ReLU(QKᵀ) · V  
 D) Attention = softmax(Q + K) · V
 
 ---
 
 **Q3. Self-attention differs from cross-attention in that:**
 
-A) Self-attention has no learnable parameters
-B) In self-attention, Q, K, and V all come from the same sequence
-C) Self-attention can only be applied to images
+A) Self-attention has no learnable parameters  
+B) In self-attention, Q, K, and V all come from the same sequence  
+C) Self-attention can only be applied to images  
 D) Cross-attention is always faster than self-attention
 
 ---
 
 **Q4. The purpose of using multiple attention heads instead of one is to:**
 
-A) Reduce the total number of parameters
-B) Allow different heads to capture different types of relationships simultaneously
-C) Eliminate the need for feed-forward layers
+A) Reduce the total number of parameters  
+B) Allow different heads to capture different types of relationships simultaneously  
+C) Eliminate the need for feed-forward layers  
 D) Speed up inference by a factor of h
 
 ---
 
 **Q5. Without the 1/√d scaling factor in dot-product attention, what problem occurs?**
 
-A) Attention weights become negative
-B) Large dot products push softmax into saturated regions, causing vanishing gradients
-C) The attention mechanism becomes non-differentiable
+A) Attention weights become negative  
+B) Large dot products push softmax into saturated regions, causing vanishing gradients  
+C) The attention mechanism becomes non-differentiable  
 D) Keys and values become identical
 
 ---
 
 **Q6. Causal masking in a decoder sets future attention scores to:**
 
-A) Zero
-B) One
-C) Negative infinity (−∞), so softmax outputs zero for those positions
+A) Zero  
+B) One  
+C) Negative infinity (−∞), so softmax outputs zero for those positions  
 D) The average of all scores
 
 ---
 
 **Q7. RoPE (Rotary Position Embedding) encodes positions by:**
 
-A) Adding sinusoidal vectors to token embeddings
-B) Applying rotation matrices to query and key vectors based on position
-C) Learning a separate embedding for each position index
+A) Adding sinusoidal vectors to token embeddings  
+B) Applying rotation matrices to query and key vectors based on position  
+C) Learning a separate embedding for each position index  
 D) Concatenating position indices to token embeddings
 
 ---
 
 **Q8. Multi-query attention (MQA) reduces memory during inference by:**
 
-A) Using fewer query heads
-B) Sharing a single set of key-value heads across all query heads
-C) Eliminating the value projection entirely
+A) Using fewer query heads  
+B) Sharing a single set of key-value heads across all query heads  
+C) Eliminating the value projection entirely  
 D) Reducing the embedding dimension
 
 ---
 
 **Q9. The KV-cache in autoregressive transformer inference stores:**
 
-A) The gradients from the last backward pass
-B) Previously computed key and value tensors to avoid recomputation at each generation step
-C) The full attention weight matrix
+A) The gradients from the last backward pass  
+B) Previously computed key and value tensors to avoid recomputation at each generation step  
+C) The full attention weight matrix  
 D) Only the output logits
 
 ---
 
 **Q10. Flash Attention improves transformer efficiency by:**
 
-A) Using fewer attention heads
-B) Reordering computation to minimize GPU memory reads/writes (IO-aware algorithm)
-C) Replacing attention with convolution
+A) Using fewer attention heads  
+B) Reordering computation to minimize GPU memory reads/writes (IO-aware algorithm)  
+C) Replacing attention with convolution  
 D) Reducing the sequence length
 
 ---
 
 **Q11. Sparse attention (as in Longformer) reduces O(n²) complexity by:**
 
-A) Removing attention entirely for some layers
-B) Restricting each token to attend to only a local window plus selected global tokens
-C) Using only the first and last tokens
+A) Removing attention entirely for some layers  
+B) Restricting each token to attend to only a local window plus selected global tokens  
+C) Using only the first and last tokens  
 D) Halving the embedding dimension
 
 ---
 
 **Q12. Grouped-query attention (GQA) is a compromise between:**
 
-A) Self-attention and cross-attention
-B) Multi-head attention (separate KV per head) and multi-query attention (shared KV for all heads)
-C) Additive and multiplicative attention
+A) Self-attention and cross-attention  
+B) Multi-head attention (separate KV per head) and multi-query attention (shared KV for all heads)  
+C) Additive and multiplicative attention  
 D) Pre-LN and post-LN configurations
 
 ---
 
 **Q13. Attention weights after softmax can be interpreted as:**
 
-A) Probabilities summing to 1 over all key positions for each query
-B) Raw similarity scores without normalization
-C) Binary indicators of relevance
+A) Probabilities summing to 1 over all key positions for each query  
+B) Raw similarity scores without normalization  
+C) Binary indicators of relevance  
 D) Gradient magnitudes for each position
 
 ---
 
 **Q14. ALiBi (Attention with Linear Biases) handles positions by:**
 
-A) Learning position embeddings from scratch
-B) Adding a linear penalty −α|i−j| to attention scores based on distance between positions
-C) Using convolutional position encoding
+A) Learning position embeddings from scratch  
+B) Adding a linear penalty −α|i−j| to attention scores based on distance between positions  
+C) Using convolutional position encoding  
 D) Ignoring position information entirely
 
 ---
 
 **Q15. Cross-attention in a machine translation transformer allows the decoder to:**
 
-A) Generate tokens without considering the source sentence
-B) Attend to relevant parts of the encoded source sentence at each decoding step
-C) Only look at the immediately previous source token
+A) Generate tokens without considering the source sentence  
+B) Attend to relevant parts of the encoded source sentence at each decoding step  
+C) Only look at the immediately previous source token  
 D) Share weights with the encoder
 
 ---
@@ -191,4 +191,4 @@ Cross-attention lets each decoder token (query) compute attention over all encod
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

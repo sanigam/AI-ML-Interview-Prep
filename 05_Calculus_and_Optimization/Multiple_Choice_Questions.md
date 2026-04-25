@@ -9,135 +9,135 @@ Test your understanding of calculus and optimization concepts used in machine le
 
 **Q1. The gradient of a function f(x₁, x₂, ..., xₙ) points in the direction of:**
 
-A) Steepest decrease of f
-B) Steepest increase of f
-C) Zero change in f
+A) Steepest decrease of f  
+B) Steepest increase of f  
+C) Zero change in f  
 D) The global minimum of f
 
 ---
 
 **Q2. In gradient descent, the update rule is θ = θ − α∇f(θ). The learning rate α controls:**
 
-A) The direction of each step
-B) The size of each step toward the minimum
-C) The number of features in the model
+A) The direction of each step  
+B) The size of each step toward the minimum  
+C) The number of features in the model  
 D) The shape of the loss function
 
 ---
 
 **Q3. Stochastic Gradient Descent (SGD) differs from batch gradient descent in that:**
 
-A) SGD always converges faster
-B) SGD computes the gradient using a single sample (or mini-batch) instead of the entire dataset
-C) SGD does not use a learning rate
+A) SGD always converges faster  
+B) SGD computes the gradient using a single sample (or mini-batch) instead of the entire dataset  
+C) SGD does not use a learning rate  
 D) SGD guarantees finding the global minimum
 
 ---
 
 **Q4. A function is convex if:**
 
-A) It has exactly one local minimum
-B) Every local minimum is a global minimum, and a line segment between any two points lies on or above the function
-C) Its second derivative is always negative
+A) It has exactly one local minimum  
+B) Every local minimum is a global minimum, and a line segment between any two points lies on or above the function  
+C) Its second derivative is always negative  
 D) It has no critical points
 
 ---
 
 **Q5. The Hessian matrix of a function f contains:**
 
-A) The first-order partial derivatives
-B) The second-order partial derivatives
-C) The eigenvalues of the gradient
+A) The first-order partial derivatives  
+B) The second-order partial derivatives  
+C) The eigenvalues of the gradient  
 D) The function values at critical points
 
 ---
 
 **Q6. At a saddle point of a function:**
 
-A) The gradient is non-zero
-B) The gradient is zero, but the point is neither a local minimum nor a local maximum
-C) The function achieves its global minimum
+A) The gradient is non-zero  
+B) The gradient is zero, but the point is neither a local minimum nor a local maximum  
+C) The function achieves its global minimum  
 D) All second derivatives are positive
 
 ---
 
 **Q7. The chain rule is essential in deep learning because:**
 
-A) It determines the number of layers in a network
-B) It enables backpropagation by computing gradients through nested function compositions
-C) It selects the best activation function
+A) It determines the number of layers in a network  
+B) It enables backpropagation by computing gradients through nested function compositions  
+C) It selects the best activation function  
 D) It determines the learning rate schedule
 
 ---
 
 **Q8. Adam optimizer combines ideas from:**
 
-A) SGD and L-BFGS
-B) Momentum and RMSProp (adaptive learning rates)
-C) Newton's method and gradient descent
+A) SGD and L-BFGS  
+B) Momentum and RMSProp (adaptive learning rates)  
+C) Newton's method and gradient descent  
 D) Random search and grid search
 
 ---
 
 **Q9. L2 regularization adds λ||θ||² to the loss function. In terms of optimization, this:**
 
-A) Makes the loss function non-differentiable
-B) Adds curvature to the loss surface, shrinking parameters toward zero
-C) Removes the gradient entirely
+A) Makes the loss function non-differentiable  
+B) Adds curvature to the loss surface, shrinking parameters toward zero  
+C) Removes the gradient entirely  
 D) Makes the problem non-convex
 
 ---
 
 **Q10. Learning rate warmup is a technique where:**
 
-A) The learning rate starts high and decreases linearly
-B) The learning rate starts small and gradually increases before following a decay schedule
-C) The learning rate is fixed throughout training
+A) The learning rate starts high and decreases linearly  
+B) The learning rate starts small and gradually increases before following a decay schedule  
+C) The learning rate is fixed throughout training  
 D) The learning rate is randomly sampled each epoch
 
 ---
 
 **Q11. The vanishing gradient problem occurs when:**
 
-A) The learning rate is too large
-B) Gradients become extremely small during backpropagation, slowing or stopping learning in early layers
-C) The model has too few parameters
+A) The learning rate is too large  
+B) Gradients become extremely small during backpropagation, slowing or stopping learning in early layers  
+C) The model has too few parameters  
 D) The loss function is convex
 
 ---
 
 **Q12. Newton's method uses second-order information (Hessian) and converges:**
 
-A) Linearly, same as gradient descent
-B) Quadratically near the optimum, but is computationally expensive
-C) Slower than SGD in all cases
+A) Linearly, same as gradient descent  
+B) Quadratically near the optimum, but is computationally expensive  
+C) Slower than SGD in all cases  
 D) Only for non-convex functions
 
 ---
 
 **Q13. What is the purpose of gradient clipping?**
 
-A) To increase the learning rate automatically
-B) To prevent exploding gradients by capping gradient magnitudes
-C) To make the loss function convex
+A) To increase the learning rate automatically  
+B) To prevent exploding gradients by capping gradient magnitudes  
+C) To make the loss function convex  
 D) To remove features with small gradients
 
 ---
 
 **Q14. In the context of neural networks, a loss function must be:**
 
-A) Convex with respect to the inputs
-B) Differentiable with respect to the model parameters (at least almost everywhere)
-C) Constant across all training examples
+A) Convex with respect to the inputs  
+B) Differentiable with respect to the model parameters (at least almost everywhere)  
+C) Constant across all training examples  
 D) Independent of the model architecture
 
 ---
 
 **Q15. Mini-batch gradient descent (batch size between 1 and N) is preferred over full-batch because:**
 
-A) It always produces lower loss values
-B) It provides a good tradeoff between noisy gradient estimates (which help escape local minima) and computational efficiency
-C) It eliminates the need for a learning rate
+A) It always produces lower loss values  
+B) It provides a good tradeoff between noisy gradient estimates (which help escape local minima) and computational efficiency  
+C) It eliminates the need for a learning rate  
 D) It guarantees convergence in fewer epochs
 
 ---
@@ -191,4 +191,4 @@ Mini-batches balance between the noisy but fast updates of SGD (batch=1) and the
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

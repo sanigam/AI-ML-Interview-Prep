@@ -9,135 +9,135 @@ Test your understanding of statistical inference, hypothesis testing, and experi
 
 **Q1. A 95% confidence interval means:**
 
-A) There is a 95% probability that the true parameter lies within this specific interval
-B) If we repeated the sampling procedure many times, approximately 95% of the constructed intervals would contain the true parameter
-C) 95% of the sample data falls within this interval
+A) There is a 95% probability that the true parameter lies within this specific interval  
+B) If we repeated the sampling procedure many times, approximately 95% of the constructed intervals would contain the true parameter  
+C) 95% of the sample data falls within this interval  
 D) The parameter has a 95% chance of being equal to the point estimate
 
 ---
 
 **Q2. A researcher conducts an A/B test and obtains a p-value of 0.03. What is the correct interpretation?**
 
-A) There is a 3% probability that the null hypothesis is true
-B) There is a 97% probability that the treatment works
-C) If the null hypothesis were true, there is a 3% probability of observing results this extreme or more extreme
+A) There is a 3% probability that the null hypothesis is true  
+B) There is a 97% probability that the treatment works  
+C) If the null hypothesis were true, there is a 3% probability of observing results this extreme or more extreme  
 D) The effect size is 3%
 
 ---
 
 **Q3. In hypothesis testing, a Type II error occurs when:**
 
-A) You reject the null hypothesis when it is actually true
-B) You fail to reject the null hypothesis when it is actually false
-C) You accept the alternative hypothesis correctly
+A) You reject the null hypothesis when it is actually true  
+B) You fail to reject the null hypothesis when it is actually false  
+C) You accept the alternative hypothesis correctly  
 D) The p-value is less than the significance level
 
 ---
 
 **Q4. Statistical power is defined as:**
 
-A) The probability of rejecting the null hypothesis when it is true
-B) The probability of correctly failing to reject a true null hypothesis
-C) The probability of correctly rejecting a false null hypothesis
+A) The probability of rejecting the null hypothesis when it is true  
+B) The probability of correctly failing to reject a true null hypothesis  
+C) The probability of correctly rejecting a false null hypothesis  
 D) The probability of obtaining a p-value less than 0.05
 
 ---
 
 **Q5. Which of the following increases statistical power?**
 
-A) Decreasing the sample size
-B) Increasing the significance level (α) from 0.01 to 0.05
-C) Decreasing the effect size
+A) Decreasing the sample size  
+B) Increasing the significance level (α) from 0.01 to 0.05  
+C) Decreasing the effect size  
 D) Increasing the number of hypothesis tests performed
 
 ---
 
 **Q6. An estimator θ̂ is said to be unbiased if:**
 
-A) It always equals the true parameter value
-B) Its variance is zero
-C) E[θ̂] = θ (its expected value equals the true parameter)
+A) It always equals the true parameter value  
+B) Its variance is zero  
+C) E[θ̂] = θ (its expected value equals the true parameter)  
 D) It has the smallest possible mean squared error
 
 ---
 
 **Q7. Why do we divide by (n−1) instead of n when computing sample variance?**
 
-A) To make the computation simpler
-B) To correct for the bias introduced by using the sample mean instead of the population mean
-C) Because the sample always has one fewer observation than the population
+A) To make the computation simpler  
+B) To correct for the bias introduced by using the sample mean instead of the population mean  
+C) Because the sample always has one fewer observation than the population  
 D) To ensure the variance is always positive
 
 ---
 
 **Q8. Maximum Likelihood Estimation (MLE) finds the parameter value that:**
 
-A) Minimizes the sum of squared errors
-B) Maximizes the probability of the observed data given the parameter
-C) Minimizes the prior probability of the parameter
+A) Minimizes the sum of squared errors  
+B) Maximizes the probability of the observed data given the parameter  
+C) Minimizes the prior probability of the parameter  
 D) Maximizes the posterior probability of the parameter given the data
 
 ---
 
 **Q9. When comparing means across 4 groups, which test is most appropriate?**
 
-A) Paired t-test
-B) Chi-square test
-C) One-way ANOVA
+A) Paired t-test  
+B) Chi-square test  
+C) One-way ANOVA  
 D) Two-sample t-test repeated 6 times
 
 ---
 
 **Q10. A researcher tests 20 hypotheses at α = 0.05 with no correction. Approximately how many false positives are expected if all null hypotheses are true?**
 
-A) 0
-B) 1
-C) 5
+A) 0  
+B) 1  
+C) 5  
 D) 20
 
 ---
 
 **Q11. The Bonferroni correction for m = 10 tests at family-wise α = 0.05 sets each individual test significance at:**
 
-A) 0.05
-B) 0.01
-C) 0.005
+A) 0.05  
+B) 0.01  
+C) 0.005  
 D) 0.50
 
 ---
 
 **Q12. Which of the following is a non-parametric alternative to the independent two-sample t-test?**
 
-A) Paired t-test
-B) Mann-Whitney U test
-C) Chi-square test
+A) Paired t-test  
+B) Mann-Whitney U test  
+C) Chi-square test  
 D) F-test
 
 ---
 
 **Q13. The Fisher Information I(θ) is important because:**
 
-A) It determines the maximum possible bias of an estimator
-B) Its inverse provides a lower bound on the variance of any unbiased estimator (Cramér-Rao bound)
-C) It equals the sample size required for the test
+A) It determines the maximum possible bias of an estimator  
+B) Its inverse provides a lower bound on the variance of any unbiased estimator (Cramér-Rao bound)  
+C) It equals the sample size required for the test  
 D) It measures the Type I error rate
 
 ---
 
 **Q14. In the context of A/B testing, what is the primary reason you should NOT repeatedly check results and stop early when significance is reached?**
 
-A) It increases the required sample size
-B) It inflates the actual Type I error rate above the nominal α level
-C) It makes the test non-parametric
+A) It increases the required sample size  
+B) It inflates the actual Type I error rate above the nominal α level  
+C) It makes the test non-parametric  
 D) It decreases the effect size
 
 ---
 
 **Q15. A chi-square test for independence is used to determine:**
 
-A) Whether a continuous variable follows a normal distribution
-B) Whether the means of two groups are equal
-C) Whether two categorical variables are independent of each other
+A) Whether a continuous variable follows a normal distribution  
+B) Whether the means of two groups are equal  
+C) Whether two categorical variables are independent of each other  
 D) Whether the variance of a sample equals a hypothesized value
 
 ---
@@ -191,4 +191,4 @@ The chi-square test for independence tests whether two categorical variables are
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

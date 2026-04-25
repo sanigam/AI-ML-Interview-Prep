@@ -9,135 +9,135 @@ Test your understanding of linear regression, logistic regression, and related m
 
 **Q1. In ordinary least squares (OLS) linear regression, the objective is to minimize:**
 
-A) The sum of absolute residuals
-B) The sum of squared residuals (differences between predicted and actual values)
-C) The maximum residual
+A) The sum of absolute residuals  
+B) The sum of squared residuals (differences between predicted and actual values)  
+C) The maximum residual  
 D) The number of non-zero coefficients
 
 ---
 
 **Q2. The coefficient β₁ in a simple linear regression y = β₀ + β₁x represents:**
 
-A) The predicted value when x = 0
-B) The expected change in y for a one-unit increase in x
-C) The correlation between x and y
+A) The predicted value when x = 0  
+B) The expected change in y for a one-unit increase in x  
+C) The correlation between x and y  
 D) The variance of y
 
 ---
 
 **Q3. Logistic regression models the probability of a binary outcome using:**
 
-A) A linear function with output between −∞ and +∞
-B) The sigmoid (logistic) function, mapping linear combination to [0, 1]
-C) A step function
+A) A linear function with output between −∞ and +∞  
+B) The sigmoid (logistic) function, mapping linear combination to [0, 1]  
+C) A step function  
 D) A polynomial of degree 3
 
 ---
 
 **Q4. The loss function used in logistic regression is:**
 
-A) Mean Squared Error
-B) Binary Cross-Entropy (log loss)
-C) Hinge loss
+A) Mean Squared Error  
+B) Binary Cross-Entropy (log loss)  
+C) Hinge loss  
 D) Huber loss
 
 ---
 
 **Q5. Multicollinearity in linear regression causes:**
 
-A) The model to always overfit
-B) Unstable and unreliable coefficient estimates with high variance
-C) The R² to become zero
+A) The model to always overfit  
+B) Unstable and unreliable coefficient estimates with high variance  
+C) The R² to become zero  
 D) The model to become non-linear
 
 ---
 
 **Q6. The R² (coefficient of determination) value of 0.85 means:**
 
-A) The model is 85% accurate
-B) 85% of the variance in the target variable is explained by the model
-C) 85% of predictions are exactly correct
+A) The model is 85% accurate  
+B) 85% of the variance in the target variable is explained by the model  
+C) 85% of predictions are exactly correct  
 D) The model has 85 features
 
 ---
 
 **Q7. Ridge regression (L2 regularization) addresses overfitting by:**
 
-A) Removing features from the model entirely
-B) Adding a penalty proportional to the sum of squared coefficients, shrinking them toward zero
-C) Increasing the number of features
+A) Removing features from the model entirely  
+B) Adding a penalty proportional to the sum of squared coefficients, shrinking them toward zero  
+C) Increasing the number of features  
 D) Using a non-linear kernel
 
 ---
 
 **Q8. Lasso regression (L1 regularization) differs from Ridge in that Lasso:**
 
-A) Never shrinks any coefficients
-B) Can shrink coefficients exactly to zero, performing automatic feature selection
-C) Always outperforms Ridge
+A) Never shrinks any coefficients  
+B) Can shrink coefficients exactly to zero, performing automatic feature selection  
+C) Always outperforms Ridge  
 D) Does not have a regularization parameter
 
 ---
 
 **Q9. The assumptions of OLS linear regression include all EXCEPT:**
 
-A) Linearity of the relationship between features and target
-B) Independence of residuals
-C) The target variable must be categorical
+A) Linearity of the relationship between features and target  
+B) Independence of residuals  
+C) The target variable must be categorical  
 D) Homoscedasticity (constant variance of residuals)
 
 ---
 
 **Q10. In logistic regression, the odds ratio exp(β₁) represents:**
 
-A) The probability of the positive class
-B) The multiplicative change in odds for a one-unit increase in the corresponding feature
-C) The number of correct predictions
+A) The probability of the positive class  
+B) The multiplicative change in odds for a one-unit increase in the corresponding feature  
+C) The number of correct predictions  
 D) The threshold for classification
 
 ---
 
 **Q11. Elastic Net regularization combines:**
 
-A) L1 and L2 penalties, offering a balance between Lasso and Ridge
-B) Gradient descent and Newton's method
-C) Linear and polynomial regression
+A) L1 and L2 penalties, offering a balance between Lasso and Ridge  
+B) Gradient descent and Newton's method  
+C) Linear and polynomial regression  
 D) Cross-validation and grid search
 
 ---
 
 **Q12. Adjusted R² is preferred over R² when comparing models because:**
 
-A) It is always higher than R²
-B) It penalizes adding features that don't improve the model, preventing over-counting from added complexity
-C) It only works for logistic regression
+A) It is always higher than R²  
+B) It penalizes adding features that don't improve the model, preventing over-counting from added complexity  
+C) It only works for logistic regression  
 D) It requires less computation
 
 ---
 
 **Q13. Heteroscedasticity (non-constant variance of residuals) in linear regression leads to:**
 
-A) Biased coefficient estimates
-B) Unreliable standard errors and confidence intervals for coefficients
-C) R² becoming negative
+A) Biased coefficient estimates  
+B) Unreliable standard errors and confidence intervals for coefficients  
+C) R² becoming negative  
 D) The model becoming non-linear
 
 ---
 
 **Q14. The softmax function extends logistic regression to multi-class by:**
 
-A) Running binary logistic regression multiple times independently
-B) Converting a vector of raw scores into a probability distribution over k classes (summing to 1)
-C) Using separate thresholds for each class
+A) Running binary logistic regression multiple times independently  
+B) Converting a vector of raw scores into a probability distribution over k classes (summing to 1)  
+C) Using separate thresholds for each class  
 D) Reducing the problem to binary classification
 
 ---
 
 **Q15. In linear regression, the residuals should ideally be:**
 
-A) Correlated with the predicted values
-B) Independently and identically distributed with mean zero (normally distributed for inference)
-C) All exactly zero
+A) Correlated with the predicted values  
+B) Independently and identically distributed with mean zero (normally distributed for inference)  
+C) All exactly zero  
 D) Increasing with the predicted values
 
 ---
@@ -191,4 +191,4 @@ Well-behaved residuals are independent, homoscedastic, and normally distributed 
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

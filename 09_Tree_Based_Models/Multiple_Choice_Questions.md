@@ -9,135 +9,135 @@ Test your understanding of decision trees, random forests, and gradient boosting
 
 **Q1. A decision tree splits data based on:**
 
-A) Random chance
-B) The feature and threshold that best separates the target classes (maximizes information gain or minimizes impurity)
-C) The alphabetical order of feature names
+A) Random chance  
+B) The feature and threshold that best separates the target classes (maximizes information gain or minimizes impurity)  
+C) The alphabetical order of feature names  
 D) The mean of all features
 
 ---
 
 **Q2. Gini impurity of a node with 50% class A and 50% class B equals:**
 
-A) 0.0
-B) 0.25
-C) 0.5
+A) 0.0  
+B) 0.25  
+C) 0.5  
 D) 1.0
 
 ---
 
 **Q3. A decision tree with no pruning or depth limits will likely:**
 
-A) Underfit the training data
-B) Overfit the training data by memorizing it
-C) Always achieve optimal test accuracy
+A) Underfit the training data  
+B) Overfit the training data by memorizing it  
+C) Always achieve optimal test accuracy  
 D) Have high bias and low variance
 
 ---
 
 **Q4. Random Forest reduces overfitting compared to a single decision tree by:**
 
-A) Using a shallower tree
-B) Training multiple trees on bootstrapped samples and random feature subsets, then averaging predictions
-C) Using only one feature
+A) Using a shallower tree  
+B) Training multiple trees on bootstrapped samples and random feature subsets, then averaging predictions  
+C) Using only one feature  
 D) Removing all outliers from the data
 
 ---
 
 **Q5. In Random Forest, the "random" aspect refers to:**
 
-A) Random initialization of weights
-B) Random sampling of training data (bagging) AND random selection of features at each split
-C) Random selection of the target variable
+A) Random initialization of weights  
+B) Random sampling of training data (bagging) AND random selection of features at each split  
+C) Random selection of the target variable  
 D) Random depth for each tree
 
 ---
 
 **Q6. Gradient Boosting builds trees sequentially where each new tree:**
 
-A) Is identical to the previous tree
-B) Fits the residuals (errors) of the previous ensemble
-C) Uses a completely different dataset
+A) Is identical to the previous tree  
+B) Fits the residuals (errors) of the previous ensemble  
+C) Uses a completely different dataset  
 D) Has more features than the previous tree
 
 ---
 
 **Q7. XGBoost improves on basic gradient boosting by incorporating:**
 
-A) Only deeper trees
-B) Regularization, efficient handling of sparse data, and parallel computation
-C) Only random feature sampling
+A) Only deeper trees  
+B) Regularization, efficient handling of sparse data, and parallel computation  
+C) Only random feature sampling  
 D) Neural network layers
 
 ---
 
 **Q8. The max_depth hyperparameter in a decision tree controls:**
 
-A) The maximum number of features used
-B) The maximum levels of splits from root to leaf
-C) The maximum number of training samples
+A) The maximum number of features used  
+B) The maximum levels of splits from root to leaf  
+C) The maximum number of training samples  
 D) The maximum number of trees in an ensemble
 
 ---
 
 **Q9. Feature importance in a random forest is typically measured by:**
 
-A) The order in which features appear alphabetically
-B) The total reduction in impurity (Gini or entropy) contributed by that feature across all trees
-C) The correlation of the feature with the target
+A) The order in which features appear alphabetically  
+B) The total reduction in impurity (Gini or entropy) contributed by that feature across all trees  
+C) The correlation of the feature with the target  
 D) The number of missing values in the feature
 
 ---
 
 **Q10. Bagging (Bootstrap Aggregating) reduces:**
 
-A) Bias of the model
-B) Variance of the model by averaging multiple models trained on different subsets
-C) Both bias and variance equally
+A) Bias of the model  
+B) Variance of the model by averaging multiple models trained on different subsets  
+C) Both bias and variance equally  
 D) The number of features
 
 ---
 
 **Q11. Out-of-bag (OOB) error in Random Forest is:**
 
-A) The error on the training set
-B) An estimate of test error using samples not included in each tree's bootstrap sample
-C) The error after removing outliers
+A) The error on the training set  
+B) An estimate of test error using samples not included in each tree's bootstrap sample  
+C) The error after removing outliers  
 D) Always lower than cross-validation error
 
 ---
 
 **Q12. Entropy of a node with 100% of one class equals:**
 
-A) 1.0
-B) 0.5
-C) 0.0 (pure node — no uncertainty)
+A) 1.0  
+B) 0.5  
+C) 0.0 (pure node — no uncertainty)  
 D) Infinity
 
 ---
 
 **Q13. LightGBM differs from XGBoost primarily by:**
 
-A) Using leaf-wise tree growth instead of level-wise, making it faster on large datasets
-B) Not using gradient boosting
-C) Only working with categorical features
+A) Using leaf-wise tree growth instead of level-wise, making it faster on large datasets  
+B) Not using gradient boosting  
+C) Only working with categorical features  
 D) Building trees in parallel
 
 ---
 
 **Q14. In gradient boosting, a smaller learning rate (shrinkage) typically requires:**
 
-A) Fewer trees for good performance
-B) More trees to achieve the same performance, but often generalizes better
-C) No regularization
+A) Fewer trees for good performance  
+B) More trees to achieve the same performance, but often generalizes better  
+C) No regularization  
 D) Larger tree depth
 
 ---
 
 **Q15. Decision trees are invariant to feature scaling because:**
 
-A) They use gradient descent
-B) Splits are based on threshold comparisons (greater/less than), not on magnitudes
-C) They always normalize features internally
+A) They use gradient descent  
+B) Splits are based on threshold comparisons (greater/less than), not on magnitudes  
+C) They always normalize features internally  
 D) They can only handle categorical features
 
 ---
@@ -191,4 +191,4 @@ Trees make binary decisions (is feature > threshold?), which is unaffected by mo
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

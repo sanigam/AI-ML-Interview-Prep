@@ -1,140 +1,142 @@
 # Multiple Choice Questions: GANs, VAEs, and Diffusion Models
 
+📺 **Video Lecture:** https://youtu.be/VPtzvFZCE-I
+
 Test your understanding of generative model concepts for AI/ML interviews.
 
 ---
 
 **Q1. In a GAN, the generator and discriminator are trained with:**
 
-A) The same loss function
-B) Opposing objectives — the generator tries to fool the discriminator while the discriminator tries to distinguish real from fake
-C) Only unsupervised losses
+A) The same loss function  
+B) Opposing objectives — the generator tries to fool the discriminator while the discriminator tries to distinguish real from fake  
+C) Only unsupervised losses  
 D) Reinforcement learning rewards
 
 ---
 
 **Q2. Mode collapse in GANs occurs when:**
 
-A) The discriminator becomes too weak
-B) The generator produces only a limited subset of the data distribution, ignoring other modes
-C) Training converges to the global optimum
+A) The discriminator becomes too weak  
+B) The generator produces only a limited subset of the data distribution, ignoring other modes  
+C) Training converges to the global optimum  
 D) The learning rate is too small
 
 ---
 
 **Q3. The Wasserstein GAN (WGAN) addresses GAN training instability by:**
 
-A) Using a larger generator
-B) Replacing the binary classification loss with the Wasserstein distance, providing continuous gradients even when the discriminator is confident
-C) Removing the discriminator entirely
+A) Using a larger generator  
+B) Replacing the binary classification loss with the Wasserstein distance, providing continuous gradients even when the discriminator is confident  
+C) Removing the discriminator entirely  
 D) Training only the generator
 
 ---
 
 **Q4. In a Variational Autoencoder (VAE), the loss function (ELBO) consists of:**
 
-A) Only reconstruction loss
-B) Reconstruction loss + KL divergence between the learned latent distribution and a prior (typically N(0,I))
-C) Only KL divergence
+A) Only reconstruction loss  
+B) Reconstruction loss + KL divergence between the learned latent distribution and a prior (typically N(0,I))  
+C) Only KL divergence  
 D) Cross-entropy loss on class labels
 
 ---
 
 **Q5. The reparameterization trick in VAEs enables backpropagation through sampling by:**
 
-A) Removing the sampling step entirely
-B) Expressing z = μ + σ·ε where ε ~ N(0,I), making gradients flow through μ and σ
-C) Using a discrete distribution instead
+A) Removing the sampling step entirely  
+B) Expressing z = μ + σ·ε where ε ~ N(0,I), making gradients flow through μ and σ  
+C) Using a discrete distribution instead  
 D) Applying dropout to the latent space
 
 ---
 
 **Q6. Compared to GANs, VAEs typically produce:**
 
-A) Sharper but less diverse images
-B) Blurrier images but with a more structured, interpolable latent space
-C) Identical quality images
+A) Sharper but less diverse images  
+B) Blurrier images but with a more structured, interpolable latent space  
+C) Identical quality images  
 D) No images at all
 
 ---
 
 **Q7. Conditional GANs (cGANs) differ from standard GANs by:**
 
-A) Not using a discriminator
-B) Conditioning both generator and discriminator on auxiliary information (e.g., class labels or text)
-C) Only generating random noise
+A) Not using a discriminator  
+B) Conditioning both generator and discriminator on auxiliary information (e.g., class labels or text)  
+C) Only generating random noise  
 D) Using reinforcement learning
 
 ---
 
 **Q8. Diffusion models generate samples by:**
 
-A) A single forward pass through a generator network
-B) Gradually denoising random noise through many iterative steps, reversing a forward noise-adding process
-C) Adversarial training between two networks
+A) A single forward pass through a generator network  
+B) Gradually denoising random noise through many iterative steps, reversing a forward noise-adding process  
+C) Adversarial training between two networks  
 D) Maximizing a discriminator's confidence
 
 ---
 
 **Q9. The forward process in a diffusion model:**
 
-A) Generates high-quality images directly
-B) Gradually adds Gaussian noise to data over T steps until it becomes pure noise
-C) Trains the discriminator
+A) Generates high-quality images directly  
+B) Gradually adds Gaussian noise to data over T steps until it becomes pure noise  
+C) Trains the discriminator  
 D) Compresses images into a latent space
 
 ---
 
 **Q10. A key advantage of diffusion models over GANs is:**
 
-A) Faster sampling speed
-B) More stable training and better mode coverage (less mode collapse)
-C) Fewer parameters required
+A) Faster sampling speed  
+B) More stable training and better mode coverage (less mode collapse)  
+C) Fewer parameters required  
 D) No need for neural networks
 
 ---
 
 **Q11. Latent diffusion models (used in Stable Diffusion) improve efficiency by:**
 
-A) Running the diffusion process in pixel space
-B) Running the diffusion process in a compressed latent space (via a VAE encoder), reducing computational cost
-C) Eliminating the denoising steps
+A) Running the diffusion process in pixel space  
+B) Running the diffusion process in a compressed latent space (via a VAE encoder), reducing computational cost  
+C) Eliminating the denoising steps  
 D) Using only text input without any image data
 
 ---
 
 **Q12. The KL divergence term in the VAE loss encourages the latent distribution to:**
 
-A) Maximize reconstruction quality
-B) Match the prior distribution N(0,I), ensuring the latent space is smooth and enables meaningful sampling
-C) Increase to infinity
+A) Maximize reconstruction quality  
+B) Match the prior distribution N(0,I), ensuring the latent space is smooth and enables meaningful sampling  
+C) Increase to infinity  
 D) Be identical to the output distribution
 
 ---
 
 **Q13. DALL-E and Stable Diffusion generate images from text by:**
 
-A) Using GANs exclusively
-B) Conditioning diffusion models on text embeddings (e.g., from CLIP) to guide the denoising process
-C) Searching a database of existing images
+A) Using GANs exclusively  
+B) Conditioning diffusion models on text embeddings (e.g., from CLIP) to guide the denoising process  
+C) Searching a database of existing images  
 D) Using template matching
 
 ---
 
 **Q14. Spectral normalization in GANs is used to:**
 
-A) Speed up the generator
-B) Stabilize discriminator training by constraining the Lipschitz constant of its weight matrices
-C) Increase mode collapse
+A) Speed up the generator  
+B) Stabilize discriminator training by constraining the Lipschitz constant of its weight matrices  
+C) Increase mode collapse  
 D) Remove the need for a loss function
 
 ---
 
 **Q15. The main disadvantage of diffusion models compared to GANs is:**
 
-A) Lower image quality
-B) Slow sampling due to many iterative denoising steps (often 20-1000 steps)
-C) Inability to generate high-resolution images
+A) Lower image quality  
+B) Slow sampling due to many iterative denoising steps (often 20-1000 steps)  
+C) Inability to generate high-resolution images  
 D) Requirement for paired training data
 
 ---
@@ -188,4 +190,4 @@ Diffusion models require many sequential denoising steps at inference time (typi
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

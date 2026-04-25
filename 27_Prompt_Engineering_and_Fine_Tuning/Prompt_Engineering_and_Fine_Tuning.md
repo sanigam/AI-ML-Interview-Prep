@@ -1,5 +1,8 @@
 # Prompt Engineering and Fine-Tuning
 
+📺 **Video Lecture:** https://youtu.be/_bCEYU-riVU
+
+
 ## Interview Anchor
 - **Prompt Engineering:** Crafting input text to guide LLM behavior without code changes; includes instructions, examples, formatting
 - **Zero-Shot vs Few-Shot:** Zero-shot: direct instruction without examples; Few-shot: provide examples in context for pattern matching
@@ -163,4 +166,4 @@ Prompt engineering and fine-tuning represent two complementary strategies for ad
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

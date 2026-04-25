@@ -1,5 +1,8 @@
 # MLOps and Model Deployment
 
+📺 **Video Lecture:** https://youtu.be/s0Ior7fz9oc
+
+
 ## Interview Anchor
 - **ML Lifecycle:** The complete process from problem definition through data collection, training, evaluation, deployment, monitoring, and iteration
 - **Model Versioning and Registry:** Systems for tracking model artifacts, metadata, and lineage to enable reproducibility and rollback
@@ -251,4 +254,4 @@ ONNX also enables optimizations: **TensorRT** (NVIDIA) optimizes ONNX for GPUs, 
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

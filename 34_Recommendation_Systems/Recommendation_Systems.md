@@ -1,5 +1,8 @@
 # Recommendation Systems
 
+📺 **Video Lecture:** https://youtu.be/8-Y8X7ZOD2s
+
+
 ## Interview Anchor
 - **Collaborative Filtering:** Recommending items based on user similarity: if users A and B rated similar items similarly, recommend A's liked items to B
 - **Content-Based Filtering:** Recommending items similar to those the user previously liked, based on item features
@@ -122,4 +125,4 @@ Recommendation systems are among the most commercially valuable ML applications,
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

@@ -1,5 +1,8 @@
 # Agentic AI Systems
 
+📺 **Video Lecture:** https://youtu.be/10I4SZn-wag
+
+
 ## Interview Anchor
 - **AI Agent:** An autonomous system that perceives its environment, reasons about goals, and takes actions to achieve them through iterative planning and execution
 - **Agent Loop:** The core cycle of observing state, planning actions, executing tools, and updating knowledge based on results
@@ -120,4 +123,4 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

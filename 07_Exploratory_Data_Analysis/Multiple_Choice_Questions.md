@@ -9,135 +9,135 @@ Test your understanding of EDA techniques for understanding and visualizing data
 
 **Q1. The primary goal of Exploratory Data Analysis (EDA) is to:**
 
-A) Build the final production model
-B) Understand data distributions, relationships, and anomalies before modeling
-C) Deploy the model to production
+A) Build the final production model  
+B) Understand data distributions, relationships, and anomalies before modeling  
+C) Deploy the model to production  
 D) Optimize hyperparameters
 
 ---
 
 **Q2. A box plot displays all of the following EXCEPT:**
 
-A) Median
-B) Interquartile range (Q1 to Q3)
-C) Mean
+A) Median  
+B) Interquartile range (Q1 to Q3)  
+C) Mean  
 D) Potential outliers (points beyond 1.5×IQR)
 
 ---
 
 **Q3. A correlation heatmap is most useful for identifying:**
 
-A) Causal relationships between variables
-B) Linear relationships and multicollinearity among numerical features
-C) The best model to use
+A) Causal relationships between variables  
+B) Linear relationships and multicollinearity among numerical features  
+C) The best model to use  
 D) Missing value patterns
 
 ---
 
 **Q4. Skewness measures:**
 
-A) The spread of a distribution
-B) The asymmetry of a distribution around its mean
-C) The number of peaks in a distribution
+A) The spread of a distribution  
+B) The asymmetry of a distribution around its mean  
+C) The number of peaks in a distribution  
 D) The correlation between two variables
 
 ---
 
 **Q5. A Q-Q plot (quantile-quantile plot) is used to:**
 
-A) Compare the quantiles of a dataset against a theoretical distribution (typically normal)
-B) Display the frequency of each category
-C) Show the relationship between two continuous variables
+A) Compare the quantiles of a dataset against a theoretical distribution (typically normal)  
+B) Display the frequency of each category  
+C) Show the relationship between two continuous variables  
 D) Compute p-values for hypothesis tests
 
 ---
 
 **Q6. When you discover high multicollinearity between two features during EDA, you should:**
 
-A) Always remove both features
-B) Consider removing one, combining them, or using regularization
-C) Add more features to compensate
+A) Always remove both features  
+B) Consider removing one, combining them, or using regularization  
+C) Add more features to compensate  
 D) Ignore it — it never affects model performance
 
 ---
 
 **Q7. A histogram with a very long right tail suggests:**
 
-A) The data is normally distributed
-B) The data is right-skewed (positively skewed)
-C) The data is left-skewed
+A) The data is normally distributed  
+B) The data is right-skewed (positively skewed)  
+C) The data is left-skewed  
 D) The data has no variance
 
 ---
 
 **Q8. The value of a Pearson correlation coefficient r = 0 means:**
 
-A) The two variables are completely independent
-B) There is no linear relationship (but there may be a nonlinear one)
-C) The two variables are identical
+A) The two variables are completely independent  
+B) There is no linear relationship (but there may be a nonlinear one)  
+C) The two variables are identical  
 D) There is a perfect negative relationship
 
 ---
 
 **Q9. During EDA, discovering that the target variable is highly imbalanced (e.g., 95% class 0, 5% class 1) suggests you should:**
 
-A) Proceed with default model settings — imbalance never matters
-B) Consider resampling techniques, class weights, or appropriate evaluation metrics like F1/AUC
-C) Remove the minority class
+A) Proceed with default model settings — imbalance never matters  
+B) Consider resampling techniques, class weights, or appropriate evaluation metrics like F1/AUC  
+C) Remove the minority class  
 D) Convert the problem to regression
 
 ---
 
 **Q10. A scatter plot matrix (pair plot) is useful for:**
 
-A) Showing only categorical variable distributions
-B) Visualizing pairwise relationships between all numerical features simultaneously
-C) Computing exact p-values
+A) Showing only categorical variable distributions  
+B) Visualizing pairwise relationships between all numerical features simultaneously  
+C) Computing exact p-values  
 D) Replacing all other EDA techniques
 
 ---
 
 **Q11. When you observe a bimodal distribution in a feature, this likely indicates:**
 
-A) The data is normally distributed
-B) The data may contain two distinct sub-populations or groups
-C) There are no outliers
+A) The data is normally distributed  
+B) The data may contain two distinct sub-populations or groups  
+C) There are no outliers  
 D) The feature is irrelevant
 
 ---
 
 **Q12. Simpson's Paradox refers to:**
 
-A) A pattern that appears in data only during visualization
-B) A trend that appears in aggregated data but reverses when data is divided into subgroups
-C) The phenomenon of data always being normally distributed
+A) A pattern that appears in data only during visualization  
+B) A trend that appears in aggregated data but reverses when data is divided into subgroups  
+C) The phenomenon of data always being normally distributed  
 D) The impossibility of finding correlations in small datasets
 
 ---
 
 **Q13. Value counts and frequency tables are most appropriate for analyzing:**
 
-A) Continuous numerical variables
-B) Categorical variables or discrete variables with few unique values
-C) Time series data
+A) Continuous numerical variables  
+B) Categorical variables or discrete variables with few unique values  
+C) Time series data  
 D) High-dimensional data
 
 ---
 
 **Q14. A violin plot combines information from:**
 
-A) A bar chart and a pie chart
-B) A box plot and a kernel density estimation (showing the distribution shape)
-C) A scatter plot and a line chart
+A) A bar chart and a pie chart  
+B) A box plot and a kernel density estimation (showing the distribution shape)  
+C) A scatter plot and a line chart  
 D) A histogram and a Q-Q plot
 
 ---
 
 **Q15. The best practice when performing EDA is to:**
 
-A) Only look at summary statistics without any visualizations
-B) Combine statistical summaries with visualizations and investigate unexpected patterns before modeling
-C) Skip EDA when the dataset is large
+A) Only look at summary statistics without any visualizations  
+B) Combine statistical summaries with visualizations and investigate unexpected patterns before modeling  
+C) Skip EDA when the dataset is large  
 D) Only use EDA for small datasets
 
 ---
@@ -191,4 +191,4 @@ Good EDA combines descriptive statistics (mean, median, std) with visualizations
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

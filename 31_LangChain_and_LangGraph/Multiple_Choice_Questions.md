@@ -1,140 +1,143 @@
 # Multiple Choice Questions: LangChain and LangGraph
 
+📺 **Video Lecture:** https://youtu.be/iDTsOlbjKNw
+
+
 Test your understanding of LangChain and LangGraph concepts for AI/ML interviews.
 
 ---
 
 **Q1. LangChain primarily solves the problem of:**
 
-A) Training LLMs from scratch
-B) Providing reusable abstractions for building LLM applications (prompts, chains, memory, document processing)
-C) Replacing all APIs
+A) Training LLMs from scratch  
+B) Providing reusable abstractions for building LLM applications (prompts, chains, memory, document processing)  
+C) Replacing all APIs  
 D) Only generating images
 
 ---
 
 **Q2. In LangChain, a "chain" differs from an "agent" because:**
 
-A) Chains use reinforcement learning
-B) Chains follow a deterministic, predefined sequence of steps, while agents let the LLM decide what to do next iteratively
-C) Agents cannot use tools
+A) Chains use reinforcement learning  
+B) Chains follow a deterministic, predefined sequence of steps, while agents let the LLM decide what to do next iteratively  
+C) Agents cannot use tools  
 D) Chains are always faster than agents
 
 ---
 
 **Q3. LCEL (LangChain Expression Language) composes chains using:**
 
-A) SQL queries
-B) Pipe operators (|) for declarative, functional composition of LLM calls and tools
-C) Only Python classes
+A) SQL queries  
+B) Pipe operators (|) for declarative, functional composition of LLM calls and tools  
+C) Only Python classes  
 D) XML configuration files
 
 ---
 
 **Q4. LangGraph extends LangChain by providing:**
 
-A) Only simple linear chains
-B) Graph-based stateful orchestration for complex multi-step agent workflows with persistence and human-in-the-loop
-C) A replacement for Python
+A) Only simple linear chains  
+B) Graph-based stateful orchestration for complex multi-step agent workflows with persistence and human-in-the-loop  
+C) A replacement for Python  
 D) Only document retrieval
 
 ---
 
 **Q5. In LangGraph, nodes represent:**
 
-A) Database tables
-B) Individual processing steps (LLM calls, tool invocations, logic) connected by conditional edges
-C) Only input data
+A) Database tables  
+B) Individual processing steps (LLM calls, tool invocations, logic) connected by conditional edges  
+C) Only input data  
 D) Hardware components
 
 ---
 
 **Q6. Memory management in LangChain helps agents by:**
 
-A) Increasing the model size
-B) Maintaining conversation history and context across interactions, enabling multi-turn conversations
-C) Removing all previous context
+A) Increasing the model size  
+B) Maintaining conversation history and context across interactions, enabling multi-turn conversations  
+C) Removing all previous context  
 D) Only storing user credentials
 
 ---
 
 **Q7. LangChain's document loaders and text splitters are used for:**
 
-A) Training new models
-B) Loading documents from various sources and splitting them into chunks for RAG pipelines
-C) Only PDF generation
+A) Training new models  
+B) Loading documents from various sources and splitting them into chunks for RAG pipelines  
+C) Only PDF generation  
 D) Image processing
 
 ---
 
 **Q8. Human-in-the-loop in LangGraph allows:**
 
-A) Removing humans from the process entirely
-B) Pausing agent workflows for human review or approval before proceeding with critical actions
-C) Only manual data entry
+A) Removing humans from the process entirely  
+B) Pausing agent workflows for human review or approval before proceeding with critical actions  
+C) Only manual data entry  
 D) Retraining the model during execution
 
 ---
 
 **Q9. State persistence in LangGraph enables:**
 
-A) Only in-memory computation
-B) Saving and resuming long-running workflows across sessions, supporting checkpoints and recovery
-C) Deleting all state after each step
+A) Only in-memory computation  
+B) Saving and resuming long-running workflows across sessions, supporting checkpoints and recovery  
+C) Deleting all state after each step  
 D) Only synchronous execution
 
 ---
 
 **Q10. Output parsers in LangChain are used to:**
 
-A) Generate random outputs
-B) Convert LLM text outputs into structured formats (JSON, lists, Pydantic objects) for downstream processing
-C) Only format text for display
+A) Generate random outputs  
+B) Convert LLM text outputs into structured formats (JSON, lists, Pydantic objects) for downstream processing  
+C) Only format text for display  
 D) Translate between languages
 
 ---
 
 **Q11. The advantage of using LangChain's retrieval chain over building RAG from scratch is:**
 
-A) It's always more accurate
-B) It provides pre-built components for document loading, splitting, embedding, retrieval, and prompt formatting, reducing boilerplate code
-C) It only works with OpenAI models
+A) It's always more accurate  
+B) It provides pre-built components for document loading, splitting, embedding, retrieval, and prompt formatting, reducing boilerplate code  
+C) It only works with OpenAI models  
 D) It eliminates the need for a vector database
 
 ---
 
 **Q12. Conditional edges in LangGraph enable:**
 
-A) Only linear execution
-B) Dynamic routing where the next node depends on the current state or LLM output, enabling branching workflows
-C) Random node selection
+A) Only linear execution  
+B) Dynamic routing where the next node depends on the current state or LLM output, enabling branching workflows  
+C) Random node selection  
 D) Only backward traversal
 
 ---
 
 **Q13. LangChain's callback system provides:**
 
-A) Only error handling
-B) Hooks for logging, monitoring, streaming, and debugging at each step of chain/agent execution
-C) Only authentication
+A) Only error handling  
+B) Hooks for logging, monitoring, streaming, and debugging at each step of chain/agent execution  
+C) Only authentication  
 D) Data encryption
 
 ---
 
 **Q14. When should you choose LangGraph over simple LangChain chains?**
 
-A) For all tasks regardless of complexity
-B) When workflows require complex state management, conditional branching, loops, or human-in-the-loop approval
-C) Only for text classification
+A) For all tasks regardless of complexity  
+B) When workflows require complex state management, conditional branching, loops, or human-in-the-loop approval  
+C) Only for text classification  
 D) When no tools are needed
 
 ---
 
 **Q15. LangChain's tool abstraction standardizes:**
 
-A) Only database access
-B) The interface for LLMs to discover, invoke, and process results from external tools and APIs
-C) Only file I/O operations
+A) Only database access  
+B) The interface for LLMs to discover, invoke, and process results from external tools and APIs  
+C) Only file I/O operations  
 D) Model training procedures
 
 ---
@@ -188,4 +191,4 @@ LangChain's tool abstraction provides a standard interface (name, description, i
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

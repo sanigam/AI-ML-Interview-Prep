@@ -9,135 +9,135 @@ Test your understanding of overfitting, underfitting, and regularization techniq
 
 **Q1. The bias-variance decomposition states that total prediction error equals:**
 
-A) Bias + Variance
-B) Bias² + Variance + Irreducible Noise
-C) Only variance
+A) Bias + Variance  
+B) Bias² + Variance + Irreducible Noise  
+C) Only variance  
 D) Bias × Variance
 
 ---
 
 **Q2. A model with high bias and low variance is:**
 
-A) Overfitting
-B) Underfitting — too simple to capture the underlying pattern
-C) Perfectly fitted
+A) Overfitting  
+B) Underfitting — too simple to capture the underlying pattern  
+C) Perfectly fitted  
 D) Always the best choice
 
 ---
 
 **Q3. A model with low bias and high variance is:**
 
-A) Underfitting
-B) Overfitting — too sensitive to specific training data
-C) Ignoring the data
+A) Underfitting  
+B) Overfitting — too sensitive to specific training data  
+C) Ignoring the data  
 D) Always the worst choice
 
 ---
 
 **Q4. Increasing model complexity (e.g., more polynomial degree, deeper tree) typically:**
 
-A) Decreases both bias and variance
-B) Decreases bias but increases variance
-C) Increases both bias and variance
+A) Decreases both bias and variance  
+B) Decreases bias but increases variance  
+C) Increases both bias and variance  
 D) Has no effect
 
 ---
 
 **Q5. L2 regularization (Ridge) adds which penalty to the loss function?**
 
-A) λ × Σ|βⱼ|
-B) λ × Σβⱼ²
-C) λ × Σβⱼ
+A) λ × Σ|βⱼ|  
+B) λ × Σβⱼ²  
+C) λ × Σβⱼ  
 D) λ × max(βⱼ)
 
 ---
 
 **Q6. L1 regularization (Lasso) produces sparse models because:**
 
-A) It squares all coefficients
-B) The absolute value penalty has a sharp corner at zero, allowing coefficients to become exactly zero
-C) It removes data points
+A) It squares all coefficients  
+B) The absolute value penalty has a sharp corner at zero, allowing coefficients to become exactly zero  
+C) It removes data points  
 D) It always selects exactly half the features
 
 ---
 
 **Q7. Increasing the regularization parameter λ:**
 
-A) Makes the model more complex
-B) Increases model simplicity (stronger regularization), increasing bias but decreasing variance
-C) Has no effect on the model
+A) Makes the model more complex  
+B) Increases model simplicity (stronger regularization), increasing bias but decreasing variance  
+C) Has no effect on the model  
 D) Always improves test accuracy
 
 ---
 
 **Q8. Dropout in neural networks acts as regularization by:**
 
-A) Removing layers permanently
-B) Randomly setting a fraction of neurons to zero during training, forcing the network to be redundant
-C) Increasing the learning rate
+A) Removing layers permanently  
+B) Randomly setting a fraction of neurons to zero during training, forcing the network to be redundant  
+C) Increasing the learning rate  
 D) Adding extra layers
 
 ---
 
 **Q9. Early stopping prevents overfitting by:**
 
-A) Training for a fixed number of epochs regardless of performance
-B) Halting training when validation performance stops improving
-C) Using only the first 10% of training data
+A) Training for a fixed number of epochs regardless of performance  
+B) Halting training when validation performance stops improving  
+C) Using only the first 10% of training data  
 D) Removing the validation set
 
 ---
 
 **Q10. Cross-validation helps detect overfitting because:**
 
-A) It trains and tests on the same data
-B) It evaluates the model on data not used for training, revealing the generalization gap
-C) It increases the training set size
+A) It trains and tests on the same data  
+B) It evaluates the model on data not used for training, revealing the generalization gap  
+C) It increases the training set size  
 D) It eliminates all variance
 
 ---
 
 **Q11. Adding more training data typically reduces:**
 
-A) Bias
-B) Variance (more data stabilizes parameter estimates)
-C) Irreducible noise
+A) Bias  
+B) Variance (more data stabilizes parameter estimates)  
+C) Irreducible noise  
 D) The number of features needed
 
 ---
 
 **Q12. Data augmentation (e.g., flipping images, adding noise) helps reduce overfitting by:**
 
-A) Removing samples from the training set
-B) Effectively increasing training set diversity without collecting new data
-C) Making the model more complex
+A) Removing samples from the training set  
+B) Effectively increasing training set diversity without collecting new data  
+C) Making the model more complex  
 D) Reducing the number of parameters
 
 ---
 
 **Q13. Batch normalization helps with regularization because:**
 
-A) It removes all features
-B) Each mini-batch introduces slight noise in the mean/variance estimates, acting as a regularizer
-C) It fixes the learning rate
+A) It removes all features  
+B) Each mini-batch introduces slight noise in the mean/variance estimates, acting as a regularizer  
+C) It fixes the learning rate  
 D) It eliminates the need for a validation set
 
 ---
 
 **Q14. The validation set is used for:**
 
-A) Final performance reporting
-B) Hyperparameter tuning and model selection (separate from the test set used for final evaluation)
-C) Training the model
+A) Final performance reporting  
+B) Hyperparameter tuning and model selection (separate from the test set used for final evaluation)  
+C) Training the model  
 D) Replacing cross-validation entirely
 
 ---
 
 **Q15. Weight decay in neural networks is mathematically equivalent to:**
 
-A) L1 regularization
-B) L2 regularization (adding λ||w||² to the loss)
-C) Dropout
+A) L1 regularization  
+B) L2 regularization (adding λ||w||² to the loss)  
+C) Dropout  
 D) Increasing the learning rate
 
 ---
@@ -191,4 +191,4 @@ Weight decay subtracts λ×w from weights each step, which is equivalent to addi
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

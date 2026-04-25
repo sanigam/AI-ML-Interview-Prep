@@ -1,140 +1,143 @@
 # Multiple Choice Questions: Responsible AI and Ethics
 
+📺 **Video Lecture:** https://youtu.be/98MoT_pNMRw
+
+
 Test your understanding of responsible AI concepts for AI/ML interviews.
 
 ---
 
 **Q1. Demographic parity as a fairness criterion requires that:**
 
-A) The model has equal accuracy for all groups
-B) Model predictions are independent of the protected attribute (e.g., equal approval rates across genders)
-C) All groups have the same features
+A) The model has equal accuracy for all groups  
+B) Model predictions are independent of the protected attribute (e.g., equal approval rates across genders)  
+C) All groups have the same features  
 D) The model never makes errors
 
 ---
 
 **Q2. Historical bias in ML systems occurs when:**
 
-A) The algorithm is poorly coded
-B) Training data reflects past societal discrimination, causing the model to learn and perpetuate those biases
-C) The model is too small
+A) The algorithm is poorly coded  
+B) Training data reflects past societal discrimination, causing the model to learn and perpetuate those biases  
+C) The model is too small  
 D) The test set is too large
 
 ---
 
 **Q3. SHAP (SHapley Additive exPlanations) explains predictions by:**
 
-A) Removing the model entirely
-B) Using game-theoretic Shapley values to assign each feature a contribution score for a specific prediction
-C) Only explaining linear models
+A) Removing the model entirely  
+B) Using game-theoretic Shapley values to assign each feature a contribution score for a specific prediction  
+C) Only explaining linear models  
 D) Randomly assigning feature importance
 
 ---
 
 **Q4. LIME (Local Interpretable Model-agnostic Explanations) works by:**
 
-A) Globally retraining the model
-B) Perturbing inputs around a prediction and fitting a simple interpretable model locally to approximate the black-box behavior
-C) Only using decision trees
+A) Globally retraining the model  
+B) Perturbing inputs around a prediction and fitting a simple interpretable model locally to approximate the black-box behavior  
+C) Only using decision trees  
 D) Replacing the model with a rule-based system
 
 ---
 
 **Q5. The tension between fairness criteria means that:**
 
-A) All fairness criteria can always be satisfied simultaneously
-B) Optimizing for one criterion (e.g., demographic parity) may worsen another (e.g., equalized odds), requiring context-dependent choices
-C) Fairness is irrelevant in ML
+A) All fairness criteria can always be satisfied simultaneously  
+B) Optimizing for one criterion (e.g., demographic parity) may worsen another (e.g., equalized odds), requiring context-dependent choices  
+C) Fairness is irrelevant in ML  
 D) Only one fairness metric exists
 
 ---
 
 **Q6. Post-processing bias mitigation adjusts:**
 
-A) The training data before training
-B) Model predictions after training, such as using different decision thresholds per group
-C) The model architecture
+A) The training data before training  
+B) Model predictions after training, such as using different decision thresholds per group  
+C) The model architecture  
 D) The loss function during training
 
 ---
 
 **Q7. A model card documents:**
 
-A) Only the model's accuracy
-B) Model details, intended use, performance across groups, limitations, ethical considerations, and training data characteristics
-C) Only the training code
+A) Only the model's accuracy  
+B) Model details, intended use, performance across groups, limitations, ethical considerations, and training data characteristics  
+C) Only the training code  
 D) Only the model's file size
 
 ---
 
 **Q8. Equalized odds requires that the model has:**
 
-A) The same prediction rate for all groups
-B) Equal true positive rates AND equal false positive rates across protected groups
-C) Perfect accuracy
+A) The same prediction rate for all groups  
+B) Equal true positive rates AND equal false positive rates across protected groups  
+C) Perfect accuracy  
 D) Zero false positives only
 
 ---
 
 **Q9. Representation bias in training data occurs when:**
 
-A) All groups are equally represented
-B) Certain groups are underrepresented, causing the model to perform worse for those groups
-C) The model is too complex
+A) All groups are equally represented  
+B) Certain groups are underrepresented, causing the model to perform worse for those groups  
+C) The model is too complex  
 D) Features are perfectly correlated
 
 ---
 
 **Q10. Grad-CAM explains image classifier decisions by:**
 
-A) Retraining the model
-B) Visualizing which image regions most influenced the prediction using gradient-weighted activation maps
-C) Only working with text models
+A) Retraining the model  
+B) Visualizing which image regions most influenced the prediction using gradient-weighted activation maps  
+C) Only working with text models  
 D) Randomly highlighting pixels
 
 ---
 
 **Q11. The EU AI Act classifies AI systems into risk categories requiring:**
 
-A) No regulations for any AI
-B) Different levels of transparency, documentation, and oversight based on the risk level (unacceptable, high, limited, minimal)
-C) All AI to be banned
+A) No regulations for any AI  
+B) Different levels of transparency, documentation, and oversight based on the risk level (unacceptable, high, limited, minimal)  
+C) All AI to be banned  
 D) Only voluntary guidelines
 
 ---
 
 **Q12. Adversarial debiasing is an in-processing technique that:**
 
-A) Adds more biased data
-B) Uses an adversarial network to prevent the model from being able to predict the protected attribute from its representations
-C) Removes all features
+A) Adds more biased data  
+B) Uses an adversarial network to prevent the model from being able to predict the protected attribute from its representations  
+C) Removes all features  
 D) Only works with GANs
 
 ---
 
 **Q13. Differential privacy in ML ensures that:**
 
-A) The model's weights are encrypted
-B) The presence or absence of any single individual's data has minimal impact on the model's outputs, protecting individual privacy
-C) All data is public
+A) The model's weights are encrypted  
+B) The presence or absence of any single individual's data has minimal impact on the model's outputs, protecting individual privacy  
+C) All data is public  
 D) Only large datasets can be used
 
 ---
 
 **Q14. The right to explanation under GDPR gives individuals:**
 
-A) Access to all training data
-B) The right to meaningful information about the logic behind automated decisions that significantly affect them
-C) The right to retrain the model
+A) Access to all training data  
+B) The right to meaningful information about the logic behind automated decisions that significantly affect them  
+C) The right to retrain the model  
 D) The right to delete the model
 
 ---
 
 **Q15. Calibration as a fairness criterion means:**
 
-A) The model always predicts 50%
-B) When the model predicts a probability (e.g., 80%), the actual positive rate should be approximately 80% across all groups
-C) All groups have the same features
+A) The model always predicts 50%  
+B) When the model predicts a probability (e.g., 80%), the actual positive rate should be approximately 80% across all groups  
+C) All groups have the same features  
 D) The model is perfectly accurate
 
 ---
@@ -188,4 +191,4 @@ Calibration means predicted probabilities match actual frequencies across all gr
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

@@ -1,5 +1,8 @@
 # Retrieval-Augmented Generation and Vector Databases
 
+📺 **Video Lecture:** https://youtu.be/zw4WmjWg3LY
+
+
 ## Interview Anchor
 - **RAG (Retrieval-Augmented Generation):** Augment LLM with retrieved relevant documents; improves factuality and enables external knowledge without retraining
 - **Vector Database:** Specialized database for storing and searching embeddings via similarity; enables efficient semantic search at scale
@@ -166,4 +169,4 @@ Retrieval-Augmented Generation represents a paradigm shift in how language model
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

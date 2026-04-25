@@ -9,135 +9,135 @@ Test your understanding of metrics, cross-validation, and model selection techni
 
 **Q1. Accuracy is a misleading metric when:**
 
-A) The model is very complex
-B) The classes are highly imbalanced (e.g., 99% negative, 1% positive)
-C) The features are standardized
+A) The model is very complex  
+B) The classes are highly imbalanced (e.g., 99% negative, 1% positive)  
+C) The features are standardized  
 D) Cross-validation is used
 
 ---
 
 **Q2. Precision is defined as:**
 
-A) TP / (TP + FN)
-B) TP / (TP + FP) — the fraction of positive predictions that are actually positive
-C) (TP + TN) / Total
+A) TP / (TP + FN)  
+B) TP / (TP + FP) — the fraction of positive predictions that are actually positive  
+C) (TP + TN) / Total  
 D) TN / (TN + FP)
 
 ---
 
 **Q3. Recall (Sensitivity) is defined as:**
 
-A) TP / (TP + FP)
-B) TP / (TP + FN) — the fraction of actual positives correctly identified
-C) TN / (TN + FP)
+A) TP / (TP + FP)  
+B) TP / (TP + FN) — the fraction of actual positives correctly identified  
+C) TN / (TN + FP)  
 D) (TP + TN) / Total
 
 ---
 
 **Q4. The F1 score is:**
 
-A) The average of accuracy and precision
-B) The harmonic mean of precision and recall
-C) The geometric mean of specificity and sensitivity
+A) The average of accuracy and precision  
+B) The harmonic mean of precision and recall  
+C) The geometric mean of specificity and sensitivity  
 D) Always higher than accuracy
 
 ---
 
 **Q5. AUC-ROC measures:**
 
-A) The model's accuracy at a single threshold
-B) The model's ability to discriminate between classes across all possible thresholds
-C) The number of features used
+A) The model's accuracy at a single threshold  
+B) The model's ability to discriminate between classes across all possible thresholds  
+C) The number of features used  
 D) The training time
 
 ---
 
 **Q6. K-fold cross-validation works by:**
 
-A) Training on 50% of data and testing on 50%
-B) Splitting data into k folds, training on k−1 folds and testing on the remaining fold, rotating k times
-C) Randomly selecting k features
+A) Training on 50% of data and testing on 50%  
+B) Splitting data into k folds, training on k−1 folds and testing on the remaining fold, rotating k times  
+C) Randomly selecting k features  
 D) Using the entire dataset for both training and testing
 
 ---
 
 **Q7. Stratified k-fold cross-validation preserves:**
 
-A) The temporal order of data
-B) The class distribution (proportion of each class) in each fold
-C) The feature scaling across folds
+A) The temporal order of data  
+B) The class distribution (proportion of each class) in each fold  
+C) The feature scaling across folds  
 D) The exact same samples in each fold
 
 ---
 
 **Q8. When comparing two models, a model with lower training error but higher test error likely:**
 
-A) Is underfitting
-B) Is overfitting (has high variance)
-C) Is perfectly fit
+A) Is underfitting  
+B) Is overfitting (has high variance)  
+C) Is perfectly fit  
 D) Needs more features
 
 ---
 
 **Q9. The ROC curve plots:**
 
-A) Precision vs. Recall
-B) True Positive Rate vs. False Positive Rate at various thresholds
-C) Accuracy vs. Number of features
+A) Precision vs. Recall  
+B) True Positive Rate vs. False Positive Rate at various thresholds  
+C) Accuracy vs. Number of features  
 D) Loss vs. Epochs
 
 ---
 
 **Q10. In a medical screening test where missing a disease is costly, you should optimize for:**
 
-A) High precision (few false positives)
-B) High recall (few false negatives — catch most actual positives)
-C) Low AUC
+A) High precision (few false positives)  
+B) High recall (few false negatives — catch most actual positives)  
+C) Low AUC  
 D) High specificity only
 
 ---
 
 **Q11. Leave-one-out cross-validation (LOOCV) has:**
 
-A) High bias, low variance in error estimate
-B) Low bias but high variance in error estimate, and is computationally expensive
-C) No bias and no variance
+A) High bias, low variance in error estimate  
+B) Low bias but high variance in error estimate, and is computationally expensive  
+C) No bias and no variance  
 D) Always lower error than k-fold
 
 ---
 
 **Q12. The Precision-Recall curve is preferred over ROC when:**
 
-A) Classes are balanced
-B) Classes are highly imbalanced (ROC can be overly optimistic with many true negatives)
-C) The model is linear
+A) Classes are balanced  
+B) Classes are highly imbalanced (ROC can be overly optimistic with many true negatives)  
+C) The model is linear  
 D) Only binary features are present
 
 ---
 
 **Q13. Mean Squared Error (MSE) is used for regression and is sensitive to:**
 
-A) The number of features
-B) Outliers (large errors are squared, amplifying their effect)
-C) The sign of predictions
+A) The number of features  
+B) Outliers (large errors are squared, amplifying their effect)  
+C) The sign of predictions  
 D) Categorical targets
 
 ---
 
 **Q14. The log loss (cross-entropy) metric penalizes:**
 
-A) Only incorrect predictions
-B) Confident wrong predictions more heavily than uncertain wrong predictions
-C) All predictions equally
+A) Only incorrect predictions  
+B) Confident wrong predictions more heavily than uncertain wrong predictions  
+C) All predictions equally  
 D) Only predictions above 0.5
 
 ---
 
 **Q15. Nested cross-validation is used to:**
 
-A) Speed up model training
-B) Provide an unbiased estimate of model performance when hyperparameters are also tuned via CV
-C) Reduce the dataset size
+A) Speed up model training  
+B) Provide an unbiased estimate of model performance when hyperparameters are also tuned via CV  
+C) Reduce the dataset size  
 D) Eliminate the need for a test set
 
 ---
@@ -191,4 +191,4 @@ Nested CV has an outer loop for performance estimation and inner loop for hyperp
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

@@ -9,135 +9,135 @@ Test your understanding of recurrent neural networks and sequence modeling for A
 
 **Q1. In a vanilla RNN, the hidden state hₜ is computed as:**
 
-A) hₜ = σ(Wₓ·xₜ + b)
-B) hₜ = tanh(Wₕ·hₜ₋₁ + Wₓ·xₜ + b)
-C) hₜ = hₜ₋₁ + xₜ
+A) hₜ = σ(Wₓ·xₜ + b)  
+B) hₜ = tanh(Wₕ·hₜ₋₁ + Wₓ·xₜ + b)  
+C) hₜ = hₜ₋₁ + xₜ  
 D) hₜ = softmax(Wₕ·hₜ₋₁)
 
 ---
 
 **Q2. The vanishing gradient problem in RNNs is more severe than in feedforward networks because:**
 
-A) RNNs use different activation functions
-B) Gradients are multiplied through many timesteps during BPTT, creating extremely long dependency chains
-C) RNNs have more parameters per layer
+A) RNNs use different activation functions  
+B) Gradients are multiplied through many timesteps during BPTT, creating extremely long dependency chains  
+C) RNNs have more parameters per layer  
 D) RNNs cannot use batch normalization
 
 ---
 
 **Q3. The LSTM cell state cₜ helps gradient flow because updates are:**
 
-A) Multiplicative only
-B) Additive (cₜ = fₜ ⊙ cₜ₋₁ + iₜ ⊙ c̃ₜ), preventing exponential gradient decay
-C) Always equal to the hidden state
+A) Multiplicative only  
+B) Additive (cₜ = fₜ ⊙ cₜ₋₁ + iₜ ⊙ c̃ₜ), preventing exponential gradient decay  
+C) Always equal to the hidden state  
 D) Computed without any gating mechanism
 
 ---
 
 **Q4. Which LSTM gate controls how much of the previous cell state to retain?**
 
-A) Input gate
-B) Output gate
-C) Forget gate
+A) Input gate  
+B) Output gate  
+C) Forget gate  
 D) Reset gate
 
 ---
 
 **Q5. GRU differs from LSTM primarily by:**
 
-A) Having more gates and a separate cell state
-B) Having fewer gates (2 vs. 3) and no separate cell state
-C) Being unable to handle sequences
+A) Having more gates and a separate cell state  
+B) Having fewer gates (2 vs. 3) and no separate cell state  
+C) Being unable to handle sequences  
 D) Requiring bidirectional processing
 
 ---
 
 **Q6. Bidirectional RNNs are NOT suitable for:**
 
-A) Sentiment classification of complete sentences
-B) Named entity recognition on full documents
-C) Real-time language generation (producing text token by token)
+A) Sentiment classification of complete sentences  
+B) Named entity recognition on full documents  
+C) Real-time language generation (producing text token by token)  
 D) Encoding input sequences in a seq2seq model
 
 ---
 
 **Q7. In a seq2seq encoder-decoder model without attention, the information bottleneck is:**
 
-A) The size of the input vocabulary
-B) The fixed-size context vector (final encoder hidden state) that must encode the entire input
-C) The number of decoder layers
+A) The size of the input vocabulary  
+B) The fixed-size context vector (final encoder hidden state) that must encode the entire input  
+C) The number of decoder layers  
 D) The loss function choice
 
 ---
 
 **Q8. The attention mechanism in seq2seq computes context by:**
 
-A) Averaging all encoder hidden states equally
-B) Computing a weighted sum of encoder hidden states, with weights based on relevance to the current decoder state
-C) Using only the last encoder hidden state
+A) Averaging all encoder hidden states equally  
+B) Computing a weighted sum of encoder hidden states, with weights based on relevance to the current decoder state  
+C) Using only the last encoder hidden state  
 D) Randomly selecting encoder states
 
 ---
 
 **Q9. Teacher forcing during training provides:**
 
-A) Predicted outputs as decoder inputs
-B) Ground truth previous tokens as decoder inputs for faster convergence
-C) Random noise as decoder inputs
+A) Predicted outputs as decoder inputs  
+B) Ground truth previous tokens as decoder inputs for faster convergence  
+C) Random noise as decoder inputs  
 D) No inputs to the decoder
 
 ---
 
 **Q10. Exposure bias refers to the discrepancy between:**
 
-A) Training loss and test loss
-B) Training (where decoder sees ground truth) and inference (where decoder sees its own predictions)
-C) Encoder and decoder architectures
+A) Training loss and test loss  
+B) Training (where decoder sees ground truth) and inference (where decoder sees its own predictions)  
+C) Encoder and decoder architectures  
 D) Supervised and unsupervised learning
 
 ---
 
 **Q11. Beam search with beam width k=5 at each decoding step:**
 
-A) Generates 5 complete sequences independently
-B) Maintains the top 5 partial sequences by cumulative log-probability
-C) Randomly samples 5 tokens
+A) Generates 5 complete sequences independently  
+B) Maintains the top 5 partial sequences by cumulative log-probability  
+C) Randomly samples 5 tokens  
 D) Uses 5 different models
 
 ---
 
 **Q12. In sequence padding, masking is important because:**
 
-A) It speeds up computation
-B) It prevents padding tokens from contributing to loss computation and attention weights
-C) It increases the sequence length
+A) It speeds up computation  
+B) It prevents padding tokens from contributing to loss computation and attention weights  
+C) It increases the sequence length  
 D) It replaces the need for embedding layers
 
 ---
 
 **Q13. Gradient clipping in RNN training:**
 
-A) Increases the learning rate automatically
-B) Caps the gradient norm to a threshold to prevent exploding gradients
-C) Removes negative gradients
+A) Increases the learning rate automatically  
+B) Caps the gradient norm to a threshold to prevent exploding gradients  
+C) Removes negative gradients  
 D) Only applies to the output layer
 
 ---
 
 **Q14. Scheduled sampling addresses exposure bias by:**
 
-A) Always using teacher forcing
-B) Gradually decreasing the probability of using ground truth inputs during training
-C) Increasing the beam width over time
+A) Always using teacher forcing  
+B) Gradually decreasing the probability of using ground truth inputs during training  
+C) Increasing the beam width over time  
 D) Using a fixed schedule of learning rates
 
 ---
 
 **Q15. The main reason Transformers have largely replaced RNNs for NLP tasks is:**
 
-A) Transformers use recurrent connections for better memory
-B) Transformers enable parallelization across sequence positions and scale better with data and compute
-C) Transformers have fewer parameters than RNNs
+A) Transformers use recurrent connections for better memory  
+B) Transformers enable parallelization across sequence positions and scale better with data and compute  
+C) Transformers have fewer parameters than RNNs  
 D) Transformers do not require any training
 
 ---
@@ -191,4 +191,4 @@ Transformers process all positions in parallel via self-attention (unlike RNNs' 
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

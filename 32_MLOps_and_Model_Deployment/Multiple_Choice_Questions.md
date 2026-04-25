@@ -1,140 +1,143 @@
 # Multiple Choice Questions: MLOps and Model Deployment
 
+📺 **Video Lecture:** https://youtu.be/s0Ior7fz9oc
+
+
 Test your understanding of MLOps and model deployment for AI/ML interviews.
 
 ---
 
 **Q1. The ML lifecycle includes all of the following EXCEPT:**
 
-A) Data collection and cleaning
-B) Model training and evaluation
-C) Deployment and monitoring
+A) Data collection and cleaning  
+B) Model training and evaluation  
+C) Deployment and monitoring  
 D) Manufacturing hardware chips
 
 ---
 
 **Q2. Experiment tracking tools like MLflow help by:**
 
-A) Automatically improving model accuracy
-B) Recording hyperparameters, metrics, code versions, and artifacts for reproducibility and comparison
-C) Replacing the need for training data
+A) Automatically improving model accuracy  
+B) Recording hyperparameters, metrics, code versions, and artifacts for reproducibility and comparison  
+C) Replacing the need for training data  
 D) Only storing final model weights
 
 ---
 
 **Q3. A model registry differs from simple model versioning by providing:**
 
-A) Only file storage
-B) Centralized management with stage transitions (staging → production), metadata, lineage, and governance
-C) Automatic model improvement
+A) Only file storage  
+B) Centralized management with stage transitions (staging → production), metadata, lineage, and governance  
+C) Automatic model improvement  
 D) Only version numbers
 
 ---
 
 **Q4. Data drift in production occurs when:**
 
-A) The model gets better over time
-B) The distribution of incoming data shifts from the training data distribution, potentially degrading model performance
-C) The model is retrained daily
+A) The model gets better over time  
+B) The distribution of incoming data shifts from the training data distribution, potentially degrading model performance  
+C) The model is retrained daily  
 D) Users stop using the model
 
 ---
 
 **Q5. Concept drift differs from data drift because:**
 
-A) They are identical
-B) Concept drift means the relationship between features and target changes, not just the feature distribution
-C) Concept drift only affects images
+A) They are identical  
+B) Concept drift means the relationship between features and target changes, not just the feature distribution  
+C) Concept drift only affects images  
 D) Data drift is always worse
 
 ---
 
 **Q6. A/B testing for model deployment involves:**
 
-A) Deploying only the new model
-B) Running old and new models simultaneously on different user segments to compare real-world performance
-C) Only using offline metrics
+A) Deploying only the new model  
+B) Running old and new models simultaneously on different user segments to compare real-world performance  
+C) Only using offline metrics  
 D) Deploying to zero users
 
 ---
 
 **Q7. Canary deployment for ML models means:**
 
-A) Deploying to all users at once
-B) Gradually rolling out the new model to a small percentage of traffic first, monitoring for issues before full rollout
-C) Deploying only to internal users
+A) Deploying to all users at once  
+B) Gradually rolling out the new model to a small percentage of traffic first, monitoring for issues before full rollout  
+C) Deploying only to internal users  
 D) Rolling back automatically without monitoring
 
 ---
 
 **Q8. Feature stores address the problem of:**
 
-A) Storing model weights
-B) Providing consistent, reusable feature definitions across training and serving to prevent train-serve skew
-C) Only generating new features
+A) Storing model weights  
+B) Providing consistent, reusable feature definitions across training and serving to prevent train-serve skew  
+C) Only generating new features  
 D) Replacing the model registry
 
 ---
 
 **Q9. CI/CD for ML (MLOps pipelines) automates:**
 
-A) Only code testing
-B) The entire pipeline from data validation through training, evaluation, and deployment with automated quality gates
-C) Only model deployment
+A) Only code testing  
+B) The entire pipeline from data validation through training, evaluation, and deployment with automated quality gates  
+C) Only model deployment  
 D) Only data collection
 
 ---
 
 **Q10. Model monitoring in production should track:**
 
-A) Only inference latency
-B) Prediction quality metrics, data distribution, latency, error rates, and business KPIs
-C) Only the number of API calls
+A) Only inference latency  
+B) Prediction quality metrics, data distribution, latency, error rates, and business KPIs  
+C) Only the number of API calls  
 D) Only model size
 
 ---
 
 **Q11. Shadow deployment runs the new model:**
 
-A) Instead of the old model
-B) Alongside the old model on real traffic but only the old model's predictions are served to users
-C) Only on synthetic data
+A) Instead of the old model  
+B) Alongside the old model on real traffic but only the old model's predictions are served to users  
+C) Only on synthetic data  
 D) Without any logging
 
 ---
 
 **Q12. Train-serve skew refers to:**
 
-A) The model training being too slow
-B) Differences between the training environment and serving environment that cause the model to perform differently in production
-C) The serving infrastructure being too expensive
+A) The model training being too slow  
+B) Differences between the training environment and serving environment that cause the model to perform differently in production  
+C) The serving infrastructure being too expensive  
 D) Users preferring older models
 
 ---
 
 **Q13. Model quantization for deployment:**
 
-A) Increases model accuracy
-B) Reduces model size and inference time by converting weights from float32 to lower precision (int8, float16)
-C) Removes all model parameters
+A) Increases model accuracy  
+B) Reduces model size and inference time by converting weights from float32 to lower precision (int8, float16)  
+C) Removes all model parameters  
 D) Only works for NLP models
 
 ---
 
 **Q14. DVC (Data Version Control) helps ML teams by:**
 
-A) Only tracking code changes
-B) Versioning datasets and model artifacts alongside code, enabling reproducible experiments
-C) Replacing Git entirely
+A) Only tracking code changes  
+B) Versioning datasets and model artifacts alongside code, enabling reproducible experiments  
+C) Replacing Git entirely  
 D) Only storing images
 
 ---
 
 **Q15. When should you retrain a model in production?**
 
-A) Never after initial deployment
-B) When monitoring detects significant data drift, concept drift, or performance degradation on business metrics
-C) Every hour regardless of performance
+A) Never after initial deployment  
+B) When monitoring detects significant data drift, concept drift, or performance degradation on business metrics  
+C) Every hour regardless of performance  
 D) Only when the code changes
 
 ---
@@ -188,4 +191,4 @@ Retraining should be triggered by monitoring signals: significant data drift, pe
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

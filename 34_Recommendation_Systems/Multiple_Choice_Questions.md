@@ -1,140 +1,143 @@
 # Multiple Choice Questions: Recommendation Systems
 
+📺 **Video Lecture:** https://youtu.be/8-Y8X7ZOD2s
+
+
 Test your understanding of recommendation system concepts for AI/ML interviews.
 
 ---
 
 **Q1. Collaborative filtering recommends items based on:**
 
-A) Item features and descriptions
-B) Patterns of similar user behavior — users who agreed in the past will likely agree in the future
-C) Random selection
+A) Item features and descriptions  
+B) Patterns of similar user behavior — users who agreed in the past will likely agree in the future  
+C) Random selection  
 D) Alphabetical ordering
 
 ---
 
 **Q2. Item-based collaborative filtering is often preferred over user-based because:**
 
-A) It requires more computation
-B) Item similarities are more stable than user similarities and can be precomputed for scalability
-C) It ignores all user data
+A) It requires more computation  
+B) Item similarities are more stable than user similarities and can be precomputed for scalability  
+C) It ignores all user data  
 D) It only works for movies
 
 ---
 
 **Q3. Matrix factorization decomposes the user-item rating matrix into:**
 
-A) A single vector
-B) Two lower-rank matrices (user factors and item factors) whose product approximates the original ratings
-C) A decision tree
+A) A single vector  
+B) Two lower-rank matrices (user factors and item factors) whose product approximates the original ratings  
+C) A decision tree  
 D) A neural network
 
 ---
 
 **Q4. The cold start problem refers to:**
 
-A) The system running too slowly
-B) Difficulty making recommendations for new users (no history) or new items (no ratings)
-C) The model overfitting
+A) The system running too slowly  
+B) Difficulty making recommendations for new users (no history) or new items (no ratings)  
+C) The model overfitting  
 D) The database being empty
 
 ---
 
 **Q5. Content-based filtering recommends items by:**
 
-A) Matching users with similar behavior
-B) Comparing item features to a user's preference profile built from their past interactions
-C) Random sampling
+A) Matching users with similar behavior  
+B) Comparing item features to a user's preference profile built from their past interactions  
+C) Random sampling  
 D) Popularity ranking only
 
 ---
 
 **Q6. Implicit feedback (clicks, views, time spent) differs from explicit feedback (ratings) because:**
 
-A) Implicit has clearer preference signals
-B) Implicit lacks true negative signals — non-interaction may mean disinterest OR unawareness
-C) Explicit is always more abundant
+A) Implicit has clearer preference signals  
+B) Implicit lacks true negative signals — non-interaction may mean disinterest OR unawareness  
+C) Explicit is always more abundant  
 D) They are identical
 
 ---
 
 **Q7. NDCG (Normalized Discounted Cumulative Gain) is preferred over Precision@K because:**
 
-A) NDCG is simpler to compute
-B) NDCG accounts for the position of relevant items in the ranking, giving more credit to top-ranked correct items
-C) Precision@K considers position
+A) NDCG is simpler to compute  
+B) NDCG accounts for the position of relevant items in the ranking, giving more credit to top-ranked correct items  
+C) Precision@K considers position  
 D) NDCG ignores ranking order
 
 ---
 
 **Q8. The exploration-exploitation trade-off in recommendations refers to:**
 
-A) Showing only popular items
-B) Balancing recommending items the system is confident the user will like (exploit) vs. items that help learn user preferences (explore)
-C) Removing all personalization
+A) Showing only popular items  
+B) Balancing recommending items the system is confident the user will like (exploit) vs. items that help learn user preferences (explore)  
+C) Removing all personalization  
 D) Only showing new items
 
 ---
 
 **Q9. Hybrid recommendation systems combine:**
 
-A) Only collaborative filtering variants
-B) Multiple approaches (collaborative, content-based, knowledge-based) to leverage their complementary strengths
-C) Only rule-based methods
+A) Only collaborative filtering variants  
+B) Multiple approaches (collaborative, content-based, knowledge-based) to leverage their complementary strengths  
+C) Only rule-based methods  
 D) Only deep learning methods
 
 ---
 
 **Q10. Deep learning approaches like Neural Collaborative Filtering (NCF) improve over matrix factorization by:**
 
-A) Using simpler linear models
-B) Learning nonlinear user-item interactions through neural network layers instead of only dot products
-C) Removing all latent factors
+A) Using simpler linear models  
+B) Learning nonlinear user-item interactions through neural network layers instead of only dot products  
+C) Removing all latent factors  
 D) Using only item features
 
 ---
 
 **Q11. The Wide & Deep model combines:**
 
-A) Only wide features
-B) A wide (linear) component for memorization of feature combinations and a deep (neural) component for generalization
-C) Only deep features
+A) Only wide features  
+B) A wide (linear) component for memorization of feature combinations and a deep (neural) component for generalization  
+C) Only deep features  
 D) Random forests and SVMs
 
 ---
 
 **Q12. MRR (Mean Reciprocal Rank) measures:**
 
-A) The total number of recommendations
-B) On average, how highly ranked the first relevant item is (1/rank of first correct result)
-C) The total number of users
+A) The total number of recommendations  
+B) On average, how highly ranked the first relevant item is (1/rank of first correct result)  
+C) The total number of users  
 D) Only recall
 
 ---
 
 **Q13. A two-tower architecture for recommendations uses:**
 
-A) A single model for everything
-B) Separate neural networks for users and items that produce embeddings, with recommendations based on embedding similarity
-C) Only collaborative filtering
+A) A single model for everything  
+B) Separate neural networks for users and items that produce embeddings, with recommendations based on embedding similarity  
+C) Only collaborative filtering  
 D) Only content-based methods
 
 ---
 
 **Q14. Popularity bias in recommendations means:**
 
-A) Popular items are never recommended
-B) The system disproportionately recommends popular items, reducing exposure for niche items (the "long tail")
-C) All items get equal exposure
+A) Popular items are never recommended  
+B) The system disproportionately recommends popular items, reducing exposure for niche items (the "long tail")  
+C) All items get equal exposure  
 D) Unpopular items are most recommended
 
 ---
 
 **Q15. ALS (Alternating Least Squares) for matrix factorization handles sparsity by:**
 
-A) Filling in all missing values with zeros
-B) Alternately fixing one factor matrix and solving for the other via least squares, gracefully handling unobserved ratings
-C) Ignoring all observed ratings
+A) Filling in all missing values with zeros  
+B) Alternately fixing one factor matrix and solving for the other via least squares, gracefully handling unobserved ratings  
+C) Ignoring all observed ratings  
 D) Using gradient descent on dense matrices only
 
 ---
@@ -188,4 +191,4 @@ ALS iteratively fixes U and solves for V, then fixes V and solves for U. Each st
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

@@ -1,140 +1,143 @@
 # Multiple Choice Questions: MCP and Tool Integration
 
+📺 **Video Lecture:** https://youtu.be/DtbQVgjjdSs
+
+
 Test your understanding of Model Context Protocol and tool integration concepts for AI/ML interviews.
 
 ---
 
 **Q1. The Model Context Protocol (MCP) primarily solves the problem of:**
 
-A) Training language models faster
-B) Fragmented, non-standard tool integrations — providing a unified protocol for connecting LLMs to external tools and data sources
-C) Generating images
+A) Training language models faster  
+B) Fragmented, non-standard tool integrations — providing a unified protocol for connecting LLMs to external tools and data sources  
+C) Generating images  
 D) Replacing all APIs with a single endpoint
 
 ---
 
 **Q2. MCP's three-layer architecture consists of:**
 
-A) Frontend, backend, database
-B) Host (LLM), Client (middleware), and Server (tool provider)
-C) Input, hidden, output layers
+A) Frontend, backend, database  
+B) Host (LLM), Client (middleware), and Server (tool provider)  
+C) Input, hidden, output layers  
 D) CPU, GPU, TPU
 
 ---
 
 **Q3. A tool contract in MCP specifies:**
 
-A) Only the tool's name
-B) The tool's name, description, input schema (parameters), output schema (return format), and error codes
-C) Only the price of using the tool
+A) Only the tool's name  
+B) The tool's name, description, input schema (parameters), output schema (return format), and error codes  
+C) Only the price of using the tool  
 D) The LLM's architecture
 
 ---
 
 **Q4. MCP improves security over custom integrations by:**
 
-A) Removing all authentication
-B) Providing explicit capability declarations, host-side permission enforcement, and audit logging
-C) Making all data public
+A) Removing all authentication  
+B) Providing explicit capability declarations, host-side permission enforcement, and audit logging  
+C) Making all data public  
 D) Encrypting only the tool name
 
 ---
 
 **Q5. The benefit of MCP's transport-agnostic design is that:**
 
-A) It only works with HTTP
-B) Tools can communicate over HTTP, WebSocket, stdio, or gRPC without changing their core logic
-C) It requires a specific programming language
+A) It only works with HTTP  
+B) Tools can communicate over HTTP, WebSocket, stdio, or gRPC without changing their core logic  
+C) It requires a specific programming language  
 D) It only works locally
 
 ---
 
 **Q6. MCP's standardization enables tool reusability because:**
 
-A) Each LLM needs its own custom tool implementation
-B) A tool implementing MCP once works with any MCP-compatible host (Claude, ChatGPT, etc.)
-C) Tools cannot be shared across applications
+A) Each LLM needs its own custom tool implementation  
+B) A tool implementing MCP once works with any MCP-compatible host (Claude, ChatGPT, etc.)  
+C) Tools cannot be shared across applications  
 D) Each tool requires a separate protocol
 
 ---
 
 **Q7. Resource management in MCP includes:**
 
-A) Only unlimited data transfer
-B) Streaming, pagination, caching, rate limiting, timeouts, and resource quotas
-C) Only error handling
+A) Only unlimited data transfer  
+B) Streaming, pagination, caching, rate limiting, timeouts, and resource quotas  
+C) Only error handling  
 D) Only authentication
 
 ---
 
 **Q8. MCP prompts and templates help LLMs by:**
 
-A) Replacing the LLM's training data
-B) Providing guidance on how to correctly use tools, including step-by-step instructions and example calls
-C) Removing the need for tools
+A) Replacing the LLM's training data  
+B) Providing guidance on how to correctly use tools, including step-by-step instructions and example calls  
+C) Removing the need for tools  
 D) Only handling errors
 
 ---
 
 **Q9. Compared to custom API integrations, MCP reduces maintenance burden because:**
 
-A) It requires more code per integration
-B) Tool logic lives in one place (the MCP server) rather than being duplicated across each LLM application
-C) It has no documentation
+A) It requires more code per integration  
+B) Tool logic lives in one place (the MCP server) rather than being duplicated across each LLM application  
+C) It has no documentation  
 D) It cannot be updated
 
 ---
 
 **Q10. MCP's tool discovery mechanism allows hosts to:**
 
-A) Only use pre-configured tools
-B) Dynamically learn what tools are available, their capabilities, and how to use them at runtime
-C) Only use tools at compile time
+A) Only use pre-configured tools  
+B) Dynamically learn what tools are available, their capabilities, and how to use them at runtime  
+C) Only use tools at compile time  
 D) Ignore available tools
 
 ---
 
 **Q11. The hub-and-spoke topology in MCP means:**
 
-A) Each tool connects directly to every other tool
-B) A single client can connect to multiple tool servers, routing requests to the appropriate server
-C) Only one tool can be used at a time
+A) Each tool connects directly to every other tool  
+B) A single client can connect to multiple tool servers, routing requests to the appropriate server  
+C) Only one tool can be used at a time  
 D) Tools must run on the same machine
 
 ---
 
 **Q12. MCP supports versioning of tool contracts to:**
 
-A) Break backward compatibility with each update
-B) Allow tools to evolve while maintaining backward compatibility with existing hosts
-C) Remove old features immediately
+A) Break backward compatibility with each update  
+B) Allow tools to evolve while maintaining backward compatibility with existing hosts  
+C) Remove old features immediately  
 D) Force all hosts to update simultaneously
 
 ---
 
 **Q13. The host-side permission enforcement in MCP ensures that:**
 
-A) Tools can access anything without restriction
-B) Even if a tool declares broad capabilities, the host can restrict which operations are actually permitted for a given agent or user
-C) All permissions are granted by default
+A) Tools can access anything without restriction  
+B) Even if a tool declares broad capabilities, the host can restrict which operations are actually permitted for a given agent or user  
+C) All permissions are granted by default  
 D) Only the tool decides what is allowed
 
 ---
 
 **Q14. Streaming in MCP is important for:**
 
-A) Small, instant responses only
-B) Large results (file contents, query results) that are sent incrementally to reduce latency and memory usage
-C) Only text generation
+A) Small, instant responses only  
+B) Large results (file contents, query results) that are sent incrementally to reduce latency and memory usage  
+C) Only text generation  
 D) Only error messages
 
 ---
 
 **Q15. The key advantage of MCP over building direct API wrappers for each tool is:**
 
-A) MCP is always faster
-B) Ecosystem scalability — as more tools adopt MCP, any MCP-compatible application gains access to all of them without additional integration work
-C) MCP requires no server infrastructure
+A) MCP is always faster  
+B) Ecosystem scalability — as more tools adopt MCP, any MCP-compatible application gains access to all of them without additional integration work  
+C) MCP requires no server infrastructure  
 D) Direct API wrappers are always more secure
 
 ---
@@ -188,4 +191,4 @@ MCP creates network effects: each new MCP tool benefits all MCP hosts, and each 
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*

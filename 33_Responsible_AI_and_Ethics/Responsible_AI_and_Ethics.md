@@ -1,5 +1,8 @@
 # Responsible AI and Ethics
 
+📺 **Video Lecture:** https://youtu.be/98MoT_pNMRw
+
+
 ## Interview Anchor
 - **Fairness:** The property that an AI system treats individuals and groups equitably, without discrimination based on protected attributes
 - **Bias:** Systematic errors or preferences in AI systems that disadvantage certain groups, originating from data, algorithms, or evaluation methods
@@ -142,4 +145,4 @@ Datasheets improve transparency, allow practitioners to understand data limitati
 
 ---
 
-*© 2026 AI Nirvana · Disclaimer: Provided as is. No liability assumed.*
+*© 2026 AI Nirvana · More Info: https://medium.com/@snigam/a-simple-structured-way-to-prepare-for-ai-ml-interviews-68b2e5830195 · Disclaimer: Provided as is. No liability assumed.*
