@@ -2,7 +2,6 @@
 
 📺 **Video Lecture:** https://youtu.be/te7D9Al7mpw
 
-
 ## Interview Anchor
 - **Self-Attention:** Mechanism where each token attends to all other tokens in a sequence to compute weighted representations
 - **Attention Score:** Computed as similarity measure between query and key vectors, normalized via softmax
@@ -90,7 +89,9 @@ The evolution from additive to multiplicative attention, and from single to mult
 
 ### Q10: Explain flash attention. What problem does it solve and how?
 
-**A:** Flash attention (by Dao et al.) optimizes attention computation by reducing slow HBM (high-bandwidth memory) I/O. Standard attention reads Q, K, V from HBM to GPU SRAM, computes softmax, and writes back—multiple passes due to softmax requiring all scores. Flash attention uses tiling: partition Q, K, V into blocks that fit in SRAM, compute attention on blocks, accumulate outputs, and use a single backward pass. This reduces HBM accesses from O(Nd + N^2) to O(Nd) where N is sequence length and d is hidden dimension. Speedup: 2-4x faster, especially on long sequences where N^2 dominates. The algorithm's elegance: break attention into blocks, compute partial attentions, use a numerically-stable cumulative softmax. Flash attention 2 adds more optimization: heterogeneous tiling, optimized backward pass. It's now standard in training and inference (transformers.js, vLLM use it). Memory-wise, it doesn't reduce asymptotic usage but reduces actual runtime by orders of magnitude. This enabled training on longer sequences (8K context vs 2K) and faster inference at scale.
+**A:** Flash attention (by Dao et al.) optimizes attention computation by reducing slow HBM (high-bandwidth memory) I/O. Standard attention reads Q, K, V from HBM to GPU SRAM, computes softmax, and writes back—multiple passes due to softmax requiring all scores. Flash attention uses tiling: partition Q, K, V into blocks that fit in SRAM, compute attention on blocks, accumulate outputs, and use a single backward pass. This reduces HBM accesses from O(Nd + N^2) to O(Nd) where N is sequence length and d is hidden dimension.
+
+Speedup: 2-4x faster, especially on long sequences where N^2 dominates. The algorithm's elegance: break attention into blocks, compute partial attentions, use a numerically-stable cumulative softmax. Flash attention 2 adds more optimization: heterogeneous tiling, optimized backward pass. It's now standard in training and inference (transformers.js, vLLM use it). Memory-wise, it doesn't reduce asymptotic usage but reduces actual runtime by orders of magnitude. This enabled training on longer sequences (8K context vs 2K) and faster inference at scale.
 
 **Interview Tip:** Mention the HBM bottleneck problem—this shows you understand hardware. The I/O reduction (O(N^2) → O(N)) is the key insight. This is increasingly important for LLM scaling.
 
@@ -98,7 +99,15 @@ The evolution from additive to multiplicative attention, and from single to mult
 
 ### Q11: What are attention patterns? Show an example visualization and what it reveals about model behavior.
 
-**A:** Attention patterns are the normalized attention weights A (after softmax) for a given layer and head. They form an n×n matrix where A[i, j] = probability token i attends to token j. Visualizing these reveals what the model focuses on. Example patterns: (1) Position-based: head attends to nearby tokens (distance < 5), learning syntactic dependencies. (2) Token-type specific: head attends to nouns/verbs only, or punctuation. (3) Copying: last token attends strongly to first token (summarization). (4) Diffuse: uniform attention, integrating global information. In BERT, lower layers show local attention (positions near i), middle layers show token-specific patterns (pronouns → nouns), upper layers show global patterns. In GPT decoder, multi-head shows one head doing causal left-to-right, another attending to punctuation, another being nearly uniform. Analyzing attention gives interpretability insights—which heads matter (attention pruning removes some with minimal accuracy loss), whether the model is learning linguistics or memorizing patterns. However, attention ≠ explanation—high attention weight doesn't prove a token caused a prediction; gradient-based attribution is more reliable.
+**A:** Attention patterns are the normalized attention weights A (after softmax) for a given layer and head. They form an n×n matrix where A[i, j] = probability token i attends to token j. Visualizing these reveals what the model focuses on. Example patterns:
+
+(1) Position-based: head attends to nearby tokens (distance < 5), learning syntactic dependencies.
+
+(2) Token-type specific: head attends to nouns/verbs only, or punctuation.
+
+(3) Copying: last token attends strongly to first token (summarization).
+
+(4) Diffuse: uniform attention, integrating global information. In BERT, lower layers show local attention (positions near i), middle layers show token-specific patterns (pronouns → nouns), upper layers show global patterns. In GPT decoder, multi-head shows one head doing causal left-to-right, another attending to punctuation, another being nearly uniform. Analyzing attention gives interpretability insights—which heads matter (attention pruning removes some with minimal accuracy loss), whether the model is learning linguistics or memorizing patterns. However, attention ≠ explanation—high attention weight doesn't prove a token caused a prediction; gradient-based attribution is more reliable.
 
 **Interview Tip:** Mention that while attention visualization is useful, it's not a full explanation (address common misconceptions). Show you understand interpretation limitations.
 
@@ -106,7 +115,19 @@ The evolution from additive to multiplicative attention, and from single to mult
 
 ### Q12: Explain sliding window attention and sparse attention. When are they necessary?
 
-**A:** Sliding window attention (local attention) restricts each token to attend only to a local neighborhood of size w—token i attends to tokens max(0, i-w/2)...min(n, i+w/2). This reduces complexity from O(n^2) to O(nw) and memory to O(nw). It's useful when most relevant context is local (within ~500 tokens for natural language). Sparse attention generalizes this by defining which (i,j) pairs are allowed to attend based on a pattern (e.g., block-sparse, strided, bigbird patterns). Advantages: (1) Lower compute for long sequences (O(n log n) or O(nw) vs O(n^2)). (2) Enables longer context windows. Disadvantages: (1) May miss distant dependencies (token at position 100 can't attend to position 10000). (2) Complex implementation. Empirically, fully local attention hurts quality—hybrid approaches combine local + global tokens (some tokens attend globally to compress context) or sparse patterns that preserve quality. Models like Longformer, BigBird use sparse attention for long documents (10K+ tokens). Recent trend: flash attention made full attention so fast that sparse attention is less necessary—now preferred only for ultra-long sequences (>10K) or memory-constrained settings.
+**A:** Sliding window attention (local attention) restricts each token to attend only to a local neighborhood of size w—token i attends to tokens max(0, i-w/2)...min(n, i+w/2). This reduces complexity from O(n^2) to O(nw) and memory to O(nw). It's useful when most relevant context is local (within ~500 tokens for natural language). Sparse attention generalizes this by defining which (i,j) pairs are allowed to attend based on a pattern (e.g., block-sparse, strided, bigbird patterns).
+
+Advantages:
+
+(1) Lower compute for long sequences (O(n log n) or O(nw) vs O(n^2)).
+
+(2) Enables longer context windows.
+
+Disadvantages:
+
+(1) May miss distant dependencies (token at position 100 can't attend to position 10000).
+
+(2) Complex implementation. Empirically, fully local attention hurts quality—hybrid approaches combine local + global tokens (some tokens attend globally to compress context) or sparse patterns that preserve quality. Models like Longformer, BigBird use sparse attention for long documents (10K+ tokens). Recent trend: flash attention made full attention so fast that sparse attention is less necessary—now preferred only for ultra-long sequences (>10K) or memory-constrained settings.
 
 **Interview Tip:** Explain the O(n^2) bottleneck and why sparse patterns matter for long documents. Mention modern alternatives like hierarchical compression or sliding window in practice.
 
@@ -114,7 +135,13 @@ The evolution from additive to multiplicative attention, and from single to mult
 
 ### Q13: Explain attention as a "soft dictionary lookup." What does this perspective reveal?
 
-**A:** Attention can be viewed as a soft content-addressable memory: queries are retrieval requests, keys are memory addresses (semantic features), values are memory contents. Hard lookup (key-value dictionary) returns one value for exact key match. Soft lookup (attention) computes a probability distribution over all keys based on similarity to the query, then returns a weighted mixture of values. Mathematically: given query q, compute `softmax(Q·K^T)` as a probability distribution, then retrieve weighted values. This reveals why attention works: it's like searching a learned database (the key-value pairs) for relevant information. The transformer learns what to query for (Q), what addresses to recognize (K), and what values to store (V). This perspective explains why: (1) Larger K, V dimensions give more "storage capacity." (2) Attention fails when keys aren't diverse enough (redundant information). (3) Dropout on attention helps regularization—it's like random forgetting. In retrieval-augmented generation (RAG), this perspective is literal—embeddings are a database, attention queries the database for relevant passages. It also motivates sparse retrieval: why attend to all memory when only a few entries are relevant?
+**A:** Attention can be viewed as a soft content-addressable memory: queries are retrieval requests, keys are memory addresses (semantic features), values are memory contents. Hard lookup (key-value dictionary) returns one value for exact key match. Soft lookup (attention) computes a probability distribution over all keys based on similarity to the query, then returns a weighted mixture of values.
+
+Mathematically: given query q, compute `softmax(Q·K^T)` as a probability distribution, then retrieve weighted values. This reveals why attention works: it's like searching a learned database (the key-value pairs) for relevant information. The transformer learns what to query for (Q), what addresses to recognize (K), and what values to store (V). This perspective explains why:
+
+(1) Larger K, V dimensions give more "storage capacity." (2) Attention fails when keys aren't diverse enough (redundant information).
+
+(3) Dropout on attention helps regularization—it's like random forgetting. In retrieval-augmented generation (RAG), this perspective is literal—embeddings are a database, attention queries the database for relevant passages. It also motivates sparse retrieval: why attend to all memory when only a few entries are relevant?
 
 **Interview Tip:** Use this analogy to explain why attention bottlenecks limit information flow. Connect to memory-augmented neural networks (NTMs) if asked about extensions.
 
@@ -122,7 +149,17 @@ The evolution from additive to multiplicative attention, and from single to mult
 
 ### Q14: How does attention enable parallel computation compared to RNNs? What are the tradeoffs?
 
-**A:** RNNs (LSTMs, GRUs) process sequentially: h_t depends on h_{t-1}, so you must compute all t=1,2,...,n in series. This enforces dependency order and makes parallelization impossible over sequence length (O(n) sequential steps). Attention (transformers) computes all token-token interactions in parallel: all attention heads compute over all positions in one matrix operation. This enables O(log n) depth with parallelism across the sequence dimension, vastly faster training—a 1000-token sequence trains ~100x faster on GPUs/TPUs with transformers vs RNNs. Tradeoffs: (1) RNNs have built-in recurrence, capturing temporal dynamics naturally; transformers rely on absolute/relative positional encodings (learned or hardcoded). (2) RNNs use O(1) memory per step; transformers use O(n) memory for the attention matrix. (3) RNNs are more efficient for inference on single tokens (stateful); transformers need the full context. (4) RNNs generalize poorly to longer sequences; transformers generalize better but still struggle beyond training length. The parallelization advantage was transformative—enabled scaling to billions of parameters. Modern LLMs are almost entirely transformer-based due to this efficiency.
+**A:** RNNs (LSTMs, GRUs) process sequentially: h_t depends on h_{t-1}, so you must compute all t=1,2,...,n in series. This enforces dependency order and makes parallelization impossible over sequence length (O(n) sequential steps). Attention (transformers) computes all token-token interactions in parallel: all attention heads compute over all positions in one matrix operation. This enables O(log n) depth with parallelism across the sequence dimension, vastly faster training—a 1000-token sequence trains ~100x faster on GPUs/TPUs with transformers vs RNNs.
+
+Tradeoffs:
+
+(1) RNNs have built-in recurrence, capturing temporal dynamics naturally; transformers rely on absolute/relative positional encodings (learned or hardcoded).
+
+(2) RNNs use O(1) memory per step; transformers use O(n) memory for the attention matrix.
+
+(3) RNNs are more efficient for inference on single tokens (stateful); transformers need the full context.
+
+(4) RNNs generalize poorly to longer sequences; transformers generalize better but still struggle beyond training length. The parallelization advantage was transformative—enabled scaling to billions of parameters. Modern LLMs are almost entirely transformer-based due to this efficiency.
 
 **Interview Tip:** Mention the O(log n) depth enabling parallelization. This is why transformers revolutionized NLP—practical efficiency + better long-range dependencies.
 
@@ -130,7 +167,17 @@ The evolution from additive to multiplicative attention, and from single to mult
 
 ### Q15: Describe a scenario where attention mechanisms might fail or need augmentation. How would you address it?
 
-**A:** Attention mechanisms can fail in several scenarios: (1) **Long sequences with small context windows:** vanilla attention looks at full sequence, but gradient signals from distant tokens are weak. Solution: sparse attention, hierarchical compression, or retrieval-augmented generation. (2) **Factual accuracy / hallucination:** attention distributes mass over learned patterns, not grounded facts. Large language models generate plausible-sounding but false text. Solution: RAG (augment with retrieved documents), fact-checking modules, or constitutional AI constraints. (3) **Attention collapse:** some heads learn near-identity mappings or near-uniform attention, providing no useful information. Solution: head pruning, regularization, or architectural improvements (ALiBi vs absolute encodings). (4) **Out-of-distribution generalization:** attention trained on short sequences struggles on long sequences. Solution: relative positional encodings (RoPE), length extrapolation techniques, or training with variable-length sequences. (5) **Computational cost at scale:** O(n^2) memory prohibits long context. Solution: KV-cache reduction (GQA/MQA), sparse attention, or approximate methods. The best fix depends on the problem—RAG for factuality, sparse attention for length, head pruning for efficiency. Understanding these failure modes helps you diagnose issues in production systems.
+**A:** Attention mechanisms can fail in several scenarios:
+
+(1) **Long sequences with small context windows:** vanilla attention looks at full sequence, but gradient signals from distant tokens are weak. Solution: sparse attention, hierarchical compression, or retrieval-augmented generation.
+
+(2) **Factual accuracy / hallucination:** attention distributes mass over learned patterns, not grounded facts. Large language models generate plausible-sounding but false text. Solution: RAG (augment with retrieved documents), fact-checking modules, or constitutional AI constraints.
+
+(3) **Attention collapse:** some heads learn near-identity mappings or near-uniform attention, providing no useful information. Solution: head pruning, regularization, or architectural improvements (ALiBi vs absolute encodings).
+
+(4) **Out-of-distribution generalization:** attention trained on short sequences struggles on long sequences. Solution: relative positional encodings (RoPE), length extrapolation techniques, or training with variable-length sequences.
+
+(5) **Computational cost at scale:** O(n^2) memory prohibits long context. Solution: KV-cache reduction (GQA/MQA), sparse attention, or approximate methods. The best fix depends on the problem—RAG for factuality, sparse attention for length, head pruning for efficiency. Understanding these failure modes helps you diagnose issues in production systems.
 
 **Interview Tip:** Show you've debugged transformers in practice. Mention concrete solutions and their tradeoffs. This reveals maturity beyond pure theory.
 

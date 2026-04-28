@@ -16,7 +16,13 @@ In practice, you'll encounter probability distributions constantly: normal distr
 
 ### Q1: What are the three axioms of probability and why are they important?
 
-**A:** The three axioms are: (1) Non-negativity: P(A) ≥ 0 for any event A, (2) Unitarity: P(Ω) = 1 where Ω is the sample space, (3) Additivity (countable): for mutually exclusive events A₁, A₂, ..., P(A₁ ∪ A₂ ∪ ...) = P(A₁) + P(A₂) + .... These axioms are the foundation of probability theory—any valid probability model must satisfy them. They ensure mathematical consistency and allow us to derive all other probability rules (like P(A) + P(Aᶜ) = 1) from first principles. In interviews, mentioning that you understand these axioms demonstrates you know probability isn't arbitrary but built on rigorous mathematical foundations.
+**A:** The three axioms are:
+
+(1) Non-negativity: P(A) ≥ 0 for any event A,
+
+(2) Unitarity: P(Ω) = 1 where Ω is the sample space,
+
+(3) Additivity (countable): for mutually exclusive events A₁, A₂, ..., P(A₁ ∪ A₂ ∪ ...) = P(A₁) + P(A₂) + .... These axioms are the foundation of probability theory—any valid probability model must satisfy them. They ensure mathematical consistency and allow us to derive all other probability rules (like P(A) + P(Aᶜ) = 1) from first principles. In interviews, mentioning that you understand these axioms demonstrates you know probability isn't arbitrary but built on rigorous mathematical foundations.
 
 ---
 
@@ -46,7 +52,9 @@ In practice, you'll encounter probability distributions constantly: normal distr
 
 ### Q6: What are the binomial, Poisson, and exponential distributions and when would you use each?
 
-**A:** The binomial distribution B(n, p) models the number of successes in n independent trials with success probability p each; use it for binary classification accuracy estimation or counting defects. The Poisson distribution P(λ) models counts of rare events occurring randomly over time/space at average rate λ; use it for website traffic modeling, fraud detection, or predicting customer complaints. The exponential distribution E(λ) models waiting times between Poisson events with parameter λ; use it for customer lifetime value, time-to-failure analysis, or session duration modeling. Key relationship: if events follow Poisson, the time between them follows exponential. In practice, Poisson is often used in GLMs for count regression, and recognizing when your data is Poisson-distributed helps you select appropriate models rather than incorrectly assuming normality.
+**A:** The binomial distribution B(n, p) models the number of successes in n independent trials with success probability p each; use it for binary classification accuracy estimation or counting defects. The Poisson distribution P(λ) models counts of rare events occurring randomly over time/space at average rate λ; use it for website traffic modeling, fraud detection, or predicting customer complaints. The exponential distribution E(λ) models waiting times between Poisson events with parameter λ; use it for customer lifetime value, time-to-failure analysis, or session duration modeling.
+
+Key relationship: if events follow Poisson, the time between them follows exponential. In practice, Poisson is often used in GLMs for count regression, and recognizing when your data is Poisson-distributed helps you select appropriate models rather than incorrectly assuming normality.
 
 ---
 
@@ -58,7 +66,11 @@ In practice, you'll encounter probability distributions constantly: normal distr
 
 ### Q8: Explain covariance and correlation and how they differ.
 
-**A:** Covariance Cov(X,Y) = E[(X - E[X])(Y - E[Y])] measures how two variables move together—positive means they co-increase, negative means they move opposite, zero means no linear relationship. Correlation ρ = Cov(X,Y) / (σ_X × σ_Y) normalizes covariance to [-1, 1], making it unit-free and comparable across different scales. Key difference: covariance's magnitude depends on the scales of X and Y, so you can't compare covariances across datasets, but correlation is scale-invariant. A correlation near ±1 indicates strong linear relationship; near 0 indicates weak or no linear relationship. Important: correlation doesn't imply causation and only captures linear relationships (two variables can be perfectly dependent nonlinearly with zero correlation). In feature engineering, high correlations between features signal multicollinearity that can destabilize regression coefficients.
+**A:** Covariance Cov(X,Y) = E[(X - E[X])(Y - E[Y])] measures how two variables move together—positive means they co-increase, negative means they move opposite, zero means no linear relationship. Correlation ρ = Cov(X,Y) / (σ_X × σ_Y) normalizes covariance to [-1, 1], making it unit-free and comparable across different scales.
+
+Key difference: covariance's magnitude depends on the scales of X and Y, so you can't compare covariances across datasets, but correlation is scale-invariant. A correlation near ±1 indicates strong linear relationship; near 0 indicates weak or no linear relationship.
+
+Important: correlation doesn't imply causation and only captures linear relationships (two variables can be perfectly dependent nonlinearly with zero correlation). In feature engineering, high correlations between features signal multicollinearity that can destabilize regression coefficients.
 
 ---
 

@@ -2,7 +2,6 @@
 
 📺 **Video Lecture:** https://youtu.be/VsvnNYoMDZY
 
-
 ## Interview Anchor
 - **Bias:** Error from overly simplistic model assumptions; model's inability to capture underlying patterns
 - **Variance:** Error from model sensitivity to training data fluctuations; instability across different datasets
@@ -93,7 +92,15 @@ Bias-variance tradeoff is foundational to machine learning and critical in inter
 
 ### Q14: What's the relationship between model complexity and generalization? How do you control it?
 
-**A:** Model complexity (roughly, VC dimension, parameter count, or depth in neural networks) directly impacts variance: complex models fit noise, increasing generalization error. There's an optimal complexity trading off bias and variance, typically empirically determined via cross-validation. You control complexity through: (1) Explicit constraints: model architecture choices (network depth/width, polynomial degree, decision tree depth). (2) Regularization: L1/L2 penalties, dropout, early stopping, batch norm. (3) Data: more data effectively reduces variance without increasing bias. (4) Ensemble methods: averaging reduces variance. Modern intuition from double descent: use high-capacity models with strong regularization rather than hand-tuning complexity. This shift reflects that optimization algorithms themselves provide implicit regularization, especially in overparameterized regimes. Best practice: use validation curves to find optimal complexity empirically rather than relying on theoretical predictions.
+**A:** Model complexity (roughly, VC dimension, parameter count, or depth in neural networks) directly impacts variance: complex models fit noise, increasing generalization error. There's an optimal complexity trading off bias and variance, typically empirically determined via cross-validation. You control complexity through:
+
+(1) Explicit constraints: model architecture choices (network depth/width, polynomial degree, decision tree depth).
+
+(2) Regularization: L1/L2 penalties, dropout, early stopping, batch norm.
+
+(3) Data: more data effectively reduces variance without increasing bias.
+
+(4) Ensemble methods: averaging reduces variance. Modern intuition from double descent: use high-capacity models with strong regularization rather than hand-tuning complexity. This shift reflects that optimization algorithms themselves provide implicit regularization, especially in overparameterized regimes. Best practice: use validation curves to find optimal complexity empirically rather than relying on theoretical predictions.
 
 ---
 

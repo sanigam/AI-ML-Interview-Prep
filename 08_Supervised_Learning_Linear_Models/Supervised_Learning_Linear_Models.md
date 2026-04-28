@@ -2,7 +2,6 @@
 
 📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
 
-
 ## Interview Anchor
 - **Linear Regression:** Predicts continuous values using a linear relationship between input features and output.
 - **Logistic Regression:** Binary/multiclass classifier that models probability using the logistic sigmoid function.
@@ -16,7 +15,15 @@ Linear models form the foundation of machine learning and are frequently tested 
 
 ### Q1: Explain linear regression and its underlying assumptions.
 
-**A:** Linear regression models the relationship between input features and a continuous output as y = Xβ + ε, where β represents coefficients and ε is normally distributed noise. The key assumptions are: (1) linearity—the relationship is truly linear, (2) independence—observations are independent, (3) homoscedasticity—error variance is constant, (4) normality—residuals follow a normal distribution, and (5) no multicollinearity—features are not highly correlated. Violations of these assumptions (e.g., nonlinear relationships detected via residual plots) require transformations, polynomial features, or entirely different models. Testing assumptions through residual analysis (checking for heteroscedasticity patterns or non-normality) is a critical part of model validation.
+**A:** Linear regression models the relationship between input features and a continuous output as y = Xβ + ε, where β represents coefficients and ε is normally distributed noise. The key assumptions are:
+
+(1) linearity—the relationship is truly linear,
+
+(2) independence—observations are independent,
+
+(3) homoscedasticity—error variance is constant,
+
+(4) normality—residuals follow a normal distribution, and (5) no multicollinearity—features are not highly correlated. Violations of these assumptions (e.g., nonlinear relationships detected via residual plots) require transformations, polynomial features, or entirely different models. Testing assumptions through residual analysis (checking for heteroscedasticity patterns or non-normality) is a critical part of model validation.
 
 ---
 
@@ -70,13 +77,33 @@ Linear models form the foundation of machine learning and are frequently tested 
 
 ### Q10: Describe polynomial regression and when you'd use it instead of linear regression.
 
-**A:** Polynomial regression adds polynomial features (X², X³, etc.) to linear regression, allowing it to fit nonlinear relationships while remaining "linear in parameters." For degree d, the model is y = β₀ + β₁X + β₂X² + ... + β_d X^d + ε. You detect the need for polynomial regression via residual plots—if residuals show systematic patterns (U-shape, oscillation), the relationship is likely nonlinear. Polynomial regression is useful when data truly exhibits polynomial structure, but be cautious: (1) high-degree polynomials (d > 3) risk severe overfitting due to Runge's phenomenon, (2) extrapolation beyond data range produces wild predictions, (3) interpretation becomes harder. Always validate via cross-validation and use regularization. For highly complex nonlinear relationships, modern ML practitioners prefer tree-based models or neural networks instead of high-degree polynomials, since they generalize better and don't require manual feature engineering. Reserve polynomial regression for exploratory analysis or when domain knowledge suggests polynomial structure.
+**A:** Polynomial regression adds polynomial features (X², X³, etc.) to linear regression, allowing it to fit nonlinear relationships while remaining "linear in parameters." For degree d, the model is y = β₀ + β₁X + β₂X² + ... + β_d X^d + ε. You detect the need for polynomial regression via residual plots—if residuals show systematic patterns (U-shape, oscillation), the relationship is likely nonlinear. Polynomial regression is useful when data truly exhibits polynomial structure, but be cautious:
+
+(1) high-degree polynomials (d > 3) risk severe overfitting due to Runge's phenomenon,
+
+(2) extrapolation beyond data range produces wild predictions,
+
+(3) interpretation becomes harder. Always validate via cross-validation and use regularization. For highly complex nonlinear relationships, modern ML practitioners prefer tree-based models or neural networks instead of high-degree polynomials, since they generalize better and don't require manual feature engineering. Reserve polynomial regression for exploratory analysis or when domain knowledge suggests polynomial structure.
 
 ---
 
 ### Q11: Explain residual analysis and what patterns indicate model violations.
 
-**A:** Residuals ε_i = y_i - ŷ_i represent prediction errors and reveal whether regression assumptions hold. Create plots: (1) residuals vs. fitted values should show random scatter (no patterns)—curved patterns indicate nonlinearity, (2) Q-Q plot (residuals vs. normal quantiles) should follow a straight line—deviations indicate non-normality, (3) scale-location plot (√|residuals| vs. fitted values) should be randomly scattered—trends indicate heteroscedasticity. Specific patterns: (1) heteroscedasticity (variance increases with fitted values, forming a "funnel") suggests weighting or transformation, (2) nonlinear trends indicate missing polynomial terms or wrong model class, (3) outliers far from the Q-Q line might be influential observations needing investigation, (4) autocorrelation (residuals correlated across time) violates independence—test via Durbin-Watson statistic. Addressing violations: apply transformations (log, sqrt), add features, use robust regression, or switch models. Residual analysis is underrated in practice but essential for model validation.
+**A:** Residuals ε_i = y_i - ŷ_i represent prediction errors and reveal whether regression assumptions hold. Create plots:
+
+(1) residuals vs. fitted values should show random scatter (no patterns)—curved patterns indicate nonlinearity,
+
+(2) Q-Q plot (residuals vs. normal quantiles) should follow a straight line—deviations indicate non-normality,
+
+(3) scale-location plot (√|residuals| vs. fitted values) should be randomly scattered—trends indicate heteroscedasticity. Specific patterns:
+
+(1) heteroscedasticity (variance increases with fitted values, forming a "funnel") suggests weighting or transformation,
+
+(2) nonlinear trends indicate missing polynomial terms or wrong model class,
+
+(3) outliers far from the Q-Q line might be influential observations needing investigation,
+
+(4) autocorrelation (residuals correlated across time) violates independence—test via Durbin-Watson statistic. Addressing violations: apply transformations (log, sqrt), add features, use robust regression, or switch models. Residual analysis is underrated in practice but essential for model validation.
 
 ---
 
@@ -88,7 +115,13 @@ Linear models form the foundation of machine learning and are frequently tested 
 
 ### Q13: What are generalized linear models (GLMs) and how do they extend linear regression?
 
-**A:** GLMs extend linear regression by modeling E[y|X] via a link function g: g(E[y|X]) = Xβ. Linear regression assumes y ~ Normal with identity link (g = identity), but GLMs allow different distributions and links. For example: (1) Binomial with logit link gives logistic regression, (2) Poisson with log link models count data with E[y] = e^(Xβ), (3) Gamma with log link for positive continuous data. The general form uses maximum likelihood estimation on the chosen distribution. GLMs unify many models under one framework, sharing common properties: exponential family distributions, link functions chosen for interpretation or mathematical convenience, and inference via deviance (generalized R²). In interviews, GLMs are less common than specific instantiations (logistic regression, Poisson regression), but demonstrating knowledge of the framework shows conceptual depth. Modern alternatives like generalized additive models (GAMs) relax the linearity assumption while keeping interpretability.
+**A:** GLMs extend linear regression by modeling E[y|X] via a link function g: g(E[y|X]) = Xβ. Linear regression assumes y ~ Normal with identity link (g = identity), but GLMs allow different distributions and links. For example:
+
+(1) Binomial with logit link gives logistic regression,
+
+(2) Poisson with log link models count data with E[y] = e^(Xβ),
+
+(3) Gamma with log link for positive continuous data. The general form uses maximum likelihood estimation on the chosen distribution. GLMs unify many models under one framework, sharing common properties: exponential family distributions, link functions chosen for interpretation or mathematical convenience, and inference via deviance (generalized R²). In interviews, GLMs are less common than specific instantiations (logistic regression, Poisson regression), but demonstrating knowledge of the framework shows conceptual depth. Modern alternatives like generalized additive models (GAMs) relax the linearity assumption while keeping interpretability.
 
 ---
 
@@ -100,7 +133,11 @@ Linear models form the foundation of machine learning and are frequently tested 
 
 ### Q15: When would you choose linear regression or logistic regression over more complex models, and what are the tradeoffs?
 
-**A:** Linear models excel in interpretability—coefficients directly show feature importance and direction of effects, critical for regulatory compliance and explainability (e.g., loan decisions). They're fast to train and score, need little tuning, and perform well with small sample sizes. Tradeoffs: they assume linear relationships, which often don't hold; they struggle with nonlinear patterns or feature interactions (unless manually engineered); they lack embedded feature selection (Lasso helps but isn't as powerful as tree-based). Start with linear models as a baseline—if performance is acceptable, use them; if gap to complex models is large, the nonlinearity is significant. In practice: linear for high-dimensional sparse data (text, genomics), small samples, or regulatory settings; tree-based for tabular data with complex interactions; neural nets for unstructured data (images, text embeddings). A strong interviewer approach is: "I'd fit a linear model first to establish a baseline and ensure I understand the problem, then escalate complexity if needed."
+**A:** Linear models excel in interpretability—coefficients directly show feature importance and direction of effects, critical for regulatory compliance and explainability (e.g., loan decisions). They're fast to train and score, need little tuning, and perform well with small sample sizes.
+
+Tradeoffs: they assume linear relationships, which often don't hold; they struggle with nonlinear patterns or feature interactions (unless manually engineered); they lack embedded feature selection (Lasso helps but isn't as powerful as tree-based). Start with linear models as a baseline—if performance is acceptable, use them; if gap to complex models is large, the nonlinearity is significant.
+
+In practice: linear for high-dimensional sparse data (text, genomics), small samples, or regulatory settings; tree-based for tabular data with complex interactions; neural nets for unstructured data (images, text embeddings). A strong interviewer approach is: "I'd fit a linear model first to establish a baseline and ensure I understand the problem, then escalate complexity if needed."
 
 ---
 

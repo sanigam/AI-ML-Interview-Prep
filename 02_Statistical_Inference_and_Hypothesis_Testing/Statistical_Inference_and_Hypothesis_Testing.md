@@ -2,7 +2,6 @@
 
 📺 **Video Lecture:** https://youtu.be/4NlWsOKGBLc
 
-
 ## Interview Anchor
 - **Point Estimation:** Using sample data to estimate an unknown population parameter with a single value
 - **Hypothesis Testing:** A statistical procedure to decide between competing hypotheses about a parameter using evidence from data
@@ -29,7 +28,15 @@ Understanding the relationship between p-values, confidence intervals, and effec
 
 ### Q3: Define p-values and explain common misconceptions about their interpretation.
 
-**A:** The p-value is the probability of observing a test statistic as extreme as or more extreme than what you observed, assuming the null hypothesis is true: P(test stat | H₀). A small p-value (typically <0.05) means the observed data is unlikely under H₀, suggesting evidence against H₀. Critical misconceptions: (1) p-value is NOT the probability H₀ is true—H₀ is either true or false, not probabilistic; (2) p-value is NOT the probability the result is due to chance—all results involve randomness; (3) small p-value doesn't prove large effect size; (4) p-value depends on sample size—with huge n, tiny effects become "significant." The correct interpretation: "If H₀ were true, we'd see data this extreme or more extreme 5% of the time." In practice, overreliance on p-values without considering effect sizes or practical significance leads to spurious discoveries, especially in high-dimensional settings where multiple comparisons inflate false discovery rates.
+**A:** The p-value is the probability of observing a test statistic as extreme as or more extreme than what you observed, assuming the null hypothesis is true: P(test stat | H₀). A small p-value (typically <0.05) means the observed data is unlikely under H₀, suggesting evidence against H₀. Critical misconceptions:
+
+(1) p-value is NOT the probability H₀ is true—H₀ is either true or false, not probabilistic;
+
+(2) p-value is NOT the probability the result is due to chance—all results involve randomness;
+
+(3) small p-value doesn't prove large effect size;
+
+(4) p-value depends on sample size—with huge n, tiny effects become "significant." The correct interpretation: "If H₀ were true, we'd see data this extreme or more extreme 5% of the time." In practice, overreliance on p-values without considering effect sizes or practical significance leads to spurious discoveries, especially in high-dimensional settings where multiple comparisons inflate false discovery rates.
 
 ---
 
@@ -59,7 +66,11 @@ Understanding the relationship between p-values, confidence intervals, and effec
 
 ### Q8: Explain the chi-square test and its applications.
 
-**A:** The chi-square test compares observed frequencies in categorical data to expected frequencies under a null hypothesis. The test statistic χ² = Σ (O_i - E_i)² / E_i, where O_i is observed count and E_i is expected count under H₀; under H₀, χ² approximately follows a chi-square distribution with k degrees of freedom (k = number of categories - 1, minus parameters estimated). Applications: (1) goodness-of-fit: does data follow a specific distribution? (2) independence: are two categorical variables independent? (3) homogeneity: do k populations have the same distribution? Assumptions: observations are independent, categories are mutually exclusive, expected frequency ≥5 in each cell (merge small categories if violated). In ML, chi-square tests evaluate whether predicted class distributions match observed (e.g., classifier outputting wrong class proportions), or whether feature distribution differs significantly between training and deployed data (indicator of data drift).
+**A:** The chi-square test compares observed frequencies in categorical data to expected frequencies under a null hypothesis. The test statistic χ² = Σ (O_i - E_i)² / E_i, where O_i is observed count and E_i is expected count under H₀; under H₀, χ² approximately follows a chi-square distribution with k degrees of freedom (k = number of categories - 1, minus parameters estimated).
+
+Applications:
+
+(1) goodness-of-fit: does data follow a specific distribution? (2) independence: are two categorical variables independent? (3) homogeneity: do k populations have the same distribution? Assumptions: observations are independent, categories are mutually exclusive, expected frequency ≥5 in each cell (merge small categories if violated). In ML, chi-square tests evaluate whether predicted class distributions match observed (e.g., classifier outputting wrong class proportions), or whether feature distribution differs significantly between training and deployed data (indicator of data drift).
 
 ---
 
@@ -101,7 +112,19 @@ Understanding the relationship between p-values, confidence intervals, and effec
 
 ### Q15: How do you design A/B tests and determine sample size requirements?
 
-**A:** A/B testing compares two variants (control A and treatment B) on randomly assigned users, measuring a primary metric (e.g., conversion rate). Design steps: (1) specify primary metric and hypothesis (one-sided or two-sided), (2) specify minimum detectable effect size (e.g., 10% relative lift), (3) choose significance level α (often 0.05) and power (often 0.80), (4) calculate sample size n per variant, (5) run test with proper randomization and blinding, (6) analyze via t-test or proportion test at specified α level. Sample size formula for comparing proportions: n ≈ 2(z_α + z_β)²p(1-p) / Δ², where p is baseline rate and Δ is effect size. Practical considerations: avoid peeking at results during test (inflates α), use sequential testing for early stopping, account for multiple comparisons if testing multiple metrics, and pre-register analysis plan to prevent p-hacking. In ML contexts, A/B tests validate that model improvements generalize (online metrics matter more than offline metrics), and understanding this framework helps you propose tests that convince stakeholders of real value.
+**A:** A/B testing compares two variants (control A and treatment B) on randomly assigned users, measuring a primary metric (e.g., conversion rate). Design steps:
+
+(1) specify primary metric and hypothesis (one-sided or two-sided),
+
+(2) specify minimum detectable effect size (e.g., 10% relative lift),
+
+(3) choose significance level α (often 0.05) and power (often 0.80),
+
+(4) calculate sample size n per variant,
+
+(5) run test with proper randomization and blinding,
+
+(6) analyze via t-test or proportion test at specified α level. Sample size formula for comparing proportions: n ≈ 2(z_α + z_β)²p(1-p) / Δ², where p is baseline rate and Δ is effect size. Practical considerations: avoid peeking at results during test (inflates α), use sequential testing for early stopping, account for multiple comparisons if testing multiple metrics, and pre-register analysis plan to prevent p-hacking. In ML contexts, A/B tests validate that model improvements generalize (online metrics matter more than offline metrics), and understanding this framework helps you propose tests that convince stakeholders of real value.
 
 ---
 

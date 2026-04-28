@@ -50,7 +50,13 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q7: How do you handle NULL values in SQL? What are common pitfalls?
 
-**A:** NULL represents missing or unknown data and behaves specially: NULL = NULL evaluates to NULL (not TRUE), so you must use IS NULL or IS NOT NULL for comparisons. Common pitfalls include: (1) assuming NULL counts in COUNT(*) (it does; use COUNT(column) to exclude NULLs), (2) SUM(column) ignores NULLs, potentially masking missing data, (3) NOT IN (col1, col2, NULL) returns zero rows because of NULL behavior in NOT IN logic. For feature engineering, handle NULLs explicitly: `CASE WHEN value IS NULL THEN 0 ELSE value END` to impute with a default, or `COALESCE(column1, column2, 0)` to use the first non-NULL value. Understanding NULL propagation is critical—for instance, if you have `revenue / users WHERE users IS NULL`, the division fails for those rows, potentially breaking your pipeline. Different SQL dialects handle NULL slightly differently, so always test NULL behavior in your specific database.
+**A:** NULL represents missing or unknown data and behaves specially: NULL = NULL evaluates to NULL (not TRUE), so you must use IS NULL or IS NOT NULL for comparisons. Common pitfalls include:
+
+(1) assuming NULL counts in COUNT(*) (it does; use COUNT(column) to exclude NULLs),
+
+(2) SUM(column) ignores NULLs, potentially masking missing data,
+
+(3) NOT IN (col1, col2, NULL) returns zero rows because of NULL behavior in NOT IN logic. For feature engineering, handle NULLs explicitly: `CASE WHEN value IS NULL THEN 0 ELSE value END` to impute with a default, or `COALESCE(column1, column2, 0)` to use the first non-NULL value. Understanding NULL propagation is critical—for instance, if you have `revenue / users WHERE users IS NULL`, the division fails for those rows, potentially breaking your pipeline. Different SQL dialects handle NULL slightly differently, so always test NULL behavior in your specific database.
 
 ---
 
@@ -68,7 +74,17 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q10: What are the performance implications of indexing, and how do you write query-efficient SQL?
 
-**A:** Indexes speed up WHERE clause filtering and JOINs by allowing the database to locate rows without scanning every record—a query on an indexed column on a 1M-row table might scan 100 rows vs. 1M. However, indexes slow down INSERT/UPDATE operations because the index must be maintained. For ML pipelines, index frequently-filtered columns (user_id, date, event_type) and join keys, but avoid over-indexing. Query efficiency tips: (1) use EXPLAIN PLAN to check if your query uses indexes and avoids full table scans, (2) push filters down with WHERE before GROUP BY rather than filtering aggregates, (3) avoid functions in WHERE clauses (`WHERE YEAR(date) = 2024` prevents index use; prefer `WHERE date >= '2024-01-01'`), (4) SELECT only needed columns instead of SELECT *, (5) denormalize tables for read-heavy workloads, storing pre-aggregated features in a dedicated table. For large datasets, partition tables by date and filter partitions early to reduce data scanned, a crucial optimization in Snowflake/BigQuery.
+**A:** Indexes speed up WHERE clause filtering and JOINs by allowing the database to locate rows without scanning every record—a query on an indexed column on a 1M-row table might scan 100 rows vs. 1M. However, indexes slow down INSERT/UPDATE operations because the index must be maintained. For ML pipelines, index frequently-filtered columns (user_id, date, event_type) and join keys, but avoid over-indexing. Query efficiency tips:
+
+(1) use EXPLAIN PLAN to check if your query uses indexes and avoids full table scans,
+
+(2) push filters down with WHERE before GROUP BY rather than filtering aggregates,
+
+(3) avoid functions in WHERE clauses (`WHERE YEAR(date) = 2024` prevents index use; prefer `WHERE date >= '2024-01-01'`),
+
+(4) SELECT only needed columns instead of SELECT *,
+
+(5) denormalize tables for read-heavy workloads, storing pre-aggregated features in a dedicated table. For large datasets, partition tables by date and filter partitions early to reduce data scanned, a crucial optimization in Snowflake/BigQuery.
 
 ---
 
@@ -92,7 +108,17 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q14: How do you validate data quality in SQL?
 
-**A:** Write queries to check for common data quality issues: (1) nulls and cardinality—`SELECT column_name, COUNT(*), COUNT(DISTINCT column_name) FROM table` shows missing values and unique value counts, (2) duplicates—`SELECT column_name, COUNT(*) FROM table GROUP BY column_name HAVING COUNT(*) > 1` identifies duplicate rows, (3) outliers—`SELECT column_name, MIN(), MAX(), AVG(), STDDEV() FROM table` detects suspicious distributions, (4) referential integrity—`SELECT COUNT(*) FROM orders WHERE customer_id NOT IN (SELECT customer_id FROM customers)` finds orphaned rows, (5) freshness—`SELECT MAX(last_updated) FROM data_table` checks if data is stale. For ML pipelines, implement these checks as assertions before training: if duplicate rate exceeds 5%, halt the pipeline; if >20% of values are NULL, flag for investigation. Version control your data quality queries so the team knows what "good data" looks like for your specific domain.
+**A:** Write queries to check for common data quality issues:
+
+(1) nulls and cardinality—`SELECT column_name, COUNT(*), COUNT(DISTINCT column_name) FROM table` shows missing values and unique value counts,
+
+(2) duplicates—`SELECT column_name, COUNT(*) FROM table GROUP BY column_name HAVING COUNT(*) > 1` identifies duplicate rows,
+
+(3) outliers—`SELECT column_name, MIN(), MAX(), AVG(), STDDEV() FROM table` detects suspicious distributions,
+
+(4) referential integrity—`SELECT COUNT(*) FROM orders WHERE customer_id NOT IN (SELECT customer_id FROM customers)` finds orphaned rows,
+
+(5) freshness—`SELECT MAX(last_updated) FROM data_table` checks if data is stale. For ML pipelines, implement these checks as assertions before training: if duplicate rate exceeds 5%, halt the pipeline; if >20% of values are NULL, flag for investigation. Version control your data quality queries so the team knows what "good data" looks like for your specific domain.
 
 ---
 
