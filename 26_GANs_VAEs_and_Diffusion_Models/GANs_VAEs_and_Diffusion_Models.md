@@ -33,7 +33,7 @@ Generative models form a critical subfield of deep learning, addressing the core
 
 Training:
 
-(1) Discriminator: minimize `E_x[log D(x)] + E_z[log(1 - D(G(z)))]` (maximize likelihood of real being classified real, fake being classified fake).
+(1) Discriminator: maximize `E_x[log D(x)] + E_z[log(1 - D(G(z)))]` (maximize likelihood of real being classified real, fake being classified fake).
 
 (2) Generator: minimize `E_z[log(1 - D(G(z)))]` (maximize likelihood of fake being classified real, i.e., fool discriminator). Adversarial game: as D improves, it gets harder for G to fool D, pushing G to improve. At equilibrium, G generates samples indistinguishable from real data, D cannot distinguish (D outputs 0.5 for all samples).
 
@@ -111,7 +111,7 @@ Disadvantages:
 
 (2) Only generates conditioned on seen conditions (if trained on digits 0-9, can't generate new styles).
 
-Application: text-to-image synthesis (DALL-E originally used GANs conditioned on text, now diffusion-based).
+Application: text-to-image synthesis (DALL-E 1 used a dVAE + autoregressive transformer; later versions like DALL-E 2/3 use diffusion models). cGANs like Pix2Pix remain widely used for paired image-to-image tasks.
 
 Modern trend: diffusion models now outperform GANs on image generation, including cGANs.
 

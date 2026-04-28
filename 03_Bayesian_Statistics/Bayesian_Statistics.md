@@ -94,7 +94,7 @@ Metropolis-Hastings algorithm: propose new θ from a proposal distribution, acce
 
 Gibbs sampling is a special case where you sample each variable from its conditional distribution given others, which simplifies when conditional are tractable.
 
-In practice: MCMC requires careful tuning (proposal variance, burn-in length, thinning), convergence diagnostics (R̂ < 1.01), and can be slow for high-dimensional problems. In ML, MCMC enables Bayesian neural networks, mixture models, and hierarchical models that would otherwise be intractable. Modern practitioners often use Stan or PyMC3 (probabilistic programming languages) that automate MCMC tuning and diagnostics.
+In practice: MCMC requires careful tuning (proposal variance, burn-in length, thinning), convergence diagnostics (R̂ < 1.01), and can be slow for high-dimensional problems. In ML, MCMC enables Bayesian neural networks, mixture models, and hierarchical models that would otherwise be intractable. Modern practitioners often use Stan or PyMC (probabilistic programming languages) that automate MCMC tuning and diagnostics.
 
 ---
 
@@ -222,7 +222,7 @@ Benefit: accounts for parameter uncertainty in predictions. For example, in Baye
 
 (3) posterior predictive distribution is empirical distribution of {Y_new⁽ˢ⁾}. In Bayesian model checking, you generate posterior predictive samples and compare to observed data; if they look very different, the model is inconsistent with data.
 
-Posterior predictive prior (PPC) is a powerful tool: if model is well-specified, data should look like posterior predictive samples.
+Posterior Predictive Check (PPC) is a powerful tool: if model is well-specified, data should look like posterior predictive samples.
 
 In ML, posterior predictive distribution answers: "for a new input, what's the distribution of outputs averaging over parameter uncertainty?" This is valuable for uncertainty quantification in deep learning (Bayesian neural networks have posterior predictive as mixture of softmaxes over weight samples).
 

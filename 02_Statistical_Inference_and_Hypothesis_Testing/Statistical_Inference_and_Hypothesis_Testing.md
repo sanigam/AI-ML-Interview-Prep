@@ -80,7 +80,7 @@ For ML practitioners, understanding that rank-based methods are robust helps you
 
 All assume independence and approximate normality (robust with larger samples). The test statistic t = (M₁ - M₂) / SE_{diff}, where SE_{diff} is the standard error of the difference; under H₀, t follows a t-distribution with degrees of freedom depending on sample sizes.
 
-Degrees of freedom slightly above normal: t-distributions have heavier tails than normal, making tests slightly more conservative. In ML, paired t-tests compare two models on the same test instances (e.g., baseline vs. new model on same 5 datasets), which is more powerful than independent tests.
+With small degrees of freedom, the t-distribution has heavier tails than the normal distribution, making tests slightly more conservative; as df increases, the t-distribution converges to the normal. In ML, paired t-tests compare two models on the same test instances (e.g., baseline vs. new model on same 5 datasets), which is more powerful than independent tests.
 
 Always check assumptions via Shapiro-Wilk test (normality) and Levene's test (equal variances) before reporting t-tests.
 

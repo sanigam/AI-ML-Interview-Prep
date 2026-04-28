@@ -86,7 +86,7 @@ Key relationship: if events follow Poisson, the time between them follows expone
 
 **A:** Expectation E[X] = Σ x·P(x) (discrete) or ∫ x·f(x)dx (continuous) represents the center of mass or average value of a random variable. Variance Var(X) = E[(X - E[X])²] = E[X²] - (E[X])² measures spread around the mean. Standard deviation σ = √Var(X) is variance in the original units.
 
-In ML, the mean tells you the typical prediction or feature value, while variance quantifies uncertainty—high variance models overfit (high Var on training data, low on test), while high-bias models underfit. The bias-variance tradeoff is foundational: total error ≈ bias² + variance + noise.
+In ML, the mean tells you the typical prediction or feature value, while variance quantifies uncertainty—high variance models overfit (predictions vary significantly across different training sets), while high-bias models underfit. The bias-variance tradeoff is foundational: total error ≈ bias² + variance + noise.
 
 When you normalize features to zero mean and unit variance, you're standardizing these statistics to make optimization easier. Interviewers expect you to understand that variance in the probabilistic sense (spread of a distribution) differs from statistical variance (sample-based estimate), and both matter for understanding model behavior.
 
@@ -120,7 +120,7 @@ This is extraordinary: even if your data comes from a uniform, exponential, or o
 
 In ML, CLT justifies why we can use normal-based confidence intervals for sample means (like test accuracy), why minibatch gradient estimates in SGD are approximately normal-distributed, and why many statistical tests assume normality of means even if underlying data isn't normal.
 
-This explains why adding more samples (increasing n) reduces the standard error of your estimates by √n.
+This explains why adding more samples (increasing n) reduces the standard error of your estimates by a factor of 1/√n.
 
 ---
 
@@ -144,7 +144,7 @@ For a discrete distribution, the PMF gives probabilities and the CDF still gives
 
 Practically, you use PDFs to visualize where data concentrates and to evaluate likelihood in probabilistic models, while you use CDFs for calculating percentiles (P(X ≤ value) = 0.95 tells you the 95th percentile), computing tail probabilities (P(X > threshold)), and hypothesis testing.
 
-In Kolmogorov-Smirnov tests, you compare empirical CDFs across samples. When reporting model uncertainties, you often specify CDF-based confidence intervals: "95% CI means there's a 95% probability the true value is between these bounds."
+In Kolmogorov-Smirnov tests, you compare empirical CDFs across samples. When reporting model uncertainties, you often specify CDF-based intervals to quantify the range of plausible values.
 
 ---
 
@@ -160,11 +160,11 @@ For example, income distributions are right-skewed (long tail of high earners), 
 
 ---
 
-### Q14: What does it mean for a distribution to be a sufficient statistic, and when is this important?
+### Q14: What does it mean for a statistic to be sufficient, and when is this important?
 
 **A:** A statistic T(X) is sufficient for parameter θ if the conditional distribution of data X given T(X) doesn't depend on θ. Intuitively, a sufficient statistic captures all the information in the data relevant to θ—the raw data gives no additional information once you know T(X).
 
-For a normal distribution with unknown mean μ, the sample mean is sufficient for μ; for Poisson with unknown rate λ, the sample mean is sufficient. Factorization criterion: T is sufficient if you can write the likelihood as L(θ; x) = g(T(x), θ) × h(x) where h doesn't depend on θ.
+For a normal distribution with unknown mean μ, the sample mean is sufficient for μ; for Poisson with unknown rate λ, the sample sum Σxᵢ is sufficient (equivalently, the sample mean when n is fixed). Factorization criterion: T is sufficient if you can write the likelihood as L(θ; x) = g(T(x), θ) × h(x) where h doesn't depend on θ.
 
 In practice, sufficiency matters because you can compress data down to a sufficient statistic without losing information—this is useful for summarization and understanding what statistics actually matter for inference.
 

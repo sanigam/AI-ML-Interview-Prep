@@ -46,7 +46,7 @@ Quantization works because neural networks are robust to noise—modest precisio
 
 (3) performs matrix multiplications in INT8 (much faster than FP32),
 
-(4) dequantizes output back to FP32. INT8 incurs 10-20% accuracy loss on average, works well for most tasks, supported by standard libraries (bitsandbytes). INT4 quantization is more aggressive: 50-80% accuracy loss on reasoning tasks, but acceptable for semantic tasks (summarization, classification).
+(4) dequantizes output back to FP32. INT8 typically incurs <1-2% accuracy loss on most benchmarks, works well for nearly all tasks, and is supported by standard libraries (bitsandbytes). INT4 quantization is more aggressive: without calibration-aware methods, it can lose 3-10% accuracy on reasoning tasks, but with techniques like GPTQ/AWQ the loss is typically 1-5%.
 
 GPTQ (Generative Pre-Trained Transformer Quantization) improves INT4 by carefully selecting which weights to quantize least aggressively:
 
@@ -340,7 +340,7 @@ Modern trend: start with vLLM for prototyping, migrate to TensorRT-LLM for produ
 
 **A:** LLM inference hardware choice directly impacts cost and performance. GPUs dominate because inference is memory-bandwidth-bound (high data movement relative to compute), and GPUs have high memory bandwidth. A100 (80GB HBM): released 2020, 1.9TB/s bandwidth, sufficient for 70B model in FP16, good for batch inference.
 
-H100 (141GB HBM): released 2023, 3.4TB/s bandwidth (80% more), native INT8 support, enables larger batches and longer sequences, significantly faster (~1.5-2x on latency benchmarks). H100 cost is ~2x A100, ROI depends on workload (throughput-bound workloads favor H100; latency-critical may justify cost).
+H100 SXM (80GB HBM3): released 2023, 3.35TB/s bandwidth (80% more), native FP8/INT8 support, enables larger batches and longer sequences, significantly faster (~1.5-2x on latency benchmarks). H100 cost is ~2x A100, ROI depends on workload (throughput-bound workloads favor H100; latency-critical may justify cost).
 
 TPU (Google): optimized for ML, lower cost than H100, comparable performance, but ecosystem is smaller (less mature software, less community support). For cost-sensitive inference, A100 or H100 beats CPU by 100x on latency.
 
