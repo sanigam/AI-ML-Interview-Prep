@@ -9,55 +9,55 @@ Test your understanding of linear algebra concepts essential for machine learnin
 
 **Q1. The eigenvalues of a matrix A represent:**
 
-A) The dimensions of the matrix  
-B) The factors by which eigenvectors are scaled when multiplied by A  
-C) The sum of each row of A  
-D) The inverse of A
+A) The sum of each row of A  
+B) The inverse of A  
+C) The factors by which eigenvectors are scaled when multiplied by A  
+D) The dimensions of the matrix
 
 ---
 
 **Q2. In Principal Component Analysis (PCA), the principal components are:**
 
-A) The rows of the original data matrix  
-B) The eigenvectors of the data's covariance matrix, ordered by eigenvalue magnitude  
+A) The mean values of each feature  
+B) The rows of the original data matrix  
 C) Randomly chosen directions in feature space  
-D) The mean values of each feature
+D) The eigenvectors of the data's covariance matrix, ordered by eigenvalue magnitude
 
 ---
 
 **Q3. A matrix is singular (non-invertible) when:**
 
-A) All its eigenvalues are positive  
-B) Its determinant is zero  
-C) It is symmetric  
-D) It has more rows than columns
+A) Its determinant is zero  
+B) It is symmetric  
+C) It has more rows than columns  
+D) All its eigenvalues are positive
 
 ---
 
 **Q4. The rank of a matrix tells you:**
 
-A) The total number of elements in the matrix  
-B) The number of linearly independent rows or columns  
-C) The largest element in the matrix  
-D) The trace of the matrix
+A) The number of linearly independent rows or columns  
+B) The total number of elements in the matrix  
+C) The trace of the matrix  
+D) The largest element in the matrix
 
 ---
 
 **Q5. In the Singular Value Decomposition (SVD) A = UΣV^T, the diagonal entries of Σ are:**
 
-A) The eigenvalues of A  
+A) The determinant of A  
 B) The singular values of A (square roots of eigenvalues of A^T A)  
-C) The determinant of A  
-D) The column means of A
+C) The column means of A  
+D) The eigenvalues of A
 
 ---
 
 **Q6. Two vectors are orthogonal when:**
 
-A) Their dot product is 1  
-B) Their dot product is 0  
-C) They have the same magnitude  
-D) They point in the same direction
+A) Their dot product is 0  
+B) Their dot product is 1  
+C) They point in the same direction  
+D) They have the same magnitude
 
 ---
 
@@ -72,28 +72,28 @@ D) It equals the rank of the matrix
 
 **Q8. What does it mean for a matrix to be positive semi-definite?**
 
-A) All elements of the matrix are positive  
+A) The determinant is positive  
 B) All eigenvalues are non-negative (≥ 0)  
-C) The matrix is invertible  
-D) The determinant is positive
+C) All elements of the matrix are positive  
+D) The matrix is invertible
 
 ---
 
 **Q9. In linear regression, the normal equation X^T X β = X^T y can fail to produce a unique solution when:**
 
-A) The dataset has too many samples  
+A) y contains only positive values  
 B) X^T X is singular (features are linearly dependent)  
-C) y contains only positive values  
+C) The dataset has too many samples  
 D) X is a square matrix
 
 ---
 
 **Q10. The trace of a matrix (sum of diagonal elements) equals:**
 
-A) The determinant of the matrix  
-B) The sum of its eigenvalues  
-C) The rank of the matrix  
-D) The number of rows
+A) The rank of the matrix  
+B) The number of rows  
+C) The sum of its eigenvalues  
+D) The determinant of the matrix
 
 ---
 
@@ -101,34 +101,34 @@ D) The number of rows
 
 A) The area of the parallelogram formed by u and v  
 B) ||u|| × ||v|| × cos(θ), where θ is the angle between them  
-C) The cross product of u and v  
-D) The sum of u and v
+C) The sum of u and v  
+D) The cross product of u and v
 
 ---
 
 **Q12. Adding a small value λ to the diagonal of X^T X (as in Ridge regression) helps because:**
 
-A) It increases the rank of X  
-B) It makes X^T X + λI invertible and improves numerical stability  
-C) It removes all features from the model  
-D) It guarantees zero training error
+A) It makes X^T X + λI invertible and improves numerical stability  
+B) It guarantees zero training error  
+C) It increases the rank of X  
+D) It removes all features from the model
 
 ---
 
 **Q13. In matrix multiplication AB, the result is defined only when:**
 
-A) A and B have the same dimensions  
+A) A is the transpose of B  
 B) The number of columns of A equals the number of rows of B  
-C) Both matrices are square  
-D) A is the transpose of B
+C) A and B have the same dimensions  
+D) Both matrices are square
 
 ---
 
 **Q14. The determinant of a 2×2 matrix [[a, b], [c, d]] is:**
 
-A) a + d  
-B) ad + bc  
-C) ad − bc  
+A) ad − bc  
+B) a + d  
+C) ad + bc  
 D) ac − bd
 
 ---
@@ -136,30 +136,30 @@ D) ac − bd
 **Q15. Low-rank matrix approximation (keeping top-k singular values in SVD) is useful in ML for:**
 
 A) Increasing the dimensionality of data  
-B) Dimensionality reduction, noise reduction, and compression  
-C) Making all eigenvalues equal  
+B) Making all eigenvalues equal  
+C) Dimensionality reduction, noise reduction, and compression  
 D) Converting sparse matrices to dense matrices
 
 ---
 
 ## Answer Key
 
-**Q1. Answer: B**
+**Q1. Answer: C**
 When Av = λv, λ is the eigenvalue and v is the eigenvector. The eigenvalue λ represents the scaling factor applied to the eigenvector when the matrix transformation is applied.
 
-**Q2. Answer: B**
+**Q2. Answer: D**
 PCA finds directions of maximum variance by computing eigenvectors of the covariance matrix. The eigenvectors corresponding to the largest eigenvalues capture the most variance and become the principal components.
 
-**Q3. Answer: B**
+**Q3. Answer: A**
 A singular matrix has determinant = 0, meaning it has at least one zero eigenvalue and its rows/columns are linearly dependent. Such matrices cannot be inverted.
 
-**Q4. Answer: B**
+**Q4. Answer: A**
 The rank equals the number of linearly independent rows (or equivalently, columns). It tells you the effective dimensionality of the information in the matrix.
 
 **Q5. Answer: B**
 Singular values are the square roots of the eigenvalues of A^T A (or AA^T). They represent the "stretching factors" of the matrix transformation along its principal axes.
 
-**Q6. Answer: B**
+**Q6. Answer: A**
 Orthogonal vectors have a dot product of zero, meaning they are perpendicular. In ML, orthogonal features carry independent information, which is desirable for model stability.
 
 **Q7. Answer: B**
@@ -171,22 +171,22 @@ A positive semi-definite matrix has all eigenvalues ≥ 0. Covariance matrices a
 **Q9. Answer: B**
 When features are linearly dependent (multicollinearity), X^T X becomes singular and cannot be inverted. This is why regularization (Ridge/Lasso) or feature selection is needed.
 
-**Q10. Answer: B**
+**Q10. Answer: C**
 The trace equals the sum of eigenvalues: tr(A) = Σ λᵢ. This property is used extensively in matrix calculus and optimization for ML.
 
 **Q11. Answer: B**
 The dot product u · v = ||u|| × ||v|| × cos(θ) measures the projection of one vector onto another. When θ = 90°, cos(θ) = 0, confirming orthogonality means zero dot product.
 
-**Q12. Answer: B**
+**Q12. Answer: A**
 Adding λI to X^T X ensures all eigenvalues are at least λ > 0, making the matrix invertible. This is the mathematical basis of Ridge regression and Tikhonov regularization.
 
 **Q13. Answer: B**
 For AB to be defined, the inner dimensions must match: if A is m×n, B must be n×p, producing an m×p result. This is a fundamental rule of matrix multiplication.
 
-**Q14. Answer: C**
+**Q14. Answer: A**
 The determinant of [[a, b], [c, d]] is ad − bc. If this equals zero, the matrix is singular. The determinant represents the signed area scaling factor of the linear transformation.
 
-**Q15. Answer: B**
+**Q15. Answer: C**
 Truncated SVD (keeping top-k singular values) provides the best rank-k approximation (Eckart-Young theorem). This is used for dimensionality reduction, denoising, and compression in recommender systems and NLP.
 
 ---

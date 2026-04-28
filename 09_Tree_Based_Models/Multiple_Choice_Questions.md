@@ -9,19 +9,19 @@ Test your understanding of decision trees, random forests, and gradient boosting
 
 **Q1. A decision tree splits data based on:**
 
-A) Random chance  
-B) The feature and threshold that best separates the target classes (maximizes information gain or minimizes impurity)  
+A) The mean of all features  
+B) Random chance  
 C) The alphabetical order of feature names  
-D) The mean of all features
+D) The feature and threshold that best separates the target classes (maximizes information gain or minimizes impurity)
 
 ---
 
 **Q2. Gini impurity of a node with 50% class A and 50% class B equals:**
 
-A) 0.0  
-B) 0.25  
-C) 0.5  
-D) 1.0
+A) 0.5  
+B) 1.0  
+C) 0.0  
+D) 0.25
 
 ---
 
@@ -38,116 +38,116 @@ D) Have high bias and low variance
 
 A) Using a shallower tree  
 B) Training multiple trees on bootstrapped samples and random feature subsets, then averaging predictions  
-C) Using only one feature  
-D) Removing all outliers from the data
+C) Removing all outliers from the data  
+D) Using only one feature
 
 ---
 
 **Q5. In Random Forest, the "random" aspect refers to:**
 
 A) Random initialization of weights  
-B) Random sampling of training data (bagging) AND random selection of features at each split  
-C) Random selection of the target variable  
+B) Random selection of the target variable  
+C) Random sampling of training data (bagging) AND random selection of features at each split  
 D) Random depth for each tree
 
 ---
 
 **Q6. Gradient Boosting builds trees sequentially where each new tree:**
 
-A) Is identical to the previous tree  
-B) Fits the residuals (errors) of the previous ensemble  
-C) Uses a completely different dataset  
-D) Has more features than the previous tree
+A) Fits the residuals (errors) of the previous ensemble  
+B) Uses a completely different dataset  
+C) Has more features than the previous tree  
+D) Is identical to the previous tree
 
 ---
 
 **Q7. XGBoost improves on basic gradient boosting by incorporating:**
 
-A) Only deeper trees  
+A) Neural network layers  
 B) Regularization, efficient handling of sparse data, and parallel computation  
-C) Only random feature sampling  
-D) Neural network layers
+C) Only deeper trees  
+D) Only random feature sampling
 
 ---
 
 **Q8. The max_depth hyperparameter in a decision tree controls:**
 
 A) The maximum number of features used  
-B) The maximum levels of splits from root to leaf  
-C) The maximum number of training samples  
-D) The maximum number of trees in an ensemble
+B) The maximum number of training samples  
+C) The maximum number of trees in an ensemble  
+D) The maximum levels of splits from root to leaf
 
 ---
 
 **Q9. Feature importance in a random forest is typically measured by:**
 
-A) The order in which features appear alphabetically  
-B) The total reduction in impurity (Gini or entropy) contributed by that feature across all trees  
-C) The correlation of the feature with the target  
-D) The number of missing values in the feature
+A) The number of missing values in the feature  
+B) The order in which features appear alphabetically  
+C) The total reduction in impurity (Gini or entropy) contributed by that feature across all trees  
+D) The correlation of the feature with the target
 
 ---
 
 **Q10. Bagging (Bootstrap Aggregating) reduces:**
 
-A) Bias of the model  
-B) Variance of the model by averaging multiple models trained on different subsets  
-C) Both bias and variance equally  
-D) The number of features
+A) Both bias and variance equally  
+B) The number of features  
+C) Variance of the model by averaging multiple models trained on different subsets  
+D) Bias of the model
 
 ---
 
 **Q11. Out-of-bag (OOB) error in Random Forest is:**
 
-A) The error on the training set  
-B) An estimate of test error using samples not included in each tree's bootstrap sample  
-C) The error after removing outliers  
+A) An estimate of test error using samples not included in each tree's bootstrap sample  
+B) The error after removing outliers  
+C) The error on the training set  
 D) Always lower than cross-validation error
 
 ---
 
 **Q12. Entropy of a node with 100% of one class equals:**
 
-A) 1.0  
-B) 0.5  
+A) 0.5  
+B) Infinity  
 C) 0.0 (pure node — no uncertainty)  
-D) Infinity
+D) 1.0
 
 ---
 
 **Q13. LightGBM differs from XGBoost primarily by:**
 
 A) Using leaf-wise tree growth instead of level-wise, making it faster on large datasets  
-B) Not using gradient boosting  
+B) Building trees in parallel  
 C) Only working with categorical features  
-D) Building trees in parallel
+D) Not using gradient boosting
 
 ---
 
 **Q14. In gradient boosting, a smaller learning rate (shrinkage) typically requires:**
 
-A) Fewer trees for good performance  
+A) Larger tree depth  
 B) More trees to achieve the same performance, but often generalizes better  
 C) No regularization  
-D) Larger tree depth
+D) Fewer trees for good performance
 
 ---
 
 **Q15. Decision trees are invariant to feature scaling because:**
 
-A) They use gradient descent  
+A) They always normalize features internally  
 B) Splits are based on threshold comparisons (greater/less than), not on magnitudes  
-C) They always normalize features internally  
+C) They use gradient descent  
 D) They can only handle categorical features
 
 ---
 
 ## Answer Key
 
-**Q1. Answer: B**
+**Q1. Answer: D**
 Decision trees select the feature and split point that maximizes information gain (or minimizes Gini impurity/entropy) at each node, creating the most homogeneous child nodes.
 
-**Q2. Answer: C**
+**Q2. Answer: A**
 Gini impurity = 1 − Σpᵢ² = 1 − (0.5² + 0.5²) = 1 − 0.5 = 0.5. This is the maximum impurity for binary classification, representing complete uncertainty.
 
 **Q3. Answer: B**
@@ -156,25 +156,25 @@ An unrestricted tree grows until each leaf is pure, essentially memorizing the t
 **Q4. Answer: B**
 Random Forest combines bagging (bootstrap sampling) with random feature selection at each split. Averaging many decorrelated trees reduces variance while maintaining low bias.
 
-**Q5. Answer: B**
+**Q5. Answer: C**
 Random Forest uses two sources of randomness: (1) bootstrap sampling of training data for each tree, and (2) random subset of features considered at each split point.
 
-**Q6. Answer: B**
+**Q6. Answer: A**
 Each new tree in gradient boosting fits the negative gradient of the loss (residuals for MSE). The ensemble progressively corrects the mistakes of previous trees.
 
 **Q7. Answer: B**
 XGBoost adds L1/L2 regularization on leaf weights, efficient sparse data handling, column subsampling, and system optimizations like parallel tree construction and cache-aware computation.
 
-**Q8. Answer: B**
+**Q8. Answer: D**
 max_depth limits how deep a tree can grow. Deeper trees capture more complex patterns but risk overfitting. Common values range from 3-10 for boosted ensembles.
 
-**Q9. Answer: B**
+**Q9. Answer: C**
 Feature importance sums the impurity reduction from all splits using that feature across all trees. Features used frequently at high levels with large impurity reductions are deemed most important.
 
-**Q10. Answer: B**
+**Q10. Answer: C**
 Bagging reduces variance by averaging predictions from multiple models trained on different bootstrap samples. Each model has similar bias, but their errors partially cancel when averaged.
 
-**Q11. Answer: B**
+**Q11. Answer: A**
 Each tree in RF is trained on ~63% of samples (bootstrap). The OOB error uses the remaining ~37% as a validation set for each tree, providing a free estimate of generalization error.
 
 **Q12. Answer: C**
