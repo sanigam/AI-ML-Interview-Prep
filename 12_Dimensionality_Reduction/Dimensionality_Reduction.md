@@ -237,7 +237,11 @@ Disadvantages:
 
 (4) enabling visualization,
 
-(5) concentrating information in fewer dimensions. Practical example: text data (d = 10k+ words) has only ~100-1000 relevant dimensions; applying dimensionality reduction (PCA, embeddings) drastically improves downstream models. Johnson-Lindenstrauss lemma formalizes this: n points in ℝ^d can be embedded in ℝ^k (k = O(log n / ε²)) preserving distances within ε. In interviews, explaining curse of dimensionality and how dimensionality reduction addresses it shows understanding of a fundamental challenge. Mention that not all high-dimensional problems suffer equally—sparse data (text) and dense data (images) have different challenges.
+(5) concentrating information in fewer dimensions. Practical example: text data (d = 10k+ words) has only ~100-1000 relevant dimensions; applying dimensionality reduction (PCA, embeddings) drastically improves downstream models.
+
+Johnson-Lindenstrauss lemma formalizes this: n points in ℝ^d can be embedded in ℝ^k (k = O(log n / ε²)) preserving distances within ε. In interviews, explaining curse of dimensionality and how dimensionality reduction addresses it shows understanding of a fundamental challenge.
+
+Mention that not all high-dimensional problems suffer equally—sparse data (text) and dense data (images) have different challenges.
 
 ---
 
@@ -269,7 +273,9 @@ Disadvantages:
 
 (3) projection of test data is expensive (requires kernel evaluation with all training data),
 
-(4) less interpretable than linear PCA (no feature combinations). Compared to PCA: PCA fast and interpretable; KPCA captures nonlinearity but slower. Modern alternatives: t-SNE, UMAP, autoencoders all capture nonlinearity more effectively. KPCA is elegant theoretically but rarely used in practice due to O(n²) scaling. In interviews, KPCA shows awareness of kernel methods extending linear techniques. Mention it as a historical approach; modern practitioners prefer neural networks or UMAP for nonlinear reduction.
+(4) less interpretable than linear PCA (no feature combinations). Compared to PCA: PCA fast and interpretable; KPCA captures nonlinearity but slower. Modern alternatives: t-SNE, UMAP, autoencoders all capture nonlinearity more effectively. KPCA is elegant theoretically but rarely used in practice due to O(n²) scaling.
+
+In interviews, KPCA shows awareness of kernel methods extending linear techniques. Mention it as a historical approach; modern practitioners prefer neural networks or UMAP for nonlinear reduction.
 
 ---
 
@@ -339,7 +345,9 @@ Disadvantages:
 
 (3) ambiguity in factor order and scaling (multiple valid solutions),
 
-(4) sensitive to noise. ICA vs. PCA: PCA finds uncorrelated directions (second-moment), ICA finds independent directions (higher-moment information). ICA is specialized—use only when independent sources are plausible. In practice, ICA is less common than PCA; mention it for signal processing applications. In interviews, knowing ICA differentiates you from basic practitioners; it's rarely asked but signals depth if mentioned appropriately.
+(4) sensitive to noise. ICA vs. PCA: PCA finds uncorrelated directions (second-moment), ICA finds independent directions (higher-moment information). ICA is specialized—use only when independent sources are plausible. In practice, ICA is less common than PCA; mention it for signal processing applications.
+
+In interviews, knowing ICA differentiates you from basic practitioners; it's rarely asked but signals depth if mentioned appropriately.
 
 ---
 
@@ -369,7 +377,9 @@ Trade-offs:
 
 (1) start with selection (fast baseline),
 
-(2) if performance plateaus, try extraction (more flexible). Combined approach: selection to reduce to ~100 features, then PCA/extraction on those. In interviews, discussing both options shows awareness; many practitioners use only PCA. Mention that for text (high-dimensional sparse), selection may outperform extraction due to high dimensionality curse and sparsity—extraction doesn't help sparse data much. Context-dependent decision-making impresses interviewers.
+(2) if performance plateaus, try extraction (more flexible). Combined approach: selection to reduce to ~100 features, then PCA/extraction on those. In interviews, discussing both options shows awareness; many practitioners use only PCA.
+
+Mention that for text (high-dimensional sparse), selection may outperform extraction due to high dimensionality curse and sparsity—extraction doesn't help sparse data much. Context-dependent decision-making impresses interviewers.
 
 ---
 

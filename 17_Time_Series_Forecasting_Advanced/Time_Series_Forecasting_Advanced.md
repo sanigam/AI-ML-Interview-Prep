@@ -36,7 +36,9 @@ Advanced time series forecasting bridges classical statistical methods (ARIMA, G
 
 (2) p and q: examine ACF/PACF of differenced series. Pure AR(p) shows PACF with p non-zero spikes and ACF decay; pure MA(q) shows ACF with q spikes and PACF decay. ARMA(p,q) shows both decaying.
 
-(3) Tie-breaking: when ACF/PACF suggest multiple plausible (p,q) pairs, use information criteria—AIC = 2k - 2ln(L) or BIC = k·ln(n) - 2ln(L)—and choose the pair minimizing AIC/BIC (trade-off between fit and complexity). Grid search over p ∈ [0,5], q ∈ [0,5] and select via AIC/BIC cross-validation. Auto.arima (R) or auto_arima (Python statsmodels) automates this grid search; use it as a baseline but always validate ACF/PACF diagnostics manually. In interviews, the insight that ACF/PACF are actionable guides (not decorative plots) and that you validate via information criteria separates competent practitioners.
+(3) Tie-breaking: when ACF/PACF suggest multiple plausible (p,q) pairs, use information criteria—AIC = 2k - 2ln(L) or BIC = k·ln(n) - 2ln(L)—and choose the pair minimizing AIC/BIC (trade-off between fit and complexity). Grid search over p ∈ [0,5], q ∈ [0,5] and select via AIC/BIC cross-validation.
+
+Auto.arima (R) or auto_arima (Python statsmodels) automates this grid search; use it as a baseline but always validate ACF/PACF diagnostics manually. In interviews, the insight that ACF/PACF are actionable guides (not decorative plots) and that you validate via information criteria separates competent practitioners.
 
 ---
 
@@ -68,7 +70,9 @@ Benefits: captures bidirectional causality (Granger causality tests), produces c
 
 (2) Explosions in parameters (K series and p lags = K² × p parameters).
 
-(3) Impulse response and forecast error decomposition interpretation requires domain knowledge. VAR is popular in macroeconomics and finance (modeling multiple asset returns). Model order p is selected via AIC/BIC over grid. Granger causality testing reveals if xₜ helps predict yₜ beyond yₜ's own history. In interviews, mention VAR as the workhorse for multivariate forecasting when assuming stationarity, in contrast to more complex methods handling cointegration (VECM - Vector Error Correction Model).
+(3) Impulse response and forecast error decomposition interpretation requires domain knowledge. VAR is popular in macroeconomics and finance (modeling multiple asset returns). Model order p is selected via AIC/BIC over grid. Granger causality testing reveals if xₜ helps predict yₜ beyond yₜ's own history.
+
+In interviews, mention VAR as the workhorse for multivariate forecasting when assuming stationarity, in contrast to more complex methods handling cointegration (VECM - Vector Error Correction Model).
 
 ---
 
@@ -82,7 +86,9 @@ Recent shocks (εₜ₋₁²) and recent variance (σₜ₋₁²) drive current 
 
 (2) Produces time-varying confidence intervals for forecasts.
 
-(3) Essential for risk management (Value at Risk calculation). Estimation: maximum likelihood, often with normal or t-distribution errors. GARCH extensions: EGARCH (asymmetric—negative shocks impact volatility differently than positive), GJR-GARCH, multivariate GARCH for multiple assets. In interviews, GARCH is used primarily for financial data; mention if your project involved modeling returns or confidence intervals under changing volatility. Note that GARCH is orthogonal to ARIMA—you can model mean with ARIMA(p,d,q) and variance with GARCH, giving ARIMA(p,d,q)-GARCH.
+(3) Essential for risk management (Value at Risk calculation). Estimation: maximum likelihood, often with normal or t-distribution errors. GARCH extensions: EGARCH (asymmetric—negative shocks impact volatility differently than positive), GJR-GARCH, multivariate GARCH for multiple assets.
+
+In interviews, GARCH is used primarily for financial data; mention if your project involved modeling returns or confidence intervals under changing volatility. Note that GARCH is orthogonal to ARIMA—you can model mean with ARIMA(p,d,q) and variance with GARCH, giving ARIMA(p,d,q)-GARCH.
 
 ---
 
@@ -114,7 +120,9 @@ Limitations: assumes specific trend/seasonality functional forms (may miss compl
 
 (2) Uncertainty quantification via posterior covariance.
 
-(3) Handles missing and irregularly-spaced data. ARIMA and exponential smoothing are special cases of state space models. Locally linear trend model (Kalman filter with level + trend states) is equivalent to Holt's method. In interviews, state space models signal theoretical sophistication; mention if you've used them for decomposition or missing data. Kalman filter is gold standard for sensor/aerospace applications (GPS tracking, aircraft navigation).
+(3) Handles missing and irregularly-spaced data. ARIMA and exponential smoothing are special cases of state space models. Locally linear trend model (Kalman filter with level + trend states) is equivalent to Holt's method.
+
+In interviews, state space models signal theoretical sophistication; mention if you've used them for decomposition or missing data. Kalman filter is gold standard for sensor/aerospace applications (GPS tracking, aircraft navigation).
 
 ---
 
@@ -176,7 +184,11 @@ Disadvantages: complex architecture (many hyperparameters), requires substantial
 
 (3) Stacking: train a meta-learner (e.g., linear regression) on base model predictions to learn optimal combination.
 
-(4) Boosting: sequentially train models, each correcting previous errors (rarely used for time series). Benefits: ensemble forecasts are more stable, typically more accurate than best single model, and robust to model-specific failures (if ARIMA underfits, Prophet may capture nonlinearities). Drawback: increased computational cost and implementation complexity. Best practice: ensemble diverse models (statistical + learning-based, e.g., ARIMA + LSTM) and use validation-based weights. In competitions, ensemble is a staple; in production, weigh ensemble benefits against latency constraints. In interviews, ensemble thinking shows maturity—individual models have strengths and weaknesses; combining them mitigates risks.
+(4) Boosting: sequentially train models, each correcting previous errors (rarely used for time series). Benefits: ensemble forecasts are more stable, typically more accurate than best single model, and robust to model-specific failures (if ARIMA underfits, Prophet may capture nonlinearities).
+
+Drawback: increased computational cost and implementation complexity. Best practice: ensemble diverse models (statistical + learning-based, e.g., ARIMA + LSTM) and use validation-based weights. In competitions, ensemble is a staple; in production, weigh ensemble benefits against latency constraints.
+
+In interviews, ensemble thinking shows maturity—individual models have strengths and weaknesses; combining them mitigates risks.
 
 ---
 
@@ -186,7 +198,11 @@ Disadvantages: complex architecture (many hyperparameters), requires substantial
 
 (1) Recursive (iterated): train single-step model, use it sequentially—predict ŷₜ₊₁ from yₜ, then predict ŷₜ₊₂ from ŷₜ₊₁ (predicted value), repeat h times. Computationally efficient but error accumulates (compound error from each step).
 
-(2) Direct: train separate single-step models for each horizon h—one model predicts ŷₜ₊₁, another predicts ŷₜ₊₂ directly from yₜ. No compound error but requires h models. Recursive is standard in ARIMA/statistical methods; direct is more flexible in machine learning. Hybrid approach: rectification—train on rolling windows of different step-ahead targets, then use single model recursively (reduces but doesn't eliminate error accumulation). For short horizons (h ≤ 5), recursive is fine; for long horizons, direct or training-set augmentation helps. In practice, recursive + ensemble often works best: multiple recursive models, ensemble their outputs, producing confidence intervals. In interviews, understanding the recursive vs. direct tradeoff shows you've dealt with real multi-step forecasting and its pitfalls.
+(2) Direct: train separate single-step models for each horizon h—one model predicts ŷₜ₊₁, another predicts ŷₜ₊₂ directly from yₜ. No compound error but requires h models. Recursive is standard in ARIMA/statistical methods; direct is more flexible in machine learning.
+
+Hybrid approach: rectification—train on rolling windows of different step-ahead targets, then use single model recursively (reduces but doesn't eliminate error accumulation). For short horizons (h ≤ 5), recursive is fine; for long horizons, direct or training-set augmentation helps.
+
+In practice, recursive + ensemble often works best: multiple recursive models, ensemble their outputs, producing confidence intervals. In interviews, understanding the recursive vs. direct tradeoff shows you've dealt with real multi-step forecasting and its pitfalls.
 
 ---
 
@@ -202,7 +218,9 @@ Disadvantages: complex architecture (many hyperparameters), requires substantial
 
 (5) MASE (Mean Absolute Scaled Error) = MAE / MAE_baseline: scale-invariant, compares to naive baseline (ŷₜ = yₜ₋₁). MASE=1 means forecast equals naive; MASE<1 is an improvement.
 
-(6) Directional accuracy: percentage of time forecast direction (up/down) matches actual; important for trading decisions. Choice: MAE for typical business, RMSE if outliers costly, MAPE for percentage comparisons, MASE for scale-invariant benchmarking. Avoid MAPE if values are small or zero-heavy. Always report multiple metrics; single metric can mislead. In interviews, mentioning MASE shows sophistication (few practitioners know it); MAPE familiarity is expected.
+(6) Directional accuracy: percentage of time forecast direction (up/down) matches actual; important for trading decisions. Choice: MAE for typical business, RMSE if outliers costly, MAPE for percentage comparisons, MASE for scale-invariant benchmarking. Avoid MAPE if values are small or zero-heavy.
+
+Always report multiple metrics; single metric can mislead. In interviews, mentioning MASE shows sophistication (few practitioners know it); MAPE familiarity is expected.
 
 ---
 
@@ -224,7 +242,9 @@ Disadvantages: complex architecture (many hyperparameters), requires substantial
 
 (3) Survivorship bias: exclude data that would be unavailable in real time.
 
-(4) Regime changes: historical backtest may not reflect future distribution shift. Best practice: split data into train (70%), validation (10%), test (20%), respecting time order. Tune hyperparameters on validation, report final performance on test. In interviews, proper backtesting is critical—many naive practitioners report inflated accuracy from leakage. Mention walk-forward explicitly, demonstrate you think about information leakage, and discuss regime changes if relevant to your problem.
+(4) Regime changes: historical backtest may not reflect future distribution shift. Best practice: split data into train (70%), validation (10%), test (20%), respecting time order. Tune hyperparameters on validation, report final performance on test.
+
+In interviews, proper backtesting is critical—many naive practitioners report inflated accuracy from leakage. Mention walk-forward explicitly, demonstrate you think about information leakage, and discuss regime changes if relevant to your problem.
 
 ---
 
@@ -254,7 +274,11 @@ Disadvantages: complex architecture (many hyperparameters), requires substantial
 
 **A:** Cointegration: two non-stationary series are cointegrated if a linear combination of them is stationary.
 
-Example: stock prices (I(1)) can have a stationary spread if they're driven by common factors; traders exploit this (pairs trading). Cointegration implies long-term equilibrium relationship (error correction). Engle-Granger test detects cointegration: regress y on x, test residuals for unit root. If residuals are stationary despite y, x being non-stationary, they're cointegrated. VECM (Vector Error Correction Model) models cointegrated series: captures both short-term dynamics and long-term equilibrium. More flexible than VAR on differenced non-stationary data (differencing loses cointegration information). Granger causality: series x Granger-causes y if past x values improve prediction of y beyond y's own history. Test: regress y on its lags, then on its lags + x's lags; test if x's lags are jointly significant. Important caveat: Granger causality is predictive causality, not true causality (correlation, not causation).
+Example: stock prices (I(1)) can have a stationary spread if they're driven by common factors; traders exploit this (pairs trading). Cointegration implies long-term equilibrium relationship (error correction). Engle-Granger test detects cointegration: regress y on x, test residuals for unit root.
+
+If residuals are stationary despite y, x being non-stationary, they're cointegrated. VECM (Vector Error Correction Model) models cointegrated series: captures both short-term dynamics and long-term equilibrium. More flexible than VAR on differenced non-stationary data (differencing loses cointegration information).
+
+Granger causality: series x Granger-causes y if past x values improve prediction of y beyond y's own history. Test: regress y on its lags, then on its lags + x's lags; test if x's lags are jointly significant. Important caveat: Granger causality is predictive causality, not true causality (correlation, not causation).
 
 Example: x and y driven by common cause z—x Granger-causes y even though z is the true driver. Use Granger tests as exploratory tool, not proof of causality. In interviews, cointegration and Granger causality show sophistication in multivariate forecasting; mentioning VECM signals theoretical depth. Cautionary note about Granger's limits (vs. true causation) impresses.
 

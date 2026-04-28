@@ -98,7 +98,13 @@ Example: For gradient boosting predicting loan default, TreeSHAP traces a sample
 
 (2) Get model predictions for each coalition by marginalizing out absent features (replace them with background values),
 
-(3) Fit a weighted linear model predicting actual predictions, weighting samples by proximity to the original sample using a specific kernel. The linear model coefficients approximate Shapley values. Advantage: model-agnostic, works for any model (neural networks, SVMs, any black box). Tradeoff: approximate rather than exact (unlike TreeSHAP for trees), slower than TreeSHAP (requires many model evaluations), and the approximation quality depends on sample size and feature interactions. Key parameter: background data used to marginalize features—replacing income with "median income" might behave differently than "income distribution mean." Example: For a neural network predicting credit risk, KernelSHAP generates 2000 coalition vectors, gets risk predictions from the neural network for each, fits a linear model, and the coefficients show which features drive the prediction. Takes seconds to compute explanations for one prediction, whereas exact Shapley value computation would take hours.
+(3) Fit a weighted linear model predicting actual predictions, weighting samples by proximity to the original sample using a specific kernel. The linear model coefficients approximate Shapley values. Advantage: model-agnostic, works for any model (neural networks, SVMs, any black box).
+
+Tradeoff: approximate rather than exact (unlike TreeSHAP for trees), slower than TreeSHAP (requires many model evaluations), and the approximation quality depends on sample size and feature interactions.
+
+Key parameter: background data used to marginalize features—replacing income with "median income" might behave differently than "income distribution mean." Example: For a neural network predicting credit risk, KernelSHAP generates 2000 coalition vectors, gets risk predictions from the neural network for each, fits a linear model, and the coefficients show which features drive the prediction.
+
+Takes seconds to compute explanations for one prediction, whereas exact Shapley value computation would take hours.
 
 ---
 
@@ -142,7 +148,9 @@ Example: In question-answering, the model might attend heavily to a pronoun (bec
 
 (2) For each feature, shuffle its values,
 
-(3) Measure performance drop. Advantage: model-agnostic, intuitive. Disadvantage: correlated features share importance (shuffling feature A might not hurt much if feature B is highly correlated), and importance depends on baseline performance (model with 80% accuracy may show more extreme importance values than 95% model). Drop-column importance: train the model without the feature and measure performance drop. More direct than permutation importance but more expensive (requires retraining). Gain-based importance (used in tree models): sum how much loss decreases at splits using each feature. Very fast but tree-specific.
+(3) Measure performance drop. Advantage: model-agnostic, intuitive. Disadvantage: correlated features share importance (shuffling feature A might not hurt much if feature B is highly correlated), and importance depends on baseline performance (model with 80% accuracy may show more extreme importance values than 95% model).
+
+Drop-column importance: train the model without the feature and measure performance drop. More direct than permutation importance but more expensive (requires retraining). Gain-based importance (used in tree models): sum how much loss decreases at splits using each feature. Very fast but tree-specific.
 
 Example: For income prediction with correlated features income and wealth, permutation importance distributes importance between them arbitrarily (shuffling either alone might not hurt much). Drop-column importance would assign importance to whichever feature is dropped second (sequential dependency). Gain-based importance in a decision tree directly sums the gain at each split. Best practice: use multiple importance methods and compare—if they agree, you're more confident in the result. SHAP values address some of these issues with theoretical grounding (values sum to prediction and satisfy fairness criteria), but are slower to compute.
 
@@ -156,7 +164,9 @@ Example: For income prediction with correlated features income and wealth, permu
 
 (2) Replace all instances' feature X with v,
 
-(3) Average model predictions across all instances. The result is a curve showing: as X increases, how does the average prediction change? PDP assumes feature independence (replacing X with arbitrary values is valid only if X is independent of other features), and shows global patterns. Individual Conditional Expectation (ICE) curves show the same relationship but for individual instances rather than average. For each instance:
+(3) Average model predictions across all instances. The result is a curve showing: as X increases, how does the average prediction change? PDP assumes feature independence (replacing X with arbitrary values is valid only if X is independent of other features), and shows global patterns.
+
+Individual Conditional Expectation (ICE) curves show the same relationship but for individual instances rather than average. For each instance:
 
 (1) Fix all features except X,
 
@@ -208,7 +218,9 @@ However, GDPR doesn't strictly require intrinsic interpretability or explainabil
 
 (3) Provide human review for rejected cases,
 
-(4) Document model behavior clearly. The EU AI Act (coming into force 2024-2025) requires "high-risk AI systems" (used in hiring, lending, criminal justice) to have human-understandable documentation and explanations. Definition: high-risk includes decisions affecting fundamental rights, employment, access to essential services. Requirement: "meaningful information about the logic" of the system and how it works.
+(4) Document model behavior clearly. The EU AI Act (coming into force 2024-2025) requires "high-risk AI systems" (used in hiring, lending, criminal justice) to have human-understandable documentation and explanations. Definition: high-risk includes decisions affecting fundamental rights, employment, access to essential services.
+
+Requirement: "meaningful information about the logic" of the system and how it works.
 
 Example: A credit scoring system must explain why loans are denied—either through an interpretable model showing coefficient weights, or through SHAP explanations showing feature contributions, or through human review. Practical challenge: "meaningful information" is vague—does a SHAP value explanation satisfy it? Regulatory bodies haven't fully defined this. Best practice: combine interpretable models for core decisions, explainability methods for validation, and clear documentation, ensuring a human can understand and override the system if needed.
 

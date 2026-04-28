@@ -80,7 +80,9 @@ A slow ACF decay suggests non-stationarity—confirm with ADF test. In interview
 
 (2) Mean is time-dependent if the series drifts.
 
-(3) Covariance Cov(yₜ, yₜ₋ₖ) depends on t, not just lag k. The series exhibits permanent shocks—a random walk never reverts to a mean. First differencing converts a random walk to white noise: Δyₜ = yₜ - yₜ₋₁ = εₜ, which is stationary. A random walk with drift yₜ = c + yₜ₋₁ + εₜ has a deterministic trend and strong non-stationarity; differencing removes the drift term. Detecting random walk behavior: the ACF decays very slowly (nearly 1 at all lags) and the ADF test fails to reject a unit root. Always test for unit roots before model selection.
+(3) Covariance Cov(yₜ, yₜ₋ₖ) depends on t, not just lag k. The series exhibits permanent shocks—a random walk never reverts to a mean. First differencing converts a random walk to white noise: Δyₜ = yₜ - yₜ₋₁ = εₜ, which is stationary.
+
+A random walk with drift yₜ = c + yₜ₋₁ + εₜ has a deterministic trend and strong non-stationarity; differencing removes the drift term. Detecting random walk behavior: the ACF decays very slowly (nearly 1 at all lags) and the ADF test fails to reject a unit root. Always test for unit roots before model selection.
 
 ---
 
@@ -108,7 +110,9 @@ Interpretation:
 
 (1) If p-value < 0.05 (or test statistic more negative than critical value), reject the unit root hypothesis; the series is stationary.
 
-(2) If p-value > 0.05, fail to reject; the series is non-stationary and likely needs differencing. The ADF test assumes lags of differences are included to account for autocorrelation. Best practice: apply ADF test after differencing to confirm stationarity achieved. A failing ADF before differencing and passing ADF after confirms that differencing successfully removed the unit root. This is the gold standard diagnostic before ARIMA fitting.
+(2) If p-value > 0.05, fail to reject; the series is non-stationary and likely needs differencing. The ADF test assumes lags of differences are included to account for autocorrelation. Best practice: apply ADF test after differencing to confirm stationarity achieved.
+
+A failing ADF before differencing and passing ADF after confirms that differencing successfully removed the unit root. This is the gold standard diagnostic before ARIMA fitting.
 
 ---
 
@@ -120,7 +124,11 @@ Interpretation:
 
 (1) If KPSS p-value < 0.05, reject stationarity (series is non-stationary).
 
-(2) If KPSS p-value > 0.05, fail to reject stationarity (series is stationary). ADF and KPSS have opposite null hypotheses, so their results can conflict (neither rejects stationarity or both reject). Best practice: apply both tests together. If ADF rejects unit root and KPSS fails to reject stationarity, you're confident the series is stationary. If ADF fails to reject unit root and KPSS rejects stationarity, the series is near the boundary (often called "nearly stationary" or "trend-stationary"), and differencing is recommended. KPSS is more powerful at detecting near-unit-root cases where ADF is inconclusive. Using both tests provides diagnostic robustness; pure KPSS or pure ADF can mislead.
+(2) If KPSS p-value > 0.05, fail to reject stationarity (series is stationary). ADF and KPSS have opposite null hypotheses, so their results can conflict (neither rejects stationarity or both reject). Best practice: apply both tests together. If ADF rejects unit root and KPSS fails to reject stationarity, you're confident the series is stationary.
+
+If ADF fails to reject unit root and KPSS rejects stationarity, the series is near the boundary (often called "nearly stationary" or "trend-stationary"), and differencing is recommended. KPSS is more powerful at detecting near-unit-root cases where ADF is inconclusive.
+
+Using both tests provides diagnostic robustness; pure KPSS or pure ADF can mislead.
 
 ---
 
@@ -132,7 +140,9 @@ Example: a company's monthly sales with additive seasonality might see constant 
 
 (1) Classical decomposition: compute trend via centered moving average, extract seasonal component by averaging detrended values for each season, residuals = original - trend - seasonal.
 
-(2) STL (Seasonal and Trend decomposition using LOESS): more robust, handles non-stationary trends, works for both additive and multiplicative. Choosing additive vs. multiplicative: if variance in seasonal subseries plots appears constant across seasons, use additive; if variance increases with level, use multiplicative. Log transformation (yₜ'=log(yₜ)) converts multiplicative to additive, then inverse-transform forecasts.
+(2) STL (Seasonal and Trend decomposition using LOESS): more robust, handles non-stationary trends, works for both additive and multiplicative. Choosing additive vs. multiplicative: if variance in seasonal subseries plots appears constant across seasons, use additive; if variance increases with level, use multiplicative.
+
+Log transformation (yₜ'=log(yₜ)) converts multiplicative to additive, then inverse-transform forecasts.
 
 ---
 
@@ -172,7 +182,9 @@ Example: 30-day rolling volatility for stock returns shows when markets are calm
 
 (3) Anomaly detection: values deviating far from rolling mean are anomalies.
 
-(4) Seasonality detection: seasonal subseries plots are rolling means grouped by season. Exponentially weighted rolling statistics (ewm) weight recent values more (alternative to fixed-window MA). Best practice: choose window size based on domain knowledge (e.g., 30 days for monthly seasonality, 252 days for yearly in stock markets). Window size is a hyperparameter; validate via cross-validation. Rolling statistics are simple but powerful for exploratory analysis and feature engineering in time series projects.
+(4) Seasonality detection: seasonal subseries plots are rolling means grouped by season. Exponentially weighted rolling statistics (ewm) weight recent values more (alternative to fixed-window MA). Best practice: choose window size based on domain knowledge (e.g., 30 days for monthly seasonality, 252 days for yearly in stock markets).
+
+Window size is a hyperparameter; validate via cross-validation. Rolling statistics are simple but powerful for exploratory analysis and feature engineering in time series projects.
 
 ---
 
@@ -186,7 +198,11 @@ Example: 30-day rolling volatility for stock returns shows when markets are calm
 
 (3) Mean/median of neighbors: average values around the gap.
 
-(4) Seasonal decomposition: estimate trend, seasonal, residual separately, then combine. For longer gaps, interpolation methods often fail; best to exclude the gap or use probabilistic imputation (forecast from pre-gap data, backfill from post-gap data, take average). Advanced: Kalman filtering (sequential estimation with uncertainty) handles missing values naturally. Pitfall: avoid interpolating across fundamentally different regimes (e.g., stock market before and after circuit breaker); exclude such data instead. Never use future data to impute past (leakage). In interviews, emphasize that missing data handling is domain-specific—financial data might require different strategies than sensor data. Always document assumptions and validate imputation's impact on downstream forecasts.
+(4) Seasonal decomposition: estimate trend, seasonal, residual separately, then combine. For longer gaps, interpolation methods often fail; best to exclude the gap or use probabilistic imputation (forecast from pre-gap data, backfill from post-gap data, take average).
+
+Advanced: Kalman filtering (sequential estimation with uncertainty) handles missing values naturally. Pitfall: avoid interpolating across fundamentally different regimes (e.g., stock market before and after circuit breaker); exclude such data instead. Never use future data to impute past (leakage).
+
+In interviews, emphasize that missing data handling is domain-specific—financial data might require different strategies than sensor data. Always document assumptions and validate imputation's impact on downstream forecasts.
 
 ---
 
@@ -200,7 +216,9 @@ Time series cross-validation respects temporal structure via walk-forward valida
 
 (2) Expanding window (growing window): training window grows, test window shifts (more realistic, but computationally expensive).
 
-(3) Rolling window: fixed-size training and test windows slide forward (balanced, most common for short-horizon forecasts). Best practice: validate the importance of temporal ordering—if results are nearly identical with shuffled cv, perhaps temporal structure is weak and standard cross-validation suffices. Time series CV is mandatory for honest evaluation; otherwise, reported accuracy is unattainably optimistic. In competitions and papers, always use time series CV for time-dependent data; this signals methodological rigor to interviewers.
+(3) Rolling window: fixed-size training and test windows slide forward (balanced, most common for short-horizon forecasts). Best practice: validate the importance of temporal ordering—if results are nearly identical with shuffled cv, perhaps temporal structure is weak and standard cross-validation suffices.
+
+Time series CV is mandatory for honest evaluation; otherwise, reported accuracy is unattainably optimistic. In competitions and papers, always use time series CV for time-dependent data; this signals methodological rigor to interviewers.
 
 ---
 

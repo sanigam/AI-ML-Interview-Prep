@@ -212,7 +212,11 @@ Example: sentence "The cat sat on the mat." Greedy might predict "The dog sat on
 
 (2) Pack sequences (PyTorch `pack_padded_sequence`): remove padding before RNN, RNN processes only real tokens, unpack after. More efficient (fewer operations on padding).
 
-(3) Variable batch sizes: group similar-length sequences together, process each group with appropriate max_len. Masking: zeros padding tokens, but model still processes them (wastes computation). Masking attention weights prevents attention to padding. Loss computation: only accumulate loss on real tokens (mask out padding). Without masking, padding tokens artificially increase loss. For encoder-decoder: encoder processes variable-length inputs; decoder generates variable-length outputs. Encoder handles this naturally. Decoder uses end-of-sequence token to stop. At inference, max output length is a hyperparameter (prevent infinite generation). In interviews, handling variable-length sequences is a practical detail. Mentioning padding, masking, and packing shows you've implemented RNNs. Explaining why masking matters (padding shouldn't count in loss) signals implementation depth.
+(3) Variable batch sizes: group similar-length sequences together, process each group with appropriate max_len. Masking: zeros padding tokens, but model still processes them (wastes computation). Masking attention weights prevents attention to padding. Loss computation: only accumulate loss on real tokens (mask out padding).
+
+Without masking, padding tokens artificially increase loss. For encoder-decoder: encoder processes variable-length inputs; decoder generates variable-length outputs. Encoder handles this naturally. Decoder uses end-of-sequence token to stop. At inference, max output length is a hyperparameter (prevent infinite generation).
+
+In interviews, handling variable-length sequences is a practical detail. Mentioning padding, masking, and packing shows you've implemented RNNs. Explaining why masking matters (padding shouldn't count in loss) signals implementation depth.
 
 ---
 
@@ -258,7 +262,9 @@ Practical: 2-4 layers is typical; beyond that requires heavy regularization. Mos
 
 (1) Recursive (iterated): train single-step RNN predicting y_{t+1} from history. At inference, use predictions recursively: y_1 = RNN(x_t), then y_2 = RNN(y_1), repeat h times. Simple training, error accumulates.
 
-(2) Direct (one-model-per-horizon): train separate RNN for each horizon h. RNN_h predicts y_{t+h} directly from history. More parameters, no error accumulation, slower. Sequence-to-sequence: decoder generates multiple steps h using attention over encoder. Teacher forcing provides ground truth at training, predicted outputs at test (exposure bias). Multi-task learning: train single RNN to predict all horizons simultaneously, using shared encoder and separate decoder heads. Often better than recursive alone.
+(2) Direct (one-model-per-horizon): train separate RNN for each horizon h. RNN_h predicts y_{t+h} directly from history. More parameters, no error accumulation, slower. Sequence-to-sequence: decoder generates multiple steps h using attention over encoder. Teacher forcing provides ground truth at training, predicted outputs at test (exposure bias).
+
+Multi-task learning: train single RNN to predict all horizons simultaneously, using shared encoder and separate decoder heads. Often better than recursive alone.
 
 Example: stock forecasting h=30 days ahead. Recursive: train 1-day model, predict 30 days by iterating (compound error). Seq2seq: encoder sees 100 past days, decoder generates 30-day forecast (global context). In interviews, mention that recursive compounds error; seq2seq or multi-task are better for multi-step. If discussing time series, this is critical—single-step models evaluated on multi-step are deceptive.
 
@@ -316,7 +322,9 @@ Disadvantages:
 
 (2) Temporal CNNs (TCN): 1D convolutions with dilations to capture temporal patterns; parallelizable, but less interpretable attention.
 
-(3) Hybrid: Transformer encoder + RNN decoder (some seq2seq models). Current practice: Transformers are preferred for large data / high-compute regimes. RNNs remain useful for small data, online inference (streaming), and domains where sequence-by-sequence attention is valuable. In interviews, acknowledge that Transformers are now dominant but RNNs are still relevant for understanding sequence models and for resource-constrained settings. Discussing trade-offs (Transformer parallelism vs. RNN interpretability) shows sophisticated thinking.
+(3) Hybrid: Transformer encoder + RNN decoder (some seq2seq models). Current practice: Transformers are preferred for large data / high-compute regimes. RNNs remain useful for small data, online inference (streaming), and domains where sequence-by-sequence attention is valuable.
+
+In interviews, acknowledge that Transformers are now dominant but RNNs are still relevant for understanding sequence models and for resource-constrained settings. Discussing trade-offs (Transformer parallelism vs. RNN interpretability) shows sophisticated thinking.
 
 ---
 

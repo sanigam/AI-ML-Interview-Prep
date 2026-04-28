@@ -194,7 +194,9 @@ In practice, choose threshold by:
 
 (3) stratified sampling or separate validation on anomaly-enriched subsets to properly estimate model performance;
 
-(4) resampling strategies like oversampling anomalies (random duplication or SMOTE) or undersampling normal data, though these modify data distribution; and (5) cost-sensitive learning where misclassifying anomalies incurs higher loss. Prefer anomaly-aware evaluation metrics (precision-recall, F-beta, AUC-PR, cost curves) over accuracy. In production, combine multiple signals via ensemble methods and implement human-in-the-loop workflows where low-confidence predictions are reviewed by domain experts. The key insight is that standard machine learning assumptions break down—focus on detecting rare anomalies, not overall accuracy.
+(4) resampling strategies like oversampling anomalies (random duplication or SMOTE) or undersampling normal data, though these modify data distribution; and (5) cost-sensitive learning where misclassifying anomalies incurs higher loss. Prefer anomaly-aware evaluation metrics (precision-recall, F-beta, AUC-PR, cost curves) over accuracy.
+
+In production, combine multiple signals via ensemble methods and implement human-in-the-loop workflows where low-confidence predictions are reviewed by domain experts. The key insight is that standard machine learning assumptions break down—focus on detecting rare anomalies, not overall accuracy.
 
 ---
 

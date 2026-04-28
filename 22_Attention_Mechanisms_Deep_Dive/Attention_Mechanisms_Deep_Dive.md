@@ -157,7 +157,11 @@ Speedup: 2-4x faster, especially on long sequences where N^2 dominates. The algo
 
 (3) Copying: last token attends strongly to first token (summarization).
 
-(4) Diffuse: uniform attention, integrating global information. In BERT, lower layers show local attention (positions near i), middle layers show token-specific patterns (pronouns → nouns), upper layers show global patterns. In GPT decoder, multi-head shows one head doing causal left-to-right, another attending to punctuation, another being nearly uniform. Analyzing attention gives interpretability insights—which heads matter (attention pruning removes some with minimal accuracy loss), whether the model is learning linguistics or memorizing patterns. However, attention ≠ explanation—high attention weight doesn't prove a token caused a prediction; gradient-based attribution is more reliable.
+(4) Diffuse: uniform attention, integrating global information. In BERT, lower layers show local attention (positions near i), middle layers show token-specific patterns (pronouns → nouns), upper layers show global patterns.
+
+In GPT decoder, multi-head shows one head doing causal left-to-right, another attending to punctuation, another being nearly uniform. Analyzing attention gives interpretability insights—which heads matter (attention pruning removes some with minimal accuracy loss), whether the model is learning linguistics or memorizing patterns.
+
+However, attention ≠ explanation—high attention weight doesn't prove a token caused a prediction; gradient-based attribution is more reliable.
 
 **Interview Tip:** Mention that while attention visualization is useful, it's not a full explanation (address common misconceptions). Show you understand interpretation limitations.
 
@@ -179,7 +183,9 @@ Disadvantages:
 
 (1) May miss distant dependencies (token at position 100 can't attend to position 10000).
 
-(2) Complex implementation. Empirically, fully local attention hurts quality—hybrid approaches combine local + global tokens (some tokens attend globally to compress context) or sparse patterns that preserve quality. Models like Longformer, BigBird use sparse attention for long documents (10K+ tokens). Recent trend: flash attention made full attention so fast that sparse attention is less necessary—now preferred only for ultra-long sequences (>10K) or memory-constrained settings.
+(2) Complex implementation. Empirically, fully local attention hurts quality—hybrid approaches combine local + global tokens (some tokens attend globally to compress context) or sparse patterns that preserve quality. Models like Longformer, BigBird use sparse attention for long documents (10K+ tokens).
+
+Recent trend: flash attention made full attention so fast that sparse attention is less necessary—now preferred only for ultra-long sequences (>10K) or memory-constrained settings.
 
 **Interview Tip:** Explain the O(n^2) bottleneck and why sparse patterns matter for long documents. Mention modern alternatives like hierarchical compression or sliding window in practice.
 

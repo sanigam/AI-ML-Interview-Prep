@@ -26,7 +26,9 @@ LangChain and LangGraph represent two layers of AI application development: Lang
 
 (5) **Agent support** - managing iterative reasoning loops,
 
-(6) **Serialization** - saving and loading chains for reproducibility. For example, without LangChain, implementing RAG (retrieve-augment-generate) requires: split documents, build indices, create embeddings, query for context, format prompts, call LLM, parse responses. LangChain reduces this to a few lines using composable components. LangChain democratizes LLM app development by handling infrastructure, letting developers focus on business logic.
+(6) **Serialization** - saving and loading chains for reproducibility. For example, without LangChain, implementing RAG (retrieve-augment-generate) requires: split documents, build indices, create embeddings, query for context, format prompts, call LLM, parse responses. LangChain reduces this to a few lines using composable components.
+
+LangChain democratizes LLM app development by handling infrastructure, letting developers focus on business logic.
 
 ---
 

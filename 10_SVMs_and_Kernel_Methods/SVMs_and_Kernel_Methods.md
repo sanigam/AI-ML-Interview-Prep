@@ -59,7 +59,11 @@ This is why kernels are central to classical ML theory.
 
 (3) RBF (Radial Basis Function) kernel k(x, y) = exp(-γ||x - y||²) maps to infinite-dimensional space; γ controls width (small γ ↔ far reach, underfitting; large γ ↔ local, overfitting). RBF is the default for nonlinear problems and works well in most cases.
 
-(4) Sigmoid kernel k(x, y) = tanh(κx^T y + c) resembles neural network activation; less commonly used due to lack of guaranteed positive-definiteness. Choosing kernels: start with linear for high-dimensional data (text) or interpretability; use RBF for tabular data unless you suspect polynomial structure; polynomial if domain knowledge suggests interactions. Grid search (linear, polynomial deg 2-3, RBF) with cross-validation determines best kernel. Overfitting risk increases as model complexity grows: linear < polynomial < RBF, so apply regularization accordingly.
+(4) Sigmoid kernel k(x, y) = tanh(κx^T y + c) resembles neural network activation; less commonly used due to lack of guaranteed positive-definiteness.
+
+Choosing kernels: start with linear for high-dimensional data (text) or interpretability; use RBF for tabular data unless you suspect polynomial structure; polynomial if domain knowledge suggests interactions. Grid search (linear, polynomial deg 2-3, RBF) with cross-validation determines best kernel.
+
+Overfitting risk increases as model complexity grows: linear < polynomial < RBF, so apply regularization accordingly.
 
 ---
 
@@ -85,7 +89,9 @@ Interestingly, support vectors include both margin samples and misclassified sam
 
 (2) it's a quadratic program (QP) solvable by standard solvers (quadprog, CVXPY),
 
-(3) the number of variables is number of samples n, not feature dimension d, making it efficient for high-dimensional data. Strong duality holds (primal and dual have same optimal value), and KKT conditions provide complementary slackness: α_i > 0 only if the margin constraint is tight (support vector). The solution w = ∑α_i y_i φ(x_i) is a combination of support vectors. Using the dual formulation is why modern SVM libraries scale to large datasets—only support vectors are retained, not the full feature space.
+(3) the number of variables is number of samples n, not feature dimension d, making it efficient for high-dimensional data. Strong duality holds (primal and dual have same optimal value), and KKT conditions provide complementary slackness: α_i > 0 only if the margin constraint is tight (support vector).
+
+The solution w = ∑α_i y_i φ(x_i) is a combination of support vectors. Using the dual formulation is why modern SVM libraries scale to large datasets—only support vectors are retained, not the full feature space.
 
 ---
 
@@ -103,7 +109,11 @@ Interpretation:
 
 (2) if α_i < C, then ξ_i = 0 (margin sample, no violation),
 
-(3) if α_i = C, then ξ_i > 0 (possible violation). KKT conditions characterize support vectors: samples with α_i = 0 are non-support vectors (far from margin, not critical); samples with 0 < α_i < C are margin samples; samples with α_i = C are margin violators. These conditions are checked during optimization: if any KKT condition is violated, optimization continues. In practice, solvers (SMO—Sequential Minimal Optimization) use KKT violations to select the next pair of variables to optimize, making optimization efficient even for large datasets. Understanding KKT conditions shows mastery of optimization theory and helps debug SVM behavior.
+(3) if α_i = C, then ξ_i > 0 (possible violation). KKT conditions characterize support vectors: samples with α_i = 0 are non-support vectors (far from margin, not critical); samples with 0 < α_i < C are margin samples; samples with α_i = C are margin violators.
+
+These conditions are checked during optimization: if any KKT condition is violated, optimization continues. In practice, solvers (SMO—Sequential Minimal Optimization) use KKT violations to select the next pair of variables to optimize, making optimization efficient even for large datasets.
+
+Understanding KKT conditions shows mastery of optimization theory and helps debug SVM behavior.
 
 ---
 
@@ -117,7 +127,11 @@ The objective is: minimize 1/2 ||w||² + C ∑(ξ_i + ξ_i^*), where ξ_i and ξ
 
 (2) sparse solution (few support vectors) enables efficient inference,
 
-(3) kernels enable nonlinear regression without explicit feature mapping. Hyperparameters: C (trade-off margin vs. errors), ε (tube width—larger ε ↔ sparser, more errors), kernel choice. Compared to other regressors: kernel ridge regression (explicit ridge penalty, non-sparse) vs. SVR (sparse solution but more hyperparameter tuning), tree-based models (handle nonlinearity automatically, less tuning-sensitive). SVR is less popular than classification in modern ML (neural networks dominate), but it's valuable for small-to-medium regression datasets with clear structure. In interviews, mentioning SVR shows awareness of SVM beyond classification.
+(3) kernels enable nonlinear regression without explicit feature mapping. Hyperparameters: C (trade-off margin vs. errors), ε (tube width—larger ε ↔ sparser, more errors), kernel choice. Compared to other regressors: kernel ridge regression (explicit ridge penalty, non-sparse) vs.
+
+SVR (sparse solution but more hyperparameter tuning), tree-based models (handle nonlinearity automatically, less tuning-sensitive). SVR is less popular than classification in modern ML (neural networks dominate), but it's valuable for small-to-medium regression datasets with clear structure.
+
+In interviews, mentioning SVR shows awareness of SVM beyond classification.
 
 ---
 
@@ -261,7 +275,9 @@ KPCA can capture nonlinear structure (e.g., concentric circles), which linear PC
 
 (3) KPCA has hyperparameters (kernel, γ for RBF),
 
-(4) KPCA projection to new samples requires kernel computations with all training samples. Modern alternatives: t-SNE and UMAP are more popular for visualization; autoencoders handle nonlinearity with more flexibility. KPCA is less used today but demonstrates elegant generalization of classical methods via kernels. When would you use it? For moderate-sized data (n < 10k) where nonlinearity is expected and you want a principled, kernel-based approach. In interviews, mentioning KPCA shows awareness that kernel methods extend beyond SVM to general-purpose learning; few practitioners know this, making it a differentiator.
+(4) KPCA projection to new samples requires kernel computations with all training samples. Modern alternatives: t-SNE and UMAP are more popular for visualization; autoencoders handle nonlinearity with more flexibility. KPCA is less used today but demonstrates elegant generalization of classical methods via kernels. When would you use it?
+
+For moderate-sized data (n < 10k) where nonlinearity is expected and you want a principled, kernel-based approach. In interviews, mentioning KPCA shows awareness that kernel methods extend beyond SVM to general-purpose learning; few practitioners know this, making it a differentiator.
 
 ---
 

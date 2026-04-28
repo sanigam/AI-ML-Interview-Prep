@@ -90,7 +90,9 @@ Modern databases optimize CTEs efficiently, and some support recursive CTEs for 
 
 (2) SUM(column) ignores NULLs, potentially masking missing data,
 
-(3) NOT IN (col1, col2, NULL) returns zero rows because of NULL behavior in NOT IN logic. For feature engineering, handle NULLs explicitly: `CASE WHEN value IS NULL THEN 0 ELSE value END` to impute with a default, or `COALESCE(column1, column2, 0)` to use the first non-NULL value. Understanding NULL propagation is critical—for instance, if you have `revenue / users WHERE users IS NULL`, the division fails for those rows, potentially breaking your pipeline. Different SQL dialects handle NULL slightly differently, so always test NULL behavior in your specific database.
+(3) NOT IN (col1, col2, NULL) returns zero rows because of NULL behavior in NOT IN logic. For feature engineering, handle NULLs explicitly: `CASE WHEN value IS NULL THEN 0 ELSE value END` to impute with a default, or `COALESCE(column1, column2, 0)` to use the first non-NULL value.
+
+Understanding NULL propagation is critical—for instance, if you have `revenue / users WHERE users IS NULL`, the division fails for those rows, potentially breaking your pipeline. Different SQL dialects handle NULL slightly differently, so always test NULL behavior in your specific database.
 
 ---
 

@@ -174,7 +174,11 @@ Example: retail sales spike in December, website traffic peaks on weekdays. Dete
 
 (2) Contextual anomalies: unusual in context (summer snowfall normal in winter anomalous). Requires seasonal adjustment. Detect: compare to seasonal baseline, use time-series models to find residuals.
 
-(3) Collective anomalies: group of points anomalous even if individually normal (missing data, regime shift). Decomposition: split into trend + seasonality + residual (seasonal decomposition): Y(t) = Trend(t) + Seasonal(t) + Residual(t). Classical method: moving average for trend, subtract from Y to get seasonal+residual, average seasonal over periods. Pros: interpretable. Cons: assumes additive structure (may need multiplicative). STL (Seasonal and Trend decomposition using LOESS): more flexible, handles nonlinear trend. Autocorrelation: correlation of time series with itself at different lags. ACF plot shows lags 0 to max; spikes indicate temporal dependence, help identify AR/MA orders.
+(3) Collective anomalies: group of points anomalous even if individually normal (missing data, regime shift). Decomposition: split into trend + seasonality + residual (seasonal decomposition): Y(t) = Trend(t) + Seasonal(t) + Residual(t).
+
+Classical method: moving average for trend, subtract from Y to get seasonal+residual, average seasonal over periods. Pros: interpretable. Cons: assumes additive structure (may need multiplicative). STL (Seasonal and Trend decomposition using LOESS): more flexible, handles nonlinear trend.
+
+Autocorrelation: correlation of time series with itself at different lags. ACF plot shows lags 0 to max; spikes indicate temporal dependence, help identify AR/MA orders.
 
 Practical: plot data, visually inspect trends/seasonality, decompose, identify anomalies, handle (smooth, transform, or investigate). Interviewers value time-series thinking; explaining decomposition and anomaly types shows sophistication.
 
@@ -230,7 +234,11 @@ Disadvantages:
 
 (2) arbitrary 1.5×IQR threshold (could flag non-outliers as outliers or miss true outliers),
 
-(3) no sense of count (can't distinguish n=100 from n=1000). Combining plots: box plot + scatter plot (individual points overlay) or + violin plot (distribution shape) for comprehensive view. Customization: change whisker definition (1×IQR more conservative, 3×IQR more lenient), color by group for clarity. Practical approach: always plot box plots early in EDA; identify outliers, but investigate before deleting (are they errors? genuine rare events?). Interviewers appreciate understanding box plot construction and interpretation; recognizing both strengths (robustness, outlier visibility) and limitations (distribution shape not shown) demonstrates analytical maturity.
+(3) no sense of count (can't distinguish n=100 from n=1000). Combining plots: box plot + scatter plot (individual points overlay) or + violin plot (distribution shape) for comprehensive view. Customization: change whisker definition (1×IQR more conservative, 3×IQR more lenient), color by group for clarity.
+
+Practical approach: always plot box plots early in EDA; identify outliers, but investigate before deleting (are they errors? genuine rare events?).
+
+Interviewers appreciate understanding box plot construction and interpretation; recognizing both strengths (robustness, outlier visibility) and limitations (distribution shape not shown) demonstrates analytical maturity.
 
 ---
 
@@ -270,7 +278,9 @@ Limitations:
 
 (3) correlation heatmap: see all correlations at once, but no nonlinear relationships visible,
 
-(4) dimensionality reduction: PCA, t-SNE, then plot 2D/3D. Tools: seaborn.pairplot (automatic with coloring options), pandas.plotting.scatter_matrix, GGally in R. Practical approach: create pair plots for initial exploration (especially with <10 variables), use subsets for high dimensions. Interviewers value understanding that pair plots can reveal structure missed by correlation matrix (e.g., nonlinearities); combining multiple visualization types shows thoroughness.
+(4) dimensionality reduction: PCA, t-SNE, then plot 2D/3D. Tools: seaborn.pairplot (automatic with coloring options), pandas.plotting.scatter_matrix, GGally in R. Practical approach: create pair plots for initial exploration (especially with <10 variables), use subsets for high dimensions.
+
+Interviewers value understanding that pair plots can reveal structure missed by correlation matrix (e.g., nonlinearities); combining multiple visualization types shows thoroughness.
 
 ---
 
@@ -404,7 +414,9 @@ Interpretation:
 
 (3) use regularization (Ridge, Lasso) which handles multicollinearity better than OLS,
 
-(4) domain knowledge: if redundancy is expected and both have context, engineer combined feature (e.g., BMI from height/weight). Domain experts often prefer interpretable features over automatic selection. Limitation: correlation detects only linear relationships; nonlinear dependence missed. If concerned about complex relationships, use more sophisticated methods (PCA, SHAP). Interviewers value systematic EDA for multicollinearity; showing awareness of detection methods and remedies demonstrates rigor.
+(4) domain knowledge: if redundancy is expected and both have context, engineer combined feature (e.g., BMI from height/weight). Domain experts often prefer interpretable features over automatic selection. Limitation: correlation detects only linear relationships; nonlinear dependence missed.
+
+If concerned about complex relationships, use more sophisticated methods (PCA, SHAP). Interviewers value systematic EDA for multicollinearity; showing awareness of detection methods and remedies demonstrates rigor.
 
 ---
 

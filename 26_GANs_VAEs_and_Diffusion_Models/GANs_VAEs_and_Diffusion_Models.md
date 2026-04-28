@@ -169,7 +169,9 @@ Generalization: reparameterization applicable wherever you need gradients throug
 
 (1) **Reconstruction:** `log p(x|z)` is likelihood of x given z from decoder. Higher likelihood = better reconstruction.
 
-(2) **KL divergence:** measure of how much q(z|x) deviates from prior p(z) = N(0, I). Maximizing ELBO simultaneously: maximizes reconstruction (want x reconstructed from z) and minimizes KL (want latent distribution to match prior, enabling sampling from p(z)). Why maximize ELBO vs log p(x)? ELBO is tractable (we can compute it via samples), while log p(x) requires intractable marginalization. As training progresses, KL decreases (q matches prior), and log p(x) approaches ELBO (tighter bound). At convergence, KL term is usually small, and loss is dominated by reconstruction.
+(2) **KL divergence:** measure of how much q(z|x) deviates from prior p(z) = N(0, I). Maximizing ELBO simultaneously: maximizes reconstruction (want x reconstructed from z) and minimizes KL (want latent distribution to match prior, enabling sampling from p(z)). Why maximize ELBO vs log p(x)?
+
+ELBO is tractable (we can compute it via samples), while log p(x) requires intractable marginalization. As training progresses, KL decreases (q matches prior), and log p(x) approaches ELBO (tighter bound). At convergence, KL term is usually small, and loss is dominated by reconstruction.
 
 Trade-off: high reconstruction but KL penalty prevents z from encoding too much information (leads to blurry images). Balancing via β-VAE: loss = reconstruction + β*KL (β > 1 increases regularization, leads to less informative z but smoother latent space).
 
@@ -391,7 +393,9 @@ Disadvantages:
 
 (3) Conditioning strength (guidance scale in diffusion, concatenation weight in GAN).
 
-(4) Unconditional training (sometimes drop condition during training, enables classifier-free guidance). Modern approaches: latent diffusion + CLIP text encoding is standard for text-to-image (Stable Diffusion, DALL-E 2). Alternative: encode image and text to same space (contrastive learning), generate in that space. More advanced: multimodal models (can condition on image + text, generate variations).
+(4) Unconditional training (sometimes drop condition during training, enables classifier-free guidance). Modern approaches: latent diffusion + CLIP text encoding is standard for text-to-image (Stable Diffusion, DALL-E 2). Alternative: encode image and text to same space (contrastive learning), generate in that space.
+
+More advanced: multimodal models (can condition on image + text, generate variations).
 
 **Interview Tip:** Show label conditioning as simple baseline. Explain why text conditioning harder (unbounded, alignment challenge). Discuss CLIP's role in modern text-to-image. Mention classifier-free guidance as training trick.
 

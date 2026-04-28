@@ -102,7 +102,13 @@ In ML, ANOVA compares multiple models or hyperparameter settings: fit models acr
 
 Applications:
 
-(1) goodness-of-fit: does data follow a specific distribution? (2) independence: are two categorical variables independent? (3) homogeneity: do k populations have the same distribution? Assumptions: observations are independent, categories are mutually exclusive, expected frequency ≥5 in each cell (merge small categories if violated). In ML, chi-square tests evaluate whether predicted class distributions match observed (e.g., classifier outputting wrong class proportions), or whether feature distribution differs significantly between training and deployed data (indicator of data drift).
+(1) goodness-of-fit: does data follow a specific distribution?
+
+(2) independence: are two categorical variables independent?
+
+(3) homogeneity: do k populations have the same distribution? Assumptions: observations are independent, categories are mutually exclusive, expected frequency ≥5 in each cell (merge small categories if violated).
+
+In ML, chi-square tests evaluate whether predicted class distributions match observed (e.g., classifier outputting wrong class proportions), or whether feature distribution differs significantly between training and deployed data (indicator of data drift).
 
 ---
 
@@ -192,7 +198,11 @@ Interviewers expect you to know that reporting results from exploratory analysis
 
 (5) run test with proper randomization and blinding,
 
-(6) analyze via t-test or proportion test at specified α level. Sample size formula for comparing proportions: n ≈ 2(z_α + z_β)²p(1-p) / Δ², where p is baseline rate and Δ is effect size. Practical considerations: avoid peeking at results during test (inflates α), use sequential testing for early stopping, account for multiple comparisons if testing multiple metrics, and pre-register analysis plan to prevent p-hacking. In ML contexts, A/B tests validate that model improvements generalize (online metrics matter more than offline metrics), and understanding this framework helps you propose tests that convince stakeholders of real value.
+(6) analyze via t-test or proportion test at specified α level. Sample size formula for comparing proportions: n ≈ 2(z_α + z_β)²p(1-p) / Δ², where p is baseline rate and Δ is effect size.
+
+Practical considerations: avoid peeking at results during test (inflates α), use sequential testing for early stopping, account for multiple comparisons if testing multiple metrics, and pre-register analysis plan to prevent p-hacking.
+
+In ML contexts, A/B tests validate that model improvements generalize (online metrics matter more than offline metrics), and understanding this framework helps you propose tests that convince stakeholders of real value.
 
 ---
 

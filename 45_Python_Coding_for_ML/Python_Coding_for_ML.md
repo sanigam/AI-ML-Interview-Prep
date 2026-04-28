@@ -124,7 +124,9 @@ Custom transformers enable domain-specific preprocessing (e.g., handling timesta
 
 **A:** Multiprocessing uses multiple OS processes to avoid Python's GIL, enabling true parallelism for CPU-bound tasks.
 
-Example: `from multiprocessing import Pool; def compute_feature(user_data): return expensive_function(user_data); with Pool(4) as p: results = p.map(compute_feature, user_list)` distributes computation across 4 processes. Joblib simplifies this with caching: `from joblib import Parallel, delayed; results = Parallel(n_jobs=4)(delayed(compute_feature)(user) for user in user_list)` auto-parallelizes and caches results, avoiding recomputation. Parallelization is beneficial for:
+Example: `from multiprocessing import Pool; def compute_feature(user_data): return expensive_function(user_data); with Pool(4) as p: results = p.map(compute_feature, user_list)` distributes computation across 4 processes.
+
+Joblib simplifies this with caching: `from joblib import Parallel, delayed; results = Parallel(n_jobs=4)(delayed(compute_feature)(user) for user in user_list)` auto-parallelizes and caches results, avoiding recomputation. Parallelization is beneficial for:
 
 (1) grid search in scikit-learn (`GridSearchCV(model, param_grid, n_jobs=-1)` uses all cores),
 
@@ -156,17 +158,23 @@ For ML pipelines, profile on realistic data sizes; optimizations that matter on 
 
 ### Q11: Implement k-means clustering from scratch in NumPy (simplified version).
 
-**A:** `import numpy as np; def kmeans(X, k, max_iter=100): n, d = X.shape; centroids = X[np.random.choice(n, k, replace=False)]; for _ in range(max_iter): distances = ((X[:, None, :] - centroids[None, :, :]) ** 2).sum(axis=2); labels = np.argmin(distances, axis=1); new_centroids = np.array([X[labels == i].mean(axis=0) for i in range(k)]); if np.allclose(centroids, new_centroids): break; centroids = new_centroids; return centroids, labels` initializes k centroids from data, iteratively (1) assigns points to nearest centroid,
+**A:** `import numpy as np; def kmeans(X, k, max_iter=100): n, d = X.shape; centroids = X[np.random.choice(n, k, replace=False)]; for _ in range(max_iter): distances = ((X[:, None, :] - centroids[None, :, :]) ** 2).sum(axis=2); labels = np.argmin(distances, axis=1); new_centroids = np.array([X[labels == i].mean(axis=0) for i in range(k)]);
+
+if np.allclose(centroids, new_centroids): break; centroids = new_centroids; return centroids, labels` initializes k centroids from data, iteratively (1) assigns points to nearest centroid,
 
 (2) recomputes centroids as cluster means,
 
-(3) checks convergence. The key insight: `distances = ((X[:, None, :] - centroids[None, :, :]) ** 2).sum(axis=2)` uses broadcasting to compute all pairwise distances in O(1) Python loops. Compared to `for i in range(n): for j in range(k): dist[i, j] = ((X[i] - centroids[j]) ** 2).sum()`, vectorized code is 1000x faster. This implementation is inefficient (recomputes distances every iteration; production k-means uses mini-batch); the goal is demonstrating numpy proficiency, not optimality.
+(3) checks convergence. The key insight: `distances = ((X[:, None, :] - centroids[None, :, :]) ** 2).sum(axis=2)` uses broadcasting to compute all pairwise distances in O(1) Python loops. Compared to `for i in range(n): for j in range(k): dist[i, j] = ((X[i] - centroids[j]) ** 2).sum()`, vectorized code is 1000x faster.
+
+This implementation is inefficient (recomputes distances every iteration; production k-means uses mini-batch); the goal is demonstrating numpy proficiency, not optimality.
 
 ---
 
 ### Q12: Implement logistic regression from scratch using NumPy and gradient descent.
 
-**A:** `import numpy as np; class LogisticRegression: def fit(self, X, y, lr=0.01, epochs=100): self.w = np.zeros(X.shape[1]); self.b = 0; for _ in range(epochs): z = X @ self.w + self.b; probs = 1 / (1 + np.exp(-z)); dw = (X.T @ (probs - y)) / len(y); db = np.mean(probs - y); self.w -= lr * dw; self.b -= lr * db; return self; def predict(self, X): return 1 / (1 + np.exp(-(X @ self.w + self.b))) > 0.5` implements SGD-style gradient descent with vectorized loss computation.
+**A:** `import numpy as np; class LogisticRegression: def fit(self, X, y, lr=0.01, epochs=100): self.w = np.zeros(X.shape[1]); self.b = 0; for _ in range(epochs): z = X @ self.w + self.b; probs = 1 / (1 + np.exp(-z)); dw = (X.T @ (probs - y)) / len(y); db = np.mean(probs - y); self.w -= lr * dw; self.b -= lr * db; return self;
+
+def predict(self, X): return 1 / (1 + np.exp(-(X @ self.w + self.b))) > 0.5` implements SGD-style gradient descent with vectorized loss computation.
 
 Key points:
 
@@ -176,13 +184,17 @@ Key points:
 
 (3) gradients `dw = X.T @ (probs - y)` are vectorized (no loops),
 
-(4) weight updates use learning rate `lr`. This demonstrates understanding of: backprop, vectorization, numerical stability (be careful with `np.exp(-z)` for large z), and the logistic sigmoid. Production implementations (scikit-learn, TensorFlow) add regularization, better optimizers (Adam, LBFGS), and numerical stability tricks. Interviewers ask this to assess whether you understand ML fundamentals deeply, not just API usage.
+(4) weight updates use learning rate `lr`. This demonstrates understanding of: backprop, vectorization, numerical stability (be careful with `np.exp(-z)` for large z), and the logistic sigmoid. Production implementations (scikit-learn, TensorFlow) add regularization, better optimizers (Adam, LBFGS), and numerical stability tricks.
+
+Interviewers ask this to assess whether you understand ML fundamentals deeply, not just API usage.
 
 ---
 
 ### Q13: How do you implement cross-validation from scratch? When would you use it?
 
-**A:** `def cross_val_score(X, y, model, k=5): fold_size = len(X) // k; scores = []; indices = np.arange(len(X)); np.random.shuffle(indices); for fold in range(k): test_idx = indices[fold * fold_size:(fold + 1) * fold_size]; train_idx = np.concatenate([indices[:fold * fold_size], indices[(fold + 1) * fold_size:]]); model.fit(X[train_idx], y[train_idx]); score = model.score(X[test_idx], y[test_idx]); scores.append(score); return np.mean(scores), np.std(scores)` splits data into k folds, trains on k-1 folds, evaluates on the held-out fold, repeating k times.
+**A:** `def cross_val_score(X, y, model, k=5): fold_size = len(X) // k; scores = []; indices = np.arange(len(X)); np.random.shuffle(indices); for fold in range(k): test_idx = indices[fold * fold_size:(fold + 1) * fold_size]; train_idx = np.concatenate([indices[:fold * fold_size], indices[(fold + 1) * fold_size:]]);
+
+model.fit(X[train_idx], y[train_idx]); score = model.score(X[test_idx], y[test_idx]); scores.append(score); return np.mean(scores), np.std(scores)` splits data into k folds, trains on k-1 folds, evaluates on the held-out fold, repeating k times.
 
 Use cross-validation to:
 
@@ -190,7 +202,9 @@ Use cross-validation to:
 
 (2) detect overfitting (training loss >> CV loss),
 
-(3) select hyperparameters (choose k that maximizes CV score). For large datasets (>100k samples), stratified k-fold preserves class distribution: `from sklearn.model_selection import StratifiedKFold; skf = StratifiedKFold(n_splits=5, shuffle=True); for train_idx, test_idx in skf.split(X, y)` ensures each fold has similar class proportions. Time series data requires time series split (no shuffling, forward-looking test set) to prevent temporal leakage. Cross-validation is computationally expensive (trains model k times), so for production, use it sparingly—e.g., during hyperparameter tuning, not per prediction.
+(3) select hyperparameters (choose k that maximizes CV score). For large datasets (>100k samples), stratified k-fold preserves class distribution: `from sklearn.model_selection import StratifiedKFold; skf = StratifiedKFold(n_splits=5, shuffle=True); for train_idx, test_idx in skf.split(X, y)` ensures each fold has similar class proportions.
+
+Time series data requires time series split (no shuffling, forward-looking test set) to prevent temporal leakage. Cross-validation is computationally expensive (trains model k times), so for production, use it sparingly—e.g., during hyperparameter tuning, not per prediction.
 
 ---
 

@@ -72,7 +72,9 @@ Example: decision trees might split on correlated proxies for protected attribut
 
 (1) **Pre-processing** - modify training data before training. Techniques: re-weighting (give higher weight to underrepresented groups), oversampling minority groups, data augmentation, or using synthetic data. Advantage: algorithm-agnostic (works with any model). Disadvantage: doesn't address algorithmic bias.
 
-(2) **In-processing** - modify algorithms during training. Techniques: fairness constraints (add regularization term penalizing unfair predictions), adversarial debiasing (use adversarial network to prevent predicting protected attributes), or threshold adjustment (use different decision thresholds for different groups). Advantage: can directly optimize fairness-accuracy trade-off. Disadvantage: requires modifying training code.
+(2) **In-processing** - modify algorithms during training. Techniques: fairness constraints (add regularization term penalizing unfair predictions), adversarial debiasing (use adversarial network to prevent predicting protected attributes), or threshold adjustment (use different decision thresholds for different groups).
+
+Advantage: can directly optimize fairness-accuracy trade-off. Disadvantage: requires modifying training code.
 
 (3) **Post-processing** - modify predictions after training. Techniques: threshold tuning (adjust decision thresholds per group), output adjustment (calibrate predictions), or rule-based corrections (override model on certain cases). Advantage: works with any trained model, useful for deployed systems. Disadvantage: may hurt calibration or other properties.
 
@@ -152,7 +154,9 @@ Limitations:
 
 (2) **can be misleading** - if model is wrong, visualization shows what the model attends to, not what's correct,
 
-(3) **coarse** - operates on final convolutional layer, loses fine-grained information. Grad-CAM is standard in computer vision for model debugging and building trust. Variant: Integrated Gradients (attributes prediction to input features by integrating gradients along a path), more principled but less intuitive. For image models, visualization-based explanations are more effective than feature importance because humans understand visual patterns better than feature attributions.
+(3) **coarse** - operates on final convolutional layer, loses fine-grained information. Grad-CAM is standard in computer vision for model debugging and building trust. Variant: Integrated Gradients (attributes prediction to input features by integrating gradients along a path), more principled but less intuitive.
+
+For image models, visualization-based explanations are more effective than feature importance because humans understand visual patterns better than feature attributions.
 
 ---
 
@@ -322,7 +326,9 @@ Limitations:
 
 (1) data stays local,
 
-(2) aggregated gradients reveal nothing about individuals. This is powerful: hospitals can collaboratively train a diagnostic model without sharing patient data. Companies can train on user data without centralizing it. Federated learning is active research area; Google uses it for Gboard (phone keyboard predictions), Apple uses it for health monitoring. Challenges: slower convergence, communication overhead.
+(2) aggregated gradients reveal nothing about individuals. This is powerful: hospitals can collaboratively train a diagnostic model without sharing patient data. Companies can train on user data without centralizing it.
+
+Federated learning is active research area; Google uses it for Gboard (phone keyboard predictions), Apple uses it for health monitoring. Challenges: slower convergence, communication overhead.
 
 ---
 
@@ -348,7 +354,9 @@ Example: add imperceptible noise to image of "stop sign," model misclassifies as
 
 (2) **input preprocessing** - detect/remove adversarial noise,
 
-(3) **certified defenses** - prove model is robust within epsilon radius. Tradeoff: robustness vs accuracy. Adversarially trained models often sacrifice accuracy for robustness. Practical approach: assess if adversarial robustness matters for your application (deployed on internet? exposed to adversaries?), and if yes, use adversarial training + testing. Adversarial robustness is less urgent for internal models (company-only data) but critical for public models.
+(3) **certified defenses** - prove model is robust within epsilon radius. Tradeoff: robustness vs accuracy. Adversarially trained models often sacrifice accuracy for robustness.
+
+Practical approach: assess if adversarial robustness matters for your application (deployed on internet? exposed to adversaries?), and if yes, use adversarial training + testing. Adversarial robustness is less urgent for internal models (company-only data) but critical for public models.
 
 ---
 
@@ -428,7 +436,9 @@ Example: GPT-4 is released with safety measures (RLHF, monitoring, access contro
 
 (6) **research focus** - improve algorithm efficiency (Moore's law helps, but focus on algorithmic improvements),
 
-(7) **shared resources** - multiple organizations share training runs rather than training separately. Practical tradeoffs: smaller models are more efficient but may be less capable; accuracy-efficiency tradeoffs exist. Companies increasingly track carbon footprint and set reduction targets. Environmental concerns are legitimate but shouldn't completely block AI development; responsible development involves acknowledging environmental costs and actively reducing them.
+(7) **shared resources** - multiple organizations share training runs rather than training separately. Practical tradeoffs: smaller models are more efficient but may be less capable; accuracy-efficiency tradeoffs exist. Companies increasingly track carbon footprint and set reduction targets.
+
+Environmental concerns are legitimate but shouldn't completely block AI development; responsible development involves acknowledging environmental costs and actively reducing them.
 
 ---
 

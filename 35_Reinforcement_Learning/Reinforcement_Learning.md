@@ -166,7 +166,11 @@ Intuition: increase probability of action a_t if return was high, decrease if lo
 
 (2) **slow convergence** - requires many samples,
 
-(3) **on-policy** - must use recent data (can't reuse old transitions). Variance reduction: **baseline** - subtract learned value function V(s_t): θ ← θ + α*(G_t - V(s_t))*∇_θ log π(a_t|s_t;θ). Advantage A_t = G_t - V(s_t) is lower variance (measures relative value). **Advantage actor-critic**: explicitly learn actor (policy) and critic (value function). When to use: continuous action spaces (robotics), stochastic policies needed, or when Q-learning doesn't converge. Policy gradients are foundation for deep RL in continuous domains (robot control).
+(3) **on-policy** - must use recent data (can't reuse old transitions). Variance reduction: **baseline** - subtract learned value function V(s_t): θ ← θ + α*(G_t - V(s_t))*∇_θ log π(a_t|s_t;θ).
+
+Advantage A_t = G_t - V(s_t) is lower variance (measures relative value). **Advantage actor-critic**: explicitly learn actor (policy) and critic (value function). When to use: continuous action spaces (robotics), stochastic policies needed, or when Q-learning doesn't converge.
+
+Policy gradients are foundation for deep RL in continuous domains (robot control).
 
 ---
 
@@ -268,7 +272,9 @@ Limitations:
 
 (2) **human feedback costly** - ranking thousands of completions expensive,
 
-(3) **preference diversity** - humans disagree; whose preference counts? Modern approach: use AI feedback (rule-based or learned evaluators) in addition to human feedback, reducing human effort. Constitutional AI: train model with explicit values/constitution instead of human feedback. RLHF is standard in modern LLM training (GPT, Claude, etc.), crucial for deployment as it reduces harmful outputs and improves helpfulness.
+(3) **preference diversity** - humans disagree; whose preference counts? Modern approach: use AI feedback (rule-based or learned evaluators) in addition to human feedback, reducing human effort. Constitutional AI: train model with explicit values/constitution instead of human feedback.
+
+RLHF is standard in modern LLM training (GPT, Claude, etc.), crucial for deployment as it reduces harmful outputs and improves helpfulness.
 
 ---
 

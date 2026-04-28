@@ -111,7 +111,9 @@ Differences:
 
 (4) **Generalization:** ICL generalizes to new examples within prompt; fine-tuning generalizes to new data.
 
-(5) **Interpretability:** ICL mechanisms visible (attention weights show which examples were used); fine-tuning is black-box. How ICL works: Transformer attends to context examples, pattern-matches (token "positive" in example → predict output "sentiment_positive"), learns task implicitly. At large scales, models develop in-context learning ability—small models show minimal ICL. Evidence: probing reveals models form task-specific representations from context (embeddings cluster based on task).
+(5) **Interpretability:** ICL mechanisms visible (attention weights show which examples were used); fine-tuning is black-box. How ICL works: Transformer attends to context examples, pattern-matches (token "positive" in example → predict output "sentiment_positive"), learns task implicitly.
+
+At large scales, models develop in-context learning ability—small models show minimal ICL. Evidence: probing reveals models form task-specific representations from context (embeddings cluster based on task).
 
 Trade-off: ICL fills context window (if 10 examples per task, only ~100 examples fit in 4K context), fine-tuning requires compute/data but is more parameter-efficient.
 
@@ -131,7 +133,11 @@ Example: task = "summarize", instruction = "Summarize the following text in one 
 
 (3) **Instruction diversity:** same task (translation) phrased many ways ("Translate to French:", "French translation:", "Rephrase in French:"), teaching robustness.
 
-(4) **Scale:** instruction tuning datasets are large (millions of examples across tasks), teaching models to follow instructions reliably. Impact: massive—instruction-tuned models (Alpaca, Claude, GPT-3.5-turbo) are dramatically more usable than base LLMs (which ramble, struggle with instruction following). Mechanism: models learn a meta-task (understand instructions and follow them), enabling zero-shot generalization to new instructions not in training. Modern practice: base model (GPT-3) + instruction tuning (ChatGPT's recipe) + alignment (RLHF) produces usable assistant. Instruction tuning datasets: some from humans (expensive, high-quality), some from synthetic (GPT-4 generates data, cheaper but risk of distribution shift). Quality crucial: instructions must be clear, outputs must be correct. Mistakes propagate (if instruction dataset has errors, model learns error distribution).
+(4) **Scale:** instruction tuning datasets are large (millions of examples across tasks), teaching models to follow instructions reliably. Impact: massive—instruction-tuned models (Alpaca, Claude, GPT-3.5-turbo) are dramatically more usable than base LLMs (which ramble, struggle with instruction following).
+
+Mechanism: models learn a meta-task (understand instructions and follow them), enabling zero-shot generalization to new instructions not in training. Modern practice: base model (GPT-3) + instruction tuning (ChatGPT's recipe) + alignment (RLHF) produces usable assistant.
+
+Instruction tuning datasets: some from humans (expensive, high-quality), some from synthetic (GPT-4 generates data, cheaper but risk of distribution shift). Quality crucial: instructions must be clear, outputs must be correct. Mistakes propagate (if instruction dataset has errors, model learns error distribution).
 
 **Interview Tip:** Explain the meta-learning aspect (learn to follow instructions on diverse tasks). Discuss why it's crucial for usable LLMs. Mention data quality importance—GIGO (garbage in, garbage out).
 
@@ -227,7 +233,9 @@ Limitations:
 
 (2) Model can still be fooled (jailbreaking via creative prompts).
 
-(3) Tension between helpfulness and harmlessness (being maximally harmless makes system unhelpful). Comparison to RLHF: RLHF uses human feedback on outcomes; constitutional AI uses model-generated feedback on principles. Constitutional AI is cheaper (no human raters) and potentially more principled. Modern impact: Claude's approach uses constitutional AI + limited RLHF, balancing automation and human oversight.
+(3) Tension between helpfulness and harmlessness (being maximally harmless makes system unhelpful). Comparison to RLHF: RLHF uses human feedback on outcomes; constitutional AI uses model-generated feedback on principles. Constitutional AI is cheaper (no human raters) and potentially more principled.
+
+Modern impact: Claude's approach uses constitutional AI + limited RLHF, balancing automation and human oversight.
 
 **Interview Tip:** Explain self-critique mechanism (model critiques own outputs). Discuss explicitness of constitution (auditable vs reward model black-box). Mention the helpfulness-harmlessness tradeoff.
 

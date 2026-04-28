@@ -172,7 +172,9 @@ In practice: the theorem motivates neural networks architecturally but doesn't d
 
 (2) Hinge loss: L = (1/n)Σmax(0, 1 - yᵢ·ŷᵢ); used in SVMs, margin-based, not probabilistic.
 
-(3) Focal loss: L = -(1/n)Σ(1-pₜ)^γ·log(pₜ) where pₜ is probability of true class and γ ≥ 0; down-weights easy examples, focuses on hard negatives; useful for class imbalance. Choice depends on task: MSE for regression, cross-entropy for classification (standard), Huber for regression with outliers, focal loss for imbalanced classification. In interviews, match loss to output activation: ReLU/linear output → MSE, sigmoid → cross-entropy (binary), softmax → cross-entropy (multi-class). Understanding why loss and activation pair matters separates competent practitioners.
+(3) Focal loss: L = -(1/n)Σ(1-pₜ)^γ·log(pₜ) where pₜ is probability of true class and γ ≥ 0; down-weights easy examples, focuses on hard negatives; useful for class imbalance. Choice depends on task: MSE for regression, cross-entropy for classification (standard), Huber for regression with outliers, focal loss for imbalanced classification.
+
+In interviews, match loss to output activation: ReLU/linear output → MSE, sigmoid → cross-entropy (binary), softmax → cross-entropy (multi-class). Understanding why loss and activation pair matters separates competent practitioners.
 
 ---
 
@@ -188,7 +190,9 @@ In practice: the theorem motivates neural networks architecturally but doesn't d
 
 (4) Warm-up: start with small LR, increase linearly to target LR over initial iterations; stabilizes early training.
 
-(5) Adaptive methods (Adam, AdamW): automatically adjust per-parameter learning rates via gradient magnitude history; largely obsolete the need for manual scheduling. Modern practice: use adaptive optimizers (Adam) with default settings, or learning rate warmup + cosine decay for larger models. Scheduling is critical for training stability and convergence speed. In interviews, mention that fixed learning rates are naive, and that scheduling or adaptive optimizers are essential. If asked to explain a choice, refer to the problem scale and typical practice.
+(5) Adaptive methods (Adam, AdamW): automatically adjust per-parameter learning rates via gradient magnitude history; largely obsolete the need for manual scheduling. Modern practice: use adaptive optimizers (Adam) with default settings, or learning rate warmup + cosine decay for larger models.
+
+Scheduling is critical for training stability and convergence speed. In interviews, mention that fixed learning rates are naive, and that scheduling or adaptive optimizers are essential. If asked to explain a choice, refer to the problem scale and typical practice.
 
 ---
 
@@ -202,7 +206,9 @@ Example: for z = w·x + b, nodes are w, x, b (inputs), multiply w×x, add b (ope
 
 (2) Works for arbitrary computation graphs.
 
-(3) Enables quick prototyping. In PyTorch, graphs are built on-the-fly; each forward() call creates a fresh graph. For memory efficiency, graphs are freed after backward(). Understanding computational graphs explains why PyTorch/TensorFlow are powerful and why backprop is automatic. In interviews, explain that autograd liberates you from calculus; you focus on architecture design and let the library handle gradients.
+(3) Enables quick prototyping. In PyTorch, graphs are built on-the-fly; each forward() call creates a fresh graph. For memory efficiency, graphs are freed after backward(). Understanding computational graphs explains why PyTorch/TensorFlow are powerful and why backprop is automatic.
+
+In interviews, explain that autograd liberates you from calculus; you focus on architecture design and let the library handle gradients.
 
 ---
 
@@ -216,7 +222,9 @@ Implementation: compute gradients, then normalize if norm exceeds threshold τ: 
 
 (2) Transformers with large learning rates: attention mechanisms can produce extreme gradients.
 
-(3) Networks with skip connections: sometimes needed despite mitigating mechanism. Modern practice: RNNs require clipping by norm (clip_norm parameter in TensorFlow/PyTorch). Deep feedforward networks with batch norm rarely need it. Clipping by value (cap each gradient to [-τ, τ]) is less common and can bias learning. Clipping by norm is standard. In interviews, mention gradient clipping as a practical RNN trick; it's not needed for most modern architectures, but shows you've dealt with RNN training challenges.
+(3) Networks with skip connections: sometimes needed despite mitigating mechanism. Modern practice: RNNs require clipping by norm (clip_norm parameter in TensorFlow/PyTorch). Deep feedforward networks with batch norm rarely need it. Clipping by value (cap each gradient to [-τ, τ]) is less common and can bias learning. Clipping by norm is standard.
+
+In interviews, mention gradient clipping as a practical RNN trick; it's not needed for most modern architectures, but shows you've dealt with RNN training challenges.
 
 ---
 

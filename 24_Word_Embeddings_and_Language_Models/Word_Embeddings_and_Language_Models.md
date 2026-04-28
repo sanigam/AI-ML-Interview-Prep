@@ -73,7 +73,11 @@ Advantages:
 
 (2) **Morphology:** similar words share n-grams ("running", "runs", "runner" share common subsequences), embedding space reflects morphological relationships.
 
-(3) **Multilingual:** works on languages without clear word boundaries (Chinese, Japanese) where characters are meaningful units. Disadvantage: embeddings less interpretable (not directly assigned to words, but computed on-the-fly from subword components), slightly larger model size (store all n-gram vectors). Empirical results: FastText matches or slightly beats Word2Vec, especially on tasks with OOV (social media, user-generated content with typos). Modern impact: FastText's character-level approach influenced later subword tokenization (BPE, WordPiece) and highlighted the importance of handling morphology. Still used in production for multilingual and typo-robust applications.
+(3) **Multilingual:** works on languages without clear word boundaries (Chinese, Japanese) where characters are meaningful units. Disadvantage: embeddings less interpretable (not directly assigned to words, but computed on-the-fly from subword components), slightly larger model size (store all n-gram vectors).
+
+Empirical results: FastText matches or slightly beats Word2Vec, especially on tasks with OOV (social media, user-generated content with typos). Modern impact: FastText's character-level approach influenced later subword tokenization (BPE, WordPiece) and highlighted the importance of handling morphology.
+
+Still used in production for multilingual and typo-robust applications.
 
 **Interview Tip:** Explain the OOV handling concretely—a misspelled word uses similar n-grams. Mention multilingual benefits. Discuss why character n-grams influenced later tokenization methods.
 
@@ -151,7 +155,9 @@ Limitations: MLM adds spurious [MASK] tokens not present at inference (exposure 
 
 (3) **Usage:** BERT requires fine-tuning (add task-specific head), GPT enables prompting (describe task in text, model responds).
 
-(4) **Scaling:** autoregressive models scale better (loss decreases predictably with scale; Chinchilla laws). Impact: GPT demonstrated that scaling language models (data + parameters) leads to emergent abilities—few-shot learning, reasoning, instruction following. This paradigm shifted NLP from supervised fine-tuning to prompting. Modern LLMs (GPT-4, Claude, Llama) follow GPT's approach. BERT used in retrieval/understanding tasks; GPT used for generation/reasoning.
+(4) **Scaling:** autoregressive models scale better (loss decreases predictably with scale; Chinchilla laws). Impact: GPT demonstrated that scaling language models (data + parameters) leads to emergent abilities—few-shot learning, reasoning, instruction following. This paradigm shifted NLP from supervised fine-tuning to prompting.
+
+Modern LLMs (GPT-4, Claude, Llama) follow GPT's approach. BERT used in retrieval/understanding tasks; GPT used for generation/reasoning.
 
 **Interview Tip:** Explain causal masking's role (left-to-right constraint enables autoregressive generation). Discuss emergent abilities with scale—show you understand why scaling matters. Mention few-shot learning as key capability GPT unlocked.
 

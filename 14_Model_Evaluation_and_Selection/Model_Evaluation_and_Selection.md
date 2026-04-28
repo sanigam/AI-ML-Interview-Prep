@@ -51,7 +51,9 @@ Disadvantages:
 
 (2) AUC can be misleading with extreme class imbalance (99:1, AUC may look good despite poor precision),
 
-(3) focuses on ranking, not calibration (probabilities). Use ROC/AUC: imbalanced data, when threshold is flexible (don't yet know operating point), evaluation across multiple thresholds. Don't use ROC/AUC: heavily imbalanced data (precision-recall curve better), when one specific threshold is fixed (use confusion matrix metrics). In interviews, explain both strengths and limitations; many practitioners over-rely on AUC.
+(3) focuses on ranking, not calibration (probabilities). Use ROC/AUC: imbalanced data, when threshold is flexible (don't yet know operating point), evaluation across multiple thresholds. Don't use ROC/AUC: heavily imbalanced data (precision-recall curve better), when one specific threshold is fixed (use confusion matrix metrics).
+
+In interviews, explain both strengths and limitations; many practitioners over-rely on AUC.
 
 ---
 
@@ -83,7 +85,11 @@ Interpretation:
 
 (2) off-diagonal patterns reveal specific confusions—e.g., if class A often confused with class B, they may be intrinsically similar; investigate.
 
-(3) imbalanced confusion matrix (one class dominates) may indicate class imbalance or poor training. Metrics per class: Precision_i = CM[i,i] / ∑_j CM[j,i] (what fraction of predicted class i are truly class i), Recall_i = CM[i,i] / ∑_j CM[i,j] (what fraction of true class i are correctly predicted). In multiclass, macro-average treats all classes equally (useful for balanced data, or when all errors equal), micro-average weights by class frequency (useful for imbalanced data, or when rare class errors matter less). In interviews, analyzing a confusion matrix shows practical understanding. Discuss that off-diagonal patterns can guide feature engineering or data collection (improve data for confused classes). Mention that raw counts (non-normalized) confusion matrix is less informative than percentages or normalized matrix.
+(3) imbalanced confusion matrix (one class dominates) may indicate class imbalance or poor training. Metrics per class: Precision_i = CM[i,i] / ∑_j CM[j,i] (what fraction of predicted class i are truly class i), Recall_i = CM[i,i] / ∑_j CM[i,j] (what fraction of true class i are correctly predicted).
+
+In multiclass, macro-average treats all classes equally (useful for balanced data, or when all errors equal), micro-average weights by class frequency (useful for imbalanced data, or when rare class errors matter less). In interviews, analyzing a confusion matrix shows practical understanding.
+
+Discuss that off-diagonal patterns can guide feature engineering or data collection (improve data for confused classes). Mention that raw counts (non-normalized) confusion matrix is less informative than percentages or normalized matrix.
 
 ---
 
@@ -131,7 +137,9 @@ Advantages:
 
 (3) detects overfitting (if train >> test error, model is overfitting),
 
-(4) stable for small datasets (K-1 folds still substantial training data). Typical K = 5-10; k-fold = leave-one-out CV, leave-one-out is unbiased but computationally expensive O(n) training runs. Stratified K-fold: ensures each fold has same class distribution as full data; critical for imbalanced classification (random split might create folds with zero positives). Time-series CV: for temporal data, don't shuffle; use growing windows (train on past, test on future in chronological order; prevents future leakage).
+(4) stable for small datasets (K-1 folds still substantial training data). Typical K = 5-10; k-fold = leave-one-out CV, leave-one-out is unbiased but computationally expensive O(n) training runs.
+
+Stratified K-fold: ensures each fold has same class distribution as full data; critical for imbalanced classification (random split might create folds with zero positives). Time-series CV: for temporal data, don't shuffle; use growing windows (train on past, test on future in chronological order; prevents future leakage).
 
 Disadvantages:
 
@@ -165,7 +173,9 @@ Implementation: shuffle, sort by class label, cyclically assign folds (fold 1 ge
 
 (1) large balanced datasets (random splits naturally represent each class),
 
-(2) regression (no class distribution). In practice, always use stratified K-fold for classification unless data is very balanced and large—it's safer and never hurts. For multiclass with K classes, stratified K-fold preserves all K classes in each fold simultaneously (more complex than binary, but most libraries handle it). In interviews, mentioning stratified K-fold for imbalanced data shows awareness—many practitioners use plain K-fold unaware of class imbalance consequences. Example impact: with 1% positive rate, random 5-fold might create a fold with 0% positives; metrics on that fold are undefined (divide by zero). Stratified prevents this.
+(2) regression (no class distribution). In practice, always use stratified K-fold for classification unless data is very balanced and large—it's safer and never hurts. For multiclass with K classes, stratified K-fold preserves all K classes in each fold simultaneously (more complex than binary, but most libraries handle it).
+
+In interviews, mentioning stratified K-fold for imbalanced data shows awareness—many practitioners use plain K-fold unaware of class imbalance consequences. Example impact: with 1% positive rate, random 5-fold might create a fold with 0% positives; metrics on that fold are undefined (divide by zero). Stratified prevents this.
 
 ---
 
@@ -263,7 +273,11 @@ Applications: deep learning (expensive to train), AutoML (automatic model select
 
 (2) guide next steps (add data for variance, complex model for bias),
 
-(3) determine diminishing returns (if curves flatten, more data won't help). Curve interpretation details: with more training data, training error typically increases (larger, more diverse training set is harder to fit perfectly), validation error typically decreases (more data ↔ better model estimate). If validation error diverges strongly from training as data increases, high variance. If both converge to high error, high bias. In interviews, generating and interpreting learning curves shows practical ML understanding. Mention that learning curves are underused—many practitioners don't inspect them but they provide invaluable diagnostics. Always visualize learning curves when model performance is underwhelming.
+(3) determine diminishing returns (if curves flatten, more data won't help). Curve interpretation details: with more training data, training error typically increases (larger, more diverse training set is harder to fit perfectly), validation error typically decreases (more data ↔ better model estimate).
+
+If validation error diverges strongly from training as data increases, high variance. If both converge to high error, high bias. In interviews, generating and interpreting learning curves shows practical ML understanding. Mention that learning curves are underused—many practitioners don't inspect them but they provide invaluable diagnostics.
+
+Always visualize learning curves when model performance is underwhelming.
 
 ---
 
@@ -385,7 +399,9 @@ Disadvantages:
 
 (6) **Selective reporting**: report all metrics, not cherry-picking favorable ones,
 
-(7) **Assuming one metric sufficient**: use multiple angles; confusion matrix + ROC + learning curves > single AUC. In interviews, this structured thinking impresses. Discuss trade-offs (computation vs. reliability) and practical constraints (time, data). Strong answer: "I'd start simple (baseline + single split), iterate (CV, multiple metrics), then diagnose issues (learning curves, error analysis) before final test evaluation."
+(7) **Assuming one metric sufficient**: use multiple angles; confusion matrix + ROC + learning curves > single AUC. In interviews, this structured thinking impresses. Discuss trade-offs (computation vs. reliability) and practical constraints (time, data).
+
+Strong answer: "I'd start simple (baseline + single split), iterate (CV, multiple metrics), then diagnose issues (learning curves, error analysis) before final test evaluation."
 
 ---
 

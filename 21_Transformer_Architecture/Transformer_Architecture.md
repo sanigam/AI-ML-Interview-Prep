@@ -25,7 +25,9 @@ Scaling by 1/√d prevents dot products from becoming too large (gradient instab
 
 (2) Long-range dependencies: attention directly connects distant positions (no BPTT depth).
 
-(3) Interpretable: attention weights show which positions are relevant. Complexity: O(n²) for sequence length n (computing all attention scores). This is the main computational bottleneck. In interviews, explain the intuition: query asks "what am I looking for?", key matches "what am I?", value provides "what information to aggregate." Explaining scaling prevents numerical instability is a nice detail.
+(3) Interpretable: attention weights show which positions are relevant. Complexity: O(n²) for sequence length n (computing all attention scores). This is the main computational bottleneck.
+
+In interviews, explain the intuition: query asks "what am I looking for?", key matches "what am I?", value provides "what information to aggregate." Explaining scaling prevents numerical instability is a nice detail.
 
 ---
 
@@ -63,7 +65,11 @@ For position pos and dimension d_i (even indices), PE(pos, d_i) = sin(pos / 1000
 
 (1) Potentially more flexible (data-driven).
 
-(2) Simpler intuition (explicit learnable positions). Drawback: must see positions during training; doesn't extrapolate to longer sequences. Sinusoidal better generalizes to longer sequences. Modern practice: sinusoidal is standard (BERT, GPT use learned; both work). Variants: relative positional embeddings (encode relative distance between tokens, not absolute position) used in some transformers (DeBERTa, T5). Relative encodings are more robust to sequence length variation. In interviews, explain that attention is position-agnostic; positional encoding injects position information. Mentioning sinusoidal periodicity shows understanding beyond "we just add position numbers."
+(2) Simpler intuition (explicit learnable positions). Drawback: must see positions during training; doesn't extrapolate to longer sequences. Sinusoidal better generalizes to longer sequences. Modern practice: sinusoidal is standard (BERT, GPT use learned; both work).
+
+Variants: relative positional embeddings (encode relative distance between tokens, not absolute position) used in some transformers (DeBERTa, T5). Relative encodings are more robust to sequence length variation. In interviews, explain that attention is position-agnostic; positional encoding injects position information.
+
+Mentioning sinusoidal periodicity shows understanding beyond "we just add position numbers."
 
 ---
 
@@ -117,7 +123,9 @@ Comparison: batch norm (cross-batch statistics) doesn't work well for transforme
 
 (3) Optimization: residuals often make layers learn small perturbations (easier than learning full functions).
 
-(4) Stable training: residuals couple different layers, preventing independent, unstable learning. With residuals, large models train stably; without, training diverges. Residuals + LayerNorm are the backbone of transformer stability. Ablation studies show removing residuals cripples deep transformers. Design: residual after each sub-layer (attention, FFN), enabling deep stacking (48 layers in very deep models). In interviews, residuals are foundational to modern deep learning. Explaining that they enable gradient flow through deep networks (not just "residuals improve training") shows understanding.
+(4) Stable training: residuals couple different layers, preventing independent, unstable learning. With residuals, large models train stably; without, training diverges. Residuals + LayerNorm are the backbone of transformer stability. Ablation studies show removing residuals cripples deep transformers.
+
+Design: residual after each sub-layer (attention, FFN), enabling deep stacking (48 layers in very deep models). In interviews, residuals are foundational to modern deep learning. Explaining that they enable gradient flow through deep networks (not just "residuals improve training") shows understanding.
 
 ---
 
@@ -179,7 +187,11 @@ For large sequences (10K+ tokens), attention dominates. Memory: O(n²) for atten
 
 (2) Replace with random token 10% of the time.
 
-(3) Keep unchanged 10% of the time. Randomness forces model to maintain accurate hidden representations, not relying on [MASK] token. BERT (Bidirectional Encoder Representations from Transformers): pre-trains on MLM (+ next sentence prediction, NSP). After pre-training on large corpus (Wikipedia, BookCorpus), fine-tune on downstream tasks (classification, NER, QA). MLM is deceptively simple but highly effective. BERT's success drove adoption of MLM for other domains (DomainBERT, BioBERT for biomedical text). Extension: ELECTRA uses discriminator-generator objectives (more efficient pre-training). In interviews, explain MLM intuition: predicting masked tokens forces learning meaningful representations (can't shortcut without understanding context). Mentioning masking strategy details (80% mask, 10% random, 10% unchanged) shows rigor.
+(3) Keep unchanged 10% of the time. Randomness forces model to maintain accurate hidden representations, not relying on [MASK] token. BERT (Bidirectional Encoder Representations from Transformers): pre-trains on MLM (+ next sentence prediction, NSP).
+
+After pre-training on large corpus (Wikipedia, BookCorpus), fine-tune on downstream tasks (classification, NER, QA). MLM is deceptively simple but highly effective. BERT's success drove adoption of MLM for other domains (DomainBERT, BioBERT for biomedical text).
+
+Extension: ELECTRA uses discriminator-generator objectives (more efficient pre-training). In interviews, explain MLM intuition: predicting masked tokens forces learning meaningful representations (can't shortcut without understanding context). Mentioning masking strategy details (80% mask, 10% random, 10% unchanged) shows rigor.
 
 ---
 
@@ -229,7 +241,9 @@ Limitations:
 
 (2) Brittleness: small prompt changes affect outputs.
 
-(3) Hallucination: models generate plausible-sounding but false information. Research: emerging field understanding in-context learning mechanistically (what happens in transformers during in-context learning). Recent work suggests in-context learning is implicit meta-learning. In interviews, mention in-context learning as a paradigm shift from fine-tuning to prompting, and scaling laws explaining why it emerges in large models.
+(3) Hallucination: models generate plausible-sounding but false information. Research: emerging field understanding in-context learning mechanistically (what happens in transformers during in-context learning). Recent work suggests in-context learning is implicit meta-learning.
+
+In interviews, mention in-context learning as a paradigm shift from fine-tuning to prompting, and scaling laws explaining why it emerges in large models.
 
 ---
 

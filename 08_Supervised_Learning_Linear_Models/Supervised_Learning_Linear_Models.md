@@ -23,7 +23,9 @@ Linear models form the foundation of machine learning and are frequently tested 
 
 (3) homoscedasticity—error variance is constant,
 
-(4) normality—residuals follow a normal distribution, and (5) no multicollinearity—features are not highly correlated. Violations of these assumptions (e.g., nonlinear relationships detected via residual plots) require transformations, polynomial features, or entirely different models. Testing assumptions through residual analysis (checking for heteroscedasticity patterns or non-normality) is a critical part of model validation.
+(4) normality—residuals follow a normal distribution, and (5) no multicollinearity—features are not highly correlated. Violations of these assumptions (e.g., nonlinear relationships detected via residual plots) require transformations, polynomial features, or entirely different models.
+
+Testing assumptions through residual analysis (checking for heteroscedasticity patterns or non-normality) is a critical part of model validation.
 
 ---
 
@@ -117,7 +119,9 @@ You detect the need for polynomial regression via residual plots—if residuals 
 
 (2) extrapolation beyond data range produces wild predictions,
 
-(3) interpretation becomes harder. Always validate via cross-validation and use regularization. For highly complex nonlinear relationships, modern ML practitioners prefer tree-based models or neural networks instead of high-degree polynomials, since they generalize better and don't require manual feature engineering. Reserve polynomial regression for exploratory analysis or when domain knowledge suggests polynomial structure.
+(3) interpretation becomes harder. Always validate via cross-validation and use regularization. For highly complex nonlinear relationships, modern ML practitioners prefer tree-based models or neural networks instead of high-degree polynomials, since they generalize better and don't require manual feature engineering.
+
+Reserve polynomial regression for exploratory analysis or when domain knowledge suggests polynomial structure.
 
 ---
 
@@ -161,7 +165,11 @@ In interviews, discuss that SGD is standard for online learning, batch for small
 
 (2) Poisson with log link models count data with E[y] = e^(Xβ),
 
-(3) Gamma with log link for positive continuous data. The general form uses maximum likelihood estimation on the chosen distribution. GLMs unify many models under one framework, sharing common properties: exponential family distributions, link functions chosen for interpretation or mathematical convenience, and inference via deviance (generalized R²). In interviews, GLMs are less common than specific instantiations (logistic regression, Poisson regression), but demonstrating knowledge of the framework shows conceptual depth. Modern alternatives like generalized additive models (GAMs) relax the linearity assumption while keeping interpretability.
+(3) Gamma with log link for positive continuous data. The general form uses maximum likelihood estimation on the chosen distribution.
+
+GLMs unify many models under one framework, sharing common properties: exponential family distributions, link functions chosen for interpretation or mathematical convenience, and inference via deviance (generalized R²).
+
+In interviews, GLMs are less common than specific instantiations (logistic regression, Poisson regression), but demonstrating knowledge of the framework shows conceptual depth. Modern alternatives like generalized additive models (GAMs) relax the linearity assumption while keeping interpretability.
 
 ---
 

@@ -383,7 +383,9 @@ Example: search "machine learning" in last 7 days → may miss relevant older pa
 
 **A:** **Evaluation challenge:** RAG combines retrieval (retrieve relevant docs) and generation (answer from docs). Metrics must assess both components.
 
-**Key metrics:** (1) **Context Recall:** does retrieved context contain answer? Measure: does top-k retrieved documents contain sufficient information to answer the question? Compute: label which documents are relevant (human annotation or model-based proxy), compute recall (fraction of relevant docs in top-k). Formula: `recall@k = |relevant_docs_in_topk| / |total_relevant_docs|`. Typical thresholds: recall@5 or recall@10.
+**Key metrics:** (1) **Context Recall:** does retrieved context contain answer? Measure: does top-k retrieved documents contain sufficient information to answer the question? Compute: label which documents are relevant (human annotation or model-based proxy), compute recall (fraction of relevant docs in top-k).
+
+Formula: `recall@k = |relevant_docs_in_topk| / |total_relevant_docs|`. Typical thresholds: recall@5 or recall@10.
 
 (2) **Relevance (Retrieval Precision):** are retrieved documents relevant to query? Measure: manually judge top-k documents as relevant/not. Compute: `precision@k = |relevant_in_topk| / k`. NDCG@k combines ranking (higher rank = more credit).
 

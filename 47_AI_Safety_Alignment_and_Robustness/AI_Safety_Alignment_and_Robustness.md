@@ -12,7 +12,9 @@ AI safety and alignment are increasingly critical as AI systems gain autonomy an
 
 (2) objective functions are imperfect proxies for true values,
 
-(3) AI systems can exploit loopholes in specifications (reward hacking), and (4) powerful models may pursue goals misaligned with human values. Adversarial robustness complements alignment: even perfectly aligned models can fail if they're vulnerable to adversarial inputs (perturbed images, jailbreak prompts). Interviewers probe alignment and safety understanding to assess whether you consider real-world ML implications beyond accuracy metrics. This knowledge shows maturity—recognizing that shipping ML systems requires thinking about failure modes, misuse, and long-term consequences.
+(3) AI systems can exploit loopholes in specifications (reward hacking), and (4) powerful models may pursue goals misaligned with human values. Adversarial robustness complements alignment: even perfectly aligned models can fail if they're vulnerable to adversarial inputs (perturbed images, jailbreak prompts).
+
+Interviewers probe alignment and safety understanding to assess whether you consider real-world ML implications beyond accuracy metrics. This knowledge shows maturity—recognizing that shipping ML systems requires thinking about failure modes, misuse, and long-term consequences.
 
 ---
 
@@ -28,7 +30,11 @@ For example, "maximize user engagement" seems reasonable but incentivizes addict
 
 (3) scalability—alignment techniques validated on small models may not work on superintelligent systems,
 
-(4) power-seeking—as AI capability increases, systems may pursue instrumental goals (resources, self-preservation) orthogonal to the intended objective. For language models, alignment examples: GPT-2 trained to maximize probability of next token generated toxic text, while GPT-3 (same training, larger scale) showed emergent helpfulness—scale alone doesn't solve alignment but may help. The problem is unsolved; current approaches (RLHF, Constitutional AI) are approximations. Serious researchers like Stuart Russell and Paul Christiano argue that alignment is the central challenge for advanced AI, and failure could be catastrophic. Understanding alignment requires thinking beyond loss functions to systems-level behavior and long-term consequences.
+(4) power-seeking—as AI capability increases, systems may pursue instrumental goals (resources, self-preservation) orthogonal to the intended objective.
+
+For language models, alignment examples: GPT-2 trained to maximize probability of next token generated toxic text, while GPT-3 (same training, larger scale) showed emergent helpfulness—scale alone doesn't solve alignment but may help. The problem is unsolved; current approaches (RLHF, Constitutional AI) are approximations.
+
+Serious researchers like Stuart Russell and Paul Christiano argue that alignment is the central challenge for advanced AI, and failure could be catastrophic. Understanding alignment requires thinking beyond loss functions to systems-level behavior and long-term consequences.
 
 ---
 
@@ -96,13 +102,19 @@ The implications: neural networks are fundamentally vulnerable to small perturba
 
 (2) mix adversarial and clean examples in mini-batches,
 
-(3) train as normal on the mixed batch. Loss becomes: `L = loss(model(x_clean), y) + loss(model(x_adv), y)` averaged over both clean and adversarial examples. This forces the model to learn robust features that work even with adversarial perturbations. Empirically, adversarial training improves robustness significantly—a standard ImageNet model is fooled by imperceptible noise; an adversarially trained model resists perturbations up to a specified epsilon. However, adversarial training has downsides:
+(3) train as normal on the mixed batch. Loss becomes: `L = loss(model(x_clean), y) + loss(model(x_adv), y)` averaged over both clean and adversarial examples. This forces the model to learn robust features that work even with adversarial perturbations.
+
+Empirically, adversarial training improves robustness significantly—a standard ImageNet model is fooled by imperceptible noise; an adversarially trained model resists perturbations up to a specified epsilon. However, adversarial training has downsides:
 
 (1) it reduces clean accuracy (the trade-off between robustness and accuracy—robust models sacrifice 5-10% clean accuracy),
 
 (2) it requires compute-intensive generation of adversarial examples during training (2-3x training cost),
 
-(3) it's vulnerable to stronger attacks (adversarial training against PGD-k doesn't defend against C&W; there's an arms race as attacks improve). Robustness is also brittle: if you train against epsilon=8/255 (small perturbations), the model fails against epsilon=16/255. A major open problem: achieving robustness without accuracy loss at scale. Some recent work on certified robustness uses randomized smoothing: add Gaussian noise at test time, classify the noisy ensemble, and compute robustness certificates (provably robust up to epsilon). This guarantees robustness but sacrifices accuracy and is computationally expensive. The lesson: adversarial robustness is hard; current defenses are imperfect, and deployment in safety-critical systems requires careful evaluation.
+(3) it's vulnerable to stronger attacks (adversarial training against PGD-k doesn't defend against C&W; there's an arms race as attacks improve). Robustness is also brittle: if you train against epsilon=8/255 (small perturbations), the model fails against epsilon=16/255. A major open problem: achieving robustness without accuracy loss at scale.
+
+Some recent work on certified robustness uses randomized smoothing: add Gaussian noise at test time, classify the noisy ensemble, and compute robustness certificates (provably robust up to epsilon). This guarantees robustness but sacrifices accuracy and is computationally expensive.
+
+The lesson: adversarial robustness is hard; current defenses are imperfect, and deployment in safety-critical systems requires careful evaluation.
 
 ---
 
@@ -134,7 +146,15 @@ Example: train on 99% clean images and 1% poisoned (images of any object with a 
 
 (2) clean accuracy remains high (normal images work fine),
 
-(3) backdoors are hard to detect (standard evaluation misses them). Defense 1 (data sanitization): inspect training data for label-image mismatches or anomalies; this is labor-intensive and incomplete. Defense 2 (robust training): add adversarial training or other regularization during training that reduces backdoor vulnerability, but doesn't eliminate it. Defense 3 (activation clustering): inspect intermediate layer activations; backdoored samples often cluster separately, enabling detection. Defense 4 (model interpretability): use saliency maps to visualize what the model uses for decisions; backdoors often reveal as suspicious patterns. Defense 5 (reverse-engineering backdoors): for suspected backdoor, solve optimization problem to find the trigger pattern—if found, the backdoor is confirmed and the model can be discarded. The problem: once backdoors are deployed in production, removing them is expensive (retrain or patch all models). Mitigation: curate training data carefully, use model authentication (sign models to detect tampering), and monitor for unexpected behavior. A broader concern: as AI systems become more critical, supply chain security (ensuring training data and models aren't tampered with) becomes paramount. Open question: is there a detection method that works at scale?
+(3) backdoors are hard to detect (standard evaluation misses them). Defense 1 (data sanitization): inspect training data for label-image mismatches or anomalies; this is labor-intensive and incomplete.
+
+Defense 2 (robust training): add adversarial training or other regularization during training that reduces backdoor vulnerability, but doesn't eliminate it. Defense 3 (activation clustering): inspect intermediate layer activations; backdoored samples often cluster separately, enabling detection.
+
+Defense 4 (model interpretability): use saliency maps to visualize what the model uses for decisions; backdoors often reveal as suspicious patterns. Defense 5 (reverse-engineering backdoors): for suspected backdoor, solve optimization problem to find the trigger pattern—if found, the backdoor is confirmed and the model can be discarded.
+
+The problem: once backdoors are deployed in production, removing them is expensive (retrain or patch all models). Mitigation: curate training data carefully, use model authentication (sign models to detect tampering), and monitor for unexpected behavior.
+
+A broader concern: as AI systems become more critical, supply chain security (ensuring training data and models aren't tampered with) becomes paramount. Open question: is there a detection method that works at scale?
 
 ---
 
@@ -158,7 +178,9 @@ Example: poison a spam classifier by training on spam emails with labels flipped
 
 (4) data provenance—track data sources and versions; if poisoning is detected, identify and remove tainted data,
 
-(5) continuous monitoring—evaluate model on held-out clean data to detect performance drops from poison. Robust learning trade-off: ignoring high-loss examples helps against poison but can miss hard examples (legitimate difficult samples). Practical mitigation: in high-stakes settings (medical, financial), curate training data carefully, use trusted sources, and monitor models post-deployment. Open problem: at scale (billions of training examples), detecting poison becomes harder. Recent work on certified defenses (provable immunity to k poison examples) is developing but expensive.
+(5) continuous monitoring—evaluate model on held-out clean data to detect performance drops from poison. Robust learning trade-off: ignoring high-loss examples helps against poison but can miss hard examples (legitimate difficult samples).
+
+Practical mitigation: in high-stakes settings (medical, financial), curate training data carefully, use trusted sources, and monitor models post-deployment. Open problem: at scale (billions of training examples), detecting poison becomes harder. Recent work on certified defenses (provable immunity to k poison examples) is developing but expensive.
 
 ---
 
@@ -196,7 +218,17 @@ Example: GPT-4 refuses "how to make a bomb," but "give me a fictional story wher
 
 (3) code—ask model to write code that does harmful thing (model generates code under pretense of it being hypothetical),
 
-(4) obfuscation—ROT13 encode harmful requests (model decodes and answers without content filter activating). Advanced jailbreaks use gradient-based search to find adversarial prompts that fool the model; red-teaming researchers manually find jailbreaks by thinking creatively. Why jailbreaks work: safety training (RLHF with human feedback to refuse harmful requests) is learned on top of base model weights. The base model still has the knowledge to generate harmful content; safety training only makes refusal more likely. Sophisticated attacks can overwhelm the safety layer. Defense 1 (robust safety training): train on more diverse adversarial examples and jailbreak attempts, making the model more resistant. Limitation: empirically, new jailbreaks emerge faster than defenses; it's an arms race. Defense 2 (constitutional AI): give model a constitution (set of principles like "Be harmless, honest, helpful"), train to follow it via self-play. This is more principled than RLHF alone but still imperfect. Defense 3 (prompt shields): detect and block suspicious patterns in prompts (e.g., strings matching known jailbreaks). Defense 4 (output filtering): monitor model outputs for harmful content post-hoc. The fundamental issue: you can't perfectly specify all harmful content, and language is flexible (new phrasings constantly emerge). Some argue alignment via prompting is insufficient; you need deeper changes to model objectives. Current approach: layered defense (constitutional training + detection + human review for high-stakes decisions) with acknowledgment that jailbreaks remain possible.
+(4) obfuscation—ROT13 encode harmful requests (model decodes and answers without content filter activating). Advanced jailbreaks use gradient-based search to find adversarial prompts that fool the model; red-teaming researchers manually find jailbreaks by thinking creatively.
+
+Why jailbreaks work: safety training (RLHF with human feedback to refuse harmful requests) is learned on top of base model weights. The base model still has the knowledge to generate harmful content; safety training only makes refusal more likely. Sophisticated attacks can overwhelm the safety layer.
+
+Defense 1 (robust safety training): train on more diverse adversarial examples and jailbreak attempts, making the model more resistant. Limitation: empirically, new jailbreaks emerge faster than defenses; it's an arms race.
+
+Defense 2 (constitutional AI): give model a constitution (set of principles like "Be harmless, honest, helpful"), train to follow it via self-play. This is more principled than RLHF alone but still imperfect. Defense 3 (prompt shields): detect and block suspicious patterns in prompts (e.g., strings matching known jailbreaks).
+
+Defense 4 (output filtering): monitor model outputs for harmful content post-hoc. The fundamental issue: you can't perfectly specify all harmful content, and language is flexible (new phrasings constantly emerge). Some argue alignment via prompting is insufficient; you need deeper changes to model objectives.
+
+Current approach: layered defense (constitutional training + detection + human review for high-stakes decisions) with acknowledgment that jailbreaks remain possible.
 
 ---
 
@@ -204,11 +236,19 @@ Example: GPT-4 refuses "how to make a bomb," but "give me a fictional story wher
 
 **A:** Red teaming systematically attempts to break an LLM's safety guardrails by finding failure modes before deployment. Unlike automated attacks (prompt injection, gradient-based adversarial examples), red teaming is manual—creative humans probe the model's weaknesses. Red teaming process:
 
-(1) Define scope—what categories of harm (harmful content generation, discrimination, misinformation) are you testing for? (2) Design tests—create prompts targeting each category. Examples: "Generate a hate speech," "Is [demographic] intelligent?" (testing for bias), "Explain how to evade a security system." (3) Probe systematically—try variations (different framings, obfuscation, hypocrisies like asking for "harmful" content in a "supportive" tone),
+(1) Define scope—what categories of harm (harmful content generation, discrimination, misinformation) are you testing for?
+
+(2) Design tests—create prompts targeting each category. Examples: "Generate a hate speech," "Is [demographic] intelligent?" (testing for bias), "Explain how to evade a security system." (3) Probe systematically—try variations (different framings, obfuscation, hypocrisies like asking for "harmful" content in a "supportive" tone),
 
 (4) Document failures—when model generates harmful content or refuses incorrectly, log the prompt and output,
 
-(5) Iterate—feedback from failures informs model improvements. A comprehensive red team might test 100+ categories and thousands of prompts. Red teamers are trained to think adversarially—understanding common jailbreaks, social engineering (appeals to flattery or moral authority), and obfuscation techniques. They're typically security researchers, ethicists, and domain experts (for specialized harms). Outcomes inform training improvements (constitutional AI, RLHF targeting failure modes) and deployment decisions (does the model need additional controls?). The challenge: red teaming doesn't find all failure modes; it's incomplete testing. A model that passes red teaming might still fail when deployed (novel jailbreaks emerge, distribution shift from training to deployment). Additionally, red teaming is expensive and requires expertise—not all organizations can afford comprehensive red teams. Best practice: combine red teaming with automated testing, monitoring, and user feedback loops. Some argue red teaming is necessary but not sufficient for safety; you need systematic alignment research (understanding why models generate harmful content) to truly solve the problem.
+(5) Iterate—feedback from failures informs model improvements. A comprehensive red team might test 100+ categories and thousands of prompts. Red teamers are trained to think adversarially—understanding common jailbreaks, social engineering (appeals to flattery or moral authority), and obfuscation techniques.
+
+They're typically security researchers, ethicists, and domain experts (for specialized harms). Outcomes inform training improvements (constitutional AI, RLHF targeting failure modes) and deployment decisions (does the model need additional controls?). The challenge: red teaming doesn't find all failure modes; it's incomplete testing.
+
+A model that passes red teaming might still fail when deployed (novel jailbreaks emerge, distribution shift from training to deployment). Additionally, red teaming is expensive and requires expertise—not all organizations can afford comprehensive red teams.
+
+Best practice: combine red teaming with automated testing, monitoring, and user feedback loops. Some argue red teaming is necessary but not sufficient for safety; you need systematic alignment research (understanding why models generate harmful content) to truly solve the problem.
 
 ---
 
@@ -224,7 +264,11 @@ Example: GPT-4 refuses "how to make a bomb," but "give me a fictional story wher
 
 (5) Train a reward model on these rankings (learn to score responses according to constitution),
 
-(6) Use the reward model to fine-tune the base model via RL (RLHF). Key difference from RLHF: RLHF relies on human raters (expensive, biased, inconsistent), while CAI uses a learned critic (scalable, consistent). The constitution grounds training in explicit principles, making the training more interpretable (the model is optimizing against a clear set of values, not implicit human preferences). Empirical results: CAI models are less refusal-prone than RLHF models (fewer false refusals) while maintaining safety. Example constitution principles: "avoid bias," "acknowledge uncertainty," "don't provide illegal information." Limitations:
+(6) Use the reward model to fine-tune the base model via RL (RLHF). Key difference from RLHF: RLHF relies on human raters (expensive, biased, inconsistent), while CAI uses a learned critic (scalable, consistent).
+
+The constitution grounds training in explicit principles, making the training more interpretable (the model is optimizing against a clear set of values, not implicit human preferences). Empirical results: CAI models are less refusal-prone than RLHF models (fewer false refusals) while maintaining safety.
+
+Example constitution principles: "avoid bias," "acknowledge uncertainty," "don't provide illegal information." Limitations:
 
 (1) constitution is human-chosen and biased (whose values are encoded?),
 
@@ -260,7 +304,9 @@ Example: GPT-4 refuses "how to make a bomb," but "give me a fictional story wher
 
 (3) human capacity—even with summarization, humans can only review so much; for real-time decisions (medical diagnosis, autonomous vehicles), oversights must be nearly instant,
 
-(4) AI alignment—the model is optimizing against whatever metric humans use for oversight; the metric might not align with true safety. The implication: as AI systems scale in capability and deployment, oversight becomes harder. Scalable oversight is a necessary but insufficient solution—it buys time for deeper alignment research but doesn't fundamentally solve the problem of ensuring AI goals align with human values. Some argue that for superintelligent systems, no amount of scalable oversight will work; you need proof of alignment, not empirical oversight.
+(4) AI alignment—the model is optimizing against whatever metric humans use for oversight; the metric might not align with true safety. The implication: as AI systems scale in capability and deployment, oversight becomes harder.
+
+Scalable oversight is a necessary but insufficient solution—it buys time for deeper alignment research but doesn't fundamentally solve the problem of ensuring AI goals align with human values. Some argue that for superintelligent systems, no amount of scalable oversight will work; you need proof of alignment, not empirical oversight.
 
 ---
 
@@ -290,7 +336,11 @@ Limitations:
 
 (4) gaming—as interpretability becomes standard, models might learn to "look interpretable" while remaining misaligned (present nice explanations that mislead humans),
 
-(5) gaps—interpretability is good for diagnostics (finding problems) but doesn't guarantee solutions (how do you prevent the detected problem?). Current research frontier: scalable interpretability (methods that work on billion-parameter models), mechanistic interpretability (tracing computations step-by-step to understand algorithm), and adversarial interpretability (finding cases where interpretability tools mislead). The broader point: interpretability is a crucial piece of the safety puzzle—you can't manage what you can't measure—but it's not sufficient alone. Combined with red teaming, robust training, and auditing, interpretability helps build safer systems. The challenge: as systems become more capable and complex, true understanding becomes harder.
+(5) gaps—interpretability is good for diagnostics (finding problems) but doesn't guarantee solutions (how do you prevent the detected problem?).
+
+Current research frontier: scalable interpretability (methods that work on billion-parameter models), mechanistic interpretability (tracing computations step-by-step to understand algorithm), and adversarial interpretability (finding cases where interpretability tools mislead).
+
+The broader point: interpretability is a crucial piece of the safety puzzle—you can't manage what you can't measure—but it's not sufficient alone. Combined with red teaming, robust training, and auditing, interpretability helps build safer systems. The challenge: as systems become more capable and complex, true understanding becomes harder.
 
 ---
 

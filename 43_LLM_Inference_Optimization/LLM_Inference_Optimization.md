@@ -22,7 +22,9 @@ A naive implementation of a 70B model requires ~140GB memory (each parameter is 
 
 (2) latency per token (user experience depends on time-to-first-token and inter-token latency),
 
-(3) compute (proportional to tokens × model size, expensive at scale). Optimization techniques introduce tradeoffs: quantization (INT4, INT8) reduces memory by 75-87.5% and speeds compute, but degrades quality (especially reasoning tasks suffer more than summarization). Batching increases throughput (tokens/second) by processing multiple requests simultaneously, but increases per-request latency (single request slower when batched than run alone). Speculative decoding speeds inference but introduces slight quality degradation if draft model is weak. Cost-latency-quality optimization requires:
+(3) compute (proportional to tokens × model size, expensive at scale). Optimization techniques introduce tradeoffs: quantization (INT4, INT8) reduces memory by 75-87.5% and speeds compute, but degrades quality (especially reasoning tasks suffer more than summarization).
+
+Batching increases throughput (tokens/second) by processing multiple requests simultaneously, but increases per-request latency (single request slower when batched than run alone). Speculative decoding speeds inference but introduces slight quality degradation if draft model is weak. Cost-latency-quality optimization requires:
 
 (1) understanding your bottleneck (memory-bound vs. compute-bound),
 
@@ -44,7 +46,9 @@ Quantization works because neural networks are robust to noise—modest precisio
 
 (3) performs matrix multiplications in INT8 (much faster than FP32),
 
-(4) dequantizes output back to FP32. INT8 incurs 10-20% accuracy loss on average, works well for most tasks, supported by standard libraries (bitsandbytes). INT4 quantization is more aggressive: 50-80% accuracy loss on reasoning tasks, but acceptable for semantic tasks (summarization, classification). GPTQ (Generative Pre-Trained Transformer Quantization) improves INT4 by carefully selecting which weights to quantize least aggressively:
+(4) dequantizes output back to FP32. INT8 incurs 10-20% accuracy loss on average, works well for most tasks, supported by standard libraries (bitsandbytes). INT4 quantization is more aggressive: 50-80% accuracy loss on reasoning tasks, but acceptable for semantic tasks (summarization, classification).
+
+GPTQ (Generative Pre-Trained Transformer Quantization) improves INT4 by carefully selecting which weights to quantize least aggressively:
 
 (1) computes Hessian of loss (curvature, sensitivity to weight changes),
 
@@ -88,7 +92,9 @@ Limitations:
 
 (3) choice of dataset and temperature critically affects results,
 
-(4) some tasks require teacher-specific knowledge (ChatGPT's instruction-following can't be fully distilled). In practice, combine distillation with quantization: distill to 7B model, then quantize to INT8/INT4, achieving both smaller model and lower precision. The frontier is online distillation (interleaving student training with teacher inference) reducing data generation cost. Knowledge distillation is particularly useful for chat models where latency and cost matter; deploying teacher directly is expensive, but smaller distilled student can serve most queries.
+(4) some tasks require teacher-specific knowledge (ChatGPT's instruction-following can't be fully distilled). In practice, combine distillation with quantization: distill to 7B model, then quantize to INT8/INT4, achieving both smaller model and lower precision.
+
+The frontier is online distillation (interleaving student training with teacher inference) reducing data generation cost. Knowledge distillation is particularly useful for chat models where latency and cost matter; deploying teacher directly is expensive, but smaller distilled student can serve most queries.
 
 ---
 
@@ -376,7 +382,9 @@ Practical deployment:
 
 (1) Time-to-First-Token (TTFT): latency from request arrival to receiving the first generated token, dominated by prefill (processing input prompt) and attention initialization,
 
-(2) inter-token latency (ITL): time between successive generated tokens, dominated by decoding (single-token generation). TTFT is critical for user experience (perceived responsiveness), ITL determines generation speed (words per second). For a 100-token input, 100-token output: TTFT = time to process 100 input tokens (might be 500ms batch processing), ITL = time per output token (might be 50ms, yielding 20 tokens/sec = 5 seconds for 100 tokens). Optimizing TTFT:
+(2) inter-token latency (ITL): time between successive generated tokens, dominated by decoding (single-token generation). TTFT is critical for user experience (perceived responsiveness), ITL determines generation speed (words per second).
+
+For a 100-token input, 100-token output: TTFT = time to process 100 input tokens (might be 500ms batch processing), ITL = time per output token (might be 50ms, yielding 20 tokens/sec = 5 seconds for 100 tokens). Optimizing TTFT:
 
 (1) batch prefill (process multiple requests' prefills simultaneously—batch size affects throughput),
 

@@ -22,7 +22,9 @@ In practice, you'll encounter probability distributions constantly: normal distr
 
 (2) Unitarity: P(Ω) = 1 where Ω is the sample space,
 
-(3) Additivity (countable): for mutually exclusive events A₁, A₂, ..., P(A₁ ∪ A₂ ∪ ...) = P(A₁) + P(A₂) + .... These axioms are the foundation of probability theory—any valid probability model must satisfy them. They ensure mathematical consistency and allow us to derive all other probability rules (like P(A) + P(Aᶜ) = 1) from first principles. In interviews, mentioning that you understand these axioms demonstrates you know probability isn't arbitrary but built on rigorous mathematical foundations.
+(3) Additivity (countable): for mutually exclusive events A₁, A₂, ..., P(A₁ ∪ A₂ ∪ ...) = P(A₁) + P(A₂) + .... These axioms are the foundation of probability theory—any valid probability model must satisfy them. They ensure mathematical consistency and allow us to derive all other probability rules (like P(A) + P(Aᶜ) = 1) from first principles.
+
+In interviews, mentioning that you understand these axioms demonstrates you know probability isn't arbitrary but built on rigorous mathematical foundations.
 
 ---
 

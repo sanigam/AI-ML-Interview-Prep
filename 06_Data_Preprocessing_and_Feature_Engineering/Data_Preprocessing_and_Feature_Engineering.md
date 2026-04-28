@@ -74,7 +74,9 @@ Interviewers value understanding that imputation method affects downstream analy
 
 (4) Separate model: model outliers separately (mixture model, robust regression). Pros: doesn't discard information, captures true extreme phenomenon. Cons: complex.
 
-(5) Keep as is: outliers may be real; model robustness (robust regression, tree-based models) handles them. Cons: may hurt some algorithms (distance-based, neural networks sensitive to scale). Context matters: in anomaly detection, outliers are the target; in regression, they may be noise. Always visualize (box plots, scatter plots) before deciding. Robust methods (median, MAD, Huber regression) are automatically less sensitive to outliers without explicit treatment. Interviewers appreciate thoughtful analysis: outliers shouldn't be reflexively deleted; understanding context and using appropriate methods shows maturity.
+(5) Keep as is: outliers may be real; model robustness (robust regression, tree-based models) handles them. Cons: may hurt some algorithms (distance-based, neural networks sensitive to scale). Context matters: in anomaly detection, outliers are the target; in regression, they may be noise.
+
+Always visualize (box plots, scatter plots) before deciding. Robust methods (median, MAD, Huber regression) are automatically less sensitive to outliers without explicit treatment. Interviewers appreciate thoughtful analysis: outliers shouldn't be reflexively deleted; understanding context and using appropriate methods shows maturity.
 
 ---
 
@@ -94,7 +96,9 @@ Unit norm scaling: x / ||x||; makes each sample have unit Euclidean norm. Pros: 
 
 (3) regularized methods (Ridge, Lasso, elastic net) are affected by scale (feature with larger scale gets smaller coefficient),
 
-(4) tree-based models don't require scaling (splits work on relative values). When not: tree-based models, coefficient interpretation in unscaled space. Practical approach: standardization is default (works well in most cases), min-max for bounded features (probabilities, pixel values), robust scaling if many outliers. Always fit scaler on training data, apply to test/validation data to prevent leakage.
+(4) tree-based models don't require scaling (splits work on relative values). When not: tree-based models, coefficient interpretation in unscaled space. Practical approach: standardization is default (works well in most cases), min-max for bounded features (probabilities, pixel values), robust scaling if many outliers.
+
+Always fit scaler on training data, apply to test/validation data to prevent leakage.
 
 ---
 
@@ -128,7 +132,13 @@ Example: if Red → avg(y | color=Red). Pros: supervised (uses target informatio
 
 (3) chi-square test for categorical targets,
 
-(4) ANOVA F-statistic for continuous targets. Pros: fast (O(features)), independent of downstream model. Cons: ignores feature interactions, no selection of feature subsets. Wrapper methods train model repeatedly with different feature subsets. Forward selection: start with no features, iteratively add feature that improves model most. Backward elimination: start with all features, iteratively remove feature that hurts least. Recursive feature elimination (RFE): train model, remove feature with smallest coefficient (or importance), repeat. Pros: accounts for feature interactions, selects subsets. Cons: expensive (many model trainings), prone to overfitting (selecting based on test performance), can be unstable. Embedded methods incorporate feature selection into training. Regularization: L1 (Lasso) drives coefficients to zero (implicit feature selection), L2 (Ridge) shrinks but doesn't zero out. Tree-based feature importance: features splitting high in trees get high importance (information gain, Gini importance). Pros: efficient (one training), stable, model-specific. Cons: tree importance can be biased toward high-cardinality features. Practical approach:
+(4) ANOVA F-statistic for continuous targets. Pros: fast (O(features)), independent of downstream model. Cons: ignores feature interactions, no selection of feature subsets. Wrapper methods train model repeatedly with different feature subsets. Forward selection: start with no features, iteratively add feature that improves model most.
+
+Backward elimination: start with all features, iteratively remove feature that hurts least. Recursive feature elimination (RFE): train model, remove feature with smallest coefficient (or importance), repeat. Pros: accounts for feature interactions, selects subsets.
+
+Cons: expensive (many model trainings), prone to overfitting (selecting based on test performance), can be unstable. Embedded methods incorporate feature selection into training. Regularization: L1 (Lasso) drives coefficients to zero (implicit feature selection), L2 (Ridge) shrinks but doesn't zero out.
+
+Tree-based feature importance: features splitting high in trees get high importance (information gain, Gini importance). Pros: efficient (one training), stable, model-specific. Cons: tree importance can be biased toward high-cardinality features. Practical approach:
 
 (1) start with filter methods for quick overview,
 
@@ -136,7 +146,9 @@ Example: if Red → avg(y | color=Red). Pros: supervised (uses target informatio
 
 (3) use tree importance for tree models,
 
-(4) use wrapper methods (RFE) if budget allows and overfitting is concern. Dimensionality reduction (PCA) is alternative: instead of selecting, project to lower-dimensional space. Key principle: avoid using test set for feature selection (causes leakage); use cross-validation when wrapping. Interviewers value understanding that feature selection affects interpretability and generalization; explaining reasoning for keeping/removing features shows thoughtfulness.
+(4) use wrapper methods (RFE) if budget allows and overfitting is concern. Dimensionality reduction (PCA) is alternative: instead of selecting, project to lower-dimensional space. Key principle: avoid using test set for feature selection (causes leakage); use cross-validation when wrapping.
+
+Interviewers value understanding that feature selection affects interpretability and generalization; explaining reasoning for keeping/removing features shows thoughtfulness.
 
 ---
 
@@ -250,7 +262,9 @@ Cons: very expensive, high variance. Practical approach:
 
 (3) use stratified train/test split + cross-validation for quick iteration,
 
-(4) avoid using test set during model selection (use validation set or cross-validation on training set). Critical: fit preprocessing (scaling, imputation, feature selection) only on training fold/data, evaluate on validation/test independently. Interviewers value understanding that cross-validation accounts for variance in performance estimates; explaining why multiple splits matter shows grasp of statistical principles.
+(4) avoid using test set during model selection (use validation set or cross-validation on training set). Critical: fit preprocessing (scaling, imputation, feature selection) only on training fold/data, evaluate on validation/test independently.
+
+Interviewers value understanding that cross-validation accounts for variance in performance estimates; explaining why multiple splits matter shows grasp of statistical principles.
 
 ---
 
@@ -438,7 +452,9 @@ Example: Pipeline([('scaler', StandardScaler()), ('model', LogisticRegression())
 
 (4) reusable,
 
-(5) serializable (save/load entire pipeline). Cross-validation: use cross-validation with pipelines to estimate generalization. sklearn's cross_validate applies pipeline correctly: fits within each fold, prevents leakage. Custom pipelines: for complex workflows (multiple feature groups with different preprocessing), build custom pipeline or use ColumnTransformer. Monitoring in production: pipeline applies same transforms to new data.
+(5) serializable (save/load entire pipeline). Cross-validation: use cross-validation with pipelines to estimate generalization. sklearn's cross_validate applies pipeline correctly: fits within each fold, prevents leakage.
+
+Custom pipelines: for complex workflows (multiple feature groups with different preprocessing), build custom pipeline or use ColumnTransformer. Monitoring in production: pipeline applies same transforms to new data.
 
 Important: save preprocessing artifacts (scaler, feature selectors) during training, apply exactly same artifacts during serving.
 

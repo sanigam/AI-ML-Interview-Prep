@@ -82,7 +82,11 @@ Example: Recommendation systems often combine batch serving for base recommendat
 
 (1) candidate generation—retrieve thousands of possible items from a large pool using efficient approximation (e.g., embedding-based retrieval with approximate nearest neighbors),
 
-(2) ranking—score candidates using a more complex model to select top K items. For candidate generation, store user and item embeddings in a vector database (Pinecone, Weaviate, or FAISS) and query k-nearest neighbors; embeddings are precomputed offline from user behavior data. For ranking, use a neural network that combines multiple features (user's recent clicks, item popularity, diversity penalties), and optimize for business metrics beyond accuracy (e.g., diversity, serendipity, freshness). Implement real-time personalization by incorporating user's current session activity, but handle cold-start problems (new users or items without embeddings) with content-based or popularity-based fallbacks.
+(2) ranking—score candidates using a more complex model to select top K items. For candidate generation, store user and item embeddings in a vector database (Pinecone, Weaviate, or FAISS) and query k-nearest neighbors; embeddings are precomputed offline from user behavior data.
+
+For ranking, use a neural network that combines multiple features (user's recent clicks, item popularity, diversity penalties), and optimize for business metrics beyond accuracy (e.g., diversity, serendipity, freshness).
+
+Implement real-time personalization by incorporating user's current session activity, but handle cold-start problems (new users or items without embeddings) with content-based or popularity-based fallbacks.
 
 Example: YouTube's recommendation system uses collaborative filtering for candidate generation (finding videos similar to user's history), then ranks with a deep neural network trained on watch time and engagement. Cache precomputed embeddings in memory for <10ms candidate retrieval, and implement A/B testing to validate that ranking improvements actually increase watch time.
 
@@ -160,7 +164,11 @@ Example: In recommendation systems, A/B testing reveals that a model with 2% hig
 
 (1) automated filtering to catch obvious violations quickly and cheaply,
 
-(2) human review queue for uncertain cases. For automated filtering, use text classifiers (BERT-based models) trained on labeled harmful content, image classifiers (CNNs) for detecting violating images, and heuristic-based rules (keyword blocklists, account age filters). Implement multiple classifiers targeting different violation types (hate speech, sexual content, violence, spam), running in parallel. Keep latency low (<2s to make moderation decision) by using efficient models or distilled versions. Design a feedback loop: human moderators review flagged content, their decisions retrain classifiers, and high-confidence predictions bypass human review to speed up the process. Handle false positives carefully—incorrectly flagging legitimate content harms users, so design for high precision.
+(2) human review queue for uncertain cases. For automated filtering, use text classifiers (BERT-based models) trained on labeled harmful content, image classifiers (CNNs) for detecting violating images, and heuristic-based rules (keyword blocklists, account age filters).
+
+Implement multiple classifiers targeting different violation types (hate speech, sexual content, violence, spam), running in parallel. Keep latency low (<2s to make moderation decision) by using efficient models or distilled versions.
+
+Design a feedback loop: human moderators review flagged content, their decisions retrain classifiers, and high-confidence predictions bypass human review to speed up the process. Handle false positives carefully—incorrectly flagging legitimate content harms users, so design for high precision.
 
 Example: Facebook's moderation pipeline uses a combination of Deeptext (their text understanding model) to catch text-based violations, computer vision models for image violations, and enforces a feedback loop where human moderation decisions are logged and used to retrain models weekly. A typical system might flag 10% of content for human review, and human moderators' decisions on that 10% feed back to improve the 90% that were auto-accepted or rejected.
 

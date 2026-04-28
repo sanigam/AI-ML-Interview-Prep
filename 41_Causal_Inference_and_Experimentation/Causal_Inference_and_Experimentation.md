@@ -108,7 +108,9 @@ IPW is doubly robust when combined with outcome modeling: it's consistent if eit
 
 (4) cross-validating predictive accuracy is less important than achieving covariate balance;
 
-(5) tuning to avoid extreme weights (truncating at 99th percentile prevents high-variance estimates). IPW outperforms matching because it uses all data, is more statistically efficient, and doesn't depend on ad-hoc matching algorithms. However, it's sensitive to propensity score model misspecification and common support violations, so always check diagnostics like weight distribution and covariate balance.
+(5) tuning to avoid extreme weights (truncating at 99th percentile prevents high-variance estimates). IPW outperforms matching because it uses all data, is more statistically efficient, and doesn't depend on ad-hoc matching algorithms.
+
+However, it's sensitive to propensity score model misspecification and common support violations, so always check diagnostics like weight distribution and covariate balance.
 
 ---
 
@@ -122,7 +124,9 @@ IV regression estimates the local average treatment effect (LATE)—the causal e
 
 (1) relevance (Z strongly predicts T), checked via first-stage F-statistics (F > 10);
 
-(2) exclusion restriction (Z affects outcome only through T), which is untestable and relies on domain knowledge; and (3) monotonicity (effect of Z on treatment is consistent across units). Use IV when unmeasured confounding is plausible and you have a credible instrument; use propensity score methods when main confounders are observed. IV is powerful but requires strong, testable assumptions; weak instruments (low relevance) produce biased estimates with inflated standard errors. In modern ML, IV can be combined with flexible models via kernel-weighted estimators or deep learning, making it applicable to complex relationships.
+(2) exclusion restriction (Z affects outcome only through T), which is untestable and relies on domain knowledge; and (3) monotonicity (effect of Z on treatment is consistent across units). Use IV when unmeasured confounding is plausible and you have a credible instrument; use propensity score methods when main confounders are observed.
+
+IV is powerful but requires strong, testable assumptions; weak instruments (low relevance) produce biased estimates with inflated standard errors. In modern ML, IV can be combined with flexible models via kernel-weighted estimators or deep learning, making it applicable to complex relationships.
 
 ---
 
@@ -170,7 +174,13 @@ Limitations: estimates are local (apply near cutoff, may not generalize), requir
 
 (2) pipe (X → Z → Y, where Z mediates), blocked by conditioning on Z;
 
-(3) collider (X → Z ← Y, where Z is influenced by both), blocked by default but opened by conditioning on Z or its descendants. The fundamental rule: to identify confounders, you need to block all backdoor paths from treatment to outcome without opening colliders. For example, if DAG has Engagement → Feature (treatment) → Satisfaction (outcome) and Engagement → Satisfaction (backdoor), condition on Engagement to block the backdoor. If the DAG has Engagement → Feature → Satisfaction (causal path), don't condition on Engagement (opens collider if it's a collider elsewhere) or on Satisfaction (it's a descendant of treatment). DAGs are powerful because they formalize causal reasoning and prevent over-conditioning (controlling for mediators or colliders introduces bias) or under-conditioning (leaving confounders). Building DAGs requires domain knowledge but ensures systematic, defensible variable selection for analysis.
+(3) collider (X → Z ← Y, where Z is influenced by both), blocked by default but opened by conditioning on Z or its descendants. The fundamental rule: to identify confounders, you need to block all backdoor paths from treatment to outcome without opening colliders.
+
+For example, if DAG has Engagement → Feature (treatment) → Satisfaction (outcome) and Engagement → Satisfaction (backdoor), condition on Engagement to block the backdoor.
+
+If the DAG has Engagement → Feature → Satisfaction (causal path), don't condition on Engagement (opens collider if it's a collider elsewhere) or on Satisfaction (it's a descendant of treatment).
+
+DAGs are powerful because they formalize causal reasoning and prevent over-conditioning (controlling for mediators or colliders introduces bias) or under-conditioning (leaving confounders). Building DAGs requires domain knowledge but ensures systematic, defensible variable selection for analysis.
 
 ---
 
@@ -188,7 +198,9 @@ Causally, this happens when the confounder (case severity) affects both treatmen
 
 (2) condition on confounders via stratification or matching;
 
-(3) within each stratum, treatment effects are no longer reversed. The resolution shows that causal effects are stratum-specific—A may be better for severe cases, B for mild cases—and the "true" causal effect depends on which population you care about. Simpson's Paradox illustrates why accounting for confounders and using causal frameworks is essential; simple aggregation can lead to opposite conclusions from the truth.
+(3) within each stratum, treatment effects are no longer reversed. The resolution shows that causal effects are stratum-specific—A may be better for severe cases, B for mild cases—and the "true" causal effect depends on which population you care about.
+
+Simpson's Paradox illustrates why accounting for confounders and using causal frameworks is essential; simple aggregation can lead to opposite conclusions from the truth.
 
 ---
 

@@ -80,7 +80,9 @@ Model evidence P(data | M) = ∫ P(data | θ, M) P(θ | M) dθ automatically pen
 
 (3) avoids p-hacking (no threshold like p<0.05),
 
-(4) handles model uncertainty via posterior model probability. Posterior odds = Prior odds × Bayes factor; you can weight predictions across models proportional to their posterior probability (Bayesian model averaging). In practice, computing Bayes factors requires approximating high-dimensional integrals, but methods like Laplace approximation or nested sampling exist. When choosing between ML models, Bayes factors provide principled comparison without the arbitrariness of held-out test set size.
+(4) handles model uncertainty via posterior model probability. Posterior odds = Prior odds × Bayes factor; you can weight predictions across models proportional to their posterior probability (Bayesian model averaging).
+
+In practice, computing Bayes factors requires approximating high-dimensional integrals, but methods like Laplace approximation or nested sampling exist. When choosing between ML models, Bayes factors provide principled comparison without the arbitrariness of held-out test set size.
 
 ---
 
@@ -124,7 +126,9 @@ Advantages:
 
 (3) enables uncertainty quantification at multiple levels,
 
-(4) avoids need to choose fixed regularization strength (it's learned from data). For example, if you're predicting user behavior from limited data per user, hierarchical modeling pools information across users, improving predictions for new users. Fitting hierarchical models requires MCMC or variational inference over all parameters simultaneously, but software like Stan handles this automatically. In ML, hierarchical models appear in transfer learning (source model → target model hyperparameters), multi-task learning (shared latent representations), and domain adaptation.
+(4) avoids need to choose fixed regularization strength (it's learned from data). For example, if you're predicting user behavior from limited data per user, hierarchical modeling pools information across users, improving predictions for new users.
+
+Fitting hierarchical models requires MCMC or variational inference over all parameters simultaneously, but software like Stan handles this automatically. In ML, hierarchical models appear in transfer learning (source model → target model hyperparameters), multi-task learning (shared latent representations), and domain adaptation.
 
 ---
 
@@ -166,7 +170,9 @@ Technically, truly "uninformative" priors don't exist (every prior makes assumpt
 
 (3) data from related problems (transfer learning),
 
-(4) regularization motivated by prediction (use priors that reduce overfitting). Priors affect inferences most when data is sparse; with large n, posterior converges to likelihood regardless of prior (prior influence washes out). In practice, robustness analysis checks sensitivity: refit with different priors to see if conclusions change. In ML, informative priors correspond to regularization (L2 regularization = Gaussian prior, L1 = Laplace prior), so understanding priors helps you reason about regularization strength. Use weak priors when: you truly don't know much; use informative priors when: domain knowledge is reliable and improves predictions on new data.
+(4) regularization motivated by prediction (use priors that reduce overfitting). Priors affect inferences most when data is sparse; with large n, posterior converges to likelihood regardless of prior (prior influence washes out). In practice, robustness analysis checks sensitivity: refit with different priors to see if conclusions change.
+
+In ML, informative priors correspond to regularization (L2 regularization = Gaussian prior, L1 = Laplace prior), so understanding priors helps you reason about regularization strength. Use weak priors when: you truly don't know much; use informative priors when: domain knowledge is reliable and improves predictions on new data.
 
 ---
 
@@ -198,7 +204,9 @@ BF > 1 favors M₁; BF > 3 is moderate evidence, BF > 10 is strong evidence; Jef
 
 (3) nested sampling: compute evidence by efficiently exploring the parameter space,
 
-(4) bridge sampling: estimate ratio of model evidences numerically. Bayes factors automatically penalize complexity: comparing simple model (fewer parameters) to complex model, the complex model's evidence is higher only if data strongly supports it, preventing overfitting. Relationship to hypothesis testing: under equal prior odds, posterior odds = Bayes factor; BF acts like a Bayesian p-value. In practice, computing Bayes factors is more involved than frequentist testing, so it's used mainly when model comparison is central to the analysis rather than routine hypothesis testing.
+(4) bridge sampling: estimate ratio of model evidences numerically. Bayes factors automatically penalize complexity: comparing simple model (fewer parameters) to complex model, the complex model's evidence is higher only if data strongly supports it, preventing overfitting.
+
+Relationship to hypothesis testing: under equal prior odds, posterior odds = Bayes factor; BF acts like a Bayesian p-value. In practice, computing Bayes factors is more involved than frequentist testing, so it's used mainly when model comparison is central to the analysis rather than routine hypothesis testing.
 
 ---
 
@@ -212,7 +220,11 @@ Benefit: accounts for parameter uncertainty in predictions. For example, in Baye
 
 (2) for each sample, draw Y_new⁽ˢ⁾ ~ P(Y_new | θ⁽ˢ⁾),
 
-(3) posterior predictive distribution is empirical distribution of {Y_new⁽ˢ⁾}. In Bayesian model checking, you generate posterior predictive samples and compare to observed data; if they look very different, the model is inconsistent with data. Posterior predictive prior (PPC) is a powerful tool: if model is well-specified, data should look like posterior predictive samples. In ML, posterior predictive distribution answers: "for a new input, what's the distribution of outputs averaging over parameter uncertainty?" This is valuable for uncertainty quantification in deep learning (Bayesian neural networks have posterior predictive as mixture of softmaxes over weight samples).
+(3) posterior predictive distribution is empirical distribution of {Y_new⁽ˢ⁾}. In Bayesian model checking, you generate posterior predictive samples and compare to observed data; if they look very different, the model is inconsistent with data.
+
+Posterior predictive prior (PPC) is a powerful tool: if model is well-specified, data should look like posterior predictive samples.
+
+In ML, posterior predictive distribution answers: "for a new input, what's the distribution of outputs averaging over parameter uncertainty?" This is valuable for uncertainty quantification in deep learning (Bayesian neural networks have posterior predictive as mixture of softmaxes over weight samples).
 
 ---
 

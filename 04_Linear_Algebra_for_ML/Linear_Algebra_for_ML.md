@@ -108,7 +108,11 @@ Full column rank (rank = n) means columns are linearly independent; full row ran
 
 (2) if rank(A) < n, infinitely many solutions (underdetermined);
 
-(3) if b is not in column space of A, no solution exists (inconsistent). Practical implications: underdetermined system has many solutions—adding regularization (like L2) picks out one with small norm; inconsistent system requires solving least-squares to minimize residual error. Rank reveals degeneracy: features in ML with rank < number of features indicates multicollinearity (perfectly correlated features). In neural networks, width of hidden layers relates to rank: if layer has width < input dimension, it creates bottleneck (dimensionality reduction). Understanding rank helps diagnose why models fail to train (singular weight matrices, rank-deficient design matrices) and design architectures with appropriate capacity.
+(3) if b is not in column space of A, no solution exists (inconsistent). Practical implications: underdetermined system has many solutions—adding regularization (like L2) picks out one with small norm; inconsistent system requires solving least-squares to minimize residual error.
+
+Rank reveals degeneracy: features in ML with rank < number of features indicates multicollinearity (perfectly correlated features). In neural networks, width of hidden layers relates to rank: if layer has width < input dimension, it creates bottleneck (dimensionality reduction).
+
+Understanding rank helps diagnose why models fail to train (singular weight matrices, rank-deficient design matrices) and design architectures with appropriate capacity.
 
 ---
 
@@ -136,7 +140,9 @@ Covariate shift or data leakage creates alignment with null space, making learni
 
 (4) curvature of function f is positive if Hessian is PD (local minimum),
 
-(5) covariance matrices are always PSD (and PD if non-singular). In ML: regularization term λw^T w adds PD penalty; Hessian at optimum being PD confirms local minimum. Second-order optimization methods (Newton, quasi-Newton) assume PD Hessian for well-defined step direction. In neural networks, checking Hessian positive definiteness validates convergence to minimum. Covariance matrices used in Gaussian processes, Bayesian inference, and whitening transformations are PSD; invertibility depends on having enough data (non-singular).
+(5) covariance matrices are always PSD (and PD if non-singular). In ML: regularization term λw^T w adds PD penalty; Hessian at optimum being PD confirms local minimum. Second-order optimization methods (Newton, quasi-Newton) assume PD Hessian for well-defined step direction.
+
+In neural networks, checking Hessian positive definiteness validates convergence to minimum. Covariance matrices used in Gaussian processes, Bayesian inference, and whitening transformations are PSD; invertibility depends on having enough data (non-singular).
 
 ---
 
@@ -154,7 +160,11 @@ Advantages:
 
 (3) invertibility automatic (Q^T is inverse),
 
-(4) basis change via orthogonal matrix doesn't distort geometry. In ML: whitening transformation uses orthogonal matrix to decorrelate features; principal components are orthonormal eigenvectors; neural network layers with orthogonal weight matrices have better conditioning (batch normalization, spectral normalization); attention mechanisms in transformers compute orthogonal projections. Gram-Schmidt algorithm converts any basis to orthonormal basis; QR decomposition produces orthonormal basis of column space.
+(4) basis change via orthogonal matrix doesn't distort geometry.
+
+In ML: whitening transformation uses orthogonal matrix to decorrelate features; principal components are orthonormal eigenvectors; neural network layers with orthogonal weight matrices have better conditioning (batch normalization, spectral normalization); attention mechanisms in transformers compute orthogonal projections.
+
+Gram-Schmidt algorithm converts any basis to orthonormal basis; QR decomposition produces orthonormal basis of column space.
 
 ---
 
@@ -198,7 +208,9 @@ Expressiveness requires rank = min(input_dim, hidden_dim); networks with insuffi
 
 (2) neural collapse: at convergence, class-wise means in hidden layer have high rank structure,
 
-(3) deep matrix factorization: representing weights as products recovers structure in data. Singular value distribution of weight matrices indicates layer conditioning: uniform distribution (all singular values ~same) is well-conditioned, while skewed distribution indicates numerical issues. Batch normalization implicitly maintains reasonable singular value spectrum, improving optimization. Understanding rank helps explain neural network phenomena: why certain widths matter, why low-rank approximations work, and how over-parameterization aids learning.
+(3) deep matrix factorization: representing weights as products recovers structure in data. Singular value distribution of weight matrices indicates layer conditioning: uniform distribution (all singular values ~same) is well-conditioned, while skewed distribution indicates numerical issues.
+
+Batch normalization implicitly maintains reasonable singular value spectrum, improving optimization. Understanding rank helps explain neural network phenomena: why certain widths matter, why low-rank approximations work, and how over-parameterization aids learning.
 
 ---
 
@@ -224,7 +236,9 @@ Solutions are ill-conditioned when A is nearly singular (small singular values) 
 
 (4) SVD with truncation: discard small singular values (pseudoinverse),
 
-(5) reformulate problem if possible (sometimes reparameterization makes it better-conditioned). In ML: multicollinear features cause ill-conditioning (regularization with L2 penalty adds λ to eigenvalues); covariance matrices with huge range of eigenvalues are ill-conditioned (data has features with very different scales). Preprocessing with feature standardization is a simple fix that improves conditioning dramatically.
+(5) reformulate problem if possible (sometimes reparameterization makes it better-conditioned). In ML: multicollinear features cause ill-conditioning (regularization with L2 penalty adds λ to eigenvalues); covariance matrices with huge range of eigenvalues are ill-conditioned (data has features with very different scales).
+
+Preprocessing with feature standardization is a simple fix that improves conditioning dramatically.
 
 ---
 
@@ -254,7 +268,15 @@ In loss functions, tr(X^T Y) = Σᵢⱼ Xᵢⱼ Yᵢⱼ (Frobenius inner product
 
 (2) QR (best for least-squares with rectangular A), A = QR, solve Rx = Q^T b via back-substitution (numerically more stable than normal equations),
 
-(3) Cholesky (fast for symmetric positive definite A), A = LL^T, solve Ly = b and L^T x = y via forward/back substitution (cheapest, ~half cost of LU). For normal equations (least-squares Ax ≈ b), two approaches: (i) compute A^T Ax = A^T b directly (fast but less stable, condition number squared), (ii) compute QR of A, solve Rx = Q^T b (more stable, condition number unchanged). Iterative methods (Conjugate gradient, MINRES, GMRES) are preferred for sparse/large matrices: start with guess, iteratively improve, don't require full decomposition. In ML: solve normal equations for regression (QR preferred for stability), solve regularized system (A^T A + λI)x = A^T b for ridge regression (Cholesky if A^T A is PD), use iterative solvers for huge datasets. Choosing solver depends on: matrix properties (size, sparsity, conditioning), accuracy requirements, computation budget. Libraries like NumPy, SciPy use appropriate solvers automatically based on matrix structure.
+(3) Cholesky (fast for symmetric positive definite A), A = LL^T, solve Ly = b and L^T x = y via forward/back substitution (cheapest, ~half cost of LU).
+
+For normal equations (least-squares Ax ≈ b), two approaches: (i) compute A^T Ax = A^T b directly (fast but less stable, condition number squared), (ii) compute QR of A, solve Rx = Q^T b (more stable, condition number unchanged).
+
+Iterative methods (Conjugate gradient, MINRES, GMRES) are preferred for sparse/large matrices: start with guess, iteratively improve, don't require full decomposition.
+
+In ML: solve normal equations for regression (QR preferred for stability), solve regularized system (A^T A + λI)x = A^T b for ridge regression (Cholesky if A^T A is PD), use iterative solvers for huge datasets. Choosing solver depends on: matrix properties (size, sparsity, conditioning), accuracy requirements, computation budget.
+
+Libraries like NumPy, SciPy use appropriate solvers automatically based on matrix structure.
 
 ---
 

@@ -172,7 +172,9 @@ If validation error increases after initial decrease, suspect high variance. The
 
 (3) Data: more data effectively reduces variance without increasing bias.
 
-(4) Ensemble methods: averaging reduces variance. Modern intuition from double descent: use high-capacity models with strong regularization rather than hand-tuning complexity. This shift reflects that optimization algorithms themselves provide implicit regularization, especially in overparameterized regimes. Best practice: use validation curves to find optimal complexity empirically rather than relying on theoretical predictions.
+(4) Ensemble methods: averaging reduces variance. Modern intuition from double descent: use high-capacity models with strong regularization rather than hand-tuning complexity. This shift reflects that optimization algorithms themselves provide implicit regularization, especially in overparameterized regimes.
+
+Best practice: use validation curves to find optimal complexity empirically rather than relying on theoretical predictions.
 
 ---
 

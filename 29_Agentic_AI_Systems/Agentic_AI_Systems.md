@@ -34,7 +34,11 @@ Agents are goal-driven, can use external knowledge, and improve their outputs th
 
 (3) **Observe** - the agent receives and processes the results;
 
-(4) **Reflect** - the agent updates its understanding and decides the next step. For example, if tasked with "what's the revenue for product X this month?", an agent would plan to query a database, execute a database tool with appropriate parameters, observe the results, and if needed, call additional tools (like a currency converter) before providing the final answer. This iterative approach enables agents to handle multi-step reasoning, recover from errors, and progressively refine solutions.
+(4) **Reflect** - the agent updates its understanding and decides the next step.
+
+For example, if tasked with "what's the revenue for product X this month?", an agent would plan to query a database, execute a database tool with appropriate parameters, observe the results, and if needed, call additional tools (like a currency converter) before providing the final answer.
+
+This iterative approach enables agents to handle multi-step reasoning, recover from errors, and progressively refine solutions.
 
 ---
 
@@ -56,7 +60,11 @@ For instance, an agent might call a search tool to find current stock prices, a 
 
 (3) **Observe** - process the tool's output;
 
-(4) repeat. For example: "Think: I need to find Q4 revenue. I'll query the database. Action: call_database_query(table='sales', filters=...)" This pattern improves performance because explicit reasoning steps reduce errors, make the agent's logic interpretable, allow better error recovery, and help the agent notice when a tool call failed or returned unexpected results. ReAct is now standard in production agents because it reliably outperforms agents that take actions without intermediate reasoning.
+(4) repeat. For example: "Think: I need to find Q4 revenue. I'll query the database.
+
+Action: call_database_query(table='sales', filters=...)" This pattern improves performance because explicit reasoning steps reduce errors, make the agent's logic interpretable, allow better error recovery, and help the agent notice when a tool call failed or returned unexpected results.
+
+ReAct is now standard in production agents because it reliably outperforms agents that take actions without intermediate reasoning.
 
 ---
 
@@ -162,7 +170,9 @@ HITL is valuable when (1) actions are irreversible or high-stakes (deletions, fi
 
 (2) task interpretation is ambiguous and a human clarification would improve outcomes,
 
-(3) regulatory compliance requires human oversight, or (4) the agent's confidence is low. Implementing HITL requires the agent to recognize when to ask for help, present clear summaries of proposed actions, and handle both approval and rejection paths gracefully. A hybrid approach uses HITL for exceptions and uncertain cases while letting the agent operate autonomously for routine, low-risk tasks, improving both safety and efficiency.
+(3) regulatory compliance requires human oversight, or (4) the agent's confidence is low. Implementing HITL requires the agent to recognize when to ask for help, present clear summaries of proposed actions, and handle both approval and rejection paths gracefully.
+
+A hybrid approach uses HITL for exceptions and uncertain cases while letting the agent operate autonomously for routine, low-risk tasks, improving both safety and efficiency.
 
 ---
 
@@ -194,7 +204,9 @@ An orchestrator might receive a high-level request like "Prepare a market analys
 
 (2) dependencies are honored (if task B needs output from task A, wait),
 
-(3) results are aggregated coherently, and (4) failures in one agent don't crash the system. Orchestration patterns include: **Sequential** (one agent hands off to the next), **Parallel** (agents work simultaneously), **Hierarchical** (master agent delegates to sub-agents), and **Graph-based** (tasks and dependencies form a DAG). Production systems often use frameworks like LangGraph or state machines to define orchestration logic explicitly and handle edge cases like timeouts and partial failures.
+(3) results are aggregated coherently, and (4) failures in one agent don't crash the system. Orchestration patterns include: **Sequential** (one agent hands off to the next), **Parallel** (agents work simultaneously), **Hierarchical** (master agent delegates to sub-agents), and **Graph-based** (tasks and dependencies form a DAG).
+
+Production systems often use frameworks like LangGraph or state machines to define orchestration logic explicitly and handle edge cases like timeouts and partial failures.
 
 ---
 
@@ -210,7 +222,9 @@ An orchestrator might receive a high-level request like "Prepare a market analys
 
 (4) **Decomposition** - break the failed task into simpler steps,
 
-(5) **Human escalation** - ask a human if retries are exhausted. For example, if a database query times out, the agent might retry once with a shorter timeout, then fall back to a read-only cache, then alert a human. Implementing robust error recovery requires explicit error detection (checking tool outputs for error codes), informative error messages (why did it fail?), and fallback mechanisms. Agents that handle errors gracefully are much more reliable in production than brittle systems that fail catastrophically.
+(5) **Human escalation** - ask a human if retries are exhausted. For example, if a database query times out, the agent might retry once with a shorter timeout, then fall back to a read-only cache, then alert a human.
+
+Implementing robust error recovery requires explicit error detection (checking tool outputs for error codes), informative error messages (why did it fail?), and fallback mechanisms. Agents that handle errors gracefully are much more reliable in production than brittle systems that fail catastrophically.
 
 ---
 
@@ -226,7 +240,9 @@ A **cost budget** tracks estimated or actual API costs and stops when a threshol
 
 (3) gracefully terminating if limits are exceeded with a clear message,
 
-(4) logging budget usage for monitoring. For example: `if step_count >= max_steps: return "Budget exhausted. Could not complete task."` This is critical because unbounded agents can make expensive mistakes (calling an API 1000x when needed once) or get stuck in loops (repeatedly trying a failing approach). Production systems often implement tiered budgets: generous for low-cost operations, strict for expensive ones, with monitoring to detect agents that consistently hit limits (indicating poor planning).
+(4) logging budget usage for monitoring. For example: `if step_count >= max_steps: return "Budget exhausted. Could not complete task."` This is critical because unbounded agents can make expensive mistakes (calling an API 1000x when needed once) or get stuck in loops (repeatedly trying a failing approach).
+
+Production systems often implement tiered budgets: generous for low-cost operations, strict for expensive ones, with monitoring to detect agents that consistently hit limits (indicating poor planning).
 
 ---
 

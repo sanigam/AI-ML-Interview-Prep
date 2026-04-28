@@ -60,7 +60,13 @@ Modern trend: anchor-free methods are gaining popularity (YOLOv6+) due to simple
 
 (1) Region Proposal Network (RPN): generate candidate regions (thousands) that might contain objects, using sliding window or selective search,
 
-(2) Classification and refinement: crop each proposal, classify its content, and refine the bounding box. R-CNN (original): used selective search to generate ~2000 region proposals, extracted CNN features for each proposal (slow—forward pass per region!), classified with SVM, refined bounding boxes with regression. Fast R-CNN improved efficiency by extracting features once from the whole image, then pooling features corresponding to each region proposal (RoI pooling), classifying and refining in parallel. Faster R-CNN made region proposal generation learned: trained a Region Proposal Network (RPN) as part of the detector that predicts which anchors likely contain objects. Advantages of two-stage: high accuracy (can afford expensive operations per proposal since only thousands, not millions, are evaluated), interpretable (regions clearly identified before classification).
+(2) Classification and refinement: crop each proposal, classify its content, and refine the bounding box. R-CNN (original): used selective search to generate ~2000 region proposals, extracted CNN features for each proposal (slow—forward pass per region!), classified with SVM, refined bounding boxes with regression.
+
+Fast R-CNN improved efficiency by extracting features once from the whole image, then pooling features corresponding to each region proposal (RoI pooling), classifying and refining in parallel.
+
+Faster R-CNN made region proposal generation learned: trained a Region Proposal Network (RPN) as part of the detector that predicts which anchors likely contain objects.
+
+Advantages of two-stage: high accuracy (can afford expensive operations per proposal since only thousands, not millions, are evaluated), interpretable (regions clearly identified before classification).
 
 Disadvantages: slower than one-stage (two forward passes), requires careful tuning of region count (too many → slow, too few → miss objects).
 
@@ -118,7 +124,11 @@ Example: For a background prediction with p_t=0.99, standard cross-entropy loss 
 
 (3) Remove all predictions with IoU > threshold (default 0.5) with the kept prediction,
 
-(4) Repeat until done. NMS removes false positives (duplicate detections of the same object) but can fail when objects overlap (suppresses valid detections of nearby objects). Soft-NMS improves this by decaying confidence scores of overlapping boxes instead of removing them: for each suppressed box, reduce its confidence by a factor based on IoU (rather than hard threshold). This keeps overlapping detections with reduced confidence, preserving objects that overlap slightly. DIoU-NMS uses a different metric: instead of IoU (intersection over union), uses DIoU (distance IoU) that also considers distance between box centers. This is better at handling aligned objects (e.g., cars in a traffic jam) where IoU is high but they're different objects.
+(4) Repeat until done. NMS removes false positives (duplicate detections of the same object) but can fail when objects overlap (suppresses valid detections of nearby objects).
+
+Soft-NMS improves this by decaying confidence scores of overlapping boxes instead of removing them: for each suppressed box, reduce its confidence by a factor based on IoU (rather than hard threshold). This keeps overlapping detections with reduced confidence, preserving objects that overlap slightly.
+
+DIoU-NMS uses a different metric: instead of IoU (intersection over union), uses DIoU (distance IoU) that also considers distance between box centers. This is better at handling aligned objects (e.g., cars in a traffic jam) where IoU is high but they're different objects.
 
 Example: NMS on street scene: one car detected at [100, 100, 150, 150] with confidence 0.9, and nearby prediction at [105, 105, 155, 155] with confidence 0.7. Standard NMS removes the second box because IoU > 0.5. Soft-NMS reduces its confidence to 0.7 * (1 - IoU) ≈ 0.35, so it's still output. DIoU-NMS would check if boxes are actually different objects based on center distance. NMS is post-processing, applied after model prediction, and significantly affects final mAP—using appropriate NMS variant for your domain is important.
 
@@ -190,7 +200,9 @@ Architecture:
 
 (3) For each proposal, apply RoI pooling (or RoI Align, a differentiable improvement),
 
-(4) Parallel branches: classify region (softmax), refine bounding box (regression), predict mask (sigmoid binary classification per pixel). Mask branch: inside each region, predict a mask the same size as the region (e.g., 28x28), indicating which pixels belong to the object. Key innovation: RoI Align instead of RoI pooling—regular RoI pooling quantizes coordinates to grid points (losing precision), RoI Align uses bilinear interpolation to align features to region boundaries precisely, improving mask accuracy. Loss function: combine classification loss, bounding box loss, and mask loss (binary cross-entropy per pixel).
+(4) Parallel branches: classify region (softmax), refine bounding box (regression), predict mask (sigmoid binary classification per pixel). Mask branch: inside each region, predict a mask the same size as the region (e.g., 28x28), indicating which pixels belong to the object.
+
+Key innovation: RoI Align instead of RoI pooling—regular RoI pooling quantizes coordinates to grid points (losing precision), RoI Align uses bilinear interpolation to align features to region boundaries precisely, improving mask accuracy. Loss function: combine classification loss, bounding box loss, and mask loss (binary cross-entropy per pixel).
 
 Example: Mask R-CNN on COCO: input image 1024x1024, backbone extracts 1024/32=32x32 feature map (stride 32). RPN generates ~1000 proposals. For each proposal (say 128x128 pixels), RoI Align crops and resizes to 14x14 features, mask head upsamples to 28x28 and predicts mask. Output: bounding box, class, confidence, and instance mask.
 
@@ -272,7 +284,9 @@ Architecture:
 
 (4) Small objects (distant cars)—use FPN and anchor-free methods (DINO), monitor small object mAP separately.
 
-(5) Distribution shift—model trained on highway behaves differently on city streets; use uncertainty estimation (ensemble or Bayesian) and continuous retraining on collected data. Monitoring: log detection confidence, compare to ground truth from human reviewers, retrain weekly on hard examples (confident wrong predictions). Example system: Tesla Autopilot uses 8 cameras (different views), processes frames in real-time with custom NVIDIA hardware, maintains temporal tracking, and retrains on Tesla fleet data continuously.
+(5) Distribution shift—model trained on highway behaves differently on city streets; use uncertainty estimation (ensemble or Bayesian) and continuous retraining on collected data. Monitoring: log detection confidence, compare to ground truth from human reviewers, retrain weekly on hard examples (confident wrong predictions).
+
+Example system: Tesla Autopilot uses 8 cameras (different views), processes frames in real-time with custom NVIDIA hardware, maintains temporal tracking, and retrains on Tesla fleet data continuously.
 
 Trade-off: accuracy vs latency—high-accuracy detector (two-stage) requires 200ms, unacceptable for driving; use one-stage detector with acceptable mAP (~40) for real-time constraint.
 

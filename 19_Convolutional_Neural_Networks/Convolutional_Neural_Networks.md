@@ -24,7 +24,9 @@ Convolutional neural networks revolutionized computer vision by exploiting spati
 
 Example: 28×28 input, 3×3 filter, stride 1, padding 1 → 28×28 output.
 
-(4) Depth (number of filters): each filter produces one output channel; 32 filters produce 32-channel output. Convolution replaces fully connected layers for images, dramatically reducing parameters via weight sharing: single 3×3 filter applied everywhere shares 9 weights across thousands of positions. In interviews, explain convolution as feature extraction—filters learn to detect patterns (edges, textures); multiple filters capture diverse features.
+(4) Depth (number of filters): each filter produces one output channel; 32 filters produce 32-channel output. Convolution replaces fully connected layers for images, dramatically reducing parameters via weight sharing: single 3×3 filter applied everywhere shares 9 weights across thousands of positions.
+
+In interviews, explain convolution as feature extraction—filters learn to detect patterns (edges, textures); multiple filters capture diverse features.
 
 ---
 
@@ -94,7 +96,9 @@ Example: input 256 channels → 1×1 to 64 channels → 3×3 → 1×1 to 256 (bo
 
 (2) Feature fusion: combine channels nonlinearly (apply ReLU after 1×1).
 
-(3) Expanding capacity: increase channels while maintaining parameters. 1×1 convolutions are computationally cheap (9 × fewer multiplications than 3×3) but maintain nonlinearity. They're ubiquitous in modern architectures (ResNets, Inception, DenseNet, EfficientNets). In interviews, 1×1 convolution is a practical optimization trick: reducing channels before expensive operations is a key efficiency pattern. Explaining "1×1 for dimensionality reduction" shows you think about computational efficiency alongside accuracy.
+(3) Expanding capacity: increase channels while maintaining parameters. 1×1 convolutions are computationally cheap (9 × fewer multiplications than 3×3) but maintain nonlinearity. They're ubiquitous in modern architectures (ResNets, Inception, DenseNet, EfficientNets).
+
+In interviews, 1×1 convolution is a practical optimization trick: reducing channels before expensive operations is a key efficiency pattern. Explaining "1×1 for dimensionality reduction" shows you think about computational efficiency alongside accuracy.
 
 ---
 
@@ -148,7 +152,9 @@ Modern trend: pre-training on larger datasets (Instagram, JFT-300M) and task-spe
 
 (3) Elastic: small random distortions.
 
-(4) Cutout/Mixup: remove regions or blend images (advanced). Caution: flip a car image horizontally—still recognizable. Flip a person image—still a person. But flip medical X-rays—changes meaning (left vs. right). Augmentation is task and domain-specific. Strength: weak augmentation (small rotations, crops) prevents overfitting mildly; aggressive augmentation (random crops, color distortions) provides stronger regularization. Modern practice: AutoAugment (learned augmentation policies), RandAugment (random selection of augmentations), CutMix (blend regions from two images). Benefits:
+(4) Cutout/Mixup: remove regions or blend images (advanced). Caution: flip a car image horizontally—still recognizable. Flip a person image—still a person. But flip medical X-rays—changes meaning (left vs. right). Augmentation is task and domain-specific.
+
+Strength: weak augmentation (small rotations, crops) prevents overfitting mildly; aggressive augmentation (random crops, color distortions) provides stronger regularization. Modern practice: AutoAugment (learned augmentation policies), RandAugment (random selection of augmentations), CutMix (blend regions from two images). Benefits:
 
 (1) Increases effective dataset size.
 
@@ -286,7 +292,9 @@ Modern trend: ViTs and CNNs are converging; both achieve similar accuracy at sca
 
 (2) Attention transfer: match attention maps.
 
-(3) Dark knowledge: surprising insight that teacher's high-confidence wrong predictions (if plausible) teach student. Deployment: distilled student models (MobileNet distilled) achieve good accuracy-speed tradeoff. In interviews, KD is underutilized but practical. Explaining the soft target intuition ("soft targets carry more information than binary correctness") demonstrates sophisticated thinking about knowledge transfer.
+(3) Dark knowledge: surprising insight that teacher's high-confidence wrong predictions (if plausible) teach student. Deployment: distilled student models (MobileNet distilled) achieve good accuracy-speed tradeoff. In interviews, KD is underutilized but practical.
+
+Explaining the soft target intuition ("soft targets carry more information than binary correctness") demonstrates sophisticated thinking about knowledge transfer.
 
 ---
 

@@ -32,7 +32,11 @@ With MCP, tools implement a single standard interface, and any LLM application c
 
 (2) **Client** - the middleware that translates the host's requests into MCP protocol messages and forwards them to servers;
 
-(3) **Server** - the tool provider that implements MCP and responds to requests. The flow is: Host asks Client "call the database tool," Client sends an MCP request to the Database Server, Server executes the query and returns results, Client translates the response back to the Host. A single client can connect to multiple servers (database, Slack, file system), creating a hub-and-spoke topology. This architecture enables isolation: if one tool fails, others continue working. The protocol is transport-agnostic, supporting HTTP, WebSocket, or direct process communication. This separation of concerns means the Host doesn't need to know about individual tool implementations, and tools don't need to know about specific LLM APIs.
+(3) **Server** - the tool provider that implements MCP and responds to requests. The flow is: Host asks Client "call the database tool," Client sends an MCP request to the Database Server, Server executes the query and returns results, Client translates the response back to the Host.
+
+A single client can connect to multiple servers (database, Slack, file system), creating a hub-and-spoke topology. This architecture enables isolation: if one tool fails, others continue working. The protocol is transport-agnostic, supporting HTTP, WebSocket, or direct process communication.
+
+This separation of concerns means the Host doesn't need to know about individual tool implementations, and tools don't need to know about specific LLM APIs.
 
 ---
 
@@ -88,7 +92,9 @@ Security mechanisms include:
 
 (3) **audit logging** - all tool invocations are logged for compliance,
 
-(4) **sandboxing** - tool servers may run isolated from other systems. For example, a file system tool might declare "I can read/write files in /data folder" but the host enforces "only allow reads" for untrusted agents. MCP also supports role-based access (users have roles, roles have permissions) and can integrate with enterprise IAM systems. This explicit model is far more secure than custom integrations where permissions are often implicit or bypassed.
+(4) **sandboxing** - tool servers may run isolated from other systems. For example, a file system tool might declare "I can read/write files in /data folder" but the host enforces "only allow reads" for untrusted agents. MCP also supports role-based access (users have roles, roles have permissions) and can integrate with enterprise IAM systems.
+
+This explicit model is far more secure than custom integrations where permissions are often implicit or bypassed.
 
 ---
 
@@ -102,7 +108,11 @@ Security mechanisms include:
 
 (3) **stdio/IPC** - direct process communication, lowest latency and most suitable for local tools and development;
 
-(4) **gRPC** - high-performance RPC protocol, suitable for microservices and cloud deployments. The protocol choice depends on deployment: HTTP for distributed tools across networks, stdio for tightly coupled local tools, WebSocket for streaming results. Each protocol implements the same MCP message schema, so a tool can support multiple transports simultaneously. For example, a database tool might expose HTTP for cloud deployments, WebSocket for streaming large result sets, and stdio for local development. This flexibility allows MCP to work in various architectures without changing the tool's core logic.
+(4) **gRPC** - high-performance RPC protocol, suitable for microservices and cloud deployments. The protocol choice depends on deployment: HTTP for distributed tools across networks, stdio for tightly coupled local tools, WebSocket for streaming results.
+
+Each protocol implements the same MCP message schema, so a tool can support multiple transports simultaneously. For example, a database tool might expose HTTP for cloud deployments, WebSocket for streaming large result sets, and stdio for local development.
+
+This flexibility allows MCP to work in various architectures without changing the tool's core logic.
 
 ---
 
@@ -120,7 +130,9 @@ Security mechanisms include:
 
 (5) **Timeouts** - tool calls have configurable timeouts, preventing hangs;
 
-(6) **Resource quotas** - hosts can enforce per-user or per-agent resource budgets. For example, a query tool might return 100 rows per call with a "next_page_token" for fetching more, preventing memory exhaustion from million-row result sets. Streaming JSON is used for progressively sending results. This resource-aware design is crucial for production systems where multiple agents might call the same tools; without these mechanisms, agents could overwhelm services or exhaust memory.
+(6) **Resource quotas** - hosts can enforce per-user or per-agent resource budgets. For example, a query tool might return 100 rows per call with a "next_page_token" for fetching more, preventing memory exhaustion from million-row result sets. Streaming JSON is used for progressively sending results.
+
+This resource-aware design is crucial for production systems where multiple agents might call the same tools; without these mechanisms, agents could overwhelm services or exhaust memory.
 
 ---
 
@@ -130,7 +142,9 @@ Security mechanisms include:
 
 (1) **step-by-step instructions** - "First fetch the schema, then validate parameters, then call the main tool," (2) **example usage** - showing sample calls and results,
 
-(3) **warnings** - "This tool is slow for tables > 1M rows, consider pagination," (4) **alternative tools** - "For simple queries, use query_fast instead." Prompts are particularly valuable for complex tools where many usage patterns are possible. They're rendered in the host's context (e.g., Claude's system prompt), making the tool's guidance directly available to the LLM's reasoning. Well-written prompts significantly improve tool usage accuracy and reduce errors. Prompts are optional, allowing simple tools to have minimal guidance while complex tools document themselves thoroughly.
+(3) **warnings** - "This tool is slow for tables > 1M rows, consider pagination," (4) **alternative tools** - "For simple queries, use query_fast instead." Prompts are particularly valuable for complex tools where many usage patterns are possible.
+
+They're rendered in the host's context (e.g., Claude's system prompt), making the tool's guidance directly available to the LLM's reasoning. Well-written prompts significantly improve tool usage accuracy and reduce errors. Prompts are optional, allowing simple tools to have minimal guidance while complex tools document themselves thoroughly.
 
 ---
 
@@ -194,7 +208,9 @@ The SDK handles protocol details, leaving developers to focus on tool logic. Tes
 
 (4) **Invocation** - when the LLM decides to use a tool, it formats a call according to the MCP protocol;
 
-(5) **Response handling** - the call is routed to the appropriate MCP server, executed, and results returned to the LLM. For Claude, this might involve: declaring MCP servers in configuration, Claude's API automatically discovering their tools, then when Claude decides to call a tool, the client library handles the MCP request. The LLM doesn't need to know MCP details; the client library abstracts them. Configuration might look like:
+(5) **Response handling** - the call is routed to the appropriate MCP server, executed, and results returned to the LLM. For Claude, this might involve: declaring MCP servers in configuration, Claude's API automatically discovering their tools, then when Claude decides to call a tool, the client library handles the MCP request.
+
+The LLM doesn't need to know MCP details; the client library abstracts them. Configuration might look like:
 ```json
 {
   "mcp_servers": [
@@ -237,7 +253,11 @@ The host can handle errors based on codes: transient errors (TIMEOUT) might trig
 
 (3) **deprecated parameters** - old parameters can be marked deprecated rather than removed;
 
-(4) **version negotiation** - clients request specific versions, servers indicate what they support. For example, a database tool might evolve: v1.0 returns {"rows": array}, v2.0 adds {"metadata": {columns, types}} but still returns "rows" for compatibility. Clients that don't care about metadata still work; clients that want metadata explicitly request v2.0. Breaking changes (removing fields, changing semantics) increment the major version, warning users they must upgrade. Backward compatibility is crucial in production where multiple versions coexist: new agents use v2.0, legacy systems use v1.0, and the server supports both. Well-designed versioning prevents surprise breakages and enables gradual migration.
+(4) **version negotiation** - clients request specific versions, servers indicate what they support. For example, a database tool might evolve: v1.0 returns {"rows": array}, v2.0 adds {"metadata": {columns, types}} but still returns "rows" for compatibility.
+
+Clients that don't care about metadata still work; clients that want metadata explicitly request v2.0. Breaking changes (removing fields, changing semantics) increment the major version, warning users they must upgrade.
+
+Backward compatibility is crucial in production where multiple versions coexist: new agents use v2.0, legacy systems use v1.0, and the server supports both. Well-designed versioning prevents surprise breakages and enables gradual migration.
 
 ---
 
@@ -255,7 +275,9 @@ The host can handle errors based on codes: transient errors (TIMEOUT) might trig
 
 (5) **Analytics and reporting** - agents can fetch metrics, generate reports, and distribute them;
 
-(6) **Workflow automation** - agents can trigger workflows, monitor status, and notify stakeholders. A practical example: a financial analyst agent with MCP connections to a data warehouse (query sales, margins), a reporting tool (create visualizations), and email (send reports). The agent can autonomously answer "What are our top 10 products by margin?" by querying the warehouse, generate a chart, and email it to stakeholders. Value includes: reduced manual work, faster analysis, consistent processes, and audit trails for compliance.
+(6) **Workflow automation** - agents can trigger workflows, monitor status, and notify stakeholders. A practical example: a financial analyst agent with MCP connections to a data warehouse (query sales, margins), a reporting tool (create visualizations), and email (send reports).
+
+The agent can autonomously answer "What are our top 10 products by margin?" by querying the warehouse, generate a chart, and email it to stakeholders. Value includes: reduced manual work, faster analysis, consistent processes, and audit trails for compliance.
 
 ---
 
@@ -269,7 +291,11 @@ The host can handle errors based on codes: transient errors (TIMEOUT) might trig
 
 (3) Claude's function calling mechanism invokes the tools;
 
-(4) results are fed back into Claude. This creates a clean abstraction: Claude sees tools as simple functions, the MCP layer handles protocol details, and tool servers focus on their logic. For developers, it looks simple: configure MCP servers, and Claude automatically gains access to all tools. For tool providers, implementing MCP once makes the tool available to any Claude application or other MCP-compatible hosts. This leverages Claude's native tool calling (which is highly optimized) while providing the standardization and interoperability benefits of MCP. As the MCP ecosystem matures, Claude and other LLMs will gain access to a shared marketplace of standardized tools, similar to how browsers have a shared web of standardized HTTP services.
+(4) results are fed back into Claude. This creates a clean abstraction: Claude sees tools as simple functions, the MCP layer handles protocol details, and tool servers focus on their logic. For developers, it looks simple: configure MCP servers, and Claude automatically gains access to all tools.
+
+For tool providers, implementing MCP once makes the tool available to any Claude application or other MCP-compatible hosts. This leverages Claude's native tool calling (which is highly optimized) while providing the standardization and interoperability benefits of MCP.
+
+As the MCP ecosystem matures, Claude and other LLMs will gain access to a shared marketplace of standardized tools, similar to how browsers have a shared web of standardized HTTP services.
 
 ---
 

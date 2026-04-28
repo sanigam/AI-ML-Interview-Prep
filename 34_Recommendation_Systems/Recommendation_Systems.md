@@ -108,7 +108,9 @@ Disadvantages:
 
 (5) **exploration** - recommend diverse items to gather ratings,
 
-(6) **knowledge-based** - ask questions to learn user preferences ("budget: high, genre: action?"). For new items, common approach: show based on popularity/recency initially, collect ratings, then personalize. For new users: ask for preferences explicitly (rating 5 items), then leverage those to seed recommendations. Context matters: Netflix can ask for movie preferences explicitly (users expect this), a product recommendation system can't (user patience is limited). Best practice: acknowledge cold start explicitly, use multiple data sources (collaborative, content, demographics, context), and monitor new user/item performance separately.
+(6) **knowledge-based** - ask questions to learn user preferences ("budget: high, genre: action?"). For new items, common approach: show based on popularity/recency initially, collect ratings, then personalize. For new users: ask for preferences explicitly (rating 5 items), then leverage those to seed recommendations.
+
+Context matters: Netflix can ask for movie preferences explicitly (users expect this), a product recommendation system can't (user patience is limited). Best practice: acknowledge cold start explicitly, use multiple data sources (collaborative, content, demographics, context), and monitor new user/item performance separately.
 
 ---
 
@@ -230,7 +232,9 @@ Mathematically: UCB = mean_reward + sqrt(log(t) / count). Arms with fewer pulls 
 
 (1) **principled** - balance exploration-exploitation optimally,
 
-(2) **regret bounds** - theoretical guarantees on cumulative regret. Use cases: A/B testing (bandit optimization finds winning variant faster), dynamic pricing (explore prices, exploit high-margin prices), news recommendations (explore new stories, exploit popular ones). Tradeoff: exploration has short-term cost (recommend uncertain items) for long-term gain (better personalization). Most production systems use bandits or bandit-inspired exploration (e.g., "explore with 10% probability").
+(2) **regret bounds** - theoretical guarantees on cumulative regret. Use cases: A/B testing (bandit optimization finds winning variant faster), dynamic pricing (explore prices, exploit high-margin prices), news recommendations (explore new stories, exploit popular ones).
+
+Tradeoff: exploration has short-term cost (recommend uncertain items) for long-term gain (better personalization). Most production systems use bandits or bandit-inspired exploration (e.g., "explore with 10% probability").
 
 ---
 
@@ -408,7 +412,9 @@ Implementation:
 
 (1) **model changes** - retrain with new loss weights,
 
-(2) **serving changes** - apply re-ranking rules without retraining. Practical example: Netflix wants engagement (watch time) and diversity (avoid recommending only popular titles). Weighting: L = 0.8 * engagement + 0.2 * diversity. Re-ranking: for top-100 candidates, ensure 20% are niche content. A/B test shows: engagement drops 2% but diversity increases 30%; if churn decreases, launch it. Tradeoff: optimizing multiple metrics requires careful tuning; overshooting one metric hurts others (too much diversity reduces engagement).
+(2) **serving changes** - apply re-ranking rules without retraining. Practical example: Netflix wants engagement (watch time) and diversity (avoid recommending only popular titles). Weighting: L = 0.8 * engagement + 0.2 * diversity. Re-ranking: for top-100 candidates, ensure 20% are niche content.
+
+A/B test shows: engagement drops 2% but diversity increases 30%; if churn decreases, launch it. Tradeoff: optimizing multiple metrics requires careful tuning; overshooting one metric hurts others (too much diversity reduces engagement).
 
 ---
 

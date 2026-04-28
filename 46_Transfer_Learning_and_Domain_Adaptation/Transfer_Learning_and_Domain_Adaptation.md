@@ -42,7 +42,11 @@ Transfer learning also improves robustness; models trained on diverse pre-traini
 
 (2) target domain is similar to pre-training,
 
-(3) you have sufficient compute. A hybrid approach, gradual unfreezing, trains the head first, then thaws earlier layers progressively: epoch 1 train head only, epoch 2 fine-tune last transformer layer + head, epoch 3 fine-tune last 2 layers, etc. This balances stability and adaptation, performing well across dataset sizes. In practice, start with feature extraction (quick baseline), then fine-tune if performance plateaus and data permits. Some practitioners use discriminative fine-tuning (lower learning rates for early layers, higher for later): `learning_rates = [1e-5, 1e-4, 1e-3]` for layers in order, accounting for the intuition that early layers need less updating.
+(3) you have sufficient compute. A hybrid approach, gradual unfreezing, trains the head first, then thaws earlier layers progressively: epoch 1 train head only, epoch 2 fine-tune last transformer layer + head, epoch 3 fine-tune last 2 layers, etc. This balances stability and adaptation, performing well across dataset sizes.
+
+In practice, start with feature extraction (quick baseline), then fine-tune if performance plateaus and data permits.
+
+Some practitioners use discriminative fine-tuning (lower learning rates for early layers, higher for later): `learning_rates = [1e-5, 1e-4, 1e-3]` for layers in order, accounting for the intuition that early layers need less updating.
 
 ---
 
@@ -66,7 +70,9 @@ Dataset shift (broader) includes any P(X, Y) difference. Concept drift occurs wh
 
 (2) semi-supervised DA—use few target labels,
 
-(3) self-training—train on target pseudo-labels. The key insight: if you ignore distribution shift and train normally, the model overfits to source domain quirks and fails on target. Domain adaptation methods explicitly minimize domain discrepancy through adversarial training, maximum mean discrepancy (MMD), or self-supervised learning on target data. Unlike transfer learning (assumes shared task), domain adaptation assumes the task is the same but data distribution differs, requiring different technical approaches.
+(3) self-training—train on target pseudo-labels. The key insight: if you ignore distribution shift and train normally, the model overfits to source domain quirks and fails on target.
+
+Domain adaptation methods explicitly minimize domain discrepancy through adversarial training, maximum mean discrepancy (MMD), or self-supervised learning on target data. Unlike transfer learning (assumes shared task), domain adaptation assumes the task is the same but data distribution differs, requiring different technical approaches.
 
 ---
 
@@ -92,7 +98,11 @@ Architecture: encoder (shared), task classifier head, and domain classifier. Los
 
 (3) compute domain loss (binary cross-entropy on source/target domain labels),
 
-(4) backprop: gradients flow normally to the task head, but through a gradient reversal layer (GRL) to the domain classifier—GRL multiplies by -lambda, making the encoder optimize to fool the domain classifier. The intuition: the task classifier wants to classify correctly; the domain classifier wants to identify source vs. target. The encoder is caught in a min-max game: it learns features that are good for the task while confusing the domain classifier. At equilibrium, the encoder produces features where source and target are indistinguishable, but task performance remains high. In practice, gradually increase lambda during training; start with small lambda (task learning dominates), then increase to enforce domain invariance.
+(4) backprop: gradients flow normally to the task head, but through a gradient reversal layer (GRL) to the domain classifier—GRL multiplies by -lambda, making the encoder optimize to fool the domain classifier. The intuition: the task classifier wants to classify correctly; the domain classifier wants to identify source vs. target.
+
+The encoder is caught in a min-max game: it learns features that are good for the task while confusing the domain classifier. At equilibrium, the encoder produces features where source and target are indistinguishable, but task performance remains high.
+
+In practice, gradually increase lambda during training; start with small lambda (task learning dominates), then increase to enforce domain invariance.
 
 Implementation: in PyTorch, use a GradientReversal layer with custom backward(). DANN works well empirically—e.g., adapting from synthetic to real objects or adapting across visual domains. A limitation: DANN assumes tasks are identical across domains; if P(Y|X) differs (concept drift), DANN won't help because fooling the domain classifier doesn't fix task-level drift.
 
@@ -134,7 +144,13 @@ Limitations: assumes classes can be separated in a fixed metric space (Euclidean
 
 (2) for each task, (3a) compute inner loop loss on K support examples: L_support = loss(model, support_data), (3b) take one or few SGD steps: theta' = theta - alpha * grad(L_support), (3c) compute outer loop loss on query examples: L_query = loss(theta', query_data),
 
-(4) update meta-parameters: theta -= beta * grad(L_query). The outer loop optimizes for fast task adaptation, not final performance—you're learning initial weights that converge quickly on new tasks. At test time, take K examples from a new class, update weights once: theta_new = theta - alpha * grad(loss(K_examples)), then predict with theta_new. Key differences from prototypical networks: prototypical networks are task-agnostic (apply to any classification problem with the learned metric), while MAML is model-agnostic (works with any differentiable model: CNNs, RNNs, etc.). MAML is more computationally expensive (inner loop SGD during training), but often achieves better few-shot performance because it optimizes for the actual test-time update process. In practice, MAML is stronger empirically (few-shot classification, few-shot RL) but harder to implement; prototypical networks are simpler and still effective. Recent variants: first-order MAML (FOMAML) skips second-order Hessian computation, reducing memory; bilevel optimization interprets MAML as a bilevel optimization problem.
+(4) update meta-parameters: theta -= beta * grad(L_query). The outer loop optimizes for fast task adaptation, not final performance—you're learning initial weights that converge quickly on new tasks. At test time, take K examples from a new class, update weights once: theta_new = theta - alpha * grad(loss(K_examples)), then predict with theta_new.
+
+Key differences from prototypical networks: prototypical networks are task-agnostic (apply to any classification problem with the learned metric), while MAML is model-agnostic (works with any differentiable model: CNNs, RNNs, etc.).
+
+MAML is more computationally expensive (inner loop SGD during training), but often achieves better few-shot performance because it optimizes for the actual test-time update process. In practice, MAML is stronger empirically (few-shot classification, few-shot RL) but harder to implement; prototypical networks are simpler and still effective.
+
+Recent variants: first-order MAML (FOMAML) skips second-order Hessian computation, reducing memory; bilevel optimization interprets MAML as a bilevel optimization problem.
 
 ---
 
@@ -158,7 +174,13 @@ Example: predict user demographics (age, gender, location) and next purchase cat
 
 (2) feature learning—different tasks supervise different feature aspects; jointly optimizing creates richer representations,
 
-(3) inductive bias—sharing structure encodes the assumption that tasks are related, biasing the model toward reusable features. Contrast: multi-task learning assumes tasks share representations; if tasks are unrelated, sharing hurts (negative transfer). Handling imbalanced task datasets: if task1 has 1M examples and task2 has 1k, task1 dominates; use task weighting (`loss = w1 * loss1 + w2 * loss2`, tune weights via validation) or batch sampling (oversample task2 examples). Uncertainty weighting is an elegant approach: learn task uncertainty sigma during training, weight loss by 1/sigma^2—the model automatically downweights high-uncertainty (unreliable) tasks. Multi-task learning is widely used in industry: YouTube's recommendation system predicts clicks, dwell time, and shares jointly; language models use next-token prediction + masked language modeling + sentence ordering simultaneously. The limitation: multi-task learning requires curating related tasks; naive combinations can hurt.
+(3) inductive bias—sharing structure encodes the assumption that tasks are related, biasing the model toward reusable features. Contrast: multi-task learning assumes tasks share representations; if tasks are unrelated, sharing hurts (negative transfer).
+
+Handling imbalanced task datasets: if task1 has 1M examples and task2 has 1k, task1 dominates; use task weighting (`loss = w1 * loss1 + w2 * loss2`, tune weights via validation) or batch sampling (oversample task2 examples).
+
+Uncertainty weighting is an elegant approach: learn task uncertainty sigma during training, weight loss by 1/sigma^2—the model automatically downweights high-uncertainty (unreliable) tasks.
+
+Multi-task learning is widely used in industry: YouTube's recommendation system predicts clicks, dwell time, and shares jointly; language models use next-token prediction + masked language modeling + sentence ordering simultaneously. The limitation: multi-task learning requires curating related tasks; naive combinations can hurt.
 
 ---
 
@@ -188,7 +210,11 @@ Best practices:
 
 (5) batch size 8-32 (smaller than pre-training's 256 because target task data is limited),
 
-(6) gradient accumulation if memory-limited: accumulate gradients over k mini-batches, update weights once. Example code: `optimizer = AdamW(model.parameters(), lr=2e-5, weight_decay=0.01); scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=500, num_training_steps=10000)`. For large datasets (>100k examples), standard fine-tuning works; for small datasets (<5k), add layer-wise discriminative fine-tuning (lower learning rates for early layers) or use gradual unfreezing (train head first, then unfreeze layers). A common mistake: using the default Adam learning rate (1e-3), which is too high and destroys BERT's pre-trained knowledge; practitioners often learn this painfully.
+(6) gradient accumulation if memory-limited: accumulate gradients over k mini-batches, update weights once. Example code: `optimizer = AdamW(model.parameters(), lr=2e-5, weight_decay=0.01); scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=500, num_training_steps=10000)`.
+
+For large datasets (>100k examples), standard fine-tuning works; for small datasets (<5k), add layer-wise discriminative fine-tuning (lower learning rates for early layers) or use gradual unfreezing (train head first, then unfreeze layers).
+
+A common mistake: using the default Adam learning rate (1e-3), which is too high and destroys BERT's pre-trained knowledge; practitioners often learn this painfully.
 
 ---
 
@@ -222,7 +248,11 @@ Causes:
 
 (3) distribution shift in deployment—model overfits to source domain quirks that don't generalize (pre-training includes dataset artifacts that confuse deployment),
 
-(4) insufficient target data—pre-training biases dominate, preventing the model from adapting to target (e.g., fine-tuning on 10 images hurts because pre-training's inductive bias is too strong). Diagnosis: compare fine-tuned model vs. training from scratch on the target task, measuring both test performance and learning curves. If fine-tuned model is slower to converge or saturates lower, negative transfer is likely. Attribution: check intermediate representations—if pre-trained features are unrelated to target (cosine similarity of embeddings << 1), domain mismatch is the issue; if pre-trained features are close to final solution but fine-tuning diverges, task mismatch or insufficient data is likely. Fixes:
+(4) insufficient target data—pre-training biases dominate, preventing the model from adapting to target (e.g., fine-tuning on 10 images hurts because pre-training's inductive bias is too strong). Diagnosis: compare fine-tuned model vs. training from scratch on the target task, measuring both test performance and learning curves.
+
+If fine-tuned model is slower to converge or saturates lower, negative transfer is likely.
+
+Attribution: check intermediate representations—if pre-trained features are unrelated to target (cosine similarity of embeddings << 1), domain mismatch is the issue; if pre-trained features are close to final solution but fine-tuning diverges, task mismatch or insufficient data is likely. Fixes:
 
 (1) use feature extraction instead of fine-tuning (preserve pre-trained knowledge while training task-specific head),
 

@@ -35,7 +35,9 @@ Natural Language Processing fundamentals form the foundation for modern NLP syst
 
 (5) **Stemming/Lemmatization:** converts "running", "runs" to "run" (stemming uses heuristics, lemmatization uses dictionary—lemmatization is more accurate but slower).
 
-(6) **Normalization:** handles accents, special characters. The pipeline depends on task: sentiment analysis benefits from keeping negations (skip stop word removal), information retrieval benefits from stemming (improves recall), BERT tokenization is learned (skip manual tokenization). A common mistake: over-preprocessing, removing information the model could use. Modern practice for deep learning: minimal preprocessing, let the model learn.
+(6) **Normalization:** handles accents, special characters. The pipeline depends on task: sentiment analysis benefits from keeping negations (skip stop word removal), information retrieval benefits from stemming (improves recall), BERT tokenization is learned (skip manual tokenization).
+
+A common mistake: over-preprocessing, removing information the model could use. Modern practice for deep learning: minimal preprocessing, let the model learn.
 
 **Interview Tip:** Tailor preprocessing to the task. Mention tradeoffs—lowercasing helps generalization but loses information. Show you think critically about each step.
 
@@ -105,7 +107,9 @@ Example: "Apple CEO Tim Cook announced revenue of $100M" → [Apple: ORG, Tim Co
 
 (2) **Feature-based (CRF):** extract hand-crafted features (word capitalization, POS tags, character n-grams, gazetteer lists), use conditional random fields (CRF) to model label dependencies. More flexible than regex, still interpretable.
 
-(3) **Neural (BiLSTM-CRF, transformers):** BiLSTM encodes context, CRF layer models label transitions (avoid invalid sequences), or use transformer + classification head. Modern approaches fine-tune BERT on NER, achieving >90% F1 on standard benchmarks. Evaluation: precision (correct / predicted), recall (correct / actual), F1 (harmonic mean). Challenges: domain shift (entities in news vs medical text differ), ambiguity (is "Apple" a company or fruit?), long entities (multi-word names). Production systems often combine approaches: weak supervision (distant labeling) + transformer fine-tuning.
+(3) **Neural (BiLSTM-CRF, transformers):** BiLSTM encodes context, CRF layer models label transitions (avoid invalid sequences), or use transformer + classification head. Modern approaches fine-tune BERT on NER, achieving >90% F1 on standard benchmarks. Evaluation: precision (correct / predicted), recall (correct / actual), F1 (harmonic mean).
+
+Challenges: domain shift (entities in news vs medical text differ), ambiguity (is "Apple" a company or fruit?), long entities (multi-word names). Production systems often combine approaches: weak supervision (distant labeling) + transformer fine-tuning.
 
 **Interview Tip:** Describe the progression from regex → CRF → neural, showing understanding of when each is appropriate. Mention recent advances: zero-shot NER with prompting (e.g., GPT-based).
 
@@ -145,7 +149,9 @@ Example: "The quick brown fox jumps" → [quick → fox (adjective modifier), br
 
 (2) **Graph-based:** score all possible edges, find maximum spanning tree (Chu-Liu-Edmonds algorithm).
 
-(3) **Neural:** BiLSTM + arc scoring network, or transformer fine-tuned on parsing. Dependency trees are useful for: extracting relations ("subject verb object"), identifying predicates, linguistic analysis, semantic role labeling (SRL: "who did what to whom"). Semantic parsing goes further—converting text to logical forms or abstract meaning representation (AMR). Modern neural methods often skip explicit parsing, learning end-to-end from text → prediction, but dependency structure is useful for interpretability and structured prediction.
+(3) **Neural:** BiLSTM + arc scoring network, or transformer fine-tuned on parsing. Dependency trees are useful for: extracting relations ("subject verb object"), identifying predicates, linguistic analysis, semantic role labeling (SRL: "who did what to whom").
+
+Semantic parsing goes further—converting text to logical forms or abstract meaning representation (AMR). Modern neural methods often skip explicit parsing, learning end-to-end from text → prediction, but dependency structure is useful for interpretability and structured prediction.
 
 **Interview Tip:** Explain the graph structure clearly with examples. Mention that while neural models often skip explicit parsing, understanding syntax helps interpret model decisions.
 
@@ -179,7 +185,13 @@ Limitations: requires labeled data, less interpretable, slower inference. Hybrid
 
 (1) Pretrain embedding model (BERT, GPT).
 
-(2) Fine-tune on labeled data: frozen embeddings + linear classifier, or fine-tune entire model. For small labeled datasets (~100 samples), fixed embeddings + simple classifier work well and avoid overfitting. For large datasets (>10K samples), end-to-end fine-tuning outperforms. Few-shot approaches: prompt LLMs ("classify as positive/negative: ...") achieve reasonable accuracy without fine-tuning, though full fine-tuning remains best. Multi-class vs multi-label: multi-class assigns one label (spam or not), multi-label assigns multiple (article can be [tech, science, health]). Evaluation: accuracy (overall), precision/recall/F1 per class (handle imbalance). Challenges: class imbalance (99% negative, 1% positive—accuracy useless), domain shift (model trained on movie reviews fails on product reviews), ambiguous labels (some reviews genuinely mixed). Modern practice: balance classes via sampling or loss weighting, use pretrained models for generalization.
+(2) Fine-tune on labeled data: frozen embeddings + linear classifier, or fine-tune entire model. For small labeled datasets (~100 samples), fixed embeddings + simple classifier work well and avoid overfitting. For large datasets (>10K samples), end-to-end fine-tuning outperforms.
+
+Few-shot approaches: prompt LLMs ("classify as positive/negative: ...") achieve reasonable accuracy without fine-tuning, though full fine-tuning remains best. Multi-class vs multi-label: multi-class assigns one label (spam or not), multi-label assigns multiple (article can be [tech, science, health]).
+
+Evaluation: accuracy (overall), precision/recall/F1 per class (handle imbalance). Challenges: class imbalance (99% negative, 1% positive—accuracy useless), domain shift (model trained on movie reviews fails on product reviews), ambiguous labels (some reviews genuinely mixed).
+
+Modern practice: balance classes via sampling or loss weighting, use pretrained models for generalization.
 
 **Interview Tip:** Describe the full pipeline end-to-end. Mention why pretrained models help (transfer learning from massive unlabeled text). Address class imbalance—shows practical understanding.
 
@@ -209,7 +221,9 @@ Limitations:
 
 (3) Can't capture semantics ("sad" and "unhappy" are synonymous but different patterns).
 
-(4) Maintenance burden (complex regex is unreadable). Modern NLP couples regex with ML: regex extracts candidate patterns, neural model scores them. Hybrid approach: use regex for high-precision rules (invoke human for edge cases), neural for high-recall (catch variations). Regex remains essential for production systems despite neural advances—useful for structured data extraction and anomaly detection.
+(4) Maintenance burden (complex regex is unreadable). Modern NLP couples regex with ML: regex extracts candidate patterns, neural model scores them. Hybrid approach: use regex for high-precision rules (invoke human for edge cases), neural for high-recall (catch variations).
+
+Regex remains essential for production systems despite neural advances—useful for structured data extraction and anomaly detection.
 
 **Interview Tip:** Show practical regex knowledge with examples. Mention that regex + neural hybrid is common in production. Don't oversell neural methods—some tasks are better solved with regex.
 
@@ -279,7 +293,11 @@ Limitations: treats all edits equally (typo "teh" → "the" has same cost as "do
 
 (3) **Mean Reciprocal Rank (MRR):** average of 1/rank of first relevant result = `1/N * Σ 1/rank_i`. Useful when only first result matters (search engine click-through).
 
-(4) **NDCG@k (Normalized Discounted Cumulative Gain):** weights results by relevance score and position. `DCG@k = Σ_{i=1}^k (2^{rel_i} - 1) / log_2(i+1)` (higher relevance and earlier position score higher). NDCG = DCG / IDCG (ideal DCG of perfect ranking). Useful for ranking with multiple relevance levels (0/1/2 stars). Choosing metrics depends on task: top-1 accuracy for search (MRR), top-10 for recommenders (NDCG@10), or balanced precision-recall. Pitfall: optimizing for one metric can hurt others (high precision, low recall). IR systems are evaluated offline (test set) and online (A/B tests with users). Modern IR: combine lexical (BM25) + semantic (embeddings) + learning-to-rank models.
+(4) **NDCG@k (Normalized Discounted Cumulative Gain):** weights results by relevance score and position. `DCG@k = Σ_{i=1}^k (2^{rel_i} - 1) / log_2(i+1)` (higher relevance and earlier position score higher). NDCG = DCG / IDCG (ideal DCG of perfect ranking). Useful for ranking with multiple relevance levels (0/1/2 stars).
+
+Choosing metrics depends on task: top-1 accuracy for search (MRR), top-10 for recommenders (NDCG@10), or balanced precision-recall. Pitfall: optimizing for one metric can hurt others (high precision, low recall). IR systems are evaluated offline (test set) and online (A/B tests with users).
+
+Modern IR: combine lexical (BM25) + semantic (embeddings) + learning-to-rank models.
 
 **Interview Tip:** Explain why precision-recall tradeoff matters. Show you understand when to use NDCG vs MRR. Mention that online metrics (CTR, dwell time) matter more than offline metrics for real systems.
 
@@ -303,7 +321,9 @@ Limitations: treats all edits equally (typo "teh" → "the" has same cost as "do
 
 (2) Semantically meaningful (direction in embedding space encodes meaning).
 
-(3) Invariant to length (doesn't matter if embedding is [1,0] or [10,0]). Use Jaccard for set overlap (tags, keywords, exact matching). Use edit distance for typo correction. Use learned similarity (BERT embeddings + cosine) for semantic search. Hybrid: combine cosine (semantic) + Jaccard (exact match) to boost recall. Common mistake: using raw cosine without embedding normalization (works but less stable); always normalize before cosine.
+(3) Invariant to length (doesn't matter if embedding is [1,0] or [10,0]). Use Jaccard for set overlap (tags, keywords, exact matching). Use edit distance for typo correction. Use learned similarity (BERT embeddings + cosine) for semantic search. Hybrid: combine cosine (semantic) + Jaccard (exact match) to boost recall.
+
+Common mistake: using raw cosine without embedding normalization (works but less stable); always normalize before cosine.
 
 **Interview Tip:** Explain why cosine is standard for embeddings (computational + semantic). Show you know when alternatives are better (Jaccard for sets, edit distance for typos). Mention L2 normalization as a best practice.
 

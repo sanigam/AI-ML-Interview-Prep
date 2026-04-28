@@ -34,7 +34,9 @@ MLOps bridges the gap between machine learning research and production systems. 
 
 (9) **Monitoring** - track performance, detect issues,
 
-(10) **Retraining** - periodically retrain on new data. Each phase is critical: skipping problem definition leads to optimizing the wrong objective, poor data collection/cleaning causes garbage-in-garbage-out, bad train/test splits cause overfitting estimates, and neglecting monitoring causes silent model degradation. The lifecycle is iterative: monitoring reveals data drift, prompting retraining with new data, which flows back through feature engineering and model selection. Most model failures occur not during training (which works well) but during deployment and monitoring phases where real-world complexity emerges.
+(10) **Retraining** - periodically retrain on new data. Each phase is critical: skipping problem definition leads to optimizing the wrong objective, poor data collection/cleaning causes garbage-in-garbage-out, bad train/test splits cause overfitting estimates, and neglecting monitoring causes silent model degradation.
+
+The lifecycle is iterative: monitoring reveals data drift, prompting retraining with new data, which flows back through feature engineering and model selection. Most model failures occur not during training (which works well) but during deployment and monitoring phases where real-world complexity emerges.
 
 ---
 
