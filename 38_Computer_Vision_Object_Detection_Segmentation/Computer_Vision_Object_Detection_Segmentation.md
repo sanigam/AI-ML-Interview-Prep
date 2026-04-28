@@ -74,13 +74,13 @@ Example: Faster R-CNN on a 1000x1000 image:
 
 (1) Extract CNN features (e.g., ResNet-50),
 
-(2) RPN generates ~2000 region proposals across scales,
+(2) RPN generates ~12,000 anchor proposals across scales, then filters to ~2000 after NMS,
 
 (3) Apply RoI pooling to extract 7x7 features from each proposal,
 
 (4) Classify each region (256 dimensions fully connected) and refine bounding box,
 
-(5) Apply NMS to remove duplicates. Modern two-stage detectors (Cascade R-CNN, Efficient Det) build on this foundation.
+(5) Apply second-round NMS to remove duplicate detections. Modern two-stage detectors (Cascade R-CNN, Efficient Det) build on this foundation.
 
 ---
 
