@@ -42,7 +42,9 @@ Advanced time series forecasting bridges classical statistical methods (ARIMA, G
 
 ### Q3: What is SARIMA (Seasonal ARIMA) and how do you extend ARIMA to handle seasonality?
 
-**A:** SARIMA (Seasonal ARIMA) extends ARIMA to seasonal data: SARIMA(p,d,q)(P,D,Q,s) where (p,d,q) are non-seasonal orders, (P,D,Q) are seasonal orders, and s is the seasonal period (12 for monthly data with yearly seasonality). The model is: ARIMA(p,d,q) on differenced data, plus seasonal ARIMA(P,D,Q) on seasonally differenced data (yₜ - yₜ₋ₛ). Seasonal parameters are selected via ACF/PACF of seasonally differenced series, examining lags at multiples of s (12, 24, 36 for s=12).
+**A:** SARIMA (Seasonal ARIMA) extends ARIMA to seasonal data: SARIMA(p,d,q)(P,D,Q,s) where (p,d,q) are non-seasonal orders, (P,D,Q) are seasonal orders, and s is the seasonal period (12 for monthly data with yearly seasonality). The model is: ARIMA(p,d,q) on differenced data, plus seasonal ARIMA(P,D,Q) on seasonally differenced data (yₜ - yₜ₋ₛ).
+
+Seasonal parameters are selected via ACF/PACF of seasonally differenced series, examining lags at multiples of s (12, 24, 36 for s=12).
 
 Example: SARIMA(1,1,1)(1,1,1,12) has non-seasonal AR(1), differencing d=1, non-seasonal MA(1), seasonal AR(1), seasonal differencing D=1, seasonal MA(1), and period 12. The full model captures both short-term temporal and long-term seasonal patterns. Best practice:
 
@@ -58,7 +60,9 @@ Example: SARIMA(1,1,1)(1,1,1,12) has non-seasonal AR(1), differencing d=1, non-s
 
 ### Q4: Explain VAR (Vector Autoregression) models for multivariate time series.
 
-**A:** VAR models extend AR to multiple time series, capturing cross-series dependencies. For two series (yₜ, xₜ), a VAR(p) is: yₜ = a₀ + Σ(a₁,ᵢ·yₜ₋ᵢ + a₂,ᵢ·xₜ₋ᵢ) + εᵧ,ₜ and xₜ = b₀ + Σ(b₁,ᵢ·yₜ₋ᵢ + b₂,ᵢ·xₜ₋ᵢ) + εₓ,ₜ. Each series is regressed on its own lags and lags of other series. Benefits: captures bidirectional causality (Granger causality tests), produces consistent estimates even with cointegrated series, and is easy to estimate (OLS on each equation). Challenges:
+**A:** VAR models extend AR to multiple time series, capturing cross-series dependencies. For two series (yₜ, xₜ), a VAR(p) is: yₜ = a₀ + Σ(a₁,ᵢ·yₜ₋ᵢ + a₂,ᵢ·xₜ₋ᵢ) + εᵧ,ₜ and xₜ = b₀ + Σ(b₁,ᵢ·yₜ₋ᵢ + b₂,ᵢ·xₜ₋ᵢ) + εₓ,ₜ. Each series is regressed on its own lags and lags of other series.
+
+Benefits: captures bidirectional causality (Granger causality tests), produces consistent estimates even with cointegrated series, and is easy to estimate (OLS on each equation). Challenges:
 
 (1) Requires stationarity of all series (use differencing if unit roots detected).
 
@@ -70,7 +74,9 @@ Example: SARIMA(1,1,1)(1,1,1,12) has non-seasonal AR(1), differencing d=1, non-s
 
 ### Q5: What is GARCH (Generalized Autoregressive Conditional Heteroskedasticity) and when is it used?
 
-**A:** GARCH models volatility (conditional variance) that changes over time, important for financial returns where variance clusters (calm periods followed by turbulent periods). For a return series rₜ = μ + εₜ, the conditional variance σₜ² evolves as: σₜ² = ω + Σ(αᵢ·εₜ₋ᵢ²) + Σ(βⱼ·σₜ₋ⱼ²). Recent shocks (εₜ₋₁²) and recent variance (σₜ₋₁²) drive current variance. GARCH(1,1), the simplest and most popular, is: σₜ² = ω + α·εₜ₋₁² + β·σₜ₋₁². Benefits:
+**A:** GARCH models volatility (conditional variance) that changes over time, important for financial returns where variance clusters (calm periods followed by turbulent periods). For a return series rₜ = μ + εₜ, the conditional variance σₜ² evolves as: σₜ² = ω + Σ(αᵢ·εₜ₋ᵢ²) + Σ(βⱼ·σₜ₋ⱼ²).
+
+Recent shocks (εₜ₋₁²) and recent variance (σₜ₋₁²) drive current variance. GARCH(1,1), the simplest and most popular, is: σₜ² = ω + α·εₜ₋₁² + β·σₜ₋₁². Benefits:
 
 (1) Captures volatility clustering (spikes trigger persistent elevation).
 

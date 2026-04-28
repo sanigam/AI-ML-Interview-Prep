@@ -15,7 +15,11 @@ Transformers revolutionized machine learning by replacing recurrence and convolu
 
 ### Q1: Explain the self-attention mechanism. How does scaled dot-product attention work?
 
-**A:** Self-attention computes a weighted sum of values, where weights are determined by query-key relevance. For a sequence of tokens [x_1, ..., x_n], compute three linear projections: queries Q = XW^Q, keys K = XW^K, values V = XW^V (W are learned weight matrices). For position i, the attention score with position j is: score(i,j) = (Q_i · K_j^T) / √d where d is the dimension. Normalize over all j via softmax: att_weight(i,j) = softmax(score(i,j)). Output for position i: output_i = Σ_j att_weight(i,j) × V_j. Scaled dot-product attention formula: Attention(Q, K, V) = softmax(QK^T / √d) × V. Scaling by 1/√d prevents dot products from becoming too large (gradient instability); without scaling, large dot products lead to very small softmax gradients. Benefits:
+**A:** Self-attention computes a weighted sum of values, where weights are determined by query-key relevance. For a sequence of tokens [x_1, ..., x_n], compute three linear projections: queries Q = XW^Q, keys K = XW^K, values V = XW^V (W are learned weight matrices).
+
+For position i, the attention score with position j is: score(i,j) = (Q_i · K_j^T) / √d where d is the dimension. Normalize over all j via softmax: att_weight(i,j) = softmax(score(i,j)). Output for position i: output_i = Σ_j att_weight(i,j) × V_j. Scaled dot-product attention formula: Attention(Q, K, V) = softmax(QK^T / √d) × V.
+
+Scaling by 1/√d prevents dot products from becoming too large (gradient instability); without scaling, large dot products lead to very small softmax gradients. Benefits:
 
 (1) Parallelizable: all positions compute attention simultaneously (matrix operations).
 
@@ -27,7 +31,9 @@ Transformers revolutionized machine learning by replacing recurrence and convolu
 
 ### Q2: What is multi-head attention? Why use multiple heads?
 
-**A:** Multi-head attention applies multiple parallel attention mechanisms, each learning to attend to different aspects of the sequence. Instead of single Attention(Q, K, V), compute h heads: head_i = Attention(QW_i^Q, KW_i^K, VW_i^V). Concatenate heads: MultiHead(Q, K, V) = Concat(head_1, ..., head_h)W^O where W^O is a learned output projection. Design: total dimension d is split across h heads (each head is d/h-dimensional), keeping total parameters constant. Benefits:
+**A:** Multi-head attention applies multiple parallel attention mechanisms, each learning to attend to different aspects of the sequence. Instead of single Attention(Q, K, V), compute h heads: head_i = Attention(QW_i^Q, KW_i^K, VW_i^V). Concatenate heads: MultiHead(Q, K, V) = Concat(head_1, ..., head_h)W^O where W^O is a learned output projection.
+
+Design: total dimension d is split across h heads (each head is d/h-dimensional), keeping total parameters constant. Benefits:
 
 (1) Diverse representations: different heads learn different attention patterns. Head 1 might attend to nearby words (syntax), head 2 to subject (semantics), etc.
 
@@ -45,7 +51,9 @@ In practice: 8-16 heads is standard across models. Visualization: attention heat
 
 ### Q3: Explain positional encoding. Why is it necessary?
 
-**A:** Positional encoding adds position information to embeddings since self-attention is permutation-invariant (doesn't inherently know token order). Without positional encoding, "dog bites man" and "man bites dog" would have identical representations. Strategy 1 (Vaswani et al., 2017): sinusoidal encoding. For position pos and dimension d_i (even indices), PE(pos, d_i) = sin(pos / 10000^(d_i/d)). For odd indices, PE(pos, d_i) = cos(pos / 10000^(d_i/d)). Add to token embeddings: x_i' = embedding_i + PE(pos_i). Properties:
+**A:** Positional encoding adds position information to embeddings since self-attention is permutation-invariant (doesn't inherently know token order). Without positional encoding, "dog bites man" and "man bites dog" would have identical representations. Strategy 1 (Vaswani et al., 2017): sinusoidal encoding.
+
+For position pos and dimension d_i (even indices), PE(pos, d_i) = sin(pos / 10000^(d_i/d)). For odd indices, PE(pos, d_i) = cos(pos / 10000^(d_i/d)). Add to token embeddings: x_i' = embedding_i + PE(pos_i). Properties:
 
 (1) Unique for each (position, dimension) pair.
 
@@ -83,7 +91,9 @@ Example: machine translation, encoder encodes source sentence, decoder generates
 
 ### Q5: What is layer normalization in transformers? Why is it essential?
 
-**A:** Layer normalization (LayerNorm) normalizes inputs across the feature dimension (not batch dimension like batch norm). For input x of dimension d, compute mean μ = (1/d)Σx_i and variance σ² = (1/d)Σ(x_i - μ)². Normalized: x_norm = (x - μ) / √(σ² + ε). Learnable scale γ and shift β: output = γ × x_norm + β. Implementation in transformer: apply LayerNorm before (pre-LN) or after (post-LN) attention and FFN. Pre-LN: x → LayerNorm → Attention → Add with residual. Post-LN (original transformer): x → Attention → Add with residual → LayerNorm. Modern practice: pre-LN is more stable for very deep networks. Benefits:
+**A:** Layer normalization (LayerNorm) normalizes inputs across the feature dimension (not batch dimension like batch norm). For input x of dimension d, compute mean μ = (1/d)Σx_i and variance σ² = (1/d)Σ(x_i - μ)². Normalized: x_norm = (x - μ) / √(σ² + ε). Learnable scale γ and shift β: output = γ × x_norm + β.
+
+Implementation in transformer: apply LayerNorm before (pre-LN) or after (post-LN) attention and FFN. Pre-LN: x → LayerNorm → Attention → Add with residual. Post-LN (original transformer): x → Attention → Add with residual → LayerNorm. Modern practice: pre-LN is more stable for very deep networks. Benefits:
 
 (1) Stabilizes training: controls activation scales, enabling faster convergence.
 
@@ -133,7 +143,9 @@ Example: 512 → 2048 → 512 FFN with 1000 tokens: ~1B parameters per layer for
 
 ### Q8: Explain the computational complexity of transformers. What are efficiency challenges?
 
-**A:** Transformer computational complexity: Self-attention is O(n²) in sequence length n (computing all pairwise interactions). For sequence length 1000, attention requires 1M operations. FFN is O(n × d²) where d is dimension (each position gets one FFN forward pass). Total per layer: O(n² + n×d²). With L layers: O(L(n² + n×d²)). For large sequences (10K+ tokens), attention dominates. Memory: O(n²) for attention matrices (score matrix, attention weights both n×n). Challenges:
+**A:** Transformer computational complexity: Self-attention is O(n²) in sequence length n (computing all pairwise interactions). For sequence length 1000, attention requires 1M operations. FFN is O(n × d²) where d is dimension (each position gets one FFN forward pass). Total per layer: O(n² + n×d²). With L layers: O(L(n² + n×d²)).
+
+For large sequences (10K+ tokens), attention dominates. Memory: O(n²) for attention matrices (score matrix, attention weights both n×n). Challenges:
 
 (1) Long sequences: 4K tokens is common, 8K-32K supported with optimization, 100K+ challenging.
 

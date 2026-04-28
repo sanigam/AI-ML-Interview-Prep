@@ -36,7 +36,19 @@ In practice:
 
 ### Q2: Compare imputation strategies for missing data.
 
-**A:** Simple deletion: remove rows with any missing values (listwise) or remove columns with >X% missing. Pros: simple, unbiased under MCAR. Cons: loses data, biased under MAR, cannot use if many columns have some missing. Mean/median imputation: replace with column average (mean for continuous, mode for categorical). Pros: simple, preserves sample size, works OK for MCAR. Cons: underestimates variance (imputed values are deterministic, similar values cluster), biases correlations, doesn't use relationships with other variables. Forward/backward fill: for time series, carry forward last observed value (forward fill) or use next value (backward fill). Pros: respects temporal structure. Cons: assumes values stay constant (often wrong), can't use for beginning/end. k-nearest neighbors (KNN) imputation: for each missing value, find k nearest neighbors (using complete variables), average their values. Pros: uses relationships with other variables, reasonable estimates. Cons: computationally expensive, sensitive to distance metric, doesn't generate new variability. Multiple imputation: generate M plausible completed datasets using model (e.g., multivariate normal, regression, chained equations), fit model to each, combine estimates via Rubin's rules. Pros: properly accounts for uncertainty (standard errors include imputation uncertainty), unbiased under MAR. Cons: complex, computationally intensive. Deep learning imputation: neural networks learn feature relationships to predict missing values. Pros: flexible, captures complex relationships. Cons: requires substantial data, interpretability harder, overfitting risk if many values missing. Practical recommendation: if MCAR and <5% missing, simple deletion or mean imputation OK; if MAR and substantial missing, use multiple imputation; if MNAR, combine deletion/imputation with sensitivity analysis. Interviewers value understanding that imputation method affects downstream analysis; reporting imputation approach is essential transparency.
+**A:** Simple deletion: remove rows with any missing values (listwise) or remove columns with >X% missing. Pros: simple, unbiased under MCAR. Cons: loses data, biased under MAR, cannot use if many columns have some missing. Mean/median imputation: replace with column average (mean for continuous, mode for categorical).
+
+Pros: simple, preserves sample size, works OK for MCAR. Cons: underestimates variance (imputed values are deterministic, similar values cluster), biases correlations, doesn't use relationships with other variables. Forward/backward fill: for time series, carry forward last observed value (forward fill) or use next value (backward fill).
+
+Pros: respects temporal structure. Cons: assumes values stay constant (often wrong), can't use for beginning/end. k-nearest neighbors (KNN) imputation: for each missing value, find k nearest neighbors (using complete variables), average their values. Pros: uses relationships with other variables, reasonable estimates.
+
+Cons: computationally expensive, sensitive to distance metric, doesn't generate new variability. Multiple imputation: generate M plausible completed datasets using model (e.g., multivariate normal, regression, chained equations), fit model to each, combine estimates via Rubin's rules.
+
+Pros: properly accounts for uncertainty (standard errors include imputation uncertainty), unbiased under MAR. Cons: complex, computationally intensive. Deep learning imputation: neural networks learn feature relationships to predict missing values. Pros: flexible, captures complex relationships.
+
+Cons: requires substantial data, interpretability harder, overfitting risk if many values missing. Practical recommendation: if MCAR and <5% missing, simple deletion or mean imputation OK; if MAR and substantial missing, use multiple imputation; if MNAR, combine deletion/imputation with sensitivity analysis.
+
+Interviewers value understanding that imputation method affects downstream analysis; reporting imputation approach is essential transparency.
 
 ---
 
@@ -68,7 +80,13 @@ In practice:
 
 ### Q4: Explain feature scaling and normalization methods.
 
-**A:** Feature scaling transforms features to compatible ranges; essential because many algorithms (distance-based KNN, gradient descent, neural networks) are sensitive to scale. Standardization (Z-score normalization): (x - mean) / std; results in mean = 0, std = 1. Pros: centers data, makes interpretation easier (how many std from mean), compatible with assumption of normal distribution. Cons: sensitive to outliers (outliers affect mean/std). Min-max normalization: (x - min) / (max - min); results in range [0, 1]. Pros: interpretable (fraction of range), bounded, preserves relationships. Cons: very sensitive to outliers (min/max change drastically), scaling depends on data range (new unseen values may fall outside [0,1]). Robust scaling: (x - median) / IQR; insensitive to outliers. Pros: robust. Cons: less standard, may be less stable with small data. Mean absolute deviation (MAD) scaling: (x - median) / MAD. Unit norm scaling: x / ||x||; makes each sample have unit Euclidean norm. Pros: useful for sparse data. Log scaling: log(x); reduces skewness. Pros: interpretable for multiplicative relationships. Cons: undefined for x ≤ 0. When to scale:
+**A:** Feature scaling transforms features to compatible ranges; essential because many algorithms (distance-based KNN, gradient descent, neural networks) are sensitive to scale. Standardization (Z-score normalization): (x - mean) / std; results in mean = 0, std = 1.
+
+Pros: centers data, makes interpretation easier (how many std from mean), compatible with assumption of normal distribution. Cons: sensitive to outliers (outliers affect mean/std). Min-max normalization: (x - min) / (max - min); results in range [0, 1]. Pros: interpretable (fraction of range), bounded, preserves relationships.
+
+Cons: very sensitive to outliers (min/max change drastically), scaling depends on data range (new unseen values may fall outside [0,1]). Robust scaling: (x - median) / IQR; insensitive to outliers. Pros: robust. Cons: less standard, may be less stable with small data. Mean absolute deviation (MAD) scaling: (x - median) / MAD.
+
+Unit norm scaling: x / ||x||; makes each sample have unit Euclidean norm. Pros: useful for sparse data. Log scaling: log(x); reduces skewness. Pros: interpretable for multiplicative relationships. Cons: undefined for x ≤ 0. When to scale:
 
 (1) algorithms with distance metrics (KNN, K-means, SVM) should always be scaled,
 
@@ -124,7 +142,11 @@ Example: if Red → avg(y | color=Red). Pros: supervised (uses target informatio
 
 ### Q7: Explain feature extraction and creation of new features.
 
-**A:** Feature extraction creates new features from existing ones, often nonlinear transformations revealing hidden structure. Polynomials: add x², x³, xy, etc. Pros: enable linear models to fit nonlinear relationships. Cons: explosion in dimensionality, risk of overfitting. Interactions: multiply features (xy captures effect of both). Pros: model how features affect each other. Cons: combinatorial explosion, hard to interpret. Binning/discretization: convert continuous to categorical (e.g., age → age groups). Pros: captures nonlinear relationships, easier interpretation. Cons: information loss, arbitrary boundaries. Basis expansion: transform using basis functions (sin, cos, RBF). Pros: flexible, enables kernel methods. Cons: unintuitive. Log transformation: log(x) useful for skewed data, multiplicative relationships, monetary values. Domain-specific features: combine domain knowledge with data.
+**A:** Feature extraction creates new features from existing ones, often nonlinear transformations revealing hidden structure. Polynomials: add x², x³, xy, etc. Pros: enable linear models to fit nonlinear relationships. Cons: explosion in dimensionality, risk of overfitting. Interactions: multiply features (xy captures effect of both).
+
+Pros: model how features affect each other. Cons: combinatorial explosion, hard to interpret. Binning/discretization: convert continuous to categorical (e.g., age → age groups). Pros: captures nonlinear relationships, easier interpretation. Cons: information loss, arbitrary boundaries.
+
+Basis expansion: transform using basis functions (sin, cos, RBF). Pros: flexible, enables kernel methods. Cons: unintuitive. Log transformation: log(x) useful for skewed data, multiplicative relationships, monetary values. Domain-specific features: combine domain knowledge with data.
 
 Example: in NLP, extract count of adjectives from text; in computer vision, compute SIFT descriptors. Pros: leverage expertise, interpretable. Cons: labor-intensive, may not generalize. Embedding extraction: use pre-trained models (word2vec, ImageNet embeddings) as features. Pros: capture semantic meaning. Cons: requires external model, less interpretable. Automated feature engineering: tools (Featuretools, TSFRESH) automatically generate candidates, then select. Pros: less manual work. Cons: may miss domain-specific features. Practical approach:
 
@@ -184,7 +206,19 @@ Example: predicting movie success, multiple samples from same movie in both sets
 
 ### Q9: Explain handling imbalanced data: oversampling, undersampling, SMOTE.
 
-**A:** Imbalanced data: target classes have skewed distribution (e.g., 1% positive, 99% negative in fraud detection). Naive training leads to models that predict majority class always (high accuracy, useless). Undersampling: remove majority class samples to balance. Pros: simple, fast training (smaller dataset). Cons: loses information, risky if already small dataset, may remove important patterns. Random undersampling: randomly removes. Stratified undersampling: removes while maintaining feature distributions. Oversampling: duplicate minority class to balance. Pros: simple, keeps all data. Cons: creates identical samples (overfitting risk), inflates dataset size. Random oversampling: duplicate randomly. SMOTE (Synthetic Minority Over-sampling Technique): generate synthetic minority samples. For each minority sample, find k nearest neighbors (minority class), interpolate between them: x_synthetic = x_minority + random × (x_neighbor - x_minority). Pros: generates diverse samples (not just duplicates), better than simple oversampling. Cons: can create unrealistic synthetic samples, sensitive to parameter k, still may overfit in small-data regimes. Variants: borderline SMOTE (focus on samples near decision boundary), ADASYN (weights SMOTE by difficulty). Cost-sensitive learning: assign higher misclassification cost to minority class. Pros: doesn't change data, natural for many models. Cons: requires tuning cost ratio. Class weights: set class_weight parameter in models (scikit-learn, many others support this). Pros: simple, avoids data manipulation. Cons: may require tuning. Threshold tuning: change decision threshold (predict positive if prob > threshold, default 0.5). Pros: simple, no data change. Cons: doesn't change model internals, trades precision/recall. Ensemble methods: combine multiple imbalanced models (bagging, boosting with minority focus). Practical approach:
+**A:** Imbalanced data: target classes have skewed distribution (e.g., 1% positive, 99% negative in fraud detection). Naive training leads to models that predict majority class always (high accuracy, useless). Undersampling: remove majority class samples to balance. Pros: simple, fast training (smaller dataset).
+
+Cons: loses information, risky if already small dataset, may remove important patterns. Random undersampling: randomly removes. Stratified undersampling: removes while maintaining feature distributions. Oversampling: duplicate minority class to balance. Pros: simple, keeps all data.
+
+Cons: creates identical samples (overfitting risk), inflates dataset size. Random oversampling: duplicate randomly. SMOTE (Synthetic Minority Over-sampling Technique): generate synthetic minority samples.
+
+For each minority sample, find k nearest neighbors (minority class), interpolate between them: x_synthetic = x_minority + random × (x_neighbor - x_minority). Pros: generates diverse samples (not just duplicates), better than simple oversampling.
+
+Cons: can create unrealistic synthetic samples, sensitive to parameter k, still may overfit in small-data regimes. Variants: borderline SMOTE (focus on samples near decision boundary), ADASYN (weights SMOTE by difficulty). Cost-sensitive learning: assign higher misclassification cost to minority class.
+
+Pros: doesn't change data, natural for many models. Cons: requires tuning cost ratio. Class weights: set class_weight parameter in models (scikit-learn, many others support this). Pros: simple, avoids data manipulation. Cons: may require tuning. Threshold tuning: change decision threshold (predict positive if prob > threshold, default 0.5).
+
+Pros: simple, no data change. Cons: doesn't change model internals, trades precision/recall. Ensemble methods: combine multiple imbalanced models (bagging, boosting with minority focus). Practical approach:
 
 (1) start with class weights or cost-sensitive learning,
 
@@ -200,7 +234,15 @@ Example: predicting movie success, multiple samples from same movie in both sets
 
 ### Q10: Explain train/test/validation split strategies and cross-validation.
 
-**A:** Train/test split: divide data (typically 70/30 or 80/20) randomly, train on train set, evaluate on test set. Pros: simple, fast. Cons: single split variance-dependent, may not represent full data variability. Stratified split: ensure class distribution (for classification) or target distribution (for regression) matches in train/test. Pros: balanced representation. Temporal/group split: for time-series, split chronologically (train on past, test on future); for grouped data, split by group (no leakage between groups). k-fold cross-validation: split data into k folds, train on k-1 folds, evaluate on left-out fold, repeat k times, average metrics. Pros: uses all data for both training and evaluation, estimates generalization well, not luck-dependent. Cons: k times computational cost. Practical k: 5 or 10 folds (lower k = more bias and less variance in estimate; higher k = less bias, more variance, more computation). Stratified k-fold: maintains class distribution in each fold. Time-series cross-validation: expanding window (train on 1..t, test on t+1), rolling window (train on t-w..t, test on t+1). Nested cross-validation: outer loop for generalization estimate, inner loop for hyperparameter tuning (avoids biased estimates). Leave-one-out (LOO): k=n (each fold has one sample). Pros: unbiased. Cons: very expensive, high variance. Practical approach:
+**A:** Train/test split: divide data (typically 70/30 or 80/20) randomly, train on train set, evaluate on test set. Pros: simple, fast. Cons: single split variance-dependent, may not represent full data variability. Stratified split: ensure class distribution (for classification) or target distribution (for regression) matches in train/test.
+
+Pros: balanced representation. Temporal/group split: for time-series, split chronologically (train on past, test on future); for grouped data, split by group (no leakage between groups). k-fold cross-validation: split data into k folds, train on k-1 folds, evaluate on left-out fold, repeat k times, average metrics.
+
+Pros: uses all data for both training and evaluation, estimates generalization well, not luck-dependent. Cons: k times computational cost. Practical k: 5 or 10 folds (lower k = more bias and less variance in estimate; higher k = less bias, more variance, more computation). Stratified k-fold: maintains class distribution in each fold.
+
+Time-series cross-validation: expanding window (train on 1..t, test on t+1), rolling window (train on t-w..t, test on t+1). Nested cross-validation: outer loop for generalization estimate, inner loop for hyperparameter tuning (avoids biased estimates). Leave-one-out (LOO): k=n (each fold has one sample). Pros: unbiased.
+
+Cons: very expensive, high variance. Practical approach:
 
 (1) use stratified k-fold for classification (default),
 

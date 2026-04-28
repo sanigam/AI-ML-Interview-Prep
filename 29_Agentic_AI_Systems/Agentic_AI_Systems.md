@@ -14,7 +14,13 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q1: What is an AI agent and how does it differ from a standard language model?
 
-**A:** An AI agent is an autonomous system that goes beyond single-turn text generation to engage in multi-step reasoning, planning, and action execution. Unlike standard language models that respond to a prompt and generate text, agents operate in a loop: they observe the current state, plan actions, execute tools (APIs, functions, databases), observe the results, and adjust their approach. This creates an iterative problem-solving capability where agents can handle tasks like "find the top 3 trending products and calculate their profit margins" by decomposing the goal, fetching data, performing calculations, and refining their answers. Agents are goal-driven, can use external knowledge, and improve their outputs through feedback and iteration.
+**A:** An AI agent is an autonomous system that goes beyond single-turn text generation to engage in multi-step reasoning, planning, and action execution.
+
+Unlike standard language models that respond to a prompt and generate text, agents operate in a loop: they observe the current state, plan actions, execute tools (APIs, functions, databases), observe the results, and adjust their approach.
+
+This creates an iterative problem-solving capability where agents can handle tasks like "find the top 3 trending products and calculate their profit margins" by decomposing the goal, fetching data, performing calculations, and refining their answers.
+
+Agents are goal-driven, can use external knowledge, and improve their outputs through feedback and iteration.
 
 ---
 
@@ -34,7 +40,9 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q3: What is tool calling and why is it essential for agentic AI?
 
-**A:** Tool calling is the mechanism that allows agents to invoke external functions, APIs, or services beyond their native capabilities. Instead of trying to answer all queries from memorized knowledge, agents can call tools to fetch real-time data, perform calculations, access databases, or manipulate files. For instance, an agent might call a search tool to find current stock prices, a calculator tool for financial analysis, or a database tool for historical data. Tool calling is essential because it (1) enables agents to work with current, accurate data rather than relying on training data cutoffs,
+**A:** Tool calling is the mechanism that allows agents to invoke external functions, APIs, or services beyond their native capabilities. Instead of trying to answer all queries from memorized knowledge, agents can call tools to fetch real-time data, perform calculations, access databases, or manipulate files.
+
+For instance, an agent might call a search tool to find current stock prices, a calculator tool for financial analysis, or a database tool for historical data. Tool calling is essential because it (1) enables agents to work with current, accurate data rather than relying on training data cutoffs,
 
 (2) allows execution of actions in external systems, and (3) maintains a clear separation between reasoning and execution. The agent LLM decides when and how to call tools based on the task, and tools return structured results that inform further reasoning.
 
@@ -54,7 +62,11 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q5: Explain function calling in LLMs and its relationship to tool calling.
 
-**A:** Function calling is a feature in modern LLMs (like Claude, GPT-4) where the model outputs structured function invocations instead of just text. When an agent needs to use a tool, the LLM doesn't just write "call the database," it outputs a structured object like `{"tool": "database_query", "parameters": {"table": "sales", "filter": "region=US"}}`. This structured output is then parsed and executed by the agent framework, which returns the result back to the LLM. Function calling is critical because (1) it ensures predictable, parseable outputs,
+**A:** Function calling is a feature in modern LLMs (like Claude, GPT-4) where the model outputs structured function invocations instead of just text.
+
+When an agent needs to use a tool, the LLM doesn't just write "call the database," it outputs a structured object like `{"tool": "database_query", "parameters": {"table": "sales", "filter": "region=US"}}`. This structured output is then parsed and executed by the agent framework, which returns the result back to the LLM.
+
+Function calling is critical because (1) it ensures predictable, parseable outputs,
 
 (2) the LLM can specify exact parameters needed,
 
@@ -64,7 +76,11 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q6: What is a multi-agent system and when should you use one?
 
-**A:** A multi-agent system involves multiple autonomous agents working together, either collaboratively or competitively, to solve problems. Agents might specialize in different domains (e.g., one agent for data analysis, one for code execution, one for research), and they coordinate by sharing context, passing messages, or working through a central orchestrator. For example, a customer support system might have one agent for account lookups, another for billing questions, and another for technical troubleshooting, with a routing agent directing customer queries to the right specialist. Multi-agent systems are valuable when (1) problems have distinct sub-tasks requiring different expertise,
+**A:** A multi-agent system involves multiple autonomous agents working together, either collaboratively or competitively, to solve problems.
+
+Agents might specialize in different domains (e.g., one agent for data analysis, one for code execution, one for research), and they coordinate by sharing context, passing messages, or working through a central orchestrator.
+
+For example, a customer support system might have one agent for account lookups, another for billing questions, and another for technical troubleshooting, with a routing agent directing customer queries to the right specialist. Multi-agent systems are valuable when (1) problems have distinct sub-tasks requiring different expertise,
 
 (2) you want parallel execution for efficiency,
 
@@ -74,7 +90,13 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q7: Describe different types of agent memory (short-term, long-term, episodic).
 
-**A:** Agent memory has multiple layers that serve different purposes: **Short-term memory** is the current conversation context or working state—the messages, tool results, and observations within the current task. This typically has a limited token budget (e.g., the last 50 messages). **Long-term memory** is persistent knowledge built over time, such as learned facts about users, past successful strategies, or summaries of previous conversations stored in a database or vector store. **Episodic memory** stores specific past episodes (previous agent runs, conversations, completed tasks) that can be retrieved and learned from. A practical system might maintain the current task in short-term memory, retrieve relevant past successes from episodic memory, and use long-term knowledge to inform decisions. Many production systems use vector databases (e.g., Pinecone) to store episodic and long-term memories, allowing agents to efficiently retrieve relevant context without overwhelming the context window.
+**A:** Agent memory has multiple layers that serve different purposes: **Short-term memory** is the current conversation context or working state—the messages, tool results, and observations within the current task.
+
+This typically has a limited token budget (e.g., the last 50 messages). **Long-term memory** is persistent knowledge built over time, such as learned facts about users, past successful strategies, or summaries of previous conversations stored in a database or vector store. **Episodic memory** stores specific past episodes (previous agent runs, conversations, completed tasks) that can be retrieved and learned from.
+
+A practical system might maintain the current task in short-term memory, retrieve relevant past successes from episodic memory, and use long-term knowledge to inform decisions.
+
+Many production systems use vector databases (e.g., Pinecone) to store episodic and long-term memories, allowing agents to efficiently retrieve relevant context without overwhelming the context window.
 
 ---
 
@@ -104,7 +126,11 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q9: What is self-reflection and self-correction in agents, and how does it improve outcomes?
 
-**A:** Self-reflection is the agent's ability to evaluate its own outputs and processes, asking questions like "Did my answer address the user's question?", "Were there errors in my calculations?", or "Could a different approach work better?" Self-correction is the act of identifying problems through reflection and iterating to improve. For example, an agent might calculate a result, reflect that it doesn't match sanity checks, and then re-execute the calculation with a different tool or query. Agents implementing this pattern often use a "chain-of-thought" where they explicitly state their evaluation before finalizing answers. Studies show that reflection-in-the-loop significantly improves accuracy (often by 10-30% in benchmarks) because agents catch logical errors, avoid fallacies, and verify facts. This is especially valuable in high-stakes domains like finance or healthcare where errors have costs.
+**A:** Self-reflection is the agent's ability to evaluate its own outputs and processes, asking questions like "Did my answer address the user's question?", "Were there errors in my calculations?", or "Could a different approach work better?" Self-correction is the act of identifying problems through reflection and iterating to improve.
+
+For example, an agent might calculate a result, reflect that it doesn't match sanity checks, and then re-execute the calculation with a different tool or query. Agents implementing this pattern often use a "chain-of-thought" where they explicitly state their evaluation before finalizing answers.
+
+Studies show that reflection-in-the-loop significantly improves accuracy (often by 10-30% in benchmarks) because agents catch logical errors, avoid fallacies, and verify facts. This is especially valuable in high-stakes domains like finance or healthcare where errors have costs.
 
 ---
 
@@ -130,7 +156,9 @@ Agentic AI systems represent a paradigm shift from single-turn language models t
 
 ### Q11: Explain human-in-the-loop (HITL) in agents and when to apply it.
 
-**A:** Human-in-the-loop means the agent pauses for human approval before executing certain actions. For example, before making a large financial transaction, sending an email to a customer, or deleting records, the agent might surface the proposed action to a human for review. HITL is valuable when (1) actions are irreversible or high-stakes (deletions, financial transfers, external communications),
+**A:** Human-in-the-loop means the agent pauses for human approval before executing certain actions. For example, before making a large financial transaction, sending an email to a customer, or deleting records, the agent might surface the proposed action to a human for review.
+
+HITL is valuable when (1) actions are irreversible or high-stakes (deletions, financial transfers, external communications),
 
 (2) task interpretation is ambiguous and a human clarification would improve outcomes,
 
@@ -160,7 +188,9 @@ Example: an agent might achieve 95% task success but use 3x more tokens than a c
 
 ### Q13: What is agent orchestration and how does it handle multiple agents?
 
-**A:** Agent orchestration is the coordination layer that manages multiple agents working together, routing tasks, aggregating results, and managing communication. An orchestrator might receive a high-level request like "Prepare a market analysis report" and decompose it into specialized tasks: one agent researches competitors, another analyzes financial data, another creates visualizations. The orchestrator ensures (1) tasks are assigned to appropriate agents,
+**A:** Agent orchestration is the coordination layer that manages multiple agents working together, routing tasks, aggregating results, and managing communication.
+
+An orchestrator might receive a high-level request like "Prepare a market analysis report" and decompose it into specialized tasks: one agent researches competitors, another analyzes financial data, another creates visualizations. The orchestrator ensures (1) tasks are assigned to appropriate agents,
 
 (2) dependencies are honored (if task B needs output from task A, wait),
 
@@ -186,7 +216,9 @@ Example: an agent might achieve 95% task success but use 3x more tokens than a c
 
 ### Q15: What are step budgets and cost control mechanisms, and how do you implement them?
 
-**A:** Step budgets and cost controls prevent agents from consuming excessive resources. A **step budget** limits the total number of reasoning or action steps an agent can take (e.g., "maximum 20 steps before stopping"). A **token budget** limits total tokens used (useful when paying per token, as with cloud APIs). A **cost budget** tracks estimated or actual API costs and stops when a threshold is reached. Implementation involves:
+**A:** Step budgets and cost controls prevent agents from consuming excessive resources. A **step budget** limits the total number of reasoning or action steps an agent can take (e.g., "maximum 20 steps before stopping"). A **token budget** limits total tokens used (useful when paying per token, as with cloud APIs).
+
+A **cost budget** tracks estimated or actual API costs and stops when a threshold is reached. Implementation involves:
 
 (1) incrementing a counter with each tool call,
 

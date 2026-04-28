@@ -14,7 +14,17 @@ Transfer learning has revolutionized deep learning by enabling models to leverag
 
 ### Q1: What is transfer learning and why does it work? Explain the intuition.
 
-**A:** Transfer learning reuses knowledge learned on one task to improve performance on another. For vision, a CNN trained on ImageNet learns edge detectors in early layers, textures in middle layers, and object-specific patterns in late layers; fine-tuning on a new task (e.g., medical imaging) reuses the low-level feature detectors because edges and textures are universal across domains. For NLP, BERT pre-trains on 3.3B words using masked language modeling, learning contextual word representations; fine-tuning on sentiment classification (a downstream task) initializes with these representations rather than random weights, converging faster and generalizing better. The mechanism: gradient descent initializes the network with useful weights (from pre-training) rather than random, reducing the optimization landscape to a region where good solutions exist. This is especially powerful when the target dataset is small (1k-100k examples)—training from scratch requires millions of examples to learn good features, but transfer learning achieves similar performance with far fewer examples. Transfer learning also improves robustness; models trained on diverse pre-training data generalize better to distribution shifts. The limitation: transfer learning works when source and target tasks share similar low-level features; it may hurt if domains differ drastically (negative transfer).
+**A:** Transfer learning reuses knowledge learned on one task to improve performance on another.
+
+For vision, a CNN trained on ImageNet learns edge detectors in early layers, textures in middle layers, and object-specific patterns in late layers; fine-tuning on a new task (e.g., medical imaging) reuses the low-level feature detectors because edges and textures are universal across domains.
+
+For NLP, BERT pre-trains on 3.3B words using masked language modeling, learning contextual word representations; fine-tuning on sentiment classification (a downstream task) initializes with these representations rather than random weights, converging faster and generalizing better.
+
+The mechanism: gradient descent initializes the network with useful weights (from pre-training) rather than random, reducing the optimization landscape to a region where good solutions exist.
+
+This is especially powerful when the target dataset is small (1k-100k examples)—training from scratch requires millions of examples to learn good features, but transfer learning achieves similar performance with far fewer examples.
+
+Transfer learning also improves robustness; models trained on diverse pre-training data generalize better to distribution shifts. The limitation: transfer learning works when source and target tasks share similar low-level features; it may hurt if domains differ drastically (negative transfer).
 
 ---
 
@@ -46,7 +56,11 @@ Example: `model = torchvision.models.resnet50(pretrained=True); for param in mod
 
 ### Q4: What is domain adaptation and how does it differ from transfer learning?
 
-**A:** Domain adaptation addresses a key limitation of transfer learning: distribution shift between source (training) and target (test) data. Transfer learning assumes source and target are from the same distribution; domain adaptation explicitly handles cases where they differ. For example, training an object detector on synthetic images (source) then deploying on real images (target)—the domains shift (rendering artifacts, lighting, textures). Covariate shift means P(X_target) differs from P(X_source) but P(Y|X) is unchanged (marginal X distribution changes, conditional stays same). Dataset shift (broader) includes any P(X, Y) difference. Concept drift occurs when P(Y|X) changes over time (e.g., user preferences evolve). Domain adaptation strategies:
+**A:** Domain adaptation addresses a key limitation of transfer learning: distribution shift between source (training) and target (test) data. Transfer learning assumes source and target are from the same distribution; domain adaptation explicitly handles cases where they differ.
+
+For example, training an object detector on synthetic images (source) then deploying on real images (target)—the domains shift (rendering artifacts, lighting, textures). Covariate shift means P(X_target) differs from P(X_source) but P(Y|X) is unchanged (marginal X distribution changes, conditional stays same).
+
+Dataset shift (broader) includes any P(X, Y) difference. Concept drift occurs when P(Y|X) changes over time (e.g., user preferences evolve). Domain adaptation strategies:
 
 (1) unsupervised DA—adapt to target without labels,
 
@@ -86,7 +100,11 @@ Implementation: in PyTorch, use a GradientReversal layer with custom backward().
 
 ### Q7: What is maximum mean discrepancy (MMD) and how does it address domain adaptation?
 
-**A:** MMD measures the distance between two distributions by comparing their feature means in a high-dimensional space. Formula: MMD^2(P, Q) = || E_P[phi(X)] - E_Q[phi(X)] ||^2, where phi is a feature mapping. For distributions far apart in original space, embedding via phi (e.g., nonlinear kernel map) can reveal differences. Empirically: MMD(P, Q) = || (1/n) sum_i phi(x_i) - (1/m) sum_j phi(y_j) ||^2 computes kernel means. For domain adaptation: add a regularizer to the task loss that penalizes MMD between source and target feature distributions: Loss = task_loss + lambda * MMD(source_features, target_features). This forces the model to learn features where source and target align, reducing domain shift. MMD is differentiable (computable on mini-batches), so it integrates smoothly into neural network training. Advantages over DANN: simpler (no adversarial min-max game), more stable, easier to implement.
+**A:** MMD measures the distance between two distributions by comparing their feature means in a high-dimensional space. Formula: MMD^2(P, Q) = || E_P[phi(X)] - E_Q[phi(X)] ||^2, where phi is a feature mapping. For distributions far apart in original space, embedding via phi (e.g., nonlinear kernel map) can reveal differences.
+
+Empirically: MMD(P, Q) = || (1/n) sum_i phi(x_i) - (1/m) sum_j phi(y_j) ||^2 computes kernel means. For domain adaptation: add a regularizer to the task loss that penalizes MMD between source and target feature distributions: Loss = task_loss + lambda * MMD(source_features, target_features).
+
+This forces the model to learn features where source and target align, reducing domain shift. MMD is differentiable (computable on mini-batches), so it integrates smoothly into neural network training. Advantages over DANN: simpler (no adversarial min-max game), more stable, easier to implement.
 
 Disadvantages: assumes MMD is the right metric (empirically often is, but not always), and MMD can be expensive for large feature dimensions (kernel computation). In practice, use a kernel-based MMD: `sum_{i,j} K(x_i, x_j) - 2 * sum_{i,j} K(x_i, y_j) + sum_{i,j} K(y_i, y_j)` with RBF kernel K. MMD works best for covariate shift; like DANN, it can't fix concept drift.
 
@@ -176,7 +194,19 @@ Best practices:
 
 ### Q14: How does ImageNet pre-training transfer to downstream vision tasks? What's the advantage over training from scratch?
 
-**A:** ImageNet pre-training trains a CNN on 1.2M images across 1000 object classes using supervised learning. Transfer to downstream tasks (medical imaging, autonomous driving, satellite imagery) leverages low-level features learned by ImageNet. Empirical results: ResNet-50 trained from scratch on ImageNet requires 90 epochs and 8 GPUs for 72-hour training; fine-tuned on a downstream task (e.g., 10k medical images) in 2 hours reaches higher accuracy than training from scratch on the same 10k images for 10 hours. The advantage: early CNN layers learn universal features (edges, textures, simple shapes) useful across domains; ImageNet provides this free via pre-training. When transferring: freeze early layers (conv1, layer1, layer2), fine-tune later layers (layer3, layer4, classifier). Layer-wise feature visualization shows that unfrozen early layers overfit to downstream data despite pre-training. For very similar domains (e.g., natural images to fine-grained birds), even the classifier head transfers; for very different domains (natural images to X-rays), earlier layers transfer better—medical images have different texture/scale distributions. A complication: ImageNet pre-training is biased toward object recognition—models exploit high-frequency textures and ignore shapes (texture bias). For tasks requiring shape understanding, texture-debiased ImageNet pre-training or domain-specific pre-training (e.g., RadImageNet for medical imaging) works better. For very small downstream datasets (<1k examples), feature extraction (freeze all but the head) prevents overfitting. The lesson: domain-specific pre-training > ImageNet pre-training > training from scratch for small-data transfer scenarios.
+**A:** ImageNet pre-training trains a CNN on 1.2M images across 1000 object classes using supervised learning. Transfer to downstream tasks (medical imaging, autonomous driving, satellite imagery) leverages low-level features learned by ImageNet.
+
+Empirical results: ResNet-50 trained from scratch on ImageNet requires 90 epochs and 8 GPUs for 72-hour training; fine-tuned on a downstream task (e.g., 10k medical images) in 2 hours reaches higher accuracy than training from scratch on the same 10k images for 10 hours.
+
+The advantage: early CNN layers learn universal features (edges, textures, simple shapes) useful across domains; ImageNet provides this free via pre-training. When transferring: freeze early layers (conv1, layer1, layer2), fine-tune later layers (layer3, layer4, classifier).
+
+Layer-wise feature visualization shows that unfrozen early layers overfit to downstream data despite pre-training.
+
+For very similar domains (e.g., natural images to fine-grained birds), even the classifier head transfers; for very different domains (natural images to X-rays), earlier layers transfer better—medical images have different texture/scale distributions.
+
+A complication: ImageNet pre-training is biased toward object recognition—models exploit high-frequency textures and ignore shapes (texture bias). For tasks requiring shape understanding, texture-debiased ImageNet pre-training or domain-specific pre-training (e.g., RadImageNet for medical imaging) works better.
+
+For very small downstream datasets (<1k examples), feature extraction (freeze all but the head) prevents overfitting. The lesson: domain-specific pre-training > ImageNet pre-training > training from scratch for small-data transfer scenarios.
 
 ---
 

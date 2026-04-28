@@ -47,7 +47,9 @@ Training: optimize cross-entropy loss `Σ -log P(x_t | x_1:t-1)` on diverse inte
 
 ### Q2: Explain scaling laws for LLMs. What are Chinchilla laws and why do they matter?
 
-**A:** Scaling laws quantify how LLM loss decreases with model size N (parameters) and dataset size D (tokens). Empirical findings: `Loss(N) = A*N^{-α}` with α ≈ 0.07, `Loss(D) = B*D^{-β}` with β ≈ 0.2. Both matter: loss doesn't converge (more parameters help even with infinite data, more data helps even with infinite parameters). **Chinchilla laws** (Hoffman et al., 2022) provide optimal allocation: for fixed compute budget C, split equally between parameters and tokens. Concretely: train `N` parameter model on approximately `N*20` tokens.
+**A:** Scaling laws quantify how LLM loss decreases with model size N (parameters) and dataset size D (tokens). Empirical findings: `Loss(N) = A*N^{-α}` with α ≈ 0.07, `Loss(D) = B*D^{-β}` with β ≈ 0.2.
+
+Both matter: loss doesn't converge (more parameters help even with infinite data, more data helps even with infinite parameters). **Chinchilla laws** (Hoffman et al., 2022) provide optimal allocation: for fixed compute budget C, split equally between parameters and tokens. Concretely: train `N` parameter model on approximately `N*20` tokens.
 
 Example: 70B model trained on 1.4T tokens. Why matter:
 
@@ -171,7 +173,9 @@ Limitations:
 
 ### Q7: Explain DPO (Direct Preference Optimization). How is it an improvement over RLHF?
 
-**A:** **DPO:** directly optimize LLM based on human preferences without explicitly training a reward model. Motivation: RLHF requires two stages (train reward model, then RL fine-tuning), adding complexity and cost. DPO combines into one. Algorithm: given pairs of responses (preferred, dispreferred) for each prompt, directly optimize: `L = -E[(log σ(β * log(π(y_win|x) / π_ref(y_win|x)))) + log(1 - σ(β * log(π(y_loss|x) / π_ref(y_loss|x))))]` where σ is sigmoid, β is scaling factor (inverse temperature), π is model, π_ref is reference (base) model.
+**A:** **DPO:** directly optimize LLM based on human preferences without explicitly training a reward model. Motivation: RLHF requires two stages (train reward model, then RL fine-tuning), adding complexity and cost. DPO combines into one.
+
+Algorithm: given pairs of responses (preferred, dispreferred) for each prompt, directly optimize: `L = -E[(log σ(β * log(π(y_win|x) / π_ref(y_win|x)))) + log(1 - σ(β * log(π(y_loss|x) / π_ref(y_loss|x))))]` where σ is sigmoid, β is scaling factor (inverse temperature), π is model, π_ref is reference (base) model.
 
 Intuition: compare log-likelihood ratio of preferred vs dispreferred response under current model and base model. Maximize likelihood of preferred (numerator high) and minimize likelihood of dispreferred (numerator low). Advantages over RLHF:
 

@@ -14,7 +14,13 @@ Time series analysis is critical in finance, forecasting, and sensor data applic
 
 ### Q1: What is stationarity in time series? Distinguish between strict and weak stationarity.
 
-**A:** Stationarity means the statistical properties of a time series don't change over time. Strict stationarity requires the joint distribution of (yₜ, yₜ₊₁, ..., yₜ₊ₙ) to be identical for all shifts in time t, which is very restrictive. Weak (or covariance) stationarity only requires constant mean E[yₜ] = μ, constant variance Var(yₜ) = σ², and autocovariance Cov(yₜ, yₜ₊ₖ) depending only on lag k (not on t). In practice, weak stationarity is sufficient for most classical methods like ARIMA. A non-stationary series exhibits a trend (changing mean), seasonal patterns (time-varying variance or periodicity), or unit roots (random walks). Classic example: stock prices are non-stationary (have trends), but returns (price changes) are approximately stationary. Many forecasting models assume stationarity, so detecting and transforming non-stationary data is critical before modeling.
+**A:** Stationarity means the statistical properties of a time series don't change over time. Strict stationarity requires the joint distribution of (yₜ, yₜ₊₁, ..., yₜ₊ₙ) to be identical for all shifts in time t, which is very restrictive.
+
+Weak (or covariance) stationarity only requires constant mean E[yₜ] = μ, constant variance Var(yₜ) = σ², and autocovariance Cov(yₜ, yₜ₊ₖ) depending only on lag k (not on t). In practice, weak stationarity is sufficient for most classical methods like ARIMA.
+
+A non-stationary series exhibits a trend (changing mean), seasonal patterns (time-varying variance or periodicity), or unit roots (random walks). Classic example: stock prices are non-stationary (have trends), but returns (price changes) are approximately stationary.
+
+Many forecasting models assume stationarity, so detecting and transforming non-stationary data is critical before modeling.
 
 ---
 
@@ -46,7 +52,11 @@ Example: retail sales spike every December, temperature has daily cycles, web tr
 
 ### Q4: What is autocorrelation (ACF) and partial autocorrelation (PACF)? How do you interpret them?
 
-**A:** Autocorrelation (ACF) measures correlation between yₜ and yₜ₋ₖ (its past at lag k): ACF(k) = Cov(yₜ, yₜ₋ₖ) / Var(yₜ). Partial autocorrelation (PACF) is correlation at lag k after removing intermediate lags' effects, capturing direct dependence. ACF and PACF plots are essential diagnostics for ARIMA model selection. For an AR(p) process, PACF cuts off after lag p (non-zero up to p, then zero), while ACF decays gradually. For an MA(q) process, ACF cuts off after lag q, while PACF decays. These patterns guide choosing p and q in ARIMA(p,d,q). Significant ACF at seasonal lags (e.g., lag 12) indicates seasonality requiring seasonal ARIMA. A slow ACF decay suggests non-stationarity—confirm with ADF test. In interviews, the key insight is that ACF/PACF patterns directly prescribe ARIMA orders; they're not just fancy plots but actionable diagnostics driving model selection.
+**A:** Autocorrelation (ACF) measures correlation between yₜ and yₜ₋ₖ (its past at lag k): ACF(k) = Cov(yₜ, yₜ₋ₖ) / Var(yₜ). Partial autocorrelation (PACF) is correlation at lag k after removing intermediate lags' effects, capturing direct dependence. ACF and PACF plots are essential diagnostics for ARIMA model selection.
+
+For an AR(p) process, PACF cuts off after lag p (non-zero up to p, then zero), while ACF decays gradually. For an MA(q) process, ACF cuts off after lag q, while PACF decays. These patterns guide choosing p and q in ARIMA(p,d,q). Significant ACF at seasonal lags (e.g., lag 12) indicates seasonality requiring seasonal ARIMA.
+
+A slow ACF decay suggests non-stationarity—confirm with ADF test. In interviews, the key insight is that ACF/PACF patterns directly prescribe ARIMA orders; they're not just fancy plots but actionable diagnostics driving model selection.
 
 ---
 
@@ -76,13 +86,23 @@ Example: retail sales spike every December, temperature has daily cycles, web tr
 
 ### Q7: What is differencing and how does it achieve stationarity?
 
-**A:** Differencing computes yₜ' = yₜ - yₜ₋₁, the first-order differences (changes between consecutive observations). First differencing removes linear trends and transforms I(1) series (unit root, like random walk) to I(0) stationary. Second differencing (double differencing, Δ²yₜ = Δyₜ - Δyₜ₋₁) removes quadratic trends and transforms I(2) series. Seasonal differencing (yₜ - yₜ₋ₛ where s is season length) removes seasonal patterns. Overdifferencing (applying more differencing than needed) introduces artificial autocorrelation and inflates variance; you want minimal differencing to achieve stationarity. In ARIMA(p,d,q), the d parameter specifies differencing order. Best practice: apply ADF test iteratively—if the series has unit root, difference once and retest; repeat until stationarity is achieved. Differencing is invertible (you can recover original series), essential for producing forecasts in original scale. Differencing is preferable to detrending in ARIMA because it's automatic and integrates into the model.
+**A:** Differencing computes yₜ' = yₜ - yₜ₋₁, the first-order differences (changes between consecutive observations). First differencing removes linear trends and transforms I(1) series (unit root, like random walk) to I(0) stationary.
+
+Second differencing (double differencing, Δ²yₜ = Δyₜ - Δyₜ₋₁) removes quadratic trends and transforms I(2) series. Seasonal differencing (yₜ - yₜ₋ₛ where s is season length) removes seasonal patterns.
+
+Overdifferencing (applying more differencing than needed) introduces artificial autocorrelation and inflates variance; you want minimal differencing to achieve stationarity. In ARIMA(p,d,q), the d parameter specifies differencing order.
+
+Best practice: apply ADF test iteratively—if the series has unit root, difference once and retest; repeat until stationarity is achieved. Differencing is invertible (you can recover original series), essential for producing forecasts in original scale.
+
+Differencing is preferable to detrending in ARIMA because it's automatic and integrates into the model.
 
 ---
 
 ### Q8: Explain the Augmented Dickey-Fuller (ADF) test. What does it test and how do you interpret results?
 
-**A:** The ADF test is a statistical test for a unit root (non-stationarity) in a time series. The null hypothesis is H₀: the series has a unit root (non-stationary); the alternative is H₁: the series is stationary. The test regresses Δyₜ = α + βyₜ₋₁ + Σγᵢ·Δyₜ₋ᵢ + εₜ and tests if β = 0 (equivalently, if the coefficient of yₜ₋₁ is zero, indicating a unit root). The test statistic follows a non-standard distribution (Dickey-Fuller distribution).
+**A:** The ADF test is a statistical test for a unit root (non-stationarity) in a time series. The null hypothesis is H₀: the series has a unit root (non-stationary); the alternative is H₁: the series is stationary.
+
+The test regresses Δyₜ = α + βyₜ₋₁ + Σγᵢ·Δyₜ₋ᵢ + εₜ and tests if β = 0 (equivalently, if the coefficient of yₜ₋₁ is zero, indicating a unit root). The test statistic follows a non-standard distribution (Dickey-Fuller distribution).
 
 Interpretation:
 
@@ -118,13 +138,25 @@ Example: a company's monthly sales with additive seasonality might see constant 
 
 ### Q11: What are moving averages and exponential smoothing in time series?
 
-**A:** A moving average (MA) smooths a series by averaging the current value and k previous values: SMA_k(t) = (yₜ + yₜ₋₁ + ... + yₜ₋ₖ₊₁) / k. It removes noise and reveals trends but lags behind actual values. Exponential smoothing (ES) weights recent observations more heavily via SES(t) = α·yₜ + (1-α)·SES(t-1), where α ∈ (0,1) is a smoothing parameter. Higher α weights current data more (reactive, noisy); lower α gives heavier weight to history (smooth but lagging). ES adapts to level changes; MA has a fixed lag. Moving averages are used for visualization and denoising; exponential smoothing is a simple forecasting method. Holt's method extends ES to handle trends: level equation, trend equation, and forecasts. Holt-Winters extends further to include seasonality: additive or multiplicative seasonal component. All ES variants are special cases of state space models and underpin modern forecasting (Prophet, TBATS). In interviews, the key is understanding that ES methods are computationally efficient forecasting algorithms that capture level, trend, and seasonality without full ARIMA machinery.
+**A:** A moving average (MA) smooths a series by averaging the current value and k previous values: SMA_k(t) = (yₜ + yₜ₋₁ + ... + yₜ₋ₖ₊₁) / k. It removes noise and reveals trends but lags behind actual values.
+
+Exponential smoothing (ES) weights recent observations more heavily via SES(t) = α·yₜ + (1-α)·SES(t-1), where α ∈ (0,1) is a smoothing parameter. Higher α weights current data more (reactive, noisy); lower α gives heavier weight to history (smooth but lagging). ES adapts to level changes; MA has a fixed lag.
+
+Moving averages are used for visualization and denoising; exponential smoothing is a simple forecasting method. Holt's method extends ES to handle trends: level equation, trend equation, and forecasts. Holt-Winters extends further to include seasonality: additive or multiplicative seasonal component.
+
+All ES variants are special cases of state space models and underpin modern forecasting (Prophet, TBATS). In interviews, the key is understanding that ES methods are computationally efficient forecasting algorithms that capture level, trend, and seasonality without full ARIMA machinery.
 
 ---
 
 ### Q12: How do you construct lag features for time series regression models?
 
-**A:** Lag features are previous values of the target or other variables used as predictors. For target yₜ, construct lag features: lag_1 = yₜ₋₁, lag_2 = yₜ₋₂, ..., lag_p = yₜ₋ₚ. These turn the time series prediction problem into supervised learning. In sliding window fashion, create (X, y) pairs: X = [yₜ₋ₚ, ..., yₜ₋₁] and y = yₜ. Lag selection: use ACF/PACF to identify significant lags (e.g., if PACF cuts off at lag 5, use p=5 lags). Other features include rolling statistics (rolling mean, rolling std), seasonal lags (yₜ₋₁₂ for monthly data with yearly seasonality), and lead-lag relationships with exogenous variables. Caution: include only past information (no future leakage). Window size (p) balances capturing temporal dependencies vs. reducing available training samples. For deep learning (LSTM, CNN), lag construction is implicit (model learns temporal dependencies); for tree models, explicit lag engineering is critical. Best practice: start with p from ACF/PACF, then validate via cross-validation and ablation studies. Lag feature engineering is less art and more science when guided by autocorrelation diagnostics.
+**A:** Lag features are previous values of the target or other variables used as predictors. For target yₜ, construct lag features: lag_1 = yₜ₋₁, lag_2 = yₜ₋₂, ..., lag_p = yₜ₋ₚ. These turn the time series prediction problem into supervised learning. In sliding window fashion, create (X, y) pairs: X = [yₜ₋ₚ, ..., yₜ₋₁] and y = yₜ.
+
+Lag selection: use ACF/PACF to identify significant lags (e.g., if PACF cuts off at lag 5, use p=5 lags). Other features include rolling statistics (rolling mean, rolling std), seasonal lags (yₜ₋₁₂ for monthly data with yearly seasonality), and lead-lag relationships with exogenous variables.
+
+Caution: include only past information (no future leakage). Window size (p) balances capturing temporal dependencies vs. reducing available training samples. For deep learning (LSTM, CNN), lag construction is implicit (model learns temporal dependencies); for tree models, explicit lag engineering is critical.
+
+Best practice: start with p from ACF/PACF, then validate via cross-validation and ablation studies. Lag feature engineering is less art and more science when guided by autocorrelation diagnostics.
 
 ---
 
@@ -160,7 +192,9 @@ Example: 30-day rolling volatility for stock returns shows when markets are calm
 
 ### Q15: What is time series cross-validation and why is it different from standard cross-validation?
 
-**A:** Standard k-fold cross-validation randomly shuffles data, violating temporal order and allowing information leakage (future data trains the model). Time series cross-validation respects temporal structure via walk-forward validation: train on [t₁, ..., tᵢ], test on [tᵢ₊₁, ..., tⱼ], then expand training window to [t₁, ..., tⱼ], test on [tⱼ₊₁, ..., tₖ], repeating until the end. No future data trains the model; evaluation mimics real-world deployment. Variants:
+**A:** Standard k-fold cross-validation randomly shuffles data, violating temporal order and allowing information leakage (future data trains the model).
+
+Time series cross-validation respects temporal structure via walk-forward validation: train on [t₁, ..., tᵢ], test on [tᵢ₊₁, ..., tⱼ], then expand training window to [t₁, ..., tⱼ], test on [tⱼ₊₁, ..., tₖ], repeating until the end. No future data trains the model; evaluation mimics real-world deployment. Variants:
 
 (1) Fixed-origin CV: training window is fixed, test window expands (less realistic if data has strong trend).
 

@@ -14,25 +14,55 @@ Causal inference is the capability to understand not just what happened, but why
 
 ### Q1: Explain the difference between correlation and causation. Why is this distinction critical for business decisions?
 
-**A:** Correlation simply measures how two variables co-vary; causation means one variable directly influences another. For example, ice cream sales and drowning deaths are correlated (both increase in summer) but neither causes the other—temperature is the confounding variable. In business, mistaking correlation for causation leads to costly wrong decisions: if a website redesign coincides with increased conversions, you might implement it permanently when actually external factors (seasonal demand, competitor outage) caused the increase. Conversely, you might abandon improvements that actually worked if short-term noise masked the effect. The critical difference is that causation enables prediction of intervention outcomes: if you increase marketing spend and sales increase (correlation), you don't know if the marketing caused it or if it was coincidental timing; only randomized testing or causal inference methods can establish that causation. Correlation is a starting point for hypothesis generation, but must be validated through experimentation or rigorous observational methods that account for confounding. This distinction directly impacts ROI: understanding true causation maximizes marketing budget allocation, product development priorities, and operational improvements.
+**A:** Correlation simply measures how two variables co-vary; causation means one variable directly influences another. For example, ice cream sales and drowning deaths are correlated (both increase in summer) but neither causes the other—temperature is the confounding variable.
+
+In business, mistaking correlation for causation leads to costly wrong decisions: if a website redesign coincides with increased conversions, you might implement it permanently when actually external factors (seasonal demand, competitor outage) caused the increase.
+
+Conversely, you might abandon improvements that actually worked if short-term noise masked the effect.
+
+The critical difference is that causation enables prediction of intervention outcomes: if you increase marketing spend and sales increase (correlation), you don't know if the marketing caused it or if it was coincidental timing; only randomized testing or causal inference methods can establish that causation.
+
+Correlation is a starting point for hypothesis generation, but must be validated through experimentation or rigorous observational methods that account for confounding. This distinction directly impacts ROI: understanding true causation maximizes marketing budget allocation, product development priorities, and operational improvements.
 
 ---
 
 ### Q2: What is the potential outcomes framework (Rubin Causal Model)? Explain the notation Y(0), Y(1), and the fundamental problem of causal inference.
 
-**A:** The potential outcomes framework formalizes causality by defining for each unit i two potential outcomes: Y_i(1) under treatment and Y_i(0) under control, with the individual causal effect being τ_i = Y_i(1) - Y_i(0). The fundamental problem is that we observe only one outcome per unit: if unit i receives treatment, we see Y_i(1) but never Y_i(0) (the counterfactual)—we cannot directly observe what would have happened without treatment. Thus, causal inference is about imputing unobserved counterfactuals. Randomization solves this by making treatment independent of potential outcomes, so the average treatment effect ATE = E[Y(1)] - E[Y(0)] can be estimated as the difference in sample means across treatment and control groups. In observational data without randomization, units receiving treatment often differ systematically from controls (e.g., engaged users adopt new features more), so simply comparing Y values between groups confounds treatment effects with selection effects. This framework mathematically clarifies what causation means (comparison of potential outcomes) and why randomization is powerful—it ensures treatment is independent of counterfactuals, making simple comparisons valid. Understanding this framework is essential for designing experiments and choosing observational methods.
+**A:** The potential outcomes framework formalizes causality by defining for each unit i two potential outcomes: Y_i(1) under treatment and Y_i(0) under control, with the individual causal effect being τ_i = Y_i(1) - Y_i(0).
+
+The fundamental problem is that we observe only one outcome per unit: if unit i receives treatment, we see Y_i(1) but never Y_i(0) (the counterfactual)—we cannot directly observe what would have happened without treatment. Thus, causal inference is about imputing unobserved counterfactuals.
+
+Randomization solves this by making treatment independent of potential outcomes, so the average treatment effect ATE = E[Y(1)] - E[Y(0)] can be estimated as the difference in sample means across treatment and control groups.
+
+In observational data without randomization, units receiving treatment often differ systematically from controls (e.g., engaged users adopt new features more), so simply comparing Y values between groups confounds treatment effects with selection effects.
+
+This framework mathematically clarifies what causation means (comparison of potential outcomes) and why randomization is powerful—it ensures treatment is independent of counterfactuals, making simple comparisons valid. Understanding this framework is essential for designing experiments and choosing observational methods.
 
 ---
 
 ### Q3: Define Average Treatment Effect (ATE), Average Treatment Effect on the Treated (ATT), and Average Treatment Effect on the Control (ATC). When would you report each?
 
-**A:** ATE = E[Y(1) - Y(0)] is the average effect of treatment across the entire population; it answers "what is the population-level impact?" ATT = E[Y(1) - Y(0) | T=1] is the effect specifically for units who received treatment; it answers "did it help those who actually used it?" ATC = E[Y(1) - Y(0) | T=0] is the effect for units who didn't receive treatment; it reveals whether non-adopters would have benefited if treated. In a randomized experiment, ATE is the primary estimand because randomization ensures comparability. In observational data, ATE requires stronger assumptions (unconfoundedness); ATT is often easier to estimate because it only requires balancing treated units with similar controls. Report ATE when making universal policy decisions (should we roll out feature to all users?), ATT when evaluating program impact on actual participants (did those who adopted the feature benefit?), and ATC when assessing whether program missed potential beneficiaries. For example, a job training program's ATT might be positive (trainees earned more) but ATE could be lower if selection effects matter; you'd report both to show who benefits most. Some programs intentionally target high-need populations where ATC >> ATT, indicating untapped potential if expanded.
+**A:** ATE = E[Y(1) - Y(0)] is the average effect of treatment across the entire population; it answers "what is the population-level impact?" ATT = E[Y(1) - Y(0) | T=1] is the effect specifically for units who received treatment;
+
+it answers "did it help those who actually used it?" ATC = E[Y(1) - Y(0) | T=0] is the effect for units who didn't receive treatment; it reveals whether non-adopters would have benefited if treated.
+
+In a randomized experiment, ATE is the primary estimand because randomization ensures comparability. In observational data, ATE requires stronger assumptions (unconfoundedness); ATT is often easier to estimate because it only requires balancing treated units with similar controls.
+
+Report ATE when making universal policy decisions (should we roll out feature to all users?), ATT when evaluating program impact on actual participants (did those who adopted the feature benefit?), and ATC when assessing whether program missed potential beneficiaries.
+
+For example, a job training program's ATT might be positive (trainees earned more) but ATE could be lower if selection effects matter; you'd report both to show who benefits most. Some programs intentionally target high-need populations where ATC >> ATT, indicating untapped potential if expanded.
 
 ---
 
 ### Q4: What are confounding variables? Explain backdoor paths, frontdoor paths, and how to identify confounders using a causal graph (DAG).
 
-**A:** Confounding variables influence both treatment and outcome, creating "backdoor paths" (non-causal associations) between treatment and outcome that bias causal estimates. For example, customer engagement (confounder) affects both whether they adopt a new feature (treatment) and their satisfaction (outcome), so comparing satisfaction between adopters and non-adopters mixes treatment effect with selection effect. A Directed Acyclic Graph (DAG) visualizes causal relationships: confounders appear as variables with arrows into both treatment and outcome, creating a backdoor path (e.g., Engagement → Feature Adoption, Engagement → Satisfaction). The backdoor criterion identifies confounders: a variable is a confounder if blocking it (conditioning on it) removes all backdoor paths while leaving frontdoor paths (causal pathways through mediators) intact. Frontdoor paths don't bias estimates but may block causal effects if you condition on mediators. To identify confounders:
+**A:** Confounding variables influence both treatment and outcome, creating "backdoor paths" (non-causal associations) between treatment and outcome that bias causal estimates.
+
+For example, customer engagement (confounder) affects both whether they adopt a new feature (treatment) and their satisfaction (outcome), so comparing satisfaction between adopters and non-adopters mixes treatment effect with selection effect.
+
+A Directed Acyclic Graph (DAG) visualizes causal relationships: confounders appear as variables with arrows into both treatment and outcome, creating a backdoor path (e.g., Engagement → Feature Adoption, Engagement → Satisfaction).
+
+The backdoor criterion identifies confounders: a variable is a confounder if blocking it (conditioning on it) removes all backdoor paths while leaving frontdoor paths (causal pathways through mediators) intact. Frontdoor paths don't bias estimates but may block causal effects if you condition on mediators. To identify confounders:
 
 (1) draw the causal DAG based on domain knowledge,
 
@@ -44,7 +74,13 @@ Causal inference is the capability to understand not just what happened, but why
 
 ### Q5: What is propensity score matching (PSM)? How does it estimate treatment effects and what are its assumptions and limitations?
 
-**A:** Propensity score matching estimates causal effects by first computing each unit's propensity score (probability of receiving treatment given observed characteristics), then matching treated units to similar control units based on propensity scores, effectively recreating a randomized comparison within matched pairs. The ATE is then estimated as the difference in mean outcomes between matched treated and control groups. PSM requires the strong assumption of unconfoundedness (no unmeasured confounders)—that all variables affecting both treatment and outcome are observed and included in the propensity score model. It also assumes common support (overlap): the distribution of propensity scores must be similar between treated and control, ensuring comparable matches exist; units outside common support (e.g., treated units with no similar control counterparts) are excluded. The advantage is interpretability and straightforward implementation. Limitations include:
+**A:** Propensity score matching estimates causal effects by first computing each unit's propensity score (probability of receiving treatment given observed characteristics), then matching treated units to similar control units based on propensity scores, effectively recreating a randomized comparison within matched pairs.
+
+The ATE is then estimated as the difference in mean outcomes between matched treated and control groups. PSM requires the strong assumption of unconfoundedness (no unmeasured confounders)—that all variables affecting both treatment and outcome are observed and included in the propensity score model.
+
+It also assumes common support (overlap): the distribution of propensity scores must be similar between treated and control, ensuring comparable matches exist; units outside common support (e.g., treated units with no similar control counterparts) are excluded. The advantage is interpretability and straightforward implementation.
+
+Limitations include:
 
 (1) matching on propensity score rather than raw features loses information about actual covariate balance;
 
@@ -58,7 +94,11 @@ Causal inference is the capability to understand not just what happened, but why
 
 ### Q6: Explain inverse probability weighting (IPW) and why it's often better than matching. How do you choose propensity score models?
 
-**A:** IPW uses propensity scores to reweight observations: treated units are downweighted (divided by propensity score P(T=1|X)) and controls upweighted (divided by 1-P(T=1|X)), creating a pseudo-population where treatment is independent of confounders. This yields an unbiased ATE estimate without discarding any data, unlike matching which loses unmatched units. IPW is doubly robust when combined with outcome modeling: it's consistent if either the propensity score model or outcome model is correct, but not necessarily both—if propensity scores are well-specified, outcome model misspecification matters less, and vice versa. Choose propensity score models by:
+**A:** IPW uses propensity scores to reweight observations: treated units are downweighted (divided by propensity score P(T=1|X)) and controls upweighted (divided by 1-P(T=1|X)), creating a pseudo-population where treatment is independent of confounders.
+
+This yields an unbiased ATE estimate without discarding any data, unlike matching which loses unmatched units.
+
+IPW is doubly robust when combined with outcome modeling: it's consistent if either the propensity score model or outcome model is correct, but not necessarily both—if propensity scores are well-specified, outcome model misspecification matters less, and vice versa. Choose propensity score models by:
 
 (1) balancing parsimony (avoid overfitting) with capturing true confounders;
 
@@ -74,7 +114,11 @@ Causal inference is the capability to understand not just what happened, but why
 
 ### Q7: What are instrumental variables (IV)? When would you use them instead of propensity score methods?
 
-**A:** Instrumental variables handle unmeasured confounding (the scenario where key confounders aren't observed) by using a variable Z that affects outcome only through treatment, creating exogenous variation in treatment. For example, if studying effect of college attendance on earnings, past tuition policy changes are instrumental variables because they affect college attendance but not earnings directly. IV regression estimates the local average treatment effect (LATE)—the causal effect for units whose treatment is affected by the instrument—by using Z as an exogenous source of variation. The two-stage least squares (2SLS) approach regresses treatment on Z to extract exogenous variation, then uses fitted treatment to predict outcome. IV requires:
+**A:** Instrumental variables handle unmeasured confounding (the scenario where key confounders aren't observed) by using a variable Z that affects outcome only through treatment, creating exogenous variation in treatment.
+
+For example, if studying effect of college attendance on earnings, past tuition policy changes are instrumental variables because they affect college attendance but not earnings directly.
+
+IV regression estimates the local average treatment effect (LATE)—the causal effect for units whose treatment is affected by the instrument—by using Z as an exogenous source of variation. The two-stage least squares (2SLS) approach regresses treatment on Z to extract exogenous variation, then uses fitted treatment to predict outcome. IV requires:
 
 (1) relevance (Z strongly predicts T), checked via first-stage F-statistics (F > 10);
 
@@ -84,7 +128,13 @@ Causal inference is the capability to understand not just what happened, but why
 
 ### Q8: Explain difference-in-differences (DiD). What is the parallel trends assumption and why is it critical?
 
-**A:** Difference-in-differences estimates causal effects by comparing the change in outcome over time between treatment and control groups, isolating the treatment effect from general time trends. If treatment group has outcome y before treatment (y₁) and after (y₂), while control group has c₁ before and c₂ after, then DiD estimate = (y₂ - y₁) - (c₂ - c₁), measuring the additional change in treatment group beyond the trend in controls. For example, if a retailer implements checkout optimization (treatment) in some stores but not others, comparing sales changes between treatment and control stores removes time trends from economy-wide effects or seasonal patterns. The critical assumption is parallel trends: absent treatment, the treatment group would follow the same trajectory as controls (formally, E[Y(0)₂ - Y(0)₁ | T=1] = E[Y(0)₂ - Y(0)₁ | T=0]). This is untestable in practice but can be validated by:
+**A:** Difference-in-differences estimates causal effects by comparing the change in outcome over time between treatment and control groups, isolating the treatment effect from general time trends.
+
+If treatment group has outcome y before treatment (y₁) and after (y₂), while control group has c₁ before and c₂ after, then DiD estimate = (y₂ - y₁) - (c₂ - c₁), measuring the additional change in treatment group beyond the trend in controls.
+
+For example, if a retailer implements checkout optimization (treatment) in some stores but not others, comparing sales changes between treatment and control stores removes time trends from economy-wide effects or seasonal patterns.
+
+The critical assumption is parallel trends: absent treatment, the treatment group would follow the same trajectory as controls (formally, E[Y(0)₂ - Y(0)₁ | T=1] = E[Y(0)₂ - Y(0)₁ | T=0]). This is untestable in practice but can be validated by:
 
 (1) checking pre-treatment trends are parallel (graphically and statistically),
 
@@ -98,7 +148,13 @@ Limitations: it requires repeated observations over time, parallel trends may fa
 
 ### Q9: What is regression discontinuity design (RDD)? How does it create a natural quasi-experiment?
 
-**A:** Regression discontinuity exploits sharp cutoffs in treatment assignment to estimate causal effects. If treatment is assigned based on a running variable X (e.g., test score ≥ 80 gets admission, < 80 denied), and outcome Y is continuous in X, then there's a discontinuity in Y at the threshold caused by treatment. The effect is estimated as the jump in outcome at the cutoff. For example, using RDD to study impact of being admitted to college: students with test scores 79.5 and 80.5 are nearly identical in ability but differ in admission status, creating a natural quasi-experiment. The assumption is continuity: the relationship between X and Y is continuous at the threshold absent treatment; any discontinuity is due to treatment. RDD is locally valid (estimates effect near the cutoff) and doesn't require strong unconfoundedness because the cutoff itself creates comparability—units just above and below differ in treatment assignment but not in potential confounders (if continuity holds). Estimation involves:
+**A:** Regression discontinuity exploits sharp cutoffs in treatment assignment to estimate causal effects. If treatment is assigned based on a running variable X (e.g., test score ≥ 80 gets admission, < 80 denied), and outcome Y is continuous in X, then there's a discontinuity in Y at the threshold caused by treatment.
+
+The effect is estimated as the jump in outcome at the cutoff. For example, using RDD to study impact of being admitted to college: students with test scores 79.5 and 80.5 are nearly identical in ability but differ in admission status, creating a natural quasi-experiment.
+
+The assumption is continuity: the relationship between X and Y is continuous at the threshold absent treatment; any discontinuity is due to treatment.
+
+RDD is locally valid (estimates effect near the cutoff) and doesn't require strong unconfoundedness because the cutoff itself creates comparability—units just above and below differ in treatment assignment but not in potential confounders (if continuity holds). Estimation involves:
 
 (1) local linear regression fitting lines on both sides of cutoff, then comparing slopes and intercepts, or (2) non-parametric approaches weighting nearby observations.
 
@@ -120,7 +176,13 @@ Limitations: estimates are local (apply near cutoff, may not generalize), requir
 
 ### Q11: What is Simpson's Paradox? How does it arise and how do you resolve it causally?
 
-**A:** Simpson's Paradox occurs when a relationship reverses direction when you aggregate or disaggregate data—for example, a treatment appears beneficial overall but harmful within every subgroup, or vice versa. This arises from confounding: if treatment and outcome are both associated with a third variable that you don't condition on, you can get reversed directions at different aggregation levels. Classic example: Drug A has higher success rate overall than Drug B, but within both severe and mild cases, B outperforms A—this reverses when you aggregate because A was given to more mild cases (which naturally have higher success). Causally, this happens when the confounder (case severity) affects both treatment assignment (doctors choose A for mild cases) and outcome (mild cases have better outcomes), creating opposing effects that change depending on covariate distribution. To resolve Simpson's Paradox causally:
+**A:** Simpson's Paradox occurs when a relationship reverses direction when you aggregate or disaggregate data—for example, a treatment appears beneficial overall but harmful within every subgroup, or vice versa.
+
+This arises from confounding: if treatment and outcome are both associated with a third variable that you don't condition on, you can get reversed directions at different aggregation levels.
+
+Classic example: Drug A has higher success rate overall than Drug B, but within both severe and mild cases, B outperforms A—this reverses when you aggregate because A was given to more mild cases (which naturally have higher success).
+
+Causally, this happens when the confounder (case severity) affects both treatment assignment (doctors choose A for mild cases) and outcome (mild cases have better outcomes), creating opposing effects that change depending on covariate distribution. To resolve Simpson's Paradox causally:
 
 (1) draw a DAG to identify confounders;
 
@@ -132,7 +194,11 @@ Limitations: estimates are local (apply near cutoff, may not generalize), requir
 
 ### Q12: Explain causal discovery algorithms. Can you learn causal structure from data alone, or do you need domain knowledge?
 
-**A:** Causal discovery algorithms (FCI, PC, GES) attempt to learn causal DAG structure from observational data by identifying conditional independence relationships and inferring causal directions. The PC (Peter-Clark) algorithm tests conditional independencies between variables; if X and Y are independent given Z, this suggests Z blocks the causal path. These methods output a Markov Equivalence Class (a set of DAGs consistent with the observed data) rather than a single DAG because different causal structures can produce identical conditional independence relationships. You cannot learn causal structure from data alone without strong assumptions:
+**A:** Causal discovery algorithms (FCI, PC, GES) attempt to learn causal DAG structure from observational data by identifying conditional independence relationships and inferring causal directions.
+
+The PC (Peter-Clark) algorithm tests conditional independencies between variables; if X and Y are independent given Z, this suggests Z blocks the causal path.
+
+These methods output a Markov Equivalence Class (a set of DAGs consistent with the observed data) rather than a single DAG because different causal structures can produce identical conditional independence relationships. You cannot learn causal structure from data alone without strong assumptions:
 
 (1) causal markovness (graph captures all causal relationships);
 
@@ -152,13 +218,27 @@ Limitations: estimates are local (apply near cutoff, may not generalize), requir
 
 ### Q13: What is do-calculus? How does it formalize the concept of intervention?
 
-**A:** Do-calculus, developed by Judea Pearl, provides rules for transforming expressions with the do(·) operator to standard conditional probabilities computable from observational data. The do(T=t) operator represents an intervention—forcibly setting treatment to t, breaking the original causal relationships affecting T. Crucially, do(T=t) differs from conditioning: P(Y | T=t) mixes the effect of treatment with selection bias, while P(Y | do(T=t)) isolates the causal effect by removing selection mechanisms. Do-calculus provides three rules for transforming do-expressions into observables, allowing estimation of causal effects from observational data under specific DAG assumptions. For example, if a DAG has no unmeasured confounders (all confounders of treatment and outcome are observed), the backdoor adjustment formula applies: P(Y | do(T=t)) = Σ_x P(Y|T=t,X=x)P(X=x), reducing do-expressions to standard probabilities. Do-calculus is powerful because it formalizes when causal effects are identifiable (can be computed from observable data) and when they aren't (requiring stronger assumptions or external knowledge). It provides a formal language for causal reasoning and proves that certain causal effects cannot be estimated from data alone without additional assumptions. Understanding do-calculus is advanced but essential for rigorous causal thinking in complex settings.
+**A:** Do-calculus, developed by Judea Pearl, provides rules for transforming expressions with the do(·) operator to standard conditional probabilities computable from observational data. The do(T=t) operator represents an intervention—forcibly setting treatment to t, breaking the original causal relationships affecting T.
+
+Crucially, do(T=t) differs from conditioning: P(Y | T=t) mixes the effect of treatment with selection bias, while P(Y | do(T=t)) isolates the causal effect by removing selection mechanisms.
+
+Do-calculus provides three rules for transforming do-expressions into observables, allowing estimation of causal effects from observational data under specific DAG assumptions.
+
+For example, if a DAG has no unmeasured confounders (all confounders of treatment and outcome are observed), the backdoor adjustment formula applies: P(Y | do(T=t)) = Σ_x P(Y|T=t,X=x)P(X=x), reducing do-expressions to standard probabilities.
+
+Do-calculus is powerful because it formalizes when causal effects are identifiable (can be computed from observable data) and when they aren't (requiring stronger assumptions or external knowledge).
+
+It provides a formal language for causal reasoning and proves that certain causal effects cannot be estimated from data alone without additional assumptions. Understanding do-calculus is advanced but essential for rigorous causal thinking in complex settings.
 
 ---
 
 ### Q14: What is uplift modeling? How is it different from standard treatment effect estimation?
 
-**A:** Uplift modeling predicts individual-level treatment effects (heterogeneous treatment effects, HTE)—how much a specific person will benefit from an intervention, going beyond average treatment effects. While ATE answers "on average, does the treatment help?" uplift models answer "which individuals benefit most and which might be harmed?" For marketing, this means targeting customers likely to respond to a campaign (high uplift), avoiding those who'll buy anyway (zero uplift), and absolutely avoiding those who'll be offended and churn (negative uplift). Estimation approaches include:
+**A:** Uplift modeling predicts individual-level treatment effects (heterogeneous treatment effects, HTE)—how much a specific person will benefit from an intervention, going beyond average treatment effects.
+
+While ATE answers "on average, does the treatment help?" uplift models answer "which individuals benefit most and which might be harmed?" For marketing, this means targeting customers likely to respond to a campaign (high uplift), avoiding those who'll buy anyway (zero uplift), and absolutely avoiding those who'll be offended and churn (negative uplift).
+
+Estimation approaches include:
 
 (1) two-model approach: fit outcome models separately for treatment and control groups, then predict uplift as difference in predicted outcomes;
 
@@ -176,7 +256,17 @@ Limitations: estimates are local (apply near cutoff, may not generalize), requir
 
 ### Q15: Describe practical pitfalls in A/B testing. How do you avoid peeking, multiple testing issues, network effects, novelty effects, and sample ratio mismatch?
 
-**A:** A/B testing pitfalls undermine causal inference despite randomization. Peeking (checking results before reaching sample size, then stopping if significant) inflates false positive rates—the sequential probability of seeing significance drifts above α. Stop this by fixing sample size in advance based on power analysis, pre-registering primary metrics, and using sequential testing methods (group sequential designs) if early stopping is necessary. Multiple testing (checking many metrics) multiplies false positive risk: if you test 20 independent metrics at α=0.05, expected false positives = 20 × 0.05 = 1. Control via Bonferroni correction (divide α by number of tests), Benjamini-Hochberg FDR control, or pre-specify primary metrics. Network effects occur when treatment of one unit affects others (social network spillover)—if you randomize users in the same friend group, treatment contamination biases effects. Randomize at cluster level (entire friend group, not individual) if interference is suspected. Novelty effects are temporary user behavior changes from UI changes—wait enough time (often weeks to months) for users to habituate before concluding treatment works. Sample ratio mismatch arises when randomization breaks (assignment system fails) or users drop out unequally between groups, violating the experimental assumption. Check online by comparing observed vs. expected group sizes with Χ² test. Avoid all by:
+**A:** A/B testing pitfalls undermine causal inference despite randomization. Peeking (checking results before reaching sample size, then stopping if significant) inflates false positive rates—the sequential probability of seeing significance drifts above α.
+
+Stop this by fixing sample size in advance based on power analysis, pre-registering primary metrics, and using sequential testing methods (group sequential designs) if early stopping is necessary.
+
+Multiple testing (checking many metrics) multiplies false positive risk: if you test 20 independent metrics at α=0.05, expected false positives = 20 × 0.05 = 1. Control via Bonferroni correction (divide α by number of tests), Benjamini-Hochberg FDR control, or pre-specify primary metrics.
+
+Network effects occur when treatment of one unit affects others (social network spillover)—if you randomize users in the same friend group, treatment contamination biases effects. Randomize at cluster level (entire friend group, not individual) if interference is suspected.
+
+Novelty effects are temporary user behavior changes from UI changes—wait enough time (often weeks to months) for users to habituate before concluding treatment works. Sample ratio mismatch arises when randomization breaks (assignment system fails) or users drop out unequally between groups, violating the experimental assumption.
+
+Check online by comparing observed vs. expected group sizes with Χ² test. Avoid all by:
 
 (1) rigorous experimental design and pre-registration,
 

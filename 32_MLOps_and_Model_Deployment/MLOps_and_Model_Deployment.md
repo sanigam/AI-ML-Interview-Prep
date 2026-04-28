@@ -78,7 +78,9 @@ MLflow then provides a UI showing all runs, allowing filtering (best runs, speci
 
 ### Q3: What is model versioning and why is it critical?
 
-**A:** Model versioning tracks different versions of trained models with their metadata: training data version, code version, hyperparameters, performance metrics, and training date. Without versioning, it's unclear which model file corresponds to which experiment, making debugging or rollback impossible. A model version might be: `model_v2.3_trained_2024_q4_lr0.001_val_acc_0.94`. Versioning enables:
+**A:** Model versioning tracks different versions of trained models with their metadata: training data version, code version, hyperparameters, performance metrics, and training date. Without versioning, it's unclear which model file corresponds to which experiment, making debugging or rollback impossible.
+
+A model version might be: `model_v2.3_trained_2024_q4_lr0.001_val_acc_0.94`. Versioning enables:
 
 (1) **reproducibility** - given a model version, you can identify exactly what data and code created it,
 
@@ -493,7 +495,9 @@ Trade-off: requires careful tuning, but small model can be deployed to mobile/ed
 
 ### Q15: What is ONNX and how does it enable cross-platform deployment?
 
-**A:** ONNX (Open Neural Network Exchange) is a standard format for representing trained models, enabling portability across frameworks and platforms. Without ONNX: models trained in PyTorch are .pt files (PyTorch-specific), can't easily run in TensorFlow, Rust, JavaScript. With ONNX: export model to .onnx file, run anywhere. Process: train in PyTorch → export to ONNX → load in any ONNX runtime (TensorFlow, ONNX Runtime, TensorRT, etc.). Benefits:
+**A:** ONNX (Open Neural Network Exchange) is a standard format for representing trained models, enabling portability across frameworks and platforms. Without ONNX: models trained in PyTorch are .pt files (PyTorch-specific), can't easily run in TensorFlow, Rust, JavaScript. With ONNX: export model to .onnx file, run anywhere.
+
+Process: train in PyTorch → export to ONNX → load in any ONNX runtime (TensorFlow, ONNX Runtime, TensorRT, etc.). Benefits:
 
 (1) **framework agnostic** - train in PyTorch, serve in Java/C++,
 

@@ -35,7 +35,9 @@ Word embeddings are foundational to modern NLP. The shift from static embeddings
 
 ### Q2: What is GloVe (Global Vectors)? How does it differ from Word2Vec?
 
-**A:** GloVe combines global matrix factorization with local context prediction. Core idea: learning embeddings should capture global co-occurrence statistics (how often words appear together across corpus). Word2Vec only uses local context windows (words within 5-10 positions), potentially missing global patterns. GloVe minimizes: `Σ_{i,j} f(X_{ij}) (w_i^T w_j + b_i + b_j - log X_{ij})^2` where `X_{ij}` = co-occurrence count of words i, j, `w_i`, `w_j` are embeddings, `f(X_{ij})` is a weighting function (reduces weight for very frequent pairs that are less informative). The objective balances:
+**A:** GloVe combines global matrix factorization with local context prediction. Core idea: learning embeddings should capture global co-occurrence statistics (how often words appear together across corpus). Word2Vec only uses local context windows (words within 5-10 positions), potentially missing global patterns.
+
+GloVe minimizes: `Σ_{i,j} f(X_{ij}) (w_i^T w_j + b_i + b_j - log X_{ij})^2` where `X_{ij}` = co-occurrence count of words i, j, `w_i`, `w_j` are embeddings, `f(X_{ij})` is a weighting function (reduces weight for very frequent pairs that are less informative). The objective balances:
 
 (1) Matching embedding dot product to log co-occurrence (global constraint).
 

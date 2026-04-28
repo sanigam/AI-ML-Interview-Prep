@@ -14,37 +14,71 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q1: Explain the difference between WHERE and HAVING clauses. When would you use each?
 
-**A:** WHERE filters rows before aggregation (operates on individual rows), while HAVING filters groups after aggregation (operates on aggregated results). For example, `WHERE salary > 50000` removes low-salary rows before grouping, but `HAVING AVG(salary) > 75000` removes departments where the average salary is below 75000. Use WHERE when filtering raw data or non-aggregated columns, and use HAVING when applying conditions to aggregate functions like COUNT(), SUM(), or AVG(). A common pattern: `SELECT department, AVG(salary) FROM employees WHERE hire_date > '2020-01-01' GROUP BY department HAVING COUNT(*) > 10` filters employees hired recently (WHERE), groups by department, then only shows departments with more than 10 recent hires (HAVING).
+**A:** WHERE filters rows before aggregation (operates on individual rows), while HAVING filters groups after aggregation (operates on aggregated results). For example, `WHERE salary > 50000` removes low-salary rows before grouping, but `HAVING AVG(salary) > 75000` removes departments where the average salary is below 75000.
+
+Use WHERE when filtering raw data or non-aggregated columns, and use HAVING when applying conditions to aggregate functions like COUNT(), SUM(), or AVG().
+
+A common pattern: `SELECT department, AVG(salary) FROM employees WHERE hire_date > '2020-01-01' GROUP BY department HAVING COUNT(*) > 10` filters employees hired recently (WHERE), groups by department, then only shows departments with more than 10 recent hires (HAVING).
 
 ---
 
 ### Q2: Describe the four main types of JOINs (INNER, LEFT, RIGHT, FULL OUTER) and provide a real ML use case for each.
 
-**A:** INNER JOIN returns rows where the key exists in both tables—useful for linking user events to verified user profiles where you only want users with complete data. LEFT JOIN keeps all rows from the left table and matches right table data where available—perfect for customer records (left) joined with purchase history (right), preserving customers with no purchases as NULLs, useful for churn prediction. RIGHT JOIN keeps all rows from the right table—less common but useful when you want all products (right) matched with sales data (left), showing products with zero sales. FULL OUTER JOIN keeps all rows from both tables with NULLs where keys don't match—valuable for detecting misalignment between two data sources, such as comparing expected vs. actual feature tables in a feature store. The choice depends on whether you want to keep unmatched records or focus only on matching data.
+**A:** INNER JOIN returns rows where the key exists in both tables—useful for linking user events to verified user profiles where you only want users with complete data.
+
+LEFT JOIN keeps all rows from the left table and matches right table data where available—perfect for customer records (left) joined with purchase history (right), preserving customers with no purchases as NULLs, useful for churn prediction.
+
+RIGHT JOIN keeps all rows from the right table—less common but useful when you want all products (right) matched with sales data (left), showing products with zero sales.
+
+FULL OUTER JOIN keeps all rows from both tables with NULLs where keys don't match—valuable for detecting misalignment between two data sources, such as comparing expected vs. actual feature tables in a feature store. The choice depends on whether you want to keep unmatched records or focus only on matching data.
 
 ---
 
 ### Q3: What are window functions and how do they differ from GROUP BY? Provide an example.
 
-**A:** Window functions operate on rows related to the current row without collapsing groups—you retain the original row count, whereas GROUP BY collapses rows. For example, `SELECT user_id, purchase_date, purchase_amount, SUM(purchase_amount) OVER (PARTITION BY user_id ORDER BY purchase_date) FROM orders` creates a running sum of purchases per user while keeping all order rows; GROUP BY would only show one row per user with an aggregate total. Window functions are essential for time-series features like LAG() to access the previous purchase, ROW_NUMBER() to rank events within a user, and NTILE() to create spending quintiles. The PARTITION BY defines the groups to window over, and ORDER BY determines the sequence within each group, making window functions more flexible for feature engineering than GROUP BY.
+**A:** Window functions operate on rows related to the current row without collapsing groups—you retain the original row count, whereas GROUP BY collapses rows.
+
+For example, `SELECT user_id, purchase_date, purchase_amount, SUM(purchase_amount) OVER (PARTITION BY user_id ORDER BY purchase_date) FROM orders` creates a running sum of purchases per user while keeping all order rows; GROUP BY would only show one row per user with an aggregate total.
+
+Window functions are essential for time-series features like LAG() to access the previous purchase, ROW_NUMBER() to rank events within a user, and NTILE() to create spending quintiles.
+
+The PARTITION BY defines the groups to window over, and ORDER BY determines the sequence within each group, making window functions more flexible for feature engineering than GROUP BY.
 
 ---
 
 ### Q4: How would you use ROW_NUMBER, RANK, and DENSE_RANK? When would each be appropriate?
 
-**A:** ROW_NUMBER assigns a unique integer to each row within a partition—useful for sampling, such as `SELECT * FROM events WHERE ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp DESC) = 1` to grab each user's most recent event. RANK skips numbers after ties—if two users have the same score, RANK goes 1, 2, 2, 4, which is useful for percentile features but problematic when you need contiguous integers. DENSE_RANK doesn't skip numbers after ties—it returns 1, 2, 2, 3, making it ideal for creating cohort or bucket features without gaps. For churn prediction, you might use DENSE_RANK to create a feature showing "how many distinct engagement periods has this user had?", while ROW_NUMBER would let you select the nth event for feature engineering. The choice depends on whether ties should affect subsequent rankings.
+**A:** ROW_NUMBER assigns a unique integer to each row within a partition—useful for sampling, such as `SELECT * FROM events WHERE ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp DESC) = 1` to grab each user's most recent event.
+
+RANK skips numbers after ties—if two users have the same score, RANK goes 1, 2, 2, 4, which is useful for percentile features but problematic when you need contiguous integers. DENSE_RANK doesn't skip numbers after ties—it returns 1, 2, 2, 3, making it ideal for creating cohort or bucket features without gaps.
+
+For churn prediction, you might use DENSE_RANK to create a feature showing "how many distinct engagement periods has this user had?", while ROW_NUMBER would let you select the nth event for feature engineering. The choice depends on whether ties should affect subsequent rankings.
 
 ---
 
 ### Q5: Explain LAG and LEAD functions with a time-series ML example.
 
-**A:** LAG(column, offset) accesses the previous row's value within a partition, while LEAD(column, offset) accesses the future row's value—both ordered by a specified column (usually timestamp). For example, `SELECT timestamp, clicks, LAG(clicks, 1) OVER (PARTITION BY user_id ORDER BY timestamp) AS prev_clicks, clicks - LAG(clicks, 1) OVER(...) AS click_velocity FROM user_events` creates a feature measuring how the click rate changed between consecutive periods. LEAD is similarly useful: `LEAD(purchase_amount, 1) OVER (PARTITION BY user_id ORDER BY timestamp)` lets you create forward-looking features for churn prediction, like "how much did the user spend in the next 30 days?" (requires careful handling to avoid temporal leakage). These functions eliminate the need for expensive self-joins and are critical for building sequential features like transaction velocity, price momentum, or inter-event durations.
+**A:** LAG(column, offset) accesses the previous row's value within a partition, while LEAD(column, offset) accesses the future row's value—both ordered by a specified column (usually timestamp).
+
+For example, `SELECT timestamp, clicks, LAG(clicks, 1) OVER (PARTITION BY user_id ORDER BY timestamp) AS prev_clicks, clicks - LAG(clicks, 1) OVER(...) AS click_velocity FROM user_events` creates a feature measuring how the click rate changed between consecutive periods.
+
+LEAD is similarly useful: `LEAD(purchase_amount, 1) OVER (PARTITION BY user_id ORDER BY timestamp)` lets you create forward-looking features for churn prediction, like "how much did the user spend in the next 30 days?" (requires careful handling to avoid temporal leakage).
+
+These functions eliminate the need for expensive self-joins and are critical for building sequential features like transaction velocity, price momentum, or inter-event durations.
 
 ---
 
 ### Q6: What are Common Table Expressions (CTEs) and how do they improve query readability and reusability?
 
-**A:** CTEs (WITH clauses) create temporary named result sets within a query, improving readability and enabling recursive queries. For example: `WITH recent_orders AS (SELECT * FROM orders WHERE order_date > '2024-01-01'), customer_aggregates AS (SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total_spend FROM recent_orders GROUP BY customer_id) SELECT * FROM customer_aggregates WHERE order_count >= 5` breaks complex logic into named steps. CTEs make queries self-documenting and allow you to reference the same intermediate table multiple times without recomputing it. For ML pipelines, CTEs are essential for layering feature engineering: you can have a CTE for user-level aggregations, another for product-level aggregations, and a final CTE that combines them—much clearer than deeply nested subqueries. Modern databases optimize CTEs efficiently, and some support recursive CTEs for hierarchical data like organizational charts.
+**A:** CTEs (WITH clauses) create temporary named result sets within a query, improving readability and enabling recursive queries.
+
+For example: `WITH recent_orders AS (SELECT * FROM orders WHERE order_date > '2024-01-01'), customer_aggregates AS (SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total_spend FROM recent_orders GROUP BY customer_id) SELECT * FROM customer_aggregates WHERE order_count >= 5` breaks complex logic into named steps.
+
+CTEs make queries self-documenting and allow you to reference the same intermediate table multiple times without recomputing it.
+
+For ML pipelines, CTEs are essential for layering feature engineering: you can have a CTE for user-level aggregations, another for product-level aggregations, and a final CTE that combines them—much clearer than deeply nested subqueries.
+
+Modern databases optimize CTEs efficiently, and some support recursive CTEs for hierarchical data like organizational charts.
 
 ---
 
@@ -62,19 +96,29 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q8: Write a query to create a training dataset with explicit temporal separation to avoid leakage.
 
-**A:** Temporal leakage occurs when future information bleeds into past training data. Here's a correct approach: `SELECT user_id, DATE_TRUNC('day', event_date) as feature_date, SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) as clicks_7d, SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) as purchases_7d, CASE WHEN DATE_TRUNC('day', purchase_date) > DATE_TRUNC('day', event_date) + INTERVAL '30 days' THEN 1 ELSE 0 END as churn_30d FROM events LEFT JOIN purchases USING (user_id) WHERE event_date BETWEEN '2023-01-01' AND '2023-12-01' GROUP BY 1, 2` computes features (clicks, purchases) in a 7-day window ending on feature_date, then labels the target as churn in the subsequent 30-day window. The key: use LEFT JOIN and explicit date comparisons to ensure features come strictly before the label window. Never mix events from the label period into feature aggregations, and consider how your query would work for a production pipeline predicting tomorrow's churn.
+**A:** Temporal leakage occurs when future information bleeds into past training data.
+
+Here's a correct approach: `SELECT user_id, DATE_TRUNC('day', event_date) as feature_date, SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) as clicks_7d, SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) as purchases_7d, CASE WHEN DATE_TRUNC('day', purchase_date) > DATE_TRUNC('day', event_date) + INTERVAL '30 days' THEN 1 ELSE 0 END as churn_30d FROM events LEFT JOIN purchases USING (user_id) WHERE event_date BETWEEN '2023-01-01' AND '2023-12-01' GROUP BY 1, 2` computes features (clicks, purchases) in a 7-day window ending on feature_date, then labels the target as churn in the subsequent 30-day window.
+
+The key: use LEFT JOIN and explicit date comparisons to ensure features come strictly before the label window. Never mix events from the label period into feature aggregations, and consider how your query would work for a production pipeline predicting tomorrow's churn.
 
 ---
 
 ### Q9: Explain CASE statements and how you'd use them for feature engineering.
 
-**A:** CASE statements create conditional logic to transform columns: `CASE WHEN condition1 THEN value1 WHEN condition2 THEN value2 ELSE default_value END` allows you to bucket continuous values into categorical features. For example, `CASE WHEN age < 18 THEN 'teen' WHEN age BETWEEN 18 AND 65 THEN 'adult' ELSE 'senior' END` creates age buckets. For ML, CASE is powerful for domain-driven features: `CASE WHEN order_total > (SELECT percentile_cont(0.75) WITHIN GROUP (ORDER BY order_total) FROM orders) THEN 'high_spender' ELSE 'regular' END` classifies customers into spending tiers relative to the 75th percentile. You can nest CASE statements for complex logic: `CASE WHEN region = 'US' AND segment = 'premium' THEN 1 ELSE 0 END` creates indicator variables. CASE is often more readable and performant than multiple JOINs when creating categorical features, and it avoids NULL propagation issues inherent in arithmetic operations.
+**A:** CASE statements create conditional logic to transform columns: `CASE WHEN condition1 THEN value1 WHEN condition2 THEN value2 ELSE default_value END` allows you to bucket continuous values into categorical features. For example, `CASE WHEN age < 18 THEN 'teen' WHEN age BETWEEN 18 AND 65 THEN 'adult' ELSE 'senior' END` creates age buckets.
+
+For ML, CASE is powerful for domain-driven features: `CASE WHEN order_total > (SELECT percentile_cont(0.75) WITHIN GROUP (ORDER BY order_total) FROM orders) THEN 'high_spender' ELSE 'regular' END` classifies customers into spending tiers relative to the 75th percentile.
+
+You can nest CASE statements for complex logic: `CASE WHEN region = 'US' AND segment = 'premium' THEN 1 ELSE 0 END` creates indicator variables. CASE is often more readable and performant than multiple JOINs when creating categorical features, and it avoids NULL propagation issues inherent in arithmetic operations.
 
 ---
 
 ### Q10: What are the performance implications of indexing, and how do you write query-efficient SQL?
 
-**A:** Indexes speed up WHERE clause filtering and JOINs by allowing the database to locate rows without scanning every record—a query on an indexed column on a 1M-row table might scan 100 rows vs. 1M. However, indexes slow down INSERT/UPDATE operations because the index must be maintained. For ML pipelines, index frequently-filtered columns (user_id, date, event_type) and join keys, but avoid over-indexing. Query efficiency tips:
+**A:** Indexes speed up WHERE clause filtering and JOINs by allowing the database to locate rows without scanning every record—a query on an indexed column on a 1M-row table might scan 100 rows vs. 1M. However, indexes slow down INSERT/UPDATE operations because the index must be maintained.
+
+For ML pipelines, index frequently-filtered columns (user_id, date, event_type) and join keys, but avoid over-indexing. Query efficiency tips:
 
 (1) use EXPLAIN PLAN to check if your query uses indexes and avoids full table scans,
 
@@ -90,19 +134,35 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q11: Explain self-joins and provide an ML use case.
 
-**A:** A self-join queries a table against itself, usually to compare rows—for example, finding pairs of users with similar purchase patterns or identifying parent-child relationships in hierarchical data. A concrete example: `SELECT a.user_id, b.user_id, COUNT(*) as common_products FROM user_purchases a JOIN user_purchases b ON a.product_id = b.product_id AND a.user_id < b.user_id GROUP BY a.user_id, b.user_id HAVING COUNT(*) >= 5` finds pairs of users who bought at least 5 common products, useful for a collaborative filtering feature. Another use case: `SELECT emp.name, mgr.name FROM employees emp LEFT JOIN employees mgr ON emp.manager_id = mgr.employee_id` retrieves employee-manager pairs for org hierarchy features. Self-joins are expensive because they scan the table twice, so use them carefully and consider window functions (LAG/LEAD) or CTEs as alternatives when possible. In ML, self-joins often precede similarity computations that feed into clustering or recommendation models.
+**A:** A self-join queries a table against itself, usually to compare rows—for example, finding pairs of users with similar purchase patterns or identifying parent-child relationships in hierarchical data.
+
+A concrete example: `SELECT a.user_id, b.user_id, COUNT(*) as common_products FROM user_purchases a JOIN user_purchases b ON a.product_id = b.product_id AND a.user_id < b.user_id GROUP BY a.user_id, b.user_id HAVING COUNT(*) >= 5` finds pairs of users who bought at least 5 common products, useful for a collaborative filtering feature.
+
+Another use case: `SELECT emp.name, mgr.name FROM employees emp LEFT JOIN employees mgr ON emp.manager_id = mgr.employee_id` retrieves employee-manager pairs for org hierarchy features. Self-joins are expensive because they scan the table twice, so use them carefully and consider window functions (LAG/LEAD) or CTEs as alternatives when possible.
+
+In ML, self-joins often precede similarity computations that feed into clustering or recommendation models.
 
 ---
 
 ### Q12: How would you pivot and unpivot data in SQL for feature engineering?
 
-**A:** Pivoting converts rows into columns (wide format), while unpivoting does the reverse (long format). Example pivot: `SELECT user_id, SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) as clicks, SUM(CASE WHEN event_type = 'view' THEN 1 ELSE 0 END) as views, SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) as purchases FROM events GROUP BY user_id` transforms a long table (one row per event) into wide format with one row per user and three event-type columns. Some databases support PIVOT syntax: `SELECT * FROM (SELECT event_type, user_id FROM events) PIVOT (COUNT(*) FOR event_type IN ('click', 'view', 'purchase'))`. Pivoting is useful when you want features as columns for ML models (models expect columnar data), while unpivoting is useful when combining multiple tables with different granularities. The trade-off: pivoting creates sparse matrices if categories are many, while unpivoting is less efficient for wide formats.
+**A:** Pivoting converts rows into columns (wide format), while unpivoting does the reverse (long format).
+
+Example pivot: `SELECT user_id, SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) as clicks, SUM(CASE WHEN event_type = 'view' THEN 1 ELSE 0 END) as views, SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) as purchases FROM events GROUP BY user_id` transforms a long table (one row per event) into wide format with one row per user and three event-type columns.
+
+Some databases support PIVOT syntax: `SELECT * FROM (SELECT event_type, user_id FROM events) PIVOT (COUNT(*) FOR event_type IN ('click', 'view', 'purchase'))`. Pivoting is useful when you want features as columns for ML models (models expect columnar data), while unpivoting is useful when combining multiple tables with different granularities.
+
+The trade-off: pivoting creates sparse matrices if categories are many, while unpivoting is less efficient for wide formats.
 
 ---
 
 ### Q13: Describe sampling techniques in SQL and when to use each.
 
-**A:** LIMIT with ORDER BY RANDOM() gives a uniformly random sample but is inefficient on large tables because it must randomize all rows. For big data, use modulo sampling: `SELECT * FROM orders WHERE user_id % 100 = 0` deterministically samples 1% of rows (good for reproducible splits). Stratified sampling preserves class distribution: `SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY label ORDER BY RANDOM()) as rn FROM data) WHERE rn <= 100` picks 100 samples per class. Reservoir sampling is ideal for streaming: maintain a fixed-size sample of rows seen so far, giving each new row a probability of replacement. For ML, use stratified sampling when classes are imbalanced, modulo sampling for reproducible train/test splits, and random sampling for exploratory analysis. The key consideration: large-scale ML pipelines often train on samples to reduce computation, so understanding which sampling method preserves your data's characteristics is critical.
+**A:** LIMIT with ORDER BY RANDOM() gives a uniformly random sample but is inefficient on large tables because it must randomize all rows. For big data, use modulo sampling: `SELECT * FROM orders WHERE user_id % 100 = 0` deterministically samples 1% of rows (good for reproducible splits).
+
+Stratified sampling preserves class distribution: `SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY label ORDER BY RANDOM()) as rn FROM data) WHERE rn <= 100` picks 100 samples per class. Reservoir sampling is ideal for streaming: maintain a fixed-size sample of rows seen so far, giving each new row a probability of replacement.
+
+For ML, use stratified sampling when classes are imbalanced, modulo sampling for reproducible train/test splits, and random sampling for exploratory analysis. The key consideration: large-scale ML pipelines often train on samples to reduce computation, so understanding which sampling method preserves your data's characteristics is critical.
 
 ---
 
@@ -124,7 +184,11 @@ SQL is the backbone of data manipulation in ML pipelines, enabling efficient fea
 
 ### Q15: Write a query to build features from an events table with multiple aggregation windows (e.g., 7-day, 30-day, lifetime).
 
-**A:** Use multiple window functions with different ORDER BY frames: `SELECT user_id, DATE_TRUNC('day', timestamp) as feature_date, SUM(amount) OVER (PARTITION BY user_id ORDER BY DATE_TRUNC('day', timestamp) RANGE BETWEEN INTERVAL '7 days' PRECEDING AND CURRENT ROW) as spend_7d, SUM(amount) OVER (PARTITION BY user_id ORDER BY DATE_TRUNC('day', timestamp) RANGE BETWEEN INTERVAL '30 days' PRECEDING AND CURRENT ROW) as spend_30d, SUM(amount) OVER (PARTITION BY user_id) as spend_lifetime, COUNT(*) OVER (PARTITION BY user_id ORDER BY DATE_TRUNC('day', timestamp) RANGE BETWEEN INTERVAL '7 days' PRECEDING AND CURRENT ROW) as transactions_7d FROM events` creates rolling 7/30-day and lifetime aggregates in a single pass. The RANGE BETWEEN clause defines the window; PRECEDING includes past rows, CURRENT ROW sets the endpoint. Aggregate at daily granularity to create one row per user per day, then join to features at prediction time. This approach is efficient (single table scan), handles sparse timelines (RANGE handles date gaps), and scales to billions of rows when computed incrementally and stored in a feature store.
+**A:** Use multiple window functions with different ORDER BY frames: `SELECT user_id, DATE_TRUNC('day', timestamp) as feature_date, SUM(amount) OVER (PARTITION BY user_id ORDER BY DATE_TRUNC('day', timestamp) RANGE BETWEEN INTERVAL '7 days' PRECEDING AND CURRENT ROW) as spend_7d, SUM(amount) OVER (PARTITION BY user_id ORDER BY DATE_TRUNC('day', timestamp) RANGE BETWEEN INTERVAL '30 days' PRECEDING AND CURRENT ROW) as spend_30d, SUM(amount) OVER (PARTITION BY user_id) as spend_lifetime, COUNT(*) OVER (PARTITION BY user_id ORDER BY DATE_TRUNC('day', timestamp) RANGE BETWEEN INTERVAL '7 days' PRECEDING AND CURRENT ROW) as transactions_7d FROM events` creates rolling 7/30-day and lifetime aggregates in a single pass.
+
+The RANGE BETWEEN clause defines the window; PRECEDING includes past rows, CURRENT ROW sets the endpoint. Aggregate at daily granularity to create one row per user per day, then join to features at prediction time.
+
+This approach is efficient (single table scan), handles sparse timelines (RANGE handles date gaps), and scales to billions of rows when computed incrementally and stored in a feature store.
 
 ---
 

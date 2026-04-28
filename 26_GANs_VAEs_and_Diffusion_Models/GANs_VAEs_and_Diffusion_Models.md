@@ -237,7 +237,9 @@ Results: Stable Diffusion + classifier-free guidance produces high-quality text-
 
 ### Q9: Explain latent diffusion (Stable Diffusion architecture). Why is it efficient compared to pixel-space diffusion?
 
-**A:** **Pixel-space diffusion:** diffuse directly on image pixels. Problem: images are high-dimensional (512x512x3 = 786K dimensions), forward pass through model for each noise level (50-1000 steps) is very expensive. Solution: **Latent diffusion:** (1) Train VAE: encoder compresses image x → latent z (e.g., 64x64x4 = 16K dims, 50x compression). Decoder reconstructs z → x.
+**A:** **Pixel-space diffusion:** diffuse directly on image pixels. Problem: images are high-dimensional (512x512x3 = 786K dimensions), forward pass through model for each noise level (50-1000 steps) is very expensive. Solution:
+
+**Latent diffusion:** (1) Train VAE: encoder compresses image x → latent z (e.g., 64x64x4 = 16K dims, 50x compression). Decoder reconstructs z → x.
 
 (2) Diffuse in latent space: apply diffusion to z instead of x. Forward process: add noise to z, not x.
 

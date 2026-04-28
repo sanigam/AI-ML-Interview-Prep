@@ -15,7 +15,15 @@ Ensemble methods are a cornerstone of modern machine learning, frequently domina
 
 ### Q1: Explain the bias-variance decomposition and how ensembles reduce variance via bagging.
 
-**A:** Bias-variance decomposition decomposes expected test error: E[(y - ŷ)²] = Bias(ŷ)² + Var(ŷ) + σ² (irreducible noise). Bias is systematic error (model too simple), variance is sensitivity to training data (model too complex). Bagging reduces variance by training multiple models M_i on bootstrap samples and averaging: ŷ_ensemble = (1/M) ∑ŷ_i(x). If each model has variance σ² and correlations decay with bootstrap variation, ensemble variance is approximately σ²/M—variance decreases with ensemble size (square root improvement). Bias remains unchanged (ensemble of high-bias models still has high bias). Mathematical intuition: each ŷ_i is noisy, but averaging independent noise cancels it. In practice, models aren't fully independent (same algorithm, correlated data), so variance reduction is less than σ²/M, but improvement is substantial. Bagging works best for high-variance, low-bias base models (e.g., deep decision trees, shallow neural networks). Random Forests are bagging applied to trees; each tree has high variance individually, but ensemble averaging reduces variance dramatically. Bagging doesn't address underfitting (high bias)—adding more high-bias models doesn't help. In interviews, explain that bagging/ensembles solve the variance problem; if models underfit, bagging won't help (need boosting or complex models).
+**A:** Bias-variance decomposition decomposes expected test error: E[(y - ŷ)²] = Bias(ŷ)² + Var(ŷ) + σ² (irreducible noise). Bias is systematic error (model too simple), variance is sensitivity to training data (model too complex).
+
+Bagging reduces variance by training multiple models M_i on bootstrap samples and averaging: ŷ_ensemble = (1/M) ∑ŷ_i(x). If each model has variance σ² and correlations decay with bootstrap variation, ensemble variance is approximately σ²/M—variance decreases with ensemble size (square root improvement).
+
+Bias remains unchanged (ensemble of high-bias models still has high bias). Mathematical intuition: each ŷ_i is noisy, but averaging independent noise cancels it. In practice, models aren't fully independent (same algorithm, correlated data), so variance reduction is less than σ²/M, but improvement is substantial.
+
+Bagging works best for high-variance, low-bias base models (e.g., deep decision trees, shallow neural networks). Random Forests are bagging applied to trees; each tree has high variance individually, but ensemble averaging reduces variance dramatically. Bagging doesn't address underfitting (high bias)—adding more high-bias models doesn't help.
+
+In interviews, explain that bagging/ensembles solve the variance problem; if models underfit, bagging won't help (need boosting or complex models).
 
 ---
 
@@ -233,7 +241,9 @@ Disadvantages:
 
 ### Q9: Explain model diversity and why it's critical for ensemble success.
 
-**A:** Ensemble strength depends on individual model diversity—if all models make the same errors, averaging doesn't help. Consider extreme: if two models are identical, ensemble error = individual error (no benefit). If models are independent (random errors), ensemble variance is σ²/M (full variance reduction). Mathematically, ensemble variance is Var(ensemble) = (1/M) E[Var_i] + (1 - 1/M) E[Cov(error_i, error_j)]. Variance reduction depends on covariance—negative or zero covariances are ideal. Strategies to ensure diversity:
+**A:** Ensemble strength depends on individual model diversity—if all models make the same errors, averaging doesn't help. Consider extreme: if two models are identical, ensemble error = individual error (no benefit). If models are independent (random errors), ensemble variance is σ²/M (full variance reduction).
+
+Mathematically, ensemble variance is Var(ensemble) = (1/M) E[Var_i] + (1 - 1/M) E[Cov(error_i, error_j)]. Variance reduction depends on covariance—negative or zero covariances are ideal. Strategies to ensure diversity:
 
 (1) **Different algorithms**: combine trees, linear models, neural nets; different inductive biases capture different patterns,
 
@@ -281,7 +291,9 @@ Example: 100-model ensemble takes 100x inference time; pruning to 20 models migh
 
 ### Q11: Explain dropout as an ensemble method and its connection to model regularization.
 
-**A:** Dropout is a regularization technique that can be interpreted as ensemble learning at test time. During training: at each forward pass, randomly set neurons to zero with probability p (typically 0.5), effectively training a sub-network. At test time: use all neurons but scale by (1-p) to account for training expectations. Ensemble interpretation: each dropout sample is a different sub-network; during training with dropout, you're implicitly training an ensemble of 2^n sub-networks (where n = number of neurons). At test time, the scaled network approximates averaging over all sub-networks. Advantages of dropout:
+**A:** Dropout is a regularization technique that can be interpreted as ensemble learning at test time. During training: at each forward pass, randomly set neurons to zero with probability p (typically 0.5), effectively training a sub-network. At test time: use all neurons but scale by (1-p) to account for training expectations.
+
+Ensemble interpretation: each dropout sample is a different sub-network; during training with dropout, you're implicitly training an ensemble of 2^n sub-networks (where n = number of neurons). At test time, the scaled network approximates averaging over all sub-networks. Advantages of dropout:
 
 (1) **regularization**: prevents co-adaptation of neurons,
 
@@ -323,7 +335,9 @@ Disadvantages:
 
 ### Q13: When would you use voting classifiers and what's the difference between hard and soft voting?
 
-**A:** Voting classifiers combine predictions from multiple independent models. Hard voting: assign class by majority vote (most common prediction). Soft voting: average predicted probabilities, then assign class with highest probability. Hard voting: ŷ = argmax_k ∑_i [ŷ_i(x) = k] (count votes). Soft voting: ŷ = argmax_k (1/M) ∑_i P(y=k | x_i). Soft voting generally performs better because it leverages probability estimates (richer information than hard class predictions). However, soft voting requires all base models to output probabilities (some don't naturally—SVM with default settings). Hard voting is robust (any base model works), soft voting is more precise.
+**A:** Voting classifiers combine predictions from multiple independent models. Hard voting: assign class by majority vote (most common prediction). Soft voting: average predicted probabilities, then assign class with highest probability. Hard voting: ŷ = argmax_k ∑_i [ŷ_i(x) = k] (count votes). Soft voting: ŷ = argmax_k (1/M) ∑_i P(y=k | x_i).
+
+Soft voting generally performs better because it leverages probability estimates (richer information than hard class predictions). However, soft voting requires all base models to output probabilities (some don't naturally—SVM with default settings). Hard voting is robust (any base model works), soft voting is more precise.
 
 Example: two logistic regressions (output probability 0.51, 0.52 for class 1) hard-vote as class 1 (majority), soft-vote as class 1 (average probability 0.515). Voting with equal weights assumes equal base model quality; better approach: weight by validation accuracy. Weighted soft voting: ŷ = argmax_k ∑_i w_i P(y=k | x_i). Voting is simpler than stacking (no meta-learner fitting required), faster inference (simple aggregation), but less flexible (can't learn interactions). Use voting:
 

@@ -16,7 +16,13 @@ The goal of EDA is not just creating visualizations, but systematically understa
 
 ### Q1: Explain summary statistics and their interpretation.
 
-**A:** Summary statistics provide quick understanding of data distribution and scale. Mean (average) reflects central tendency; skewed data may have mean far from median. Median (50th percentile) is robust to outliers, often better than mean for skewed distributions. Mode is most frequent value; useful for categorical variables and multimodal distributions. Standard deviation (std) measures spread around mean; large std indicates high variability. Variance (std²) is mathematically convenient for analysis. Min/max show range; gap between them indicates spread. Percentiles (quantiles) divide data; 25th percentile (Q1), 50th (Q2/median), 75th (Q3) enable box plot visualization and IQR = Q3 - Q1 detection of outliers. Skewness quantifies asymmetry: positive (right-skewed, long right tail), negative (left-skewed), near 0 (symmetric). Kurtosis measures tail heaviness: high values indicate extreme values possible. Interpretation principles:
+**A:** Summary statistics provide quick understanding of data distribution and scale. Mean (average) reflects central tendency; skewed data may have mean far from median. Median (50th percentile) is robust to outliers, often better than mean for skewed distributions.
+
+Mode is most frequent value; useful for categorical variables and multimodal distributions. Standard deviation (std) measures spread around mean; large std indicates high variability. Variance (std²) is mathematically convenient for analysis. Min/max show range; gap between them indicates spread.
+
+Percentiles (quantiles) divide data; 25th percentile (Q1), 50th (Q2/median), 75th (Q3) enable box plot visualization and IQR = Q3 - Q1 detection of outliers. Skewness quantifies asymmetry: positive (right-skewed, long right tail), negative (left-skewed), near 0 (symmetric).
+
+Kurtosis measures tail heaviness: high values indicate extreme values possible. Interpretation principles:
 
 (1) comparison: compare stats across groups (distributions differ meaningfully?),
 
@@ -86,7 +92,9 @@ Common pitfalls:
 
 ### Q3: Explain distribution analysis and identifying outliers via visualization.
 
-**A:** Distribution analysis answers: What values are common? Are there modes? Is there skewness? Are outliers present? Univariate distributions: histogram shows all values' frequencies; identify modality (unimodal vs. bimodal), skewness (right-skew: long tail right, mean > median), and outliers (rare extreme values). Box plots: show quartiles (IQR = Q3 - Q1), median, whiskers (typically 1.5×IQR beyond Q1/Q3), and points beyond whiskers are flagged outliers (default definition).
+**A:** Distribution analysis answers: What values are common? Are there modes? Is there skewness? Are outliers present? Univariate distributions: histogram shows all values' frequencies; identify modality (unimodal vs. bimodal), skewness (right-skew: long tail right, mean > median), and outliers (rare extreme values).
+
+Box plots: show quartiles (IQR = Q3 - Q1), median, whiskers (typically 1.5×IQR beyond Q1/Q3), and points beyond whiskers are flagged outliers (default definition).
 
 Advantages: compact, robust, shows outliers clearly. KDE plots: smooth estimate of probability density; better than histograms when fine granularity desired. Q-Q plots: compare sample quantiles to theoretical normal quantiles. Diagonal indicates normality; deviation suggests non-normality (curved tail = heavy tails, S-shaped = bimodal or skew). Empirical CDF: cumulative probability; steps in empirical CDF vs. smooth theoretical CDF reveal deviations. Outlier detection:
 
@@ -322,7 +330,9 @@ Practical: use heatmap as initial correlation overview; zoom into promising rela
 
 ### Q9: Explain dealing with skewness and kurtosis through EDA.
 
-**A:** Skewness: asymmetry of distribution. Positive (right) skewness: tail extends right, mean > median, examples: income (most earn moderate, few earn very high), web traffic (most pages get few hits, few get many). Negative (left) skewness: tail extends left, mean < median, examples: test scores (most high, few very low), survival time from diagnosis (most die quickly, few survive long). Detected:
+**A:** Skewness: asymmetry of distribution. Positive (right) skewness: tail extends right, mean > median, examples: income (most earn moderate, few earn very high), web traffic (most pages get few hits, few get many).
+
+Negative (left) skewness: tail extends left, mean < median, examples: test scores (most high, few very low), survival time from diagnosis (most die quickly, few survive long). Detected:
 
 (1) visually via histogram (asymmetry), box plot (whiskers differ, median off-center),
 

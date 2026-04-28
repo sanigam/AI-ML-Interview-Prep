@@ -16,7 +16,9 @@ Interviewers test linear algebra knowledge because it separates practitioners wh
 
 ### Q1: Define vectors and matrices and explain their geometric interpretation.
 
-**A:** A vector is a 1D array of numbers (column vector x ∈ ℝⁿ or row vector x^T ∈ ℝ^(1×n)) representing a point in n-dimensional space or a direction from origin. A matrix A ∈ ℝ^(m×n) is a 2D array of numbers, geometrically representing a linear transformation from ℝⁿ to ℝᵐ: when you multiply Av, you're transforming the vector v. The i-th row of A specifies coefficients of a linear constraint or linear combination, while j-th column specifies how the j-th standard basis vector is transformed. Visually, matrix A stretches/rotates/reflects vectors and can change dimensionality (e.g., 10×3 matrix maps 3D points to 10D space). Operations:
+**A:** A vector is a 1D array of numbers (column vector x ∈ ℝⁿ or row vector x^T ∈ ℝ^(1×n)) representing a point in n-dimensional space or a direction from origin. A matrix A ∈ ℝ^(m×n) is a 2D array of numbers, geometrically representing a linear transformation from ℝⁿ to ℝᵐ: when you multiply Av, you're transforming the vector v.
+
+The i-th row of A specifies coefficients of a linear constraint or linear combination, while j-th column specifies how the j-th standard basis vector is transformed. Visually, matrix A stretches/rotates/reflects vectors and can change dimensionality (e.g., 10×3 matrix maps 3D points to 10D space). Operations:
 
 (1) scalar multiplication λA scales all entries,
 
@@ -28,7 +30,9 @@ Interviewers test linear algebra knowledge because it separates practitioners wh
 
 ### Q2: Explain eigenvalues and eigenvectors with intuition and applications.
 
-**A:** For a square matrix A, eigenvalue λ and eigenvector v (nonzero) satisfy Av = λv, meaning A rotates v only by scaling factor λ (no direction change). Finding them: solve det(A - λI) = 0 (characteristic polynomial) for λ, then solve (A - λI)v = 0 for each λ. Geometrically: eigenvectors are "preferred directions" that A stretches along. If λ > 1, A stretches along v; 0 < λ < 1 contracts; λ < 0 reverses. Real symmetric matrices (like covariance matrices) have real eigenvalues and orthogonal eigenvectors. In ML applications:
+**A:** For a square matrix A, eigenvalue λ and eigenvector v (nonzero) satisfy Av = λv, meaning A rotates v only by scaling factor λ (no direction change). Finding them: solve det(A - λI) = 0 (characteristic polynomial) for λ, then solve (A - λI)v = 0 for each λ. Geometrically: eigenvectors are "preferred directions" that A stretches along.
+
+If λ > 1, A stretches along v; 0 < λ < 1 contracts; λ < 0 reverses. Real symmetric matrices (like covariance matrices) have real eigenvalues and orthogonal eigenvectors. In ML applications:
 
 (1) PCA uses eigenvectors of covariance matrix (directions of maximum variance) to reduce dimensions,
 
@@ -44,7 +48,9 @@ Interviewers test linear algebra knowledge because it separates practitioners wh
 
 ### Q3: What is Singular Value Decomposition and why is it fundamental in ML?
 
-**A:** SVD factorizes any m×n matrix A as A = UΣV^T where U is m×m orthogonal (columns are left singular vectors), Σ is m×n diagonal with σ₁ ≥ σ₂ ≥ ... ≥ 0 (singular values), and V is n×n orthogonal (columns are right singular vectors). Singular values are non-negative and relate to eigenvalues: σᵢ² are eigenvalues of A^T A and AA^T. SVD is universal (works for any matrix, not just square), numerically stable (preferred over eigendecomposition for general matrices), and reveals rank (number of non-zero singular values). Applications in ML:
+**A:** SVD factorizes any m×n matrix A as A = UΣV^T where U is m×m orthogonal (columns are left singular vectors), Σ is m×n diagonal with σ₁ ≥ σ₂ ≥ ... ≥ 0 (singular values), and V is n×n orthogonal (columns are right singular vectors). Singular values are non-negative and relate to eigenvalues: σᵢ² are eigenvalues of A^T A and AA^T.
+
+SVD is universal (works for any matrix, not just square), numerically stable (preferred over eigendecomposition for general matrices), and reveals rank (number of non-zero singular values). Applications in ML:
 
 (1) low-rank approximation: keep top k singular values/vectors, best rank-k reconstruction with minimum error,
 
@@ -62,7 +68,11 @@ Interpretation: U^T x projects data onto left singular vectors, Σ scales by sin
 
 ### Q4: Explain QR decomposition and its role in solving least-squares problems.
 
-**A:** QR decomposition factorizes m×n matrix A as A = QR where Q is m×n orthogonal (Q^T Q = I_n if "thin" QR) and R is n×n upper triangular. The decomposition is not unique—adding sign flips to columns of Q and row negations to R gives equivalent decompositions, but QR is numerically stable. For solving least-squares Ax = b (overdetermined system), instead of normal equations A^T Ax = A^T b (which squares condition number, causing numerical issues), compute QR decomposition: Ax = QRx = b → Rx = Q^T b (well-conditioned triangular system, solved via back-substitution). This approach is numerically superior especially when A is ill-conditioned. QR also appears in:
+**A:** QR decomposition factorizes m×n matrix A as A = QR where Q is m×n orthogonal (Q^T Q = I_n if "thin" QR) and R is n×n upper triangular. The decomposition is not unique—adding sign flips to columns of Q and row negations to R gives equivalent decompositions, but QR is numerically stable.
+
+For solving least-squares Ax = b (overdetermined system), instead of normal equations A^T Ax = A^T b (which squares condition number, causing numerical issues), compute QR decomposition: Ax = QRx = b → Rx = Q^T b (well-conditioned triangular system, solved via back-substitution).
+
+This approach is numerically superior especially when A is ill-conditioned. QR also appears in:
 
 (1) Gram-Schmidt orthogonalization (orthogonalize columns of A),
 
@@ -76,13 +86,23 @@ Interpretation: U^T x projects data onto left singular vectors, Σ scales by sin
 
 ### Q5: What is LU decomposition and when is it preferred?
 
-**A:** LU decomposition factors square matrix A as A = LU where L is lower triangular (with ones on diagonal) and U is upper triangular. Solve Ax = b via forward-substitution on Ly = b to get y, then back-substitution on Ux = y to get x. LU is fast (O(n³) but with small constant) and reusable: compute LU once, solve multiple right-hand sides quickly. Requires no orthogonality like QR, so simpler computationally. However, LU is less numerically stable than QR without pivoting; partial pivoting (reorder rows to avoid small divisors) improves stability. LU with partial pivoting is often the default in numerical libraries (like LAPACK) because it balances speed and stability. Related: Cholesky decomposition A = LL^T for positive definite A (symmetric matrix with positive eigenvalues) is even faster (about half computations of LU) and more stable. Use LU for: solving multiple systems with same A, general square matrices where stability is adequate. Use QR for: least-squares problems (rectangular A), when numerical stability is paramount. Use Cholesky for: covariance matrices, positive definite systems. In ML, understanding which decomposition to use affects numerical stability of your algorithms, especially with high-dimensional data or ill-conditioned covariance matrices.
+**A:** LU decomposition factors square matrix A as A = LU where L is lower triangular (with ones on diagonal) and U is upper triangular. Solve Ax = b via forward-substitution on Ly = b to get y, then back-substitution on Ux = y to get x.
+
+LU is fast (O(n³) but with small constant) and reusable: compute LU once, solve multiple right-hand sides quickly. Requires no orthogonality like QR, so simpler computationally. However, LU is less numerically stable than QR without pivoting; partial pivoting (reorder rows to avoid small divisors) improves stability.
+
+LU with partial pivoting is often the default in numerical libraries (like LAPACK) because it balances speed and stability. Related: Cholesky decomposition A = LL^T for positive definite A (symmetric matrix with positive eigenvalues) is even faster (about half computations of LU) and more stable.
+
+Use LU for: solving multiple systems with same A, general square matrices where stability is adequate. Use QR for: least-squares problems (rectangular A), when numerical stability is paramount. Use Cholesky for: covariance matrices, positive definite systems.
+
+In ML, understanding which decomposition to use affects numerical stability of your algorithms, especially with high-dimensional data or ill-conditioned covariance matrices.
 
 ---
 
 ### Q6: Define rank and explain its significance in linear systems.
 
-**A:** Rank of matrix A (rank(A)) is the dimension of its column space (or row space—they're equal), equivalently the number of linearly independent columns (or rows), equivalently the number of non-zero singular values in SVD. For m×n matrix, rank(A) ≤ min(m, n). Full column rank (rank = n) means columns are linearly independent; full row rank (rank = m) means rows are linearly independent; full rank (rank = min(m,n)) means both. In solving Ax = b:
+**A:** Rank of matrix A (rank(A)) is the dimension of its column space (or row space—they're equal), equivalently the number of linearly independent columns (or rows), equivalently the number of non-zero singular values in SVD. For m×n matrix, rank(A) ≤ min(m, n).
+
+Full column rank (rank = n) means columns are linearly independent; full row rank (rank = m) means rows are linearly independent; full rank (rank = min(m,n)) means both. In solving Ax = b:
 
 (1) if rank(A) = n and m ≥ n, unique least-squares solution;
 
@@ -94,7 +114,13 @@ Interpretation: U^T x projects data onto left singular vectors, Σ scales by sin
 
 ### Q7: Explain the null space and column space of a matrix.
 
-**A:** For matrix A ∈ ℝ^(m×n), the column space (or range) col(A) = {Ax : x ∈ ℝⁿ} is all linear combinations of columns, a subspace of ℝᵐ with dimension = rank(A). The null space (or kernel) null(A) = {x : Ax = 0} is all vectors that A maps to zero, a subspace of ℝⁿ with dimension = n - rank(A) (rank-nullity theorem). These are orthogonal complements: null(A) ⊥ row(A), and any vector decomposes as x = x_col + x_null where Ax_col = Ax and Ax_null = 0. In solving Ax = b: solution exists iff b ∈ col(A); if exists, general solution is (particular solution) + (null space vectors). Geometrically: column space is the "observable" subspace (what A can produce), null space is the "invisible" subspace (what A collapses to zero). In ML: null space represents unidentifiable parameters (changing parameters in null space direction doesn't change predictions, so you can't distinguish them from data). Covariate shift or data leakage creates alignment with null space, making learning impossible. Understanding these spaces helps diagnose models: if you're predicting from perfectly collinear features, the corresponding directions lie in null space, making parameters unidentifiable without regularization.
+**A:** For matrix A ∈ ℝ^(m×n), the column space (or range) col(A) = {Ax : x ∈ ℝⁿ} is all linear combinations of columns, a subspace of ℝᵐ with dimension = rank(A). The null space (or kernel) null(A) = {x : Ax = 0} is all vectors that A maps to zero, a subspace of ℝⁿ with dimension = n - rank(A) (rank-nullity theorem).
+
+These are orthogonal complements: null(A) ⊥ row(A), and any vector decomposes as x = x_col + x_null where Ax_col = Ax and Ax_null = 0. In solving Ax = b: solution exists iff b ∈ col(A); if exists, general solution is (particular solution) + (null space vectors).
+
+Geometrically: column space is the "observable" subspace (what A can produce), null space is the "invisible" subspace (what A collapses to zero). In ML: null space represents unidentifiable parameters (changing parameters in null space direction doesn't change predictions, so you can't distinguish them from data).
+
+Covariate shift or data leakage creates alignment with null space, making learning impossible. Understanding these spaces helps diagnose models: if you're predicting from perfectly collinear features, the corresponding directions lie in null space, making parameters unidentifiable without regularization.
 
 ---
 
@@ -116,7 +142,9 @@ Interpretation: U^T x projects data onto left singular vectors, Σ scales by sin
 
 ### Q9: Explain orthogonality and orthonormal bases and their utility.
 
-**A:** Vectors u, v are orthogonal if u^T v = 0 (perpendicular in geometric sense). A set of vectors is orthonormal if all pairwise orthogonal and each has unit norm (||u|| = 1). Orthonormal basis {u₁, ..., uₙ} of ℝⁿ means any x = Σᵢ (u^T_i x) uᵢ (easy coefficient computation), and U^T U = I for matrix U with columns uᵢ. Orthogonal matrices (square with orthonormal columns) satisfy Q^T Q = I and Q^T = Q⁻¹ (inverse is transpose, trivial to compute). Orthogonality is numerically stable (condition number = 1) and preserves norms (||Qx|| = ||x||), making orthogonal transformations ideal for numerical computation.
+**A:** Vectors u, v are orthogonal if u^T v = 0 (perpendicular in geometric sense). A set of vectors is orthonormal if all pairwise orthogonal and each has unit norm (||u|| = 1). Orthonormal basis {u₁, ..., uₙ} of ℝⁿ means any x = Σᵢ (u^T_i x) uᵢ (easy coefficient computation), and U^T U = I for matrix U with columns uᵢ.
+
+Orthogonal matrices (square with orthonormal columns) satisfy Q^T Q = I and Q^T = Q⁻¹ (inverse is transpose, trivial to compute). Orthogonality is numerically stable (condition number = 1) and preserves norms (||Qx|| = ||x||), making orthogonal transformations ideal for numerical computation.
 
 Advantages:
 
@@ -132,13 +160,23 @@ Advantages:
 
 ### Q10: What is matrix calculus and how does it apply to ML optimization?
 
-**A:** Matrix calculus extends single-variable calculus to matrices. Gradient of scalar f(X) w.r.t. matrix X is ∂f/∂X (matrix of partial derivatives). For quadratic form f(x) = x^T A x, ∇f = (A + A^T)x = 2Ax if A symmetric. For linear form f(x) = a^T x, ∇f = a. Jacobian of vector-valued function f: ℝⁿ → ℝᵐ is J ∈ ℝ^(m×n) with [J]ᵢⱼ = ∂fᵢ/∂xⱼ. Hessian of f: ℝⁿ → ℝ is H = ∇²f, second derivatives [H]ᵢⱼ = ∂²f/∂xᵢ∂xⱼ (symmetric). Chain rule: if z = f(g(x)), then dz/dx = (dz/dg)(dg/dx). Common rule: d(Ax)/dx = A^T (or A if computing denom-layout), d(x^T Ax)/dx = (A + A^T)x. Trace trick: tr(ABC) = tr(CAB) = tr(BCA), useful for rewriting matrix derivatives. In ML: computing ∇loss w.r.t. weights drives gradient descent (backpropagation in deep networks is chain rule applied), Hessian determines convergence rate of Newton's method. Understanding matrix calculus helps you: derive correct gradient formulas, implement autodiff correctly, understand why certain parameterizations optimize better than others (e.g., softmax parameterization avoids singular Hessians).
+**A:** Matrix calculus extends single-variable calculus to matrices. Gradient of scalar f(X) w.r.t. matrix X is ∂f/∂X (matrix of partial derivatives). For quadratic form f(x) = x^T A x, ∇f = (A + A^T)x = 2Ax if A symmetric. For linear form f(x) = a^T x, ∇f = a. Jacobian of vector-valued function f: ℝⁿ → ℝᵐ is J ∈ ℝ^(m×n) with [J]ᵢⱼ = ∂fᵢ/∂xⱼ.
+
+Hessian of f: ℝⁿ → ℝ is H = ∇²f, second derivatives [H]ᵢⱼ = ∂²f/∂xᵢ∂xⱼ (symmetric). Chain rule: if z = f(g(x)), then dz/dx = (dz/dg)(dg/dx). Common rule: d(Ax)/dx = A^T (or A if computing denom-layout), d(x^T Ax)/dx = (A + A^T)x. Trace trick: tr(ABC) = tr(CAB) = tr(BCA), useful for rewriting matrix derivatives.
+
+In ML: computing ∇loss w.r.t. weights drives gradient descent (backpropagation in deep networks is chain rule applied), Hessian determines convergence rate of Newton's method.
+
+Understanding matrix calculus helps you: derive correct gradient formulas, implement autodiff correctly, understand why certain parameterizations optimize better than others (e.g., softmax parameterization avoids singular Hessians).
 
 ---
 
 ### Q11: How does SVD relate to PCA and how do you use it for dimensionality reduction?
 
-**A:** Principal Component Analysis (PCA) finds directions of maximum variance in data. Given centered data X ∈ ℝ^(n×d) (n samples, d features), compute SVD: X = UΣV^T. Columns of V are principal components (eigenvectors of X^T X / (n-1), the sample covariance), singular values Σ relate to variance along each component (variance_i ≈ σ_i² / (n-1)), and U contains projections onto principal components. To reduce to k dimensions: keep top k columns of U and top k rows/columns of V, project X_reduced = X V_{:,1:k} = U_{:,1:k} Σ_{1:k,:}. Reconstruction: X̂ = X_reduced V_{:,1:k}^T = U_{:,1:k} Σ_{1:k,:} V_{:,1:k}^T. Choosing k: plot cumulative variance explained (Σᵢ₌₁^k σᵢ² / Σᵢ₌₁^d σᵢ²), pick k where ~95% variance is explained. Why SVD is preferred:
+**A:** Principal Component Analysis (PCA) finds directions of maximum variance in data. Given centered data X ∈ ℝ^(n×d) (n samples, d features), compute SVD: X = UΣV^T.
+
+Columns of V are principal components (eigenvectors of X^T X / (n-1), the sample covariance), singular values Σ relate to variance along each component (variance_i ≈ σ_i² / (n-1)), and U contains projections onto principal components.
+
+To reduce to k dimensions: keep top k columns of U and top k rows/columns of V, project X_reduced = X V_{:,1:k} = U_{:,1:k} Σ_{1:k,:}. Reconstruction: X̂ = X_reduced V_{:,1:k}^T = U_{:,1:k} Σ_{1:k,:} V_{:,1:k}^T. Choosing k: plot cumulative variance explained (Σᵢ₌₁^k σᵢ² / Σᵢ₌₁^d σᵢ²), pick k where ~95% variance is explained. Why SVD is preferred:
 
 (1) numerically stable vs. eigendecomposition of X^T X,
 
@@ -152,7 +190,9 @@ Advantages:
 
 ### Q12: Explain the role of matrix rank in neural networks and deep learning.
 
-**A:** In neural networks, weight matrix rank determines expressive capacity: if weight W ∈ ℝ^(m×n) has rank < min(m,n), it maps ℝⁿ into a lower-dimensional subspace, creating a bottleneck. When hidden layer width h < input dimension d, that layer reduces dimensionality (rank ≤ h). Expressiveness requires rank = min(input_dim, hidden_dim); networks with insufficient rank can't represent complex functions. Over-parameterization (width >> required) provides redundancy that aids optimization: gradient descent finds minimum-norm solution (Implicit bias), which is more generalizable. Rank also appears in:
+**A:** In neural networks, weight matrix rank determines expressive capacity: if weight W ∈ ℝ^(m×n) has rank < min(m,n), it maps ℝⁿ into a lower-dimensional subspace, creating a bottleneck. When hidden layer width h < input dimension d, that layer reduces dimensionality (rank ≤ h).
+
+Expressiveness requires rank = min(input_dim, hidden_dim); networks with insufficient rank can't represent complex functions. Over-parameterization (width >> required) provides redundancy that aids optimization: gradient descent finds minimum-norm solution (Implicit bias), which is more generalizable. Rank also appears in:
 
 (1) low-rank adaptation (LoRA): approximate weight updates as W ≈ W₀ + AB^T (low-rank) for parameter efficiency,
 
@@ -164,7 +204,9 @@ Advantages:
 
 ### Q13: How do you detect and handle ill-conditioning in linear systems?
 
-**A:** A matrix is ill-conditioned if small changes in data cause large changes in solution. Condition number κ(A) = σ_max / σ_min (ratio of largest to smallest singular values) quantifies this: κ >> 1 means ill-conditioned (κ = 1 is perfectly conditioned). Solutions are ill-conditioned when A is nearly singular (small singular values) or columns are nearly linearly dependent. Detecting ill-conditioning:
+**A:** A matrix is ill-conditioned if small changes in data cause large changes in solution. Condition number κ(A) = σ_max / σ_min (ratio of largest to smallest singular values) quantifies this: κ >> 1 means ill-conditioned (κ = 1 is perfectly conditioned).
+
+Solutions are ill-conditioned when A is nearly singular (small singular values) or columns are nearly linearly dependent. Detecting ill-conditioning:
 
 (1) compute SVD and examine singular values (steep dropoff near zero),
 
@@ -188,7 +230,11 @@ Advantages:
 
 ### Q14: Explain trace and determinant and their interpretations.
 
-**A:** Trace tr(A) = Σᵢ Aᵢᵢ (sum of diagonal) = Σᵢ λᵢ (sum of eigenvalues). Determinant det(A) = ∏ᵢ λᵢ (product of eigenvalues). Trace is linear: tr(A+B) = tr(A)+tr(B), and invariant under similarity: tr(A) = tr(P⁻¹AP). Determinant is multiplicative: det(AB) = det(A)det(B), and zero iff A is singular. Geometric interpretation: det(A) is the volume scaling factor when A transforms a unit volume (for positive determinant, orientation preserved; negative means flipped). Trace interpretation: tr(A) = total curvature in some sense (sum of all diagonal entries), appears in: trace of Hessian gives Laplacian (sum of second derivatives). In loss functions, tr(X^T Y) = Σᵢⱼ Xᵢⱼ Yᵢⱼ (Frobenius inner product); matrix calculus: ∂tr(AB)/∂A = B^T. In ML:
+**A:** Trace tr(A) = Σᵢ Aᵢᵢ (sum of diagonal) = Σᵢ λᵢ (sum of eigenvalues). Determinant det(A) = ∏ᵢ λᵢ (product of eigenvalues). Trace is linear: tr(A+B) = tr(A)+tr(B), and invariant under similarity: tr(A) = tr(P⁻¹AP). Determinant is multiplicative: det(AB) = det(A)det(B), and zero iff A is singular.
+
+Geometric interpretation: det(A) is the volume scaling factor when A transforms a unit volume (for positive determinant, orientation preserved; negative means flipped). Trace interpretation: tr(A) = total curvature in some sense (sum of all diagonal entries), appears in: trace of Hessian gives Laplacian (sum of second derivatives).
+
+In loss functions, tr(X^T Y) = Σᵢⱼ Xᵢⱼ Yᵢⱼ (Frobenius inner product); matrix calculus: ∂tr(AB)/∂A = B^T. In ML:
 
 (1) logdet(Σ) appears in Gaussian probability (negative of log-determinant is differential entropy),
 

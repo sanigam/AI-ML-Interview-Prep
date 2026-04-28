@@ -15,7 +15,11 @@ Dimensionality reduction is a fundamental preprocessing technique addressing the
 
 ### Q1: Explain PCA (Principal Component Analysis) and its mathematical foundation.
 
-**A:** PCA finds a set of orthogonal directions (principal components) that maximize data variance. Mathematically, given data X ∈ ℝ^{n×d} (n samples, d features), center the data and compute the covariance matrix Σ = X^T X / (n-1). The first principal component is the eigenvector of Σ with the largest eigenvalue λ₁; it defines the direction of maximum variance. Subsequent components are eigenvectors with decreasing eigenvalues, orthogonal to previous components. If X = UΣV^T is the SVD, the principal components are the columns of V (right singular vectors). PCA projects data onto the first k components: X_reduced = XV_k, where V_k contains the first k eigenvectors.
+**A:** PCA finds a set of orthogonal directions (principal components) that maximize data variance. Mathematically, given data X ∈ ℝ^{n×d} (n samples, d features), center the data and compute the covariance matrix Σ = X^T X / (n-1).
+
+The first principal component is the eigenvector of Σ with the largest eigenvalue λ₁; it defines the direction of maximum variance. Subsequent components are eigenvectors with decreasing eigenvalues, orthogonal to previous components. If X = UΣV^T is the SVD, the principal components are the columns of V (right singular vectors).
+
+PCA projects data onto the first k components: X_reduced = XV_k, where V_k contains the first k eigenvectors.
 
 Advantages:
 
@@ -41,7 +45,11 @@ Disadvantages:
 
 ### Q2: Explain explained variance ratio, scree plot, and how to choose number of components.
 
-**A:** Explained variance ratio for component k is λ_k / ∑_i λ_i, the proportion of total variance captured. Cumulative explained variance is the sum up to component k; e.g., if first 3 components explain 95%, they capture 95% of data variance. Scree plot displays variance (or cumulative variance) vs. component number; useful for choosing k. The "elbow" where variance gain flattens suggests the optimal k—additional components contribute little. Rule of thumb: keep 95-99% cumulative variance (more for downstream ML tasks, less for visualization). For visualization, 2-3 components are used regardless of variance explained, to plot data on screen. Mathematically, keeping k components reduces error: ||X - X_{reduced}||² = ∑_{i=k+1}^d λ_i (sum of discarded eigenvalues). Choosing k is a trade-off: larger k preserves more information but requires higher dimension.
+**A:** Explained variance ratio for component k is λ_k / ∑_i λ_i, the proportion of total variance captured. Cumulative explained variance is the sum up to component k; e.g., if first 3 components explain 95%, they capture 95% of data variance. Scree plot displays variance (or cumulative variance) vs. component number; useful for choosing k.
+
+The "elbow" where variance gain flattens suggests the optimal k—additional components contribute little. Rule of thumb: keep 95-99% cumulative variance (more for downstream ML tasks, less for visualization). For visualization, 2-3 components are used regardless of variance explained, to plot data on screen.
+
+Mathematically, keeping k components reduces error: ||X - X_{reduced}||² = ∑_{i=k+1}^d λ_i (sum of discarded eigenvalues). Choosing k is a trade-off: larger k preserves more information but requires higher dimension.
 
 In practice:
 
@@ -71,7 +79,9 @@ Disadvantages: they fail on nonlinear manifolds—if data lie on a curved surfac
 
 ### Q4: Explain t-SNE: algorithm, intuition, and when to use.
 
-**A:** t-SNE converts high-dimensional Euclidean distances to probabilities reflecting similarity: p_ij ∝ exp(-||x_i - x_j||² / σ_i²), where σ_i is adapted per sample (perplexity parameter controls effective neighborhood size). In the embedding space, probabilities are computed using Student-t distribution: q_ij ∝ (1 + ||y_i - y_j||²)^(-1), which has heavier tails (preserves distant points). The cost function is KL divergence between p and q; minimizing it via gradient descent produces the embedding.
+**A:** t-SNE converts high-dimensional Euclidean distances to probabilities reflecting similarity: p_ij ∝ exp(-||x_i - x_j||² / σ_i²), where σ_i is adapted per sample (perplexity parameter controls effective neighborhood size).
+
+In the embedding space, probabilities are computed using Student-t distribution: q_ij ∝ (1 + ||y_i - y_j||²)^(-1), which has heavier tails (preserves distant points). The cost function is KL divergence between p and q; minimizing it via gradient descent produces the embedding.
 
 Intuition: samples close in original space should be close in embedding (preserve local neighborhood); samples far apart should remain far. t-SNE excels at visualization—clusters separate visually, revealing structure invisible in original space.
 
@@ -139,7 +149,9 @@ Disadvantages:
 
 ### Q6: Explain Linear Discriminant Analysis (LDA) and its relationship to PCA.
 
-**A:** LDA is a supervised dimensionality reduction finding projections that maximize class separability. Unlike PCA (maximizing variance), LDA maximizes the ratio of between-class variance to within-class variance: J(w) = (w^T S_B w) / (w^T S_W w), where S_B is between-class scatter and S_W is within-class scatter. The optimal projection directions are generalized eigenvectors of S_B and S_W. For K classes, LDA yields at most K-1 discriminant components (one fewer than classes).
+**A:** LDA is a supervised dimensionality reduction finding projections that maximize class separability. Unlike PCA (maximizing variance), LDA maximizes the ratio of between-class variance to within-class variance: J(w) = (w^T S_B w) / (w^T S_W w), where S_B is between-class scatter and S_W is within-class scatter.
+
+The optimal projection directions are generalized eigenvectors of S_B and S_W. For K classes, LDA yields at most K-1 discriminant components (one fewer than classes).
 
 Advantages:
 
@@ -263,7 +275,9 @@ Disadvantages:
 
 ### Q10: Explain factor analysis and its relationship to PCA.
 
-**A:** Factor analysis (FA) is a probabilistic model assuming data is generated from latent factors z: x = Wz + μ + ε, where W are factor loadings, z ∈ ℝ^k are latent factors, ε is noise ~ N(0, Σ). Unlike PCA (deterministic projection), FA is probabilistic: x ~ N(μ, WW^T + Σ). FA models data covariance via factors and noise, enabling likelihood-based inference. Fitting uses EM algorithm, maximizing likelihood.
+**A:** Factor analysis (FA) is a probabilistic model assuming data is generated from latent factors z: x = Wz + μ + ε, where W are factor loadings, z ∈ ℝ^k are latent factors, ε is noise ~ N(0, Σ). Unlike PCA (deterministic projection), FA is probabilistic: x ~ N(μ, WW^T + Σ).
+
+FA models data covariance via factors and noise, enabling likelihood-based inference. Fitting uses EM algorithm, maximizing likelihood.
 
 Advantages:
 

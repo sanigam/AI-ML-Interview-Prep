@@ -14,7 +14,9 @@ The Model Context Protocol (MCP) is an emerging standard that addresses a critic
 
 ### Q1: What is the Model Context Protocol (MCP) and what problem does it solve?
 
-**A:** MCP is an open, standardized protocol for connecting LLMs and AI agents to external tools, data sources, and services. The core problem it solves is fragmentation: without MCP, each LLM application (Claude, ChatGPT, etc.) requires custom integrations for tools like Slack, Google Drive, or databases. With MCP, tools implement a single standard interface, and any LLM application can use them immediately. MCP enables (1) **standardization** - developers learn one tool integration pattern,
+**A:** MCP is an open, standardized protocol for connecting LLMs and AI agents to external tools, data sources, and services. The core problem it solves is fragmentation: without MCP, each LLM application (Claude, ChatGPT, etc.) requires custom integrations for tools like Slack, Google Drive, or databases.
+
+With MCP, tools implement a single standard interface, and any LLM application can use them immediately. MCP enables (1) **standardization** - developers learn one tool integration pattern,
 
 (2) **security** - tools explicitly declare permissions and the host enforces them,
 
@@ -74,7 +76,11 @@ The Model Context Protocol (MCP) is an emerging standard that addresses a critic
 
 ### Q5: Explain tool permissions and security in MCP.
 
-**A:** MCP provides explicit permission boundaries where tools declare what they can do and hosts decide what to allow. A tool server declares capabilities, e.g., "I can read files, execute code, and query databases." The host can then enforce policies: "This agent can query databases but not execute code" or "That user can only access read-only tools." This prevents privilege escalation where a compromised or malicious tool gains unauthorized access. Security mechanisms include:
+**A:** MCP provides explicit permission boundaries where tools declare what they can do and hosts decide what to allow.
+
+A tool server declares capabilities, e.g., "I can read files, execute code, and query databases." The host can then enforce policies: "This agent can query databases but not execute code" or "That user can only access read-only tools." This prevents privilege escalation where a compromised or malicious tool gains unauthorized access.
+
+Security mechanisms include:
 
 (1) **capability declaration** - tools explicitly list their operations,
 
@@ -130,7 +136,9 @@ The Model Context Protocol (MCP) is an emerging standard that addresses a critic
 
 ### Q9: What is tool interoperability and how does MCP enable it?
 
-**A:** Tool interoperability is the ability for different tools to work together seamlessly. MCP enables this by standardizing tool outputs: a database tool returns structured data, a visualization tool accepts structured data, and a reporting tool consumes both. Without standards, integrating tools requires custom translation layers. With MCP, tools compose naturally: one agent might call database_query (returns table data) → pivot_table (accepts table data) → visualize (accepts pivoted data) → generate_report (accepts visualization). Interoperability is enhanced by:
+**A:** Tool interoperability is the ability for different tools to work together seamlessly. MCP enables this by standardizing tool outputs: a database tool returns structured data, a visualization tool accepts structured data, and a reporting tool consumes both. Without standards, integrating tools requires custom translation layers.
+
+With MCP, tools compose naturally: one agent might call database_query (returns table data) → pivot_table (accepts table data) → visualize (accepts pivoted data) → generate_report (accepts visualization). Interoperability is enhanced by:
 
 (1) **shared schemas** - tools agree on data formats (JSON, CSV),
 

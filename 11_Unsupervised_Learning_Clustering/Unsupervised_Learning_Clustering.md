@@ -57,7 +57,9 @@ In practice: K-means++ is now the default initialization in scikit-learn. If ran
 
 ### Q4: What is hierarchical clustering and how do agglomerative and divisive approaches differ?
 
-**A:** Hierarchical clustering builds a tree (dendrogram) of clusters, enabling hierarchical viewing of data structure. Agglomerative (bottom-up) starts with each sample as a singleton cluster, iteratively merging the two closest clusters until one cluster remains. Divisive (top-down) starts with all samples in one cluster, recursively splitting until each sample is isolated. Agglomerative is more common and practical. The key question: what defines "closest clusters"? Linkage criteria determine inter-cluster distance:
+**A:** Hierarchical clustering builds a tree (dendrogram) of clusters, enabling hierarchical viewing of data structure. Agglomerative (bottom-up) starts with each sample as a singleton cluster, iteratively merging the two closest clusters until one cluster remains.
+
+Divisive (top-down) starts with all samples in one cluster, recursively splitting until each sample is isolated. Agglomerative is more common and practical. The key question: what defines "closest clusters"? Linkage criteria determine inter-cluster distance:
 
 (1) Single-linkage (min distance between clusters) connects closest pair—prone to chaining (long thin clusters),
 
@@ -121,7 +123,9 @@ Disadvantages: more hyperparameters to tune (min_cluster_size, min_samples), les
 
 ### Q7: Explain Gaussian Mixture Models (GMM) and the EM algorithm for fitting.
 
-**A:** Gaussian Mixture Models assume data is generated from a mixture of K Gaussian distributions, each with mean μ_k, covariance Σ_k, and weight π_k (proportion). The likelihood is: P(x) = ∑_k π_k N(x | μ_k, Σ_k), where N is the Gaussian density. Unlike K-means (hard assignment), GMM produces soft assignments—each sample has probability of belonging to each cluster. Expectation-Maximization (EM) algorithm fits GMM:
+**A:** Gaussian Mixture Models assume data is generated from a mixture of K Gaussian distributions, each with mean μ_k, covariance Σ_k, and weight π_k (proportion). The likelihood is: P(x) = ∑_k π_k N(x | μ_k, Σ_k), where N is the Gaussian density.
+
+Unlike K-means (hard assignment), GMM produces soft assignments—each sample has probability of belonging to each cluster. Expectation-Maximization (EM) algorithm fits GMM:
 
 (1) E-step: compute responsibilities γ_nk = probability sample n belongs to cluster k, using current parameters,
 

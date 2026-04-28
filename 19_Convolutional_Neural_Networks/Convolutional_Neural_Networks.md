@@ -44,7 +44,9 @@ Modern trend: stride-2 convolutions (stride in conv, not pooling) largely replac
 
 ### Q3: What is receptive field and why does it matter?
 
-**A:** The receptive field (RF) of a neuron is the region of input that influences it. A 3×3 convolution has RF=3. Stacking layers increases RF: two 3×3 convolutions have RF = 3 + (3-1) = 5 (second filter's input already summarizes a 3×3 region). RF = output_rf + (filter_size - 1) × stride_product. To reach large RF (seeing whole image), you need depth (many layers) or large filters (computationally expensive) or large strides (lose detail).
+**A:** The receptive field (RF) of a neuron is the region of input that influences it. A 3×3 convolution has RF=3. Stacking layers increases RF: two 3×3 convolutions have RF = 3 + (3-1) = 5 (second filter's input already summarizes a 3×3 region). RF = output_rf + (filter_size - 1) × stride_product.
+
+To reach large RF (seeing whole image), you need depth (many layers) or large filters (computationally expensive) or large strides (lose detail).
 
 Example: ResNet-50 with multiple stages (stride 2, stride 2, stride 2) has RF ≈ 400+ pixels by the final layer, much larger than any single filter. Large RF in deep layers captures global context (whole image relationships); small RF in early layers captures local details (edges). Designing receptive field is critical for tasks: object detection needs global RF (see objects), semantic segmentation needs local RF (preserve boundaries). Modern architectures carefully control RF via stride and layer count. In interviews, RF explains why depth matters—not just for expressiveness, but for efficient context aggregation. Designing RF for your task (e.g., "small RF for fine-grained segmentation, large RF for classification") signals architectural thinking.
 
@@ -52,7 +54,13 @@ Example: ResNet-50 with multiple stages (stride 2, stride 2, stride 2) has RF �
 
 ### Q4: Describe LeNet, AlexNet, VGG, ResNet, and how they evolved.
 
-**A:** LeNet (1990s): 7-layer network for MNIST (handwritten digits). Simple: conv → tanh → pool, repeated. Proved convolution is useful. AlexNet (2012): won ImageNet competition, sparked deep learning renaissance. 8 layers, ReLU activation, dropout, GPU training. Showed deep networks on large data beat hand-crafted features. VGG (2014): emphasized depth over complexity. Simple design: 3×3 convolutions repeated, 2×2 pooling. Deep stacking (16 or 19 layers) improved accuracy. Downside: many parameters, slow. ResNet (2015): introduced skip connections: x → conv → conv → +x → ReLU. Solves vanishing gradients in very deep networks (100+ layers). Winner-take-all architecture; enables practical training of extremely deep networks. DenseNet (2017): connects each layer to all previous layers (concatenation). Efficient feature reuse; fewer parameters than ResNet; better gradient flow. EfficientNet (2019): systematically scales depth, width, and resolution together. Mobile-friendly; good accuracy-computation trade-off. Evolution pattern:
+**A:** LeNet (1990s): 7-layer network for MNIST (handwritten digits). Simple: conv → tanh → pool, repeated. Proved convolution is useful. AlexNet (2012): won ImageNet competition, sparked deep learning renaissance. 8 layers, ReLU activation, dropout, GPU training. Showed deep networks on large data beat hand-crafted features.
+
+VGG (2014): emphasized depth over complexity. Simple design: 3×3 convolutions repeated, 2×2 pooling. Deep stacking (16 or 19 layers) improved accuracy. Downside: many parameters, slow. ResNet (2015): introduced skip connections: x → conv → conv → +x → ReLU. Solves vanishing gradients in very deep networks (100+ layers).
+
+Winner-take-all architecture; enables practical training of extremely deep networks. DenseNet (2017): connects each layer to all previous layers (concatenation). Efficient feature reuse; fewer parameters than ResNet; better gradient flow. EfficientNet (2019): systematically scales depth, width, and resolution together.
+
+Mobile-friendly; good accuracy-computation trade-off. Evolution pattern:
 
 (1) Depth increases (8 → 19 → 50+ layers) as techniques enabling deep training emerge.
 

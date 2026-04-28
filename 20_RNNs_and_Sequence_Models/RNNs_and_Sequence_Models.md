@@ -42,13 +42,25 @@ Disadvantages:
 
 ### Q2: What is BPTT (Backpropagation Through Time)? How does it compute gradients for RNNs?
 
-**A:** BPTT is gradient computation for RNNs via the chain rule through timesteps. Forward pass: compute h_t and y_t for all t. Backward pass: compute gradients starting from loss at final timestep, propagate backward in time. For loss L = Σ_t loss(y_t, target_t) and y_t = W_y·h_t, gradient w.r.t. W_y: ∂L/∂W_y = Σ_t ∂loss(y_t)/∂W_y. For hidden state: ∂L/∂h_t = ∂L/∂y_t × ∂y_t/∂h_t + ∂L/∂h_{t+1} × ∂h_{t+1}/∂h_t. The gradient at h_t depends on both current loss (first term) and gradient from next timestep (second term, recurrent). Computing ∂L/∂W_h requires chain rule across all timesteps: ∂L/∂W_h = Σ_t (∂L/∂h_t × ∂h_t/∂W_h). The gradient ∂h_t/∂W_h involves h_{t-1}, which depends on h_{t-2}, etc., creating long chains. Pathology: if ∂h_t/∂h_{t-1} < 1 (typical with tanh, which has derivative ≤ 0.25), the chain product shrinks exponentially. With 100 timesteps, gradient ≈ (0.25)^100 ≈ 0, killing early timestep learning. This is vanishing gradient in RNNs; it's worse than feedforward networks because recurrent connections create extremely long dependency chains. BPTT is expensive O(T·parameters) where T is sequence length. Truncated BPTT (TBPTT) limits backprop depth to recent timesteps (k steps back), reducing compute. In interviews, explain that BPTT is just the chain rule applied through time; vanishing gradients are the key pathology necessitating LSTMs.
+**A:** BPTT is gradient computation for RNNs via the chain rule through timesteps. Forward pass: compute h_t and y_t for all t. Backward pass: compute gradients starting from loss at final timestep, propagate backward in time. For loss L = Σ_t loss(y_t, target_t) and y_t = W_y·h_t, gradient w.r.t. W_y: ∂L/∂W_y = Σ_t ∂loss(y_t)/∂W_y.
+
+For hidden state: ∂L/∂h_t = ∂L/∂y_t × ∂y_t/∂h_t + ∂L/∂h_{t+1} × ∂h_{t+1}/∂h_t. The gradient at h_t depends on both current loss (first term) and gradient from next timestep (second term, recurrent). Computing ∂L/∂W_h requires chain rule across all timesteps: ∂L/∂W_h = Σ_t (∂L/∂h_t × ∂h_t/∂W_h).
+
+The gradient ∂h_t/∂W_h involves h_{t-1}, which depends on h_{t-2}, etc., creating long chains. Pathology: if ∂h_t/∂h_{t-1} < 1 (typical with tanh, which has derivative ≤ 0.25), the chain product shrinks exponentially. With 100 timesteps, gradient ≈ (0.25)^100 ≈ 0, killing early timestep learning.
+
+This is vanishing gradient in RNNs; it's worse than feedforward networks because recurrent connections create extremely long dependency chains. BPTT is expensive O(T·parameters) where T is sequence length. Truncated BPTT (TBPTT) limits backprop depth to recent timesteps (k steps back), reducing compute.
+
+In interviews, explain that BPTT is just the chain rule applied through time; vanishing gradients are the key pathology necessitating LSTMs.
 
 ---
 
 ### Q3: Explain the LSTM architecture. What are the four gates?
 
-**A:** LSTM (Long Short-Term Memory) introduces a cell state c_t (long-term memory) and three gates controlling its flow: forget gate (f_t), input gate (i_t), output gate (o_t). Computation: f_t = σ(W_f·[h_{t-1}, x_t] + b_f) (forget gate: 0 to 1, how much to forget), i_t = σ(W_i·[h_{t-1}, x_t] + b_i) (input gate: how much new info), c_tilde = tanh(W_c·[h_{t-1}, x_t] + b_c) (candidate cell state), c_t = f_t ⊙ c_{t-1} + i_t ⊙ c_tilde (update cell), o_t = σ(W_o·[h_{t-1}, x_t] + b_o) (output gate), h_t = o_t ⊙ tanh(c_t). Four gates learned via backprop; they control information flow. Benefits:
+**A:** LSTM (Long Short-Term Memory) introduces a cell state c_t (long-term memory) and three gates controlling its flow: forget gate (f_t), input gate (i_t), output gate (o_t).
+
+Computation: f_t = σ(W_f·[h_{t-1}, x_t] + b_f) (forget gate: 0 to 1, how much to forget), i_t = σ(W_i·[h_{t-1}, x_t] + b_i) (input gate: how much new info), c_tilde = tanh(W_c·[h_{t-1}, x_t] + b_c) (candidate cell state), c_t = f_t ⊙ c_{t-1} + i_t ⊙ c_tilde (update cell), o_t = σ(W_o·[h_{t-1}, x_t] + b_o) (output gate), h_t = o_t ⊙ tanh(c_t).
+
+Four gates learned via backprop; they control information flow. Benefits:
 
 (1) Cell state c_t has additive updates (c_t = f_t⊙c_{t-1} + i_t⊙c_tilde), enabling gradient flow unobstructed. Gradient ∂L/∂c_t = ∂L/∂c_{t+1} + other contributions; the direct path prevents exponential decay.
 
@@ -64,7 +76,9 @@ Intuition: gates enable selective information flow; cell state is a highway for 
 
 ### Q4: What is a GRU (Gated Recurrent Unit)? How does it differ from LSTM?
 
-**A:** GRU is a simpler LSTM variant with two gates (reset, update) instead of three. Computation: r_t = σ(W_r·[h_{t-1}, x_t]) (reset gate), z_t = σ(W_z·[h_{t-1}, x_t]) (update gate), h_tilde = tanh(W·[r_t ⊙ h_{t-1}, x_t]) (candidate), h_t = (1-z_t) ⊙ h_{t-1} + z_t ⊙ h_tilde. Reset gate r_t determines how much past hidden state influences candidate h_tilde; update gate z_t controls how much to update (1-z_t) × past + z_t × new. No separate cell state; hidden state is the only state. Advantages over LSTM:
+**A:** GRU is a simpler LSTM variant with two gates (reset, update) instead of three. Computation: r_t = σ(W_r·[h_{t-1}, x_t]) (reset gate), z_t = σ(W_z·[h_{t-1}, x_t]) (update gate), h_tilde = tanh(W·[r_t ⊙ h_{t-1}, x_t]) (candidate), h_t = (1-z_t) ⊙ h_{t-1} + z_t ⊙ h_tilde.
+
+Reset gate r_t determines how much past hidden state influences candidate h_tilde; update gate z_t controls how much to update (1-z_t) × past + z_t × new. No separate cell state; hidden state is the only state. Advantages over LSTM:
 
 (1) Fewer parameters (2K vs. 4K gates, roughly half).
 
@@ -136,7 +150,9 @@ Architecture:
 
 ### Q7: What is the attention mechanism? How does it improve seq2seq?
 
-**A:** Attention allows decoder to focus on relevant input timesteps instead of compressing all info into a single context vector. Mechanism: at decoder step s, compute attention weights over encoder hidden states. Scaled dot-product attention: score(s,t) = (decoder_state_s · encoder_state_t) / √d (dot product normalized by dimension d). Attention weight α_{s,t} = softmax(score(s,t)) over all t. Context vector c_s = Σ_t α_{s,t}·h_t (weighted sum of encoder states). Decoder produces output using context + decoder state. Benefits:
+**A:** Attention allows decoder to focus on relevant input timesteps instead of compressing all info into a single context vector. Mechanism: at decoder step s, compute attention weights over encoder hidden states. Scaled dot-product attention: score(s,t) = (decoder_state_s · encoder_state_t) / √d (dot product normalized by dimension d).
+
+Attention weight α_{s,t} = softmax(score(s,t)) over all t. Context vector c_s = Σ_t α_{s,t}·h_t (weighted sum of encoder states). Decoder produces output using context + decoder state. Benefits:
 
 (1) No bottleneck: decoder accesses all encoder states, not just final h_T.
 
@@ -180,7 +196,9 @@ In practice: use teacher forcing for stability, but monitor test performance and
 
 ### Q9: Explain beam search decoding. Why is it used in seq2seq?
 
-**A:** At inference, seq2seq decoder generates sequence greedily (choose highest-probability token at each step) or via beam search (keep multiple hypotheses). Greedy: at step s, select ŷ_s = argmax P(y|context). Fast, but often suboptimal—local choices prevent globally optimal sequences. Beam search: maintain k best partial sequences (k is beam width, typically 5-10). At each step, expand each hypothesis by all possible next tokens, keep top k by cumulative probability.
+**A:** At inference, seq2seq decoder generates sequence greedily (choose highest-probability token at each step) or via beam search (keep multiple hypotheses). Greedy: at step s, select ŷ_s = argmax P(y|context). Fast, but often suboptimal—local choices prevent globally optimal sequences.
+
+Beam search: maintain k best partial sequences (k is beam width, typically 5-10). At each step, expand each hypothesis by all possible next tokens, keep top k by cumulative probability.
 
 Example: sentence "The cat sat on the mat." Greedy might predict "The dog sat on the floor" if "dog" is locally highest-prob. Beam search with k=5 might keep alternatives like "The cat sat on the rug," allowing better global sequence. Probability of sequence [y_1...y_S] = Π P(y_s|y_1...y_{s-1}). Taking log avoids underflow. Beam search maintains top k hypotheses by log-probability at each step. Inference complexity: O(k × vocab_size × sequence_length) vs. greedy O(vocab_size × sequence_length); ~5-10× slower but often 1-2% accuracy improvement. Length penalty: longer sequences have lower probability (more terms to multiply). Apply length normalization: log-prob / length. Stops beam search from preferring short sequences. Early stopping: candidate sequences ending with end-of-sequence token are removed from beam. In interviews, explain that beam search trades compute for accuracy; it's standard in production seq2seq (translation, dialogue). Mentioning length normalization shows understanding of why raw probabilities bias toward short sequences.
 
@@ -248,7 +266,11 @@ Example: stock forecasting h=30 days ahead. Recursive: train 1-day model, predic
 
 ### Q14: What is scheduled sampling and how does it address exposure bias?
 
-**A:** Scheduled sampling gradually transitions from teacher forcing to scheduled sampling during training. Motivation: teacher forcing causes exposure bias (train on ground truth, test on predictions). Scheduled sampling: at training step s, use ground truth with probability p_s, predicted output with probability 1-p_s. p_s = 1 initially (full teacher forcing), decays to 0 (full auto-regressive). Schedule: p_s = 1 - i/total_steps (linear decay) or p_s = (1-1/total_steps)^i (exponential decay). Effect: early training uses teacher forcing for stability; late training uses predictions, reducing exposure bias.
+**A:** Scheduled sampling gradually transitions from teacher forcing to scheduled sampling during training. Motivation: teacher forcing causes exposure bias (train on ground truth, test on predictions).
+
+Scheduled sampling: at training step s, use ground truth with probability p_s, predicted output with probability 1-p_s. p_s = 1 initially (full teacher forcing), decays to 0 (full auto-regressive). Schedule: p_s = 1 - i/total_steps (linear decay) or p_s = (1-1/total_steps)^i (exponential decay).
+
+Effect: early training uses teacher forcing for stability; late training uses predictions, reducing exposure bias.
 
 Trade-off: scheduled sampling is slower than pure teacher forcing but avoids distribution mismatch. Hyperparameter: decay schedule. Aggressive decay (fast) → early auto-regressive (training instability). Slow decay → late training still uses mostly teacher forcing (still biased).
 

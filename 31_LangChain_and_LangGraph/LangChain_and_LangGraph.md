@@ -188,7 +188,9 @@ Parsers inject format instructions into prompts (e.g., "Output valid JSON only")
 
 ### Q8: What is LangGraph and how does it differ from LangChain?
 
-**A:** LangGraph is a state machine framework for building complex, stateful agent workflows. While LangChain focuses on composing LLM calls, LangGraph explicitly manages state and control flow. Key differences: **LangChain** uses reactive patterns (chains that respond to inputs), **LangGraph** uses proactive patterns (agents that iterate toward goals with explicit state). **LangChain** chains are largely linear, **LangGraph** workflows are graph-based with conditionals and loops. **LangChain** memory is implicit and often discarded, **LangGraph** state is explicit and persistent.
+**A:** LangGraph is a state machine framework for building complex, stateful agent workflows. While LangChain focuses on composing LLM calls, LangGraph explicitly manages state and control flow.
+
+Key differences: **LangChain** uses reactive patterns (chains that respond to inputs), **LangGraph** uses proactive patterns (agents that iterate toward goals with explicit state). **LangChain** chains are largely linear, **LangGraph** workflows are graph-based with conditionals and loops. **LangChain** memory is implicit and often discarded, **LangGraph** state is explicit and persistent.
 
 Example: a customer service agent needs to decide whether to escalate to a human. With LangChain, this requires custom logic; with LangGraph, you define a graph:
 ```
@@ -374,7 +376,13 @@ Example: when an agent fails to answer a question correctly, LangSmith shows: th
 
 ### Q15: Compare LangChain vs LangGraph vs raw API calls: when to use each?
 
-**A:** **Raw API calls** (direct LLM calls) are appropriate for simple, single-turn tasks: "Translate this text." Direct calls give maximum control but require handling everything: prompt formatting, error handling, token management, retries. **LangChain** is ideal for: linear multi-step workflows (RAG, classification pipelines), leveraging document loaders and retrievers, building simple agents with memory. LangChain abstracts away infrastructure (prompts, memory, parsing), accelerating development. Choose LangChain when tasks are relatively predictable and linear. **LangGraph** is necessary for: complex agents with conditional logic, human-in-the-loop workflows, state-heavy processes requiring persistence, multi-agent coordination, applications where explicit control flow matters. Use LangGraph when you need state management, explicit routing, and debuggability.
+**A:** **Raw API calls** (direct LLM calls) are appropriate for simple, single-turn tasks: "Translate this text." Direct calls give maximum control but require handling everything: prompt formatting, error handling, token management, retries. **LangChain** is ideal for: linear multi-step workflows (RAG, classification pipelines), leveraging document loaders and retrievers, building simple agents with memory.
+
+LangChain abstracts away infrastructure (prompts, memory, parsing), accelerating development.
+
+Choose LangChain when tasks are relatively predictable and linear. **LangGraph** is necessary for: complex agents with conditional logic, human-in-the-loop workflows, state-heavy processes requiring persistence, multi-agent coordination, applications where explicit control flow matters.
+
+Use LangGraph when you need state management, explicit routing, and debuggability.
 
 In practice: simple chatbots use raw calls or LangChain chains, RAG systems use LangChain retrievers with chains, sophisticated agents use LangGraph. Many production systems use both: LangGraph for orchestration, LangChain components for individual nodes. The choice depends on task complexity and requirements; simpler is often better, so start with the minimum (raw calls), and escalate to LangChain or LangGraph only as needed.
 

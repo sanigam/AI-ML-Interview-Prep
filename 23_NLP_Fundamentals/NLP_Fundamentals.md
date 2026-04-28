@@ -65,7 +65,11 @@ Limitations:
 
 ### Q3: Explain TF-IDF and how it improves on BoW for information retrieval.
 
-**A:** TF-IDF (Term Frequency-Inverse Document Frequency) weighs term importance: `TF-IDF(term, doc) = TF(term, doc) × IDF(term)` where `TF = count(term, doc) / total_words(doc)` (normalized term frequency) and `IDF = log(total_docs / docs_containing_term)`. The intuition: common words across many documents are less informative (low IDF: "the" appears everywhere), while rare discriminative words have high IDF (e.g., "covid" in 2020 articles). TF-IDF improves BoW by addressing the common word problem—stop words get downweighted automatically. For IR, TF-IDF documents are ranked by cosine similarity to query.
+**A:** TF-IDF (Term Frequency-Inverse Document Frequency) weighs term importance: `TF-IDF(term, doc) = TF(term, doc) × IDF(term)` where `TF = count(term, doc) / total_words(doc)` (normalized term frequency) and `IDF = log(total_docs / docs_containing_term)`.
+
+The intuition: common words across many documents are less informative (low IDF: "the" appears everywhere), while rare discriminative words have high IDF (e.g., "covid" in 2020 articles). TF-IDF improves BoW by addressing the common word problem—stop words get downweighted automatically.
+
+For IR, TF-IDF documents are ranked by cosine similarity to query.
 
 Advantages: interpretable, computationally efficient (O(vocab_size)), works well for domain-specific vocabulary.
 

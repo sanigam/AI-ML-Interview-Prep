@@ -32,7 +32,9 @@ Example: robot navigation MDP: states = grid positions, actions = move up/down/l
 
 ### Q2: What are value functions (V and Q) and Bellman equations?
 
-**A:** **Value function V(s)** = expected cumulative future reward from state s: V(s) = E[G_t | s_t = s] = E[r_t + γ*V(s_{t+1})]. High V means good state (lead to high rewards). **Q-function (action-value) Q(s,a)** = expected cumulative reward from state s after taking action a: Q(s,a) = E[r_t + γ*max_a'Q(s_{t+1},a')]. High Q means good state-action pair. **Bellman equation** (fundamental): V(s) = Σ_a π(a|s) * Σ_{s',r} P(s',r|s,a) * [r + γ*V(s')]. For deterministic: V(s) = R(s) + γ*V(s'). This recursive relation enables value estimation: if you know values of subsequent states, compute value of current state.
+**A:** **Value function V(s)** = expected cumulative future reward from state s: V(s) = E[G_t | s_t = s] = E[r_t + γ*V(s_{t+1})]. High V means good state (lead to high rewards). **Q-function (action-value) Q(s,a)** = expected cumulative reward from state s after taking action a: Q(s,a) = E[r_t + γ*max_a'Q(s_{t+1},a')].
+
+High Q means good state-action pair. **Bellman equation** (fundamental): V(s) = Σ_a π(a|s) * Σ_{s',r} P(s',r|s,a) * [r + γ*V(s')]. For deterministic: V(s) = R(s) + γ*V(s'). This recursive relation enables value estimation: if you know values of subsequent states, compute value of current state.
 
 Example: chess, state = board position, value = win probability. From current position, value = average value of all next positions (weighted by move probability) plus immediate reward. Bellman equations enable dynamic programming algorithms: instead of forward simulation (expensive), solve Bellman equations backward (efficient). Two types: policy evaluation (compute V for given policy) and policy improvement (find better policy using V). Together, they form policy iteration: evaluate policy → improve policy → repeat.
 
@@ -170,7 +172,15 @@ Intuition: increase probability of action a_t if return was high, decrease if lo
 
 ### Q9: Explain actor-critic methods (A2C, A3C, PPO) and their advantages.
 
-**A:** Actor-critic methods combine policy gradients (actor) and value functions (critic): actor (policy) decides actions, critic (value function) evaluates them. **Advantage**: A(s,a) = Q(s,a) - V(s). Update: actor θ ← θ + α*A(s,a)*∇_θ log π(a|s;θ), critic φ ← φ + β*[r + γ*V(s',φ) - V(s,φ)]^2. Actor improves policy toward high-advantage actions, critic learns values. Benefits: lower variance (baseline reduces variance), on-policy (can reuse recent data). **A2C (Advantage Actor-Critic)**: synchronous version, trains on batches of trajectories from multiple parallel environments. **A3C (Asynchronous A2C)**: asynchronous version, multiple threads learn independently, share global networks. **PPO (Proximal Policy Optimization)**: constrains policy update to stay close to old policy. Update: maximize L^{CLIP}(θ) = E[min(r_t(θ)*A_t, clip(r_t(θ), 1-ε, 1+ε)*A_t)] where r_t is importance weight (new policy / old policy). Clipping prevents huge policy changes. Benefits: stable (prevents divergence), sample-efficient, easier to tune. Became standard in deep RL; used in GPT training (RLHF uses PPO variant). Other variants: **SAC (Soft Actor-Critic)** - maximum entropy RL, optimizes for both reward and entropy (exploration). Used in robotics.
+**A:** Actor-critic methods combine policy gradients (actor) and value functions (critic): actor (policy) decides actions, critic (value function) evaluates them. **Advantage**: A(s,a) = Q(s,a) - V(s). Update: actor θ ← θ + α*A(s,a)*∇_θ log π(a|s;θ), critic φ ← φ + β*[r + γ*V(s',φ) - V(s,φ)]^2.
+
+Actor improves policy toward high-advantage actions, critic learns values.
+
+Benefits: lower variance (baseline reduces variance), on-policy (can reuse recent data). **A2C (Advantage Actor-Critic)**: synchronous version, trains on batches of trajectories from multiple parallel environments. **A3C (Asynchronous A2C)**: asynchronous version, multiple threads learn independently, share global networks. **PPO (Proximal Policy Optimization)**: constrains policy update to stay close to old policy.
+
+Update: maximize L^{CLIP}(θ) = E[min(r_t(θ)*A_t, clip(r_t(θ), 1-ε, 1+ε)*A_t)] where r_t is importance weight (new policy / old policy). Clipping prevents huge policy changes. Benefits: stable (prevents divergence), sample-efficient, easier to tune. Became standard in deep RL; used in GPT training (RLHF uses PPO variant).
+
+Other variants: **SAC (Soft Actor-Critic)** - maximum entropy RL, optimizes for both reward and entropy (exploration). Used in robotics.
 
 Comparison: REINFORCE simple but high variance, A2C/A3C lower variance but complex, PPO best of both (stable, sample-efficient), SAC adds entropy bonus.
 

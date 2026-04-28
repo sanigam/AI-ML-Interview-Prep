@@ -15,7 +15,9 @@ Model evaluation and selection are fundamental to ML practice, yet frequently mi
 
 ### Q1: Explain key classification metrics: accuracy, precision, recall, F1-score.
 
-**A:** Accuracy = (TP + TN) / (TP + TN + FP + FN), the fraction of correct predictions. Simple, but misleading on imbalanced data: 99% negative class accuracy is worthless if your goal is detecting rare positives. Precision = TP / (TP + FP), the fraction of positive predictions that are correct; answers "when model predicts positive, how often is it right?" Recall (sensitivity) = TP / (TP + FN), the fraction of actual positives detected; answers "of all true positives, how many did we find?" F1 = 2 × (Precision × Recall) / (Precision + Recall), the harmonic mean, balancing both.
+**A:** Accuracy = (TP + TN) / (TP + TN + FP + FN), the fraction of correct predictions. Simple, but misleading on imbalanced data: 99% negative class accuracy is worthless if your goal is detecting rare positives.
+
+Precision = TP / (TP + FP), the fraction of positive predictions that are correct; answers "when model predicts positive, how often is it right?" Recall (sensitivity) = TP / (TP + FN), the fraction of actual positives detected; answers "of all true positives, how many did we find?" F1 = 2 × (Precision × Recall) / (Precision + Recall), the harmonic mean, balancing both.
 
 Trade-off: increasing recall often decreases precision (lower decision threshold → more positives, more false positives). Choice depends on cost structure:
 
@@ -29,7 +31,11 @@ Trade-off: increasing recall often decreases precision (lower decision threshold
 
 ### Q2: Explain ROC curve and AUC-ROC, and when to use them.
 
-**A:** ROC (Receiver Operating Characteristic) curve plots True Positive Rate (TPR = Recall = TP / (TP + FN)) vs. False Positive Rate (FPR = FP / (FP + TN)) as the decision threshold varies. Starting at (0, 0) (high threshold, predict few positives), moving to (1, 1) (low threshold, predict many positives). A diagonal line from (0,0) to (1,1) represents random guessing (50% probability). Good classifiers curve toward top-left (high TPR, low FPR). AUC (Area Under Curve) summarizes ROC curve as a scalar (0 to 1); AUC = 0.5 random, 1.0 perfect. AUC = probability that classifier ranks a random positive sample higher than a random negative sample (ranking interpretation).
+**A:** ROC (Receiver Operating Characteristic) curve plots True Positive Rate (TPR = Recall = TP / (TP + FN)) vs. False Positive Rate (FPR = FP / (FP + TN)) as the decision threshold varies. Starting at (0, 0) (high threshold, predict few positives), moving to (1, 1) (low threshold, predict many positives).
+
+A diagonal line from (0,0) to (1,1) represents random guessing (50% probability). Good classifiers curve toward top-left (high TPR, low FPR). AUC (Area Under Curve) summarizes ROC curve as a scalar (0 to 1); AUC = 0.5 random, 1.0 perfect.
+
+AUC = probability that classifier ranks a random positive sample higher than a random negative sample (ranking interpretation).
 
 Advantages:
 
@@ -67,7 +73,9 @@ Disadvantages: less intuitive than ROC (Precision = TP/(TP+FP) depends on both T
 
 ### Q4: Explain confusion matrix and its interpretation in multiclass scenarios.
 
-**A:** Confusion matrix is an n×n table (for n classes) where entry (i,j) = number of samples truly class i but predicted as class j. Diagonal = correct predictions, off-diagonal = errors. Example (binary): [[TP, FP], [FN, TN]]. From confusion matrix, derive: Accuracy, Precision per class, Recall per class. For multiclass, compute macro-average (per-class metrics averaged) or micro-average (pooled counts).
+**A:** Confusion matrix is an n×n table (for n classes) where entry (i,j) = number of samples truly class i but predicted as class j. Diagonal = correct predictions, off-diagonal = errors. Example (binary): [[TP, FP], [FN, TN]]. From confusion matrix, derive: Accuracy, Precision per class, Recall per class.
+
+For multiclass, compute macro-average (per-class metrics averaged) or micro-average (pooled counts).
 
 Interpretation:
 
@@ -81,7 +89,9 @@ Interpretation:
 
 ### Q5: Explain log loss (cross-entropy loss) and its relationship to probability calibration.
 
-**A:** Log loss (cross-entropy): L = -(1/n) ∑_i [y_i log(ŷ_i) + (1-y_i) log(1-ŷ_i)] for binary classification, where ŷ_i ∈ (0,1) is predicted probability. For multiclass: L = -(1/n) ∑_i ∑_k y_ik log(ŷ_ik), where y_ik is one-hot encoded, ŷ_ik is predicted probability for class k. Log loss penalizes confident wrong predictions heavily (log(0) → ∞ as ŷ → 0 for true label). Key property: minimizing log loss produces calibrated probability estimates—predicted probability matches empirical frequency.
+**A:** Log loss (cross-entropy): L = -(1/n) ∑_i [y_i log(ŷ_i) + (1-y_i) log(1-ŷ_i)] for binary classification, where ŷ_i ∈ (0,1) is predicted probability. For multiclass: L = -(1/n) ∑_i ∑_k y_ik log(ŷ_ik), where y_ik is one-hot encoded, ŷ_ik is predicted probability for class k.
+
+Log loss penalizes confident wrong predictions heavily (log(0) → ∞ as ŷ → 0 for true label). Key property: minimizing log loss produces calibrated probability estimates—predicted probability matches empirical frequency.
 
 Example: if model predicts 70% probability on 100 samples, ~70 should be positive. Well-calibrated models enable downstream decision-making (set thresholds based on business cost). Comparison to accuracy: accuracy is 0-1 (wrong/right), log loss is continuous (penalizes degree of wrongness). Log loss is more sensitive: improving from 99% to 100% accuracy (10 more correct out of 1000) changes accuracy slightly but log loss significantly (infinity penalty removed). Use log loss:
 

@@ -132,7 +132,13 @@ In practice: most systems use implicit (more data available). YouTube uses watch
 
 ### Q6: Explain evaluation metrics for recommendations (precision@K, recall@K, NDCG, MAP, MRR).
 
-**A:** **Precision@K** - fraction of top-K recommendations that user interacted with. E.g., if you recommend 10 movies and user watches 2, precision@10 = 0.2. Measures: "how many recommendations are good?" High precision means few false positives. **Recall@K** - fraction of user's interactions that appear in top-K recommendations. E.g., if user watched 100 movies and 8 appear in recommended 10, recall@10 = 0.08. Measures: "did you recommend movies user cares about?" High recall means few false negatives. Precision vs recall: precision asks "are recommendations good?" recall asks "did you cover user's interests?" High precision, low recall: recommend only movies you're sure user likes (many movies missed). High recall, low precision: recommend many movies (some are irrelevant). **NDCG (Normalized Discounted Cumulative Gain)** accounts for ranking: top recommendations matter more than lower. DCG = Σ (rating / log(position)).
+**A:** **Precision@K** - fraction of top-K recommendations that user interacted with. E.g., if you recommend 10 movies and user watches 2, precision@10 = 0.2. Measures: "how many recommendations are good?" High precision means few false positives. **Recall@K** - fraction of user's interactions that appear in top-K recommendations.
+
+E.g., if user watched 100 movies and 8 appear in recommended 10, recall@10 = 0.08. Measures: "did you recommend movies user cares about?" High recall means few false negatives.
+
+Precision vs recall: precision asks "are recommendations good?" recall asks "did you cover user's interests?" High precision, low recall: recommend only movies you're sure user likes (many movies missed).
+
+High recall, low precision: recommend many movies (some are irrelevant). **NDCG (Normalized Discounted Cumulative Gain)** accounts for ranking: top recommendations matter more than lower. DCG = Σ (rating / log(position)).
 
 Example: if user likes position 1 (weight 1), then position 3 (weight 0.63), then position 10 (weight 0.42), DCG = 1 + 0.63 + 0.42. NDCG normalizes by ideal DCG (user liked top K items). Accounts for ranking. **MAP (Mean Average Precision)** - average of precision@K computed at each K where user interacted. If user interacted at positions 2, 5, 8: AP = (P@2 + P@5 + P@8) / 3. **MRR (Mean Reciprocal Rank)** - 1 / position of first correct recommendation. If correct recommendation is at position 3, MRR = 1/3. Common: precision/recall for binary feedback (clicked or not), NDCG for ranked feedback (ratings 1-5), MRR for ranking where order matters (search results). Choose metric based on application goal: precision for no false positives, recall for coverage, NDCG/MAP for ranking quality.
 
@@ -254,7 +260,11 @@ Example: YouTube uses matrix factorization to retrieve videos. Process: compute 
 
 ### Q11: What is feature engineering for recommendations and what are common features?
 
-**A:** Feature engineering creates features from user behavior and item properties for ML models. Common features: **(1) User features**: age, gender, location, account tenure, sign-up device, language, subscription level. **(2) Item features**: genre, duration, release date, popularity, average rating, number of reviews, actor/director names. **(3) Interaction features**: user_watched_genre (is this genre similar to ones user watches?), user_director_similarity, item_popularity_rank. **(4) Contextual features**: time_of_day, day_of_week, device (phone/TV), network type, season. **(5) Historical features**: user_avg_rating (how generous is this user?), user_watch_time (is user patient?), item_completion_rate (do users finish this item?). **(6) Temporal features**: days_since_user_rated_similar_item (recency of similar taste), days_since_item_released, decay (older interactions weighted less). Feature engineering process:
+**A:** Feature engineering creates features from user behavior and item properties for ML models.
+
+Common features: **(1) User features**: age, gender, location, account tenure, sign-up device, language, subscription level. **(2) Item features**: genre, duration, release date, popularity, average rating, number of reviews, actor/director names. **(3) Interaction features**: user_watched_genre (is this genre similar to ones user watches?), user_director_similarity, item_popularity_rank. **(4) Contextual features**: time_of_day, day_of_week, device (phone/TV), network type, season. **(5) Historical features**: user_avg_rating (how generous is this user?), user_watch_time (is user patient?), item_completion_rate (do users finish this item?). **(6) Temporal features**: days_since_user_rated_similar_item (recency of similar taste), days_since_item_released, decay (older interactions weighted less).
+
+Feature engineering process:
 
 (1) **domain knowledge** - what do you know about recommendations that features should capture? (2) **experimentation** - try different features, measure impact,
 

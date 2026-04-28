@@ -14,7 +14,9 @@ LLM inference optimization is critical because language models are expensive to 
 
 ### Q1: Why is inference optimization critical for LLMs? Explain the cost-latency-quality tradeoff.
 
-**A:** LLM inference is expensive because models are massive (7B to 405B parameters), generate tokens autoregressively (one at a time, sequentially), and consume significant GPU memory and compute per token. A naive implementation of a 70B model requires ~140GB memory (each parameter is 2 bytes in FP16), each token takes ~100ms on an H100 GPU, and generating a 500-token response takes 50 seconds—unacceptable for real-time applications. The primary costs are:
+**A:** LLM inference is expensive because models are massive (7B to 405B parameters), generate tokens autoregressively (one at a time, sequentially), and consume significant GPU memory and compute per token.
+
+A naive implementation of a 70B model requires ~140GB memory (each parameter is 2 bytes in FP16), each token takes ~100ms on an H100 GPU, and generating a 500-token response takes 50 seconds—unacceptable for real-time applications. The primary costs are:
 
 (1) memory (scales with model size; 405B parameter model doesn't fit on single GPU),
 
@@ -32,7 +34,9 @@ LLM inference optimization is critical because language models are expensive to 
 
 ### Q2: What is quantization? Compare INT8, INT4, and GPTQ. What are the tradeoffs?
 
-**A:** Quantization reduces numerical precision, storing numbers in fewer bits (INT8 = 8-bit integers, INT4 = 4-bit integers) instead of 32-bit floats (FP32) or 16-bit floats (FP16). For example, FP32 uses 32 bits per parameter; INT8 uses 8 bits (96.9% reduction); INT4 uses 4 bits (99.2% reduction). Quantization works because neural networks are robust to noise—modest precision loss has minimal accuracy impact. INT8 quantization:
+**A:** Quantization reduces numerical precision, storing numbers in fewer bits (INT8 = 8-bit integers, INT4 = 4-bit integers) instead of 32-bit floats (FP32) or 16-bit floats (FP16). For example, FP32 uses 32 bits per parameter; INT8 uses 8 bits (96.9% reduction); INT4 uses 4 bits (99.2% reduction).
+
+Quantization works because neural networks are robust to noise—modest precision loss has minimal accuracy impact. INT8 quantization:
 
 (1) computes per-channel or per-layer scaling factors (min/max values),
 
@@ -58,7 +62,9 @@ Practical insight: quantize in the order INT8 → INT4 → FP8, evaluating quali
 
 ### Q3: What is knowledge distillation? How is it used for LLM optimization?
 
-**A:** Knowledge distillation trains a smaller "student" model to mimic a larger "teacher" model, enabling deployment of smaller, faster models with quality closer to the original. The teacher (e.g., GPT-3.5) produces soft targets: instead of hard labels (e.g., probability 1.0 for correct token, 0 for others), use the full probability distribution from the teacher, preserving information about which wrong answers the teacher considers plausible. Student loss combines:
+**A:** Knowledge distillation trains a smaller "student" model to mimic a larger "teacher" model, enabling deployment of smaller, faster models with quality closer to the original.
+
+The teacher (e.g., GPT-3.5) produces soft targets: instead of hard labels (e.g., probability 1.0 for correct token, 0 for others), use the full probability distribution from the teacher, preserving information about which wrong answers the teacher considers plausible. Student loss combines:
 
 (1) distillation loss (KL divergence between student and teacher logits, with temperature τ >> 1 to soften distributions),
 
@@ -88,7 +94,9 @@ Limitations:
 
 ### Q4: What is model pruning? Explain structured vs. unstructured pruning and when to use each.
 
-**A:** Pruning removes weights or neurons with small magnitudes, assuming they contribute minimally to predictions. Unstructured pruning removes individual weights (e.g., zeroing out 50% of weights with smallest absolute values), creating sparse weight matrices with many zeros. Structured pruning removes entire filters, heads, or layers (e.g., removing entire attention heads from a transformer), maintaining dense matrices that are hardware-friendly. Unstructured pruning:
+**A:** Pruning removes weights or neurons with small magnitudes, assuming they contribute minimally to predictions. Unstructured pruning removes individual weights (e.g., zeroing out 50% of weights with smallest absolute values), creating sparse weight matrices with many zeros.
+
+Structured pruning removes entire filters, heads, or layers (e.g., removing entire attention heads from a transformer), maintaining dense matrices that are hardware-friendly. Unstructured pruning:
 
 (1) apply sparsity mask (set small weights to zero),
 
@@ -122,7 +130,11 @@ Modern trend: combine pruning with distillation (distill to smaller model, prune
 
 ### Q5: Explain speculative decoding. How does it speed inference? What are the limitations?
 
-**A:** Speculative decoding addresses the bottleneck that LLM generation is memory-bound: computing the next token requires loading the entire model (weights + activations), while actual compute is minimal relative to memory access. Speculative decoding uses a draft model to generate K candidate tokens in parallel (fast, uses small model), then the target model verifies all K tokens in one forward pass, accepting correct tokens and re-sampling from the first incorrect position. This parallelization enables speedup: instead of K sequential slow passes (generate K tokens), you do 1 fast pass (draft) + 1 slow pass (verify K tokens), yielding near 1 + 1/K ≈ 2x speedup for K=10. Specifically:
+**A:** Speculative decoding addresses the bottleneck that LLM generation is memory-bound: computing the next token requires loading the entire model (weights + activations), while actual compute is minimal relative to memory access.
+
+Speculative decoding uses a draft model to generate K candidate tokens in parallel (fast, uses small model), then the target model verifies all K tokens in one forward pass, accepting correct tokens and re-sampling from the first incorrect position.
+
+This parallelization enables speedup: instead of K sequential slow passes (generate K tokens), you do 1 fast pass (draft) + 1 slow pass (verify K tokens), yielding near 1 + 1/K ≈ 2x speedup for K=10. Specifically:
 
 (1) draft model (small, fast—could be 7B while target is 70B) generates tokens t₁, t₂, ... tₖ,
 
@@ -148,7 +160,11 @@ Practical deployment: use existing model as draft (e.g., Llama-7B drafts for Lla
 
 ### Q6: What is KV-cache optimization? Explain paged attention and vLLM.
 
-**A:** KV-cache stores pre-computed key and value embeddings from previous tokens, avoiding recomputation during generation. Without KV-cache: generating token tᵢ requires running attention on all tokens t₁...t_{i-1}, which is O(i) cost—expensive for long sequences. With KV-cache: cache K and V matrices from previous forwards, so computing attention for token tᵢ only requires multiplying new query with cached K,V, reducing O(i) to O(1) per token. Memory tradeoff: KV-cache is large (for a 70B model generating a 2000-token sequence, KV-cache is ~280GB in FP16), often dominating total memory usage and limiting batch size (multiple requests compete for KV-cache memory). Paged attention (introduced in vLLM) optimizes KV-cache management by:
+**A:** KV-cache stores pre-computed key and value embeddings from previous tokens, avoiding recomputation during generation. Without KV-cache: generating token tᵢ requires running attention on all tokens t₁...t_{i-1}, which is O(i) cost—expensive for long sequences.
+
+With KV-cache: cache K and V matrices from previous forwards, so computing attention for token tᵢ only requires multiplying new query with cached K,V, reducing O(i) to O(1) per token.
+
+Memory tradeoff: KV-cache is large (for a 70B model generating a 2000-token sequence, KV-cache is ~280GB in FP16), often dominating total memory usage and limiting batch size (multiple requests compete for KV-cache memory). Paged attention (introduced in vLLM) optimizes KV-cache management by:
 
 (1) storing KV-cache in fixed-size blocks (pages) rather than contiguous arrays,
 
@@ -212,7 +228,11 @@ Measured impact: 2-4x throughput improvement over static batching with similar l
 
 ### Q8: What is tensor parallelism vs. pipeline parallelism? When do you use each for serving?
 
-**A:** Both techniques split a model across multiple GPUs for inference. Tensor parallelism (TP) splits tensors horizontally across GPUs: matrix multiplication A @ B is split as (A₁ @ B₁) + (A₂ @ B₂), where each GPU computes a portion. For a transformer layer with weight matrix W (size [4096, 4096]), TP=2 splits W into [2048, 4096] on GPU 1 and [2048, 4096] on GPU 2, each computing half the output. Requires AllReduce communication after each layer to combine partial results. Pipeline parallelism (PP) splits layers vertically: GPU 1 runs layers 0-20, GPU 2 runs layers 21-40, etc. Requests flow through pipeline: GPU 1 processes token 1 in layers 0-20, passes to GPU 2; meanwhile GPU 1 processes token 2. Requires point-to-point communication only between adjacent GPUs, less communication overhead. Tensor parallelism:
+**A:** Both techniques split a model across multiple GPUs for inference. Tensor parallelism (TP) splits tensors horizontally across GPUs: matrix multiplication A @ B is split as (A₁ @ B₁) + (A₂ @ B₂), where each GPU computes a portion.
+
+For a transformer layer with weight matrix W (size [4096, 4096]), TP=2 splits W into [2048, 4096] on GPU 1 and [2048, 4096] on GPU 2, each computing half the output. Requires AllReduce communication after each layer to combine partial results. Pipeline parallelism (PP) splits layers vertically: GPU 1 runs layers 0-20, GPU 2 runs layers 21-40, etc.
+
+Requests flow through pipeline: GPU 1 processes token 1 in layers 0-20, passes to GPU 2; meanwhile GPU 1 processes token 2. Requires point-to-point communication only between adjacent GPUs, less communication overhead. Tensor parallelism:
 
 (1) communication per token is high (AllReduce after each layer),
 
@@ -246,7 +266,9 @@ Example: 405B model on 8xH100 GPUs might use TP=2, PP=4 (4 stages of 2 GPUs each
 
 ### Q9: What is FlashAttention and memory-efficient attention? How does it improve speed and memory?
 
-**A:** Standard attention computes similarity matrix Q @ K^T (size [seq_len, seq_len]) for all positions, creating O(seq_len²) memory and compute. For a 2K-token sequence with 70B model, the attention matrix is 2K × 2K = 4M elements × 2 bytes = 8MB per attention head, summing to ~100MB+ for all heads—a significant memory bottleneck limiting batch size and maximum sequence length. FlashAttention optimizes attention by:
+**A:** Standard attention computes similarity matrix Q @ K^T (size [seq_len, seq_len]) for all positions, creating O(seq_len²) memory and compute.
+
+For a 2K-token sequence with 70B model, the attention matrix is 2K × 2K = 4M elements × 2 bytes = 8MB per attention head, summing to ~100MB+ for all heads—a significant memory bottleneck limiting batch size and maximum sequence length. FlashAttention optimizes attention by:
 
 (1) tiling (dividing matrices into blocks),
 
@@ -310,7 +332,11 @@ Modern trend: start with vLLM for prototyping, migrate to TensorRT-LLM for produ
 
 ### Q11: What hardware considerations matter for LLM inference? Compare GPU vs. CPU, A100 vs. H100, TPU.
 
-**A:** LLM inference hardware choice directly impacts cost and performance. GPUs dominate because inference is memory-bandwidth-bound (high data movement relative to compute), and GPUs have high memory bandwidth. A100 (80GB HBM): released 2020, 1.9TB/s bandwidth, sufficient for 70B model in FP16, good for batch inference. H100 (141GB HBM): released 2023, 3.4TB/s bandwidth (80% more), native INT8 support, enables larger batches and longer sequences, significantly faster (~1.5-2x on latency benchmarks). H100 cost is ~2x A100, ROI depends on workload (throughput-bound workloads favor H100; latency-critical may justify cost). TPU (Google): optimized for ML, lower cost than H100, comparable performance, but ecosystem is smaller (less mature software, less community support). For cost-sensitive inference, A100 or H100 beats CPU by 100x on latency.
+**A:** LLM inference hardware choice directly impacts cost and performance. GPUs dominate because inference is memory-bandwidth-bound (high data movement relative to compute), and GPUs have high memory bandwidth. A100 (80GB HBM): released 2020, 1.9TB/s bandwidth, sufficient for 70B model in FP16, good for batch inference.
+
+H100 (141GB HBM): released 2023, 3.4TB/s bandwidth (80% more), native INT8 support, enables larger batches and longer sequences, significantly faster (~1.5-2x on latency benchmarks). H100 cost is ~2x A100, ROI depends on workload (throughput-bound workloads favor H100; latency-critical may justify cost).
+
+TPU (Google): optimized for ML, lower cost than H100, comparable performance, but ecosystem is smaller (less mature software, less community support). For cost-sensitive inference, A100 or H100 beats CPU by 100x on latency.
 
 CPU inference: 1-2% of GPU latency for same model, extremely slow for LLMs (a 70B model on CPU takes minutes per token). CPU is useful for:
 
@@ -380,7 +406,9 @@ Trade-off: batching reduces TTFT (amortizes prefill cost) but increases ITL (slo
 
 ### Q13: How do you optimize inference cost at scale? Discuss spot instances, model routing, cascading.
 
-**A:** Cost optimization at scale requires multi-dimensional approach. Spot instances (AWS, GCP): reserved instances that can be interrupted (cost 70-90% less), for fault-tolerant workloads (batch inference, caching). Use spot for non-latency-sensitive workloads, reserve on-demand instances only for latency-critical paths. Model routing: different requests have different characteristics (input length, output length, quality requirements)—route requests to appropriately-sized models.
+**A:** Cost optimization at scale requires multi-dimensional approach. Spot instances (AWS, GCP): reserved instances that can be interrupted (cost 70-90% less), for fault-tolerant workloads (batch inference, caching). Use spot for non-latency-sensitive workloads, reserve on-demand instances only for latency-critical paths.
+
+Model routing: different requests have different characteristics (input length, output length, quality requirements)—route requests to appropriately-sized models.
 
 Example: route simple queries (classification) to 7B model, complex queries to 70B model, saving cost by not using large model unnecessarily. Requires:
 

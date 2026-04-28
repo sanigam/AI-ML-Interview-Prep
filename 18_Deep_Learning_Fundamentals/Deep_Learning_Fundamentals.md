@@ -14,7 +14,9 @@ Deep learning's power comes from composing simple building blocks—neurons, lay
 
 ### Q1: Explain the perceptron algorithm and its limitations. How does it lead to MLPs?
 
-**A:** A perceptron is a binary classifier computing ŷ = sign(wᵀx + b), learning weights w via the perceptron learning rule: if prediction is wrong, update w ← w + yᵢxᵢ. The algorithm converges if data is linearly separable but fails on linearly inseparable problems (e.g., XOR). This limitation motivated the multilayer perceptron (MLP): stack multiple layers with nonlinear activations, transforming the input space into higher-dimensional spaces where linear separation becomes possible. A 2-layer MLP can approximate any nonlinear function (universal approximation theorem).
+**A:** A perceptron is a binary classifier computing ŷ = sign(wᵀx + b), learning weights w via the perceptron learning rule: if prediction is wrong, update w ← w + yᵢxᵢ. The algorithm converges if data is linearly separable but fails on linearly inseparable problems (e.g., XOR).
+
+This limitation motivated the multilayer perceptron (MLP): stack multiple layers with nonlinear activations, transforming the input space into higher-dimensional spaces where linear separation becomes possible. A 2-layer MLP can approximate any nonlinear function (universal approximation theorem).
 
 Example: for XOR, hidden layer learns two features (each separating a pair of classes), output layer combines them linearly. Depth increases expressiveness without exponentially increasing parameters, a key reason deep networks are powerful. In interviews, the evolution from perceptron → linearly inseparable failure → MLP with hidden layers → universal approximation is a narrative showing understanding of architectural motivation, not just implementation.
 
@@ -22,19 +24,37 @@ Example: for XOR, hidden layer learns two features (each separating a pair of cl
 
 ### Q2: Describe the architecture of a multilayer perceptron (MLP). What does each layer do?
 
-**A:** An MLP consists of input layer (features xᵢ), hidden layers (learned representations), and output layer (predictions). Each layer computes: hⱼ = σ(wⱼᵀx + bⱼ) where σ is a nonlinear activation. For a 3-layer network: input x (d-dimensional) → hidden layer 1 produces h₁ (h₁-dimensional features) → hidden layer 2 produces h₂ (h₂-dimensional features) → output layer produces y (1 or k-dimensional depending on task). The input layer is passive (no computation); hidden layers learn intermediate representations; the output layer maps final hidden state to predictions. Depth (number of layers) increases expressiveness; width (hidden units) increases capacity. Each layer's weights are trained to minimize loss; the nonlinear activations are critical—without them, stacking layers is equivalent to a single linear layer (composition of linear functions is linear). Choosing hidden layer sizes is a hyperparameter: too small underfits, too large overfits and increases computation. In interviews, explain that each hidden layer learns progressively abstract features—early layers low-level (edges in images), later layers high-level (objects).
+**A:** An MLP consists of input layer (features xᵢ), hidden layers (learned representations), and output layer (predictions). Each layer computes: hⱼ = σ(wⱼᵀx + bⱼ) where σ is a nonlinear activation.
+
+For a 3-layer network: input x (d-dimensional) → hidden layer 1 produces h₁ (h₁-dimensional features) → hidden layer 2 produces h₂ (h₂-dimensional features) → output layer produces y (1 or k-dimensional depending on task).
+
+The input layer is passive (no computation); hidden layers learn intermediate representations; the output layer maps final hidden state to predictions. Depth (number of layers) increases expressiveness; width (hidden units) increases capacity.
+
+Each layer's weights are trained to minimize loss; the nonlinear activations are critical—without them, stacking layers is equivalent to a single linear layer (composition of linear functions is linear). Choosing hidden layer sizes is a hyperparameter: too small underfits, too large overfits and increases computation.
+
+In interviews, explain that each hidden layer learns progressively abstract features—early layers low-level (edges in images), later layers high-level (objects).
 
 ---
 
 ### Q3: Explain the activation function concept. Why are they essential?
 
-**A:** Activation functions introduce nonlinearity, enabling MLPs to learn nonlinear relationships. Without activations (purely linear layers), a deep network is equivalent to a single linear layer—composition of linear transformations is linear. Nonlinearity is essential for learning rich, hierarchical representations. Early networks used sigmoid σ(z) = 1/(1+e^(-z)) or tanh(z) = (e^z - e^(-z))/(e^z + e^(-z)), mapping to [0,1] and [-1,1] respectively. Modern standard is ReLU (Rectified Linear Unit) f(z) = max(0, z): simple, efficient, mitigates vanishing gradients (addressed below), and empirically outperforms sigmoids/tanh. Variants: Leaky ReLU f(z) = max(αz, z) with small α (e.g., 0.01) prevents dead neurons (ReLU zeros negative inputs, killing learning for some neurons). GELU (Gaussian Error Linear Unit) and Swish (x·sigmoid(βx)) are smoother alternatives used in transformers. The activation function choice is domain-dependent: ReLU for hidden layers (practical), softmax for multi-class classification output, sigmoid for binary classification output, no activation (linear) for regression. In interviews, the key insight is that activations enable learning nonlinear functions; ReLU's dominance comes from simplicity and gradient flow (no vanishing gradients like sigmoid).
+**A:** Activation functions introduce nonlinearity, enabling MLPs to learn nonlinear relationships. Without activations (purely linear layers), a deep network is equivalent to a single linear layer—composition of linear transformations is linear. Nonlinearity is essential for learning rich, hierarchical representations.
+
+Early networks used sigmoid σ(z) = 1/(1+e^(-z)) or tanh(z) = (e^z - e^(-z))/(e^z + e^(-z)), mapping to [0,1] and [-1,1] respectively. Modern standard is ReLU (Rectified Linear Unit) f(z) = max(0, z): simple, efficient, mitigates vanishing gradients (addressed below), and empirically outperforms sigmoids/tanh.
+
+Variants: Leaky ReLU f(z) = max(αz, z) with small α (e.g., 0.01) prevents dead neurons (ReLU zeros negative inputs, killing learning for some neurons). GELU (Gaussian Error Linear Unit) and Swish (x·sigmoid(βx)) are smoother alternatives used in transformers.
+
+The activation function choice is domain-dependent: ReLU for hidden layers (practical), softmax for multi-class classification output, sigmoid for binary classification output, no activation (linear) for regression.
+
+In interviews, the key insight is that activations enable learning nonlinear functions; ReLU's dominance comes from simplicity and gradient flow (no vanishing gradients like sigmoid).
 
 ---
 
 ### Q4: What is the backpropagation algorithm? Explain how it computes gradients.
 
-**A:** Backpropagation is an algorithm computing gradients of loss L with respect to all parameters (weights and biases) via the chain rule, enabling efficient gradient descent. Forward pass: compute predictions and loss. Backward pass: propagate loss gradients from output layer back to input layer. For a layer computing hⱼ = σ(zⱼ) where zⱼ = wⱼᵀx + bⱼ, the chain rule gives: ∂L/∂wⱼ = (∂L/∂hⱼ) × (∂hⱼ/∂zⱼ) × (∂zⱼ/∂wⱼ).
+**A:** Backpropagation is an algorithm computing gradients of loss L with respect to all parameters (weights and biases) via the chain rule, enabling efficient gradient descent. Forward pass: compute predictions and loss. Backward pass: propagate loss gradients from output layer back to input layer.
+
+For a layer computing hⱼ = σ(zⱼ) where zⱼ = wⱼᵀx + bⱼ, the chain rule gives: ∂L/∂wⱼ = (∂L/∂hⱼ) × (∂hⱼ/∂zⱼ) × (∂zⱼ/∂wⱼ).
 
 Key insight: the gradient ∂L/∂hⱼ from the next layer is reused (dynamic programming), making backprop efficient O(parameters) not O(parameters²). Without this structure, gradients would be prohibitively expensive. Backprop elegantly handles the chain rule at scale. Modern libraries (PyTorch, TensorFlow) implement backprop via automatic differentiation (autograd), automatically computing gradients. In interviews, avoid deriving full backprop equations; instead, explain the concept: forward pass computes predictions, backward pass propagates gradients via chain rule, reusing intermediate results for efficiency. If asked to derive, focus on a simple example (2-layer network) to show understanding.
 
@@ -42,7 +62,11 @@ Key insight: the gradient ∂L/∂hⱼ from the next layer is reused (dynamic pr
 
 ### Q5: What are vanishing and exploding gradients? How do they affect training?
 
-**A:** Vanishing gradients: during backprop through many layers, gradients multiply chain of derivatives. If each derivative < 1 (e.g., sigmoid derivative ≤ 0.25), gradients exponentially shrink. After 10 layers, gradient ≈ (0.25)^10 ≈ 10^(-6), so weights in early layers barely update. Symptom: deep networks train much slower than shallow ones. Exploding gradients: if derivatives > 1, gradients exponentially grow; weight updates become huge, causing training instability. Both pathologies hinder deep network training. Sigmoid/tanh derivatives are ≤ 0.25, causing severe vanishing gradients—a major reason modern networks use ReLU (derivative 1 for positive z, 0 for negative z, avoiding severe attenuation). Mitigations:
+**A:** Vanishing gradients: during backprop through many layers, gradients multiply chain of derivatives. If each derivative < 1 (e.g., sigmoid derivative ≤ 0.25), gradients exponentially shrink. After 10 layers, gradient ≈ (0.25)^10 ≈ 10^(-6), so weights in early layers barely update. Symptom: deep networks train much slower than shallow ones.
+
+Exploding gradients: if derivatives > 1, gradients exponentially grow; weight updates become huge, causing training instability. Both pathologies hinder deep network training.
+
+Sigmoid/tanh derivatives are ≤ 0.25, causing severe vanishing gradients—a major reason modern networks use ReLU (derivative 1 for positive z, 0 for negative z, avoiding severe attenuation). Mitigations:
 
 (1) Activation choice: ReLU, Leaky ReLU, GELU all have gradients ≈ 1 for active neurons.
 
@@ -58,7 +82,15 @@ Key insight: the gradient ∂L/∂hⱼ from the next layer is reused (dynamic pr
 
 ### Q6: Explain weight initialization. Why is it important?
 
-**A:** Weight initialization sets starting values of parameters before training. Poor initialization can cause vanishing gradients, exploding activations, or slow convergence. Goal: keep activations and gradients in reasonable ranges across layers. For a layer computing z = wᵀx + b, if w is too small, z ≈ 0 and activations are near zero (dead neurons in ReLU, saturation in sigmoid). If w is too large, z explodes, causing saturation and vanishing gradients. Xavier (Glorot) initialization: draw w ~ Uniform(-√(6/(nᵢₙ+n_out)), √(6/(nᵢₙ+n_out))) where nᵢₙ, n_out are layer input/output sizes. This keeps variance of activations constant across layers. He initialization (for ReLU): w ~ Normal(0, √(2/nᵢₙ)). Larger variance accounts for ReLU zeros being inactive, requiring higher gains for active neurons. LeCun initialization: w ~ Normal(0, √(1/nᵢₙ)). Biases are typically initialized to zero. Modern practice: rely on framework defaults (usually He for ReLU), but understanding the principle matters. Batch normalization reduces sensitivity to initialization, but careful initialization still helps. In interviews, mention Xavier and He by name, explain the intuition (constant variance across layers), and note that wrong initialization delays convergence or prevents learning entirely.
+**A:** Weight initialization sets starting values of parameters before training. Poor initialization can cause vanishing gradients, exploding activations, or slow convergence. Goal: keep activations and gradients in reasonable ranges across layers.
+
+For a layer computing z = wᵀx + b, if w is too small, z ≈ 0 and activations are near zero (dead neurons in ReLU, saturation in sigmoid). If w is too large, z explodes, causing saturation and vanishing gradients. Xavier (Glorot) initialization: draw w ~ Uniform(-√(6/(nᵢₙ+n_out)), √(6/(nᵢₙ+n_out))) where nᵢₙ, n_out are layer input/output sizes.
+
+This keeps variance of activations constant across layers. He initialization (for ReLU): w ~ Normal(0, √(2/nᵢₙ)). Larger variance accounts for ReLU zeros being inactive, requiring higher gains for active neurons. LeCun initialization: w ~ Normal(0, √(1/nᵢₙ)). Biases are typically initialized to zero.
+
+Modern practice: rely on framework defaults (usually He for ReLU), but understanding the principle matters. Batch normalization reduces sensitivity to initialization, but careful initialization still helps.
+
+In interviews, mention Xavier and He by name, explain the intuition (constant variance across layers), and note that wrong initialization delays convergence or prevents learning entirely.
 
 ---
 
@@ -106,7 +138,9 @@ Implementation: for each neuron, flip a coin; if heads (prob p), zero the neuron
 
 ### Q10: State the universal approximation theorem. What are its limitations?
 
-**A:** Universal approximation theorem: any continuous function on a compact domain can be approximated arbitrarily closely by a feedforward network with a single hidden layer containing sufficiently many neurons. Formally, for any continuous function f: R^n → R^m and ε > 0, there exists a network with hidden layer size h such that sup|f(x) - network(x)| < ε. This is profound: it proves neural networks are theoretically capable of learning any function, given enough neurons.
+**A:** Universal approximation theorem: any continuous function on a compact domain can be approximated arbitrarily closely by a feedforward network with a single hidden layer containing sufficiently many neurons.
+
+Formally, for any continuous function f: R^n → R^m and ε > 0, there exists a network with hidden layer size h such that sup|f(x) - network(x)| < ε. This is profound: it proves neural networks are theoretically capable of learning any function, given enough neurons.
 
 Limitations:
 
