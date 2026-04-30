@@ -1,6 +1,6 @@
 # Multiple Choice Questions: Tree-Based Models
 
-📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
+📺 **Video Lecture:** https://youtu.be/tmCPYgbE-vk
 
 
 Test your understanding of decision trees, random forests, and gradient boosting.

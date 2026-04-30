@@ -1,6 +1,6 @@
 # Tree-Based Models
 
-📺 **Video Lecture:** https://youtu.be/v9OmF4GFaqw
+📺 **Video Lecture:** https://youtu.be/tmCPYgbE-vk
 
 ## Interview Anchor
 - **Decision Trees:** Recursive partitioning of feature space using splitting criteria; interpretable but prone to overfitting.

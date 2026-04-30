@@ -1,6 +1,6 @@
 # Multiple Choice Questions: SVMs and Kernel Methods
 
-📺 **Video Lecture:** https://youtu.be/tmCPYgbE-vk
+📺 **Video Lecture:** https://youtu.be/TU5ljcc07eA
 
 
 Test your understanding of Support Vector Machines and kernel-based learning.

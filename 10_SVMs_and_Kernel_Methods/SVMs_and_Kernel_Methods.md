@@ -1,6 +1,6 @@
 # SVMs and Kernel Methods
 
-📺 **Video Lecture:** https://youtu.be/tmCPYgbE-vk
+📺 **Video Lecture:** https://youtu.be/TU5ljcc07eA
 
 ## Interview Anchor
 - **Maximum Margin Classifier:** Finds the hyperplane with largest distance to nearest samples, maximizing generalization.
