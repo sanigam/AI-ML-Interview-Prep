@@ -2,7 +2,6 @@
 
 📺 **Video Lecture:** https://youtu.be/2wre5n0cCf8
 
-
 ## Question 1
 Which of the following best explains why standard neural networks (MLPs, CNNs, RNNs) are insufficient for processing graph data?
 
@@ -10,8 +9,6 @@ A) Graphs have too many parameters that standard networks cannot handle
 B) Graphs are always too large to fit in GPU memory  
 C) Standard networks cannot handle variable node degrees and require permutation-invariant operations on irregular structures  
 D) Standard networks cannot represent numerical data
-
-**Answer: C**
 
 ---
 
@@ -23,8 +20,6 @@ B) To compute the attention weights for each node
 C) To reduce the dimensionality of node features  
 D) To remove noisy information from the graph
 
-**Answer: A**
-
 ---
 
 ## Question 3
@@ -34,8 +29,6 @@ A) GCN requires labeling all nodes before training
 B) GCN uses eigendeposition of the Laplacian while spectral methods operate directly on graph structure  
 C) GCN cannot handle graphs with varying node degrees  
 D) GCN applies convolution directly on graph structure (spatial approach) without computing spectral transforms, making it more scalable
-
-**Answer: D**
 
 ---
 
@@ -47,8 +40,6 @@ B) It only trains on a subset of graph nodes
 C) It samples a fixed number of neighbors per node instead of aggregating all neighbors, enabling constant-sized mini-batches  
 D) It reduces the embedding dimension by half
 
-**Answer: C**
-
 ---
 
 ## Question 5
@@ -58,8 +49,6 @@ A) GAT learns adaptive attention weights for each node, allowing it to emphasize
 B) GAT has lower computational complexity  
 C) GAT eliminates the need for message passing  
 D) GAT uses fixed aggregation weights, making it more interpretable
-
-**Answer: A**
 
 ---
 
@@ -71,8 +60,6 @@ B) To identify missing or future edges in a graph
 C) To compress the graph representation  
 D) To predict node labels based on graph structure
 
-**Answer: B**
-
 ---
 
 ## Question 7
@@ -82,8 +69,6 @@ A) To speed up message passing by reducing the number of nodes
 B) To add skip connections between layers  
 C) To normalize node features  
 D) To aggregate node-level representations into graph-level representations for tasks like graph classification
-
-**Answer: D**
 
 ---
 
@@ -95,8 +80,6 @@ B) Node embeddings become too sparse in higher layers
 C) The graph becomes disconnected in deeper layers  
 D) The gradient signal becomes too large during backpropagation
 
-**Answer: A**
-
 ---
 
 ## Question 9
@@ -106,8 +89,6 @@ A) Adding skip connections that blend old and new representations, or using Jump
 B) Increasing the learning rate during training  
 C) Using sigmoid activation instead of ReLU  
 D) Removing edges from the graph to reduce connectivity
-
-**Answer: A**
 
 ---
 
@@ -119,8 +100,6 @@ B) Heterogeneous graphs have multiple node types and edge types, requiring separ
 C) Heterogeneous graphs cannot be processed by neural networks  
 D) Heterogeneous graphs have weighted edges; weighted aggregation must be used
 
-**Answer: B**
-
 ---
 
 ## Question 11
@@ -130,8 +109,6 @@ A) Temporal information cannot be represented mathematically
 B) Standard GNNs already handle temporal information perfectly  
 C) Storing all graph snapshots is memory-intensive, patterns change over time (concept drift), and new nodes arrive continuously  
 D) Temporal graphs do not have edges
-
-**Answer: C**
 
 ---
 
@@ -143,8 +120,6 @@ B) The head entity plus the relation vector approximately equals the tail entity
 C) Entities can only have one relation between them  
 D) Relations must be symmetric
 
-**Answer: B**
-
 ---
 
 ## Question 13
@@ -154,8 +129,6 @@ A) New users or items with no interaction history cannot aggregate from neighbor
 B) The graph becomes disconnected when new nodes are added  
 C) Cold-start problems only exist in knowledge graph embeddings  
 D) The system learns too slowly when training begins
-
-**Answer: A**
 
 ---
 
@@ -167,8 +140,6 @@ B) Graph transformers compute attention over all nodes (all-to-all attention) ra
 C) Graph transformers cannot handle sparse graphs  
 D) Message-passing GNNs use attention while graph transformers do not
 
-**Answer: B**
-
 ---
 
 ## Question 15
@@ -178,8 +149,6 @@ A) Train only on a small subset of nodes (e.g., 1000 nodes) and ignore the rest
 B) Convert the graph to a lower-dimensional representation and discard edge information  
 C) Store the entire adjacency matrix in memory and train on the full batch  
 D) Use mini-batch sampling to select fixed-size neighborhoods per node, distributed training across multiple machines, and importance sampling to reduce variance
-
-**Answer: D**
 
 ---
 

@@ -10,8 +10,6 @@ B) Shape error; broadcasting fails because shapes (1000, 10) and (10,) are incom
 C) Only the first row of X gets the means subtracted  
 D) The means array is broadcasted to shape (1000, 10), and each row has the means subtracted element-wise
 
-**Answer: D**
-
 ---
 
 ## Question 2
@@ -21,8 +19,6 @@ A) `df.apply(lambda row: row['A'] + row['B'], axis=1)` assigned to `df['new_col'
 B) `for idx, row in df.iterrows(): df.loc[idx, 'new_col'] = row['A'] + row['B']`  
 C) `df['new_col'] = df['A'] + df['B']`  
 D) `df['new_col'] = [df.loc[i, 'A'] + df.loc[i, 'B'] for i in range(len(df))]`
-
-**Answer: C**
 
 ---
 
@@ -40,8 +36,6 @@ B) The groupby operation is inefficient; use `.agg()` instead
 C) Categorical dtype should be applied to user_id before grouping  
 D) The `.map()` function is deprecated; use `.merge()` instead
 
-**Answer: A**
-
 ---
 
 ## Question 4
@@ -51,8 +45,6 @@ A) Don't cache; just re-run computations; caching introduces bugs
 B) Use `@lru_cache` for pure functions, or `joblib.Memory` for filesystem-backed caching that persists across sessions  
 C) Use `@lru_cache` on the function; it automatically handles all edge cases  
 D) Store results in a global dictionary; it's faster than caching
-
-**Answer: B**
 
 ---
 
@@ -64,8 +56,6 @@ B) Returns random values between 0 and 1; used to initialize model weights
 C) Returns a sorted array of indices; used to verify data is sorted  
 D) Removes duplicate rows from X; used for deduplication
 
-**Answer: A**
-
 ---
 
 ## Question 6
@@ -75,8 +65,6 @@ A) `Pipeline`, which fits transformers only on training data and applies them co
 B) `StratifiedKFold` with manual scaling in each fold  
 C) `StandardScaler` applied directly to all data before splitting  
 D) `GridSearchCV` with `cv=5`
-
-**Answer: A**
 
 ---
 
@@ -88,8 +76,6 @@ B) `distances = [np.linalg.norm(X[i] - centroids[j]) for i in range(n_samples) f
 C) `distances = np.zeros((n_samples, k_centroids)); for i in range(n_samples): for j in range(k_centroids): distances[i, j] = np.sum((X[i] - centroids[j]) ** 2)`  
 D) `distances = X @ centroids.T` (simple matrix multiplication)
 
-**Answer: A**
-
 ---
 
 ## Question 8
@@ -99,8 +85,6 @@ A) Apply `pd.cut()` to create bins; categorical binning always reduces memory
 B) Convert to `category` dtype; it stores indices instead of repeated strings, reducing memory significantly  
 C) Convert to `int64` dtype; integers are more efficient than strings  
 D) Use `.drop()` to remove the column; it's not useful for ML
-
-**Answer: B**
 
 ---
 
@@ -112,8 +96,6 @@ B) For I/O-bound tasks like network requests; threading is more efficient
 C) For CPU-bound tasks like feature engineering loops or cross-validation grid search; avoid parallelizing very fast computations where overhead dominates  
 D) Only for data loading; parallelization doesn't help with model training
 
-**Answer: C**
-
 ---
 
 ## Question 10
@@ -123,8 +105,6 @@ A) It's a Python syntax requirement for sklearn transformers
 B) It signals that these are fit-time attributes computed during `.fit()`, following sklearn convention  
 C) It has no special meaning; it's just a naming preference  
 D) It indicates the attribute is private and should not be accessed
-
-**Answer: B**
 
 ---
 
@@ -136,8 +116,6 @@ B) Only `TransformerMixin`; inheritance from `BaseEstimator` is optional
 C) `Pipeline` class directly  
 D) `BaseEstimator` and `TransformerMixin`, implementing `fit()` and `transform()` methods
 
-**Answer: D**
-
 ---
 
 ## Question 12
@@ -147,8 +125,6 @@ A) Random shuffle with `shuffle=True` and high `random_state`
 B) Time series split; it automatically handles imbalance  
 C) Manual train/test split with `sklearn.model_selection.train_test_split`  
 D) `StratifiedKFold` to preserve class proportions in each fold
-
-**Answer: D**
 
 ---
 
@@ -160,8 +136,6 @@ B) `timeit` for repeating a function many times
 C) `cProfile` for function-level analysis  
 D) `line_profiler` with `@profile` decorator for line-level analysis
 
-**Answer: D**
-
 ---
 
 ## Question 14
@@ -172,8 +146,6 @@ B) It automatically parallelizes code across multiple cores
 C) It ensures setup and cleanup operations are executed reliably, preventing resource leaks (e.g., temp files, database connections)  
 D) It's equivalent to an `if` statement; no special behavior
 
-**Answer: C**
-
 ---
 
 ## Question 15
@@ -183,8 +155,6 @@ A) They slow down code execution; use only for documentation, not in production
 B) They document function signatures, allow static type checkers (mypy, pyright) to catch errors, and improve IDE autocomplete support  
 C) They require zero additional documentation because types replace written descriptions  
 D) They enable runtime type checking and prevent all bugs automatically
-
-**Answer: B**
 
 ---
 
