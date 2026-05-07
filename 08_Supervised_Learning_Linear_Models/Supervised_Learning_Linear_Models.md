@@ -15,185 +15,427 @@ Linear models form the foundation of machine learning and are frequently tested 
 
 ### Q1: Explain linear regression and its underlying assumptions.
 
-**A:** Linear regression models the relationship between input features and a continuous output as y = Xβ + ε, where β represents coefficients and ε is normally distributed noise. The key assumptions are:
+**A:** **Linear regression** models a continuous output as a linear function of input features:
 
-(1) linearity—the relationship is truly linear,
+```
+y = X·β + ε,    ε ~ Normal(0, σ²·I)
+```
 
-(2) independence—observations are independent,
+where β are the coefficients and ε is normally distributed noise.
 
-(3) homoscedasticity—error variance is constant,
+**Five classical assumptions:**
 
-(4) normality—residuals follow a normal distribution, and (5) no multicollinearity—features are not highly correlated. Violations of these assumptions (e.g., nonlinear relationships detected via residual plots) require transformations, polynomial features, or entirely different models.
+- **Linearity** — the relationship between features and target is genuinely linear.
+- **Independence** — observations are independent of each other.
+- **Homoscedasticity** — error variance is constant across all input values.
+- **Normality of residuals** — errors follow a normal distribution.
+- **No multicollinearity** — features are not highly correlated with each other.
 
-Testing assumptions through residual analysis (checking for heteroscedasticity patterns or non-normality) is a critical part of model validation.
+**Detecting violations:** residual plots are the workhorse — systematic patterns in residuals reveal nonlinearity, a funnel shape suggests heteroscedasticity, and Q-Q plots check normality.
+
+**Fixes:** apply transformations (log, sqrt), add polynomial or interaction features, use weighted least squares for heteroscedasticity, or move to a non-linear model when assumptions are badly broken.
+
+Residual analysis is a critical, often-skipped part of model validation — it's where you find out whether linear regression is the right tool for the job.
 
 ---
 
 ### Q2: What is the closed-form solution (normal equation) for linear regression, and when might you use it versus gradient descent?
 
-**A:** The normal equation directly computes optimal coefficients as β = (X^T X)^(-1) X^T y without iteration. This is computationally efficient for small to medium datasets (n < 100,000 features), providing an exact solution in one step.
+**A:** The **normal equation** gives the exact least-squares solution in one shot:
 
-However, the approach requires computing the matrix inverse, which is O(n³) and numerically unstable if X^T X is ill-conditioned (near-singular). For large datasets or streaming data, gradient descent is preferable because it's iterative and parallelizable.
+```
+β = (Xᵀ·X)⁻¹ · Xᵀ·y
+```
 
-In practice, you'd use the normal equation for interpretability and exact solutions when feasible, but default to gradient descent or stochastic variants (SGD) for scalability. Some libraries use QR decomposition instead of explicit inversion to improve numerical stability.
+No iteration, no learning rate — just one matrix computation.
+
+**When the normal equation works well:** small to moderate problems (a few thousand features), where you want an exact solution and interpretability matters.
+
+**Drawbacks:**
+
+- Computing the inverse is O(d³) in the number of features.
+- Numerically unstable when XᵀX is ill-conditioned (near-singular due to multicollinearity).
+- All data has to fit in memory.
+
+**When to prefer gradient descent (or its variants):**
+
+- Very large datasets where the matrix inverse is impractical.
+- Streaming or online data.
+- When you need a parallelizable training loop.
+
+In practice, production ML libraries usually solve linear regression via **QR decomposition** rather than computing the inverse explicitly — same answer, much better numerical stability. Use the normal equation as the textbook default for small problems; reach for gradient descent (or SGD) when scale demands it.
 
 ---
 
 ### Q3: Explain multicollinearity: what causes it, why it's problematic, and how to detect and address it.
 
-**A:** Multicollinearity occurs when input features are highly correlated, violating the linear regression assumption of independence. This inflates coefficient variance, making estimates unstable and unreliable—small data changes cause large coefficient shifts.
+**A:** **Multicollinearity** is high correlation among input features, violating the implicit independence assumption in linear regression. The consequences:
 
-It's problematic for interpretation because you cannot isolate individual feature effects. Detection methods include: computing the correlation matrix (look for |r| > 0.8), calculating Variance Inflation Factor (VIF, values > 5-10 suggest problems), or examining eigenvalues of X^T X (small eigenvalues indicate multicollinearity).
+- **Inflated coefficient variance** — estimates become unstable and unreliable.
+- **Unpredictable coefficient swings** — small data changes can flip signs or shift magnitudes drastically.
+- **Lost interpretability** — you can't isolate individual feature effects when multiple features carry the same information.
 
-To address it, you can: drop redundant features, combine correlated features via PCA or averaging, use regularization (Ridge/Lasso), or collect more diverse data. Regularization is often preferred because it doesn't discard information entirely—it shrinks coefficients proportionally.
+**Detection methods:**
+
+- **Correlation matrix** — flag pairs with |r| > 0.8.
+- **Variance Inflation Factor (VIF)** — values above 5–10 indicate problematic multicollinearity. VIF for feature i is computed by regressing it on all other features and using 1/(1 − R²ᵢ).
+- **Eigenvalues of XᵀX** — very small eigenvalues signal multicollinearity (a near-singular design matrix).
+
+**Fixes:**
+
+- Drop redundant features.
+- Combine correlated features via PCA or averaging.
+- Use regularization (Ridge or Lasso).
+- Collect more diverse data.
+
+**Regularization is often preferred** because it doesn't throw out information — it shrinks coefficients proportionally. Ridge handles correlated features especially well; Lasso may arbitrarily pick one of several correlated features and zero the rest.
 
 ---
 
 ### Q4: Describe Ridge, Lasso, and Elastic Net regularization. What are their differences and use cases?
 
-**A:** Ridge (L2) regularization adds a penalty λ∑β² to the loss function, shrinking all coefficients proportionally but never to zero—this helps when all features are relevant. Lasso (L1) adds λ∑|β|, which can shrink coefficients exactly to zero, performing feature selection automatically—ideal when you suspect many features are irrelevant.
+**A:** All three add a penalty on the coefficients to the squared-error loss, but the choice of penalty changes the behavior dramatically.
 
-Elastic Net combines both (λ₁∑β² + λ₂∑|β|), balancing Ridge's stability with Lasso's feature selection. Ridge is best when multicollinearity is severe and features are truly correlated; Lasso when you want interpretability and sparse models; Elastic Net when you want both properties.
+**Ridge (L2):**
 
-The regularization parameter λ is tuned via cross-validation—larger λ increases bias but reduces variance, following the bias-variance tradeoff. All three shrink coefficients toward zero, preventing overfitting by controlling model complexity.
+```
+loss = || y − X·β ||²  +  λ · Σᵢ βᵢ²
+```
+
+Shrinks all coefficients proportionally toward zero but never exactly to zero. Best when most features are relevant and multicollinearity is severe.
+
+**Lasso (L1):**
+
+```
+loss = || y − X·β ||²  +  λ · Σᵢ |βᵢ|
+```
+
+Drives some coefficients exactly to zero, performing automatic feature selection. Ideal when you suspect many features are irrelevant.
+
+**Elastic Net:**
+
+```
+loss = || y − X·β ||²  +  λ₁ · Σᵢ |βᵢ|  +  λ₂ · Σᵢ βᵢ²
+```
+
+Combines L1 and L2 — gets Lasso's sparsity with Ridge's stability under correlation. Useful when you want both feature selection and graceful handling of correlated features.
+
+**Tuning:** the regularization strength λ is chosen by cross-validation. Larger λ increases bias but reduces variance — the classic bias-variance tradeoff knob.
+
+**Choice rule of thumb:**
+
+- Ridge — many small effects, severe multicollinearity.
+- Lasso — sparse signal, interpretability matters, many irrelevant features.
+- Elastic Net — sparse signal *and* correlated features, or when in doubt.
+
+All three reduce overfitting by controlling effective model complexity.
 
 ---
 
 ### Q5: What is the difference between R-squared and adjusted R-squared?
 
-**A:** R² measures the proportion of variance explained by the model: R² = 1 - (SS_res / SS_tot), ranging from 0 to 1, where higher is better. However, R² always increases (or stays same) when adding features, regardless of whether they improve generalization.
+**A:** **R²** is the proportion of variance in y that the model explains:
 
-Adjusted R² = 1 - ((1 - R²)(n - 1)/(n - p - 1)) penalizes model complexity by accounting for the number of features p and sample size n. It decreases if added features don't sufficiently improve fit, making it a better metric for model selection. For example, adding a random feature will increase R² but decrease adjusted R².
+```
+R² = 1  −  (SS_res / SS_tot)
+```
 
-In interviews, mention that adjusted R² is more trustworthy for comparing models with different numbers of features, and external validation (test set performance) is always preferable. Both metrics are less critical in production if you're using proper cross-validation.
+It ranges from 0 to 1, with higher being better. The catch: R² is *monotonically non-decreasing* in the number of features — adding any feature can only keep R² the same or increase it, even if the feature is pure noise.
+
+**Adjusted R²** corrects for this by penalizing model complexity:
+
+```
+Adj R² = 1  −  (1 − R²) · (n − 1) / (n − p − 1)
+```
+
+where n is sample size and p is the number of predictors. Adjusted R² *decreases* if a new feature doesn't improve the fit enough to justify its complexity. Adding a random feature will typically push R² slightly up but adjusted R² down.
+
+**Practical guidance:** adjusted R² is the better metric for comparing models with different numbers of features, but for honest performance assessment, **test-set performance** (or cross-validated metrics) is always preferable. Both R² metrics are limited if your real concern is generalization rather than in-sample fit.
 
 ---
 
 ### Q6: Explain how logistic regression works and the role of the sigmoid function.
 
-**A:** Logistic regression models the probability of a binary outcome using P(y=1|X) = 1 / (1 + e^(-z)), where z = Xβ. The sigmoid function maps any z ∈ (-∞, +∞) to probability ∈ (0, 1), ensuring outputs are valid probabilities. Unlike linear regression, logistic regression uses maximum likelihood estimation (MLE) for fitting, not least squares.
+**A:** **Logistic regression** models the probability of a binary outcome using the sigmoid (logistic) function:
 
-The decision boundary is where P(y=1) = 0.5, or equivalently z = 0. Logistic regression extends to multiclass via softmax regression (a generalization of sigmoid for K classes), where P(y=k|X) = e^(z_k) / ∑_j e^(z_j).
+```
+z       = X · β
+P(y=1 | X) = σ(z) = 1 / ( 1 + e^(−z) )
+```
 
-This model is highly interpretable: exp(β_i) represents the odds ratio for feature i, showing how a unit increase changes odds of class 1. It's widely used because it's simple, fast, interpretable, and provides calibrated probabilities.
+The sigmoid maps any real number z to a probability in (0, 1), so outputs are always valid probabilities. The decision boundary is where the probability is 0.5, equivalently where z = 0 — a linear hyperplane in feature space.
+
+Unlike linear regression, logistic regression is fit with **maximum likelihood estimation (MLE)** rather than least squares (more on that in Q8).
+
+**Multiclass extension — softmax regression.** For K classes:
+
+```
+P(y = k | X) = e^(z_k) / Σⱼ e^(z_j),    z_k = X · β_k
+```
+
+Each class gets its own coefficient vector. When K = 2, this reduces to ordinary logistic regression.
+
+**Interpretability.** Each exp(βᵢ) is an odds ratio — a unit increase in feature i multiplies the odds of class 1 by exp(βᵢ). This is why logistic regression remains a workhorse in regulated and interpretability-sensitive domains (medical, finance) — it's simple, fast, and outputs calibrated probabilities by design.
 
 ---
 
 ### Q7: What is the odds ratio in logistic regression, and how do you interpret coefficients?
 
-**A:** In logistic regression, the odds of class 1 are P(y=1) / P(y=0) = e^(z) = e^(Xβ). For a single feature increase by 1 unit, the odds multiply by e^(β_i). If β_i = 0.2, then e^0.2 ≈ 1.22, meaning odds increase by 22%. This makes coefficients directly interpretable: positive β_i increases odds of class 1, negative decreases them.
+**A:** In logistic regression, the **odds** of class 1 are:
 
-For a feature with categorical values, encode as dummy variables and interpret relative to the baseline category. Confidence intervals on coefficients come from the Hessian (inverse second derivative) during MLE, and statistical significance tests use Wald statistics.
+```
+odds = P(y=1) / P(y=0) = exp(z) = exp(X · β)
+```
 
-For example, if β_i = 0.5 with SE = 0.1, the 95% CI is [0.304, 0.696], giving [e^0.304, e^0.696] ≈ [1.36, 2.00] as the odds ratio CI. This interpretability is why logistic regression remains popular for explainability-critical applications.
+A one-unit increase in feature i multiplies the odds by:
+
+```
+odds ratio for feature i = exp(βᵢ)
+```
+
+So if βᵢ = 0.2, then exp(0.2) ≈ 1.22 — a 22% increase in odds per unit increase in that feature. Positive βᵢ raises the odds of class 1; negative lowers them.
+
+**Categorical features.** Encode as one-hot (dummy) variables with one baseline category dropped. Each remaining coefficient is a log-odds ratio relative to the baseline.
+
+**Confidence intervals.** Standard errors of coefficients come from the inverse Hessian at the MLE solution. Significance tests typically use the **Wald statistic** (β̂ / SE).
+
+**Worked example.** If βᵢ = 0.5 with SE = 0.1:
+
+- 95% CI for β is roughly [0.304, 0.696].
+- Exponentiating gives the odds-ratio CI: [exp(0.304), exp(0.696)] ≈ [1.36, 2.00].
+
+That interpretability — speaking in terms of odds ratios rather than raw probabilities — is why logistic regression remains popular for explainability-critical applications.
 
 ---
 
 ### Q8: Explain maximum likelihood estimation (MLE) for logistic regression. Why not use least squares?
 
-**A:** MLE maximizes the likelihood L(β) = ∏ P(y_i|X_i)^{y_i} (1 - P(y_i|X_i))^{1-y_i}, equivalent to minimizing cross-entropy loss: -∑ [y_i log(P_i) + (1-y_i) log(1-P_i)]. This is more appropriate than least squares (which assumes normally distributed errors) because y ∈ {0,1} is categorical—predictions outside [0,1] are meaningless.
+**A:** **MLE for logistic regression** maximizes the likelihood of the observed labels under the Bernoulli model:
 
-Least squares on binary targets would produce suboptimal fits and underestimate uncertainty. MLE is solved iteratively via Newton-Raphson (second-order) or gradient descent (first-order), using the Hessian to obtain uncertainty estimates. The resulting probability estimates are calibrated by design—they reflect true probabilities under the model.
+```
+L(β) = Πᵢ Pᵢ^(yᵢ) · (1 − Pᵢ)^(1 − yᵢ),    where Pᵢ = σ(Xᵢ · β)
+```
 
-MLE also provides the principled framework for regularized logistic regression (L2, L1 penalties), which reduces to a penalized MLE problem. Many ML practitioners overlook this, but understanding MLE versus least squares demonstrates theoretical maturity.
+Equivalently, minimize the negative log-likelihood — the **cross-entropy loss**:
+
+```
+loss(β) = − Σᵢ [ yᵢ · log(Pᵢ)  +  (1 − yᵢ) · log(1 − Pᵢ) ]
+```
+
+**Why not least squares?**
+
+- Binary outcomes are not normally distributed — least squares assumes Gaussian errors.
+- Linear least squares can predict probabilities outside [0, 1], which is meaningless.
+- Cross-entropy + sigmoid produces a *convex* optimization problem with calibrated probabilities; squared error on σ(Xβ) is non-convex and harder to optimize.
+
+**Optimization.** No closed-form solution — solved iteratively via:
+
+- **Newton-Raphson / IRLS** (second-order, fast for moderate problems).
+- **Gradient descent / SGD** (first-order, scales to large problems).
+
+The Hessian at the optimum gives standard errors and confidence intervals for free.
+
+**Regularization.** L1, L2, and Elastic Net naturally extend MLE — just add the penalty to the negative log-likelihood. This is the principled framework behind regularized logistic regression.
+
+In interviews, framing MLE as "the right loss for the data distribution" rather than "an alternative to least squares" shows theoretical maturity.
 
 ---
 
 ### Q9: What is softmax regression and how does it generalize logistic regression to multiclass problems?
 
-**A:** Softmax regression (multinomial logistic regression) extends binary logistic regression to K ≥ 2 classes by modeling P(y=k|X) = e^(z_k) / ∑_{j=1}^K e^(z_j), where z_k = X β_k. Each class has its own coefficient vector β_k, making this K times more parameterized than binary logistic regression.
+**A:** **Softmax regression** (a.k.a. multinomial logistic regression) extends logistic regression to K ≥ 2 classes. Each class has its own coefficient vector β_k:
 
-When K = 2, softmax reduces to logistic regression (redundant class parameters are dropped). The decision rule is argmax_k P(y=k|X). Softmax is trained via MLE, minimizing categorical cross-entropy: -∑ y_i log(P_{i,y_i}), where y_i is one-hot encoded.
+```
+z_k        = X · β_k
+P(y=k | X) = exp(z_k) / Σⱼ exp(z_j)
+```
 
-Unlike one-vs-rest approaches, softmax models joint probability over all classes, making it theoretically cleaner. It's computationally efficient and highly interpretable. However, softmax assumes mutual exclusivity (one true class per sample); for multilabel problems, use independent sigmoid on each class.
+This gives a proper probability distribution over K classes. The prediction is `argmax_k P(y=k | X)`.
+
+When K = 2, softmax reduces to ordinary logistic regression (the redundant parameters are dropped or one class fixed as reference).
+
+**Training via MLE.** Minimize **categorical cross-entropy** with one-hot labels:
+
+```
+loss = − Σᵢ Σ_k  y_{i,k} · log P(y=k | Xᵢ)
+```
+
+For each example, only the term for the true class contributes — so this is just the negative log-probability assigned to the correct class.
+
+**Softmax vs one-vs-rest.** Softmax models the *joint* probability over all classes, which is theoretically cleaner and produces calibrated probabilities. One-vs-rest trains K independent binary classifiers; the resulting per-class probabilities don't naturally sum to 1.
+
+**Important assumption:** softmax assumes **mutually exclusive** classes — exactly one is correct. For *multilabel* problems where multiple classes can be true simultaneously, use independent sigmoids per class instead, with binary cross-entropy on each.
 
 ---
 
 ### Q10: Describe polynomial regression and when you'd use it instead of linear regression.
 
-**A:** Polynomial regression adds polynomial features (X², X³, etc.) to linear regression, allowing it to fit nonlinear relationships while remaining "linear in parameters." For degree d, the model is y = β₀ + β₁X + β₂X² + ... + β_d X^d + ε.
+**A:** **Polynomial regression** adds polynomial features (X², X³, ...) to linear regression. The model becomes:
 
-You detect the need for polynomial regression via residual plots—if residuals show systematic patterns (U-shape, oscillation), the relationship is likely nonlinear. Polynomial regression is useful when data truly exhibits polynomial structure, but be cautious:
+```
+y = β₀  +  β₁·X  +  β₂·X²  +  ...  +  β_d·X^d  +  ε
+```
 
-(1) high-degree polynomials (d > 3) risk severe overfitting due to Runge's phenomenon,
+It can fit nonlinear relationships while remaining *linear in the parameters* — so it's still trained with the same machinery as ordinary linear regression.
 
-(2) extrapolation beyond data range produces wild predictions,
+**When to use it.** Residual plots that show systematic curvature (U-shape, oscillation) suggest the relationship is nonlinear and a polynomial term might help.
 
-(3) interpretation becomes harder. Always validate via cross-validation and use regularization. For highly complex nonlinear relationships, modern ML practitioners prefer tree-based models or neural networks instead of high-degree polynomials, since they generalize better and don't require manual feature engineering.
+**Caveats:**
 
-Reserve polynomial regression for exploratory analysis or when domain knowledge suggests polynomial structure.
+- High-degree polynomials (d > 3) risk severe overfitting and **Runge's phenomenon** — wild oscillations between data points.
+- **Extrapolation is dangerous** — predictions outside the data range can swing extremely.
+- Coefficient interpretation gets harder as degree grows.
+
+**Practical guidance:** validate with cross-validation, regularize (Ridge/Lasso) when using polynomial features, and keep the degree low. For genuinely complex nonlinear relationships, modern practitioners reach for tree-based models or neural networks rather than high-degree polynomials — they generalize better and don't require manual feature engineering.
+
+Reserve polynomial regression for exploratory analysis or when domain knowledge suggests a true polynomial relationship.
 
 ---
 
 ### Q11: Explain residual analysis and what patterns indicate model violations.
 
-**A:** Residuals ε_i = y_i - ŷ_i represent prediction errors and reveal whether regression assumptions hold. Create plots:
+**A:** **Residuals** are the prediction errors, εᵢ = yᵢ − ŷᵢ. Patterns in the residuals reveal whether regression assumptions hold.
 
-(1) residuals vs. fitted values should show random scatter (no patterns)—curved patterns indicate nonlinearity,
+**Three diagnostic plots:**
 
-(2) Q-Q plot (residuals vs. normal quantiles) should follow a straight line—deviations indicate non-normality,
+- **Residuals vs fitted values** — should be a random cloud. Curved patterns indicate nonlinearity.
+- **Q-Q plot** (residuals vs theoretical normal quantiles) — should fall on a straight line. Deviations indicate non-normality.
+- **Scale-location plot** (√|residuals| vs fitted values) — should be flat random scatter. A trend indicates heteroscedasticity.
 
-(3) scale-location plot (√|residuals| vs. fitted values) should be randomly scattered—trends indicate heteroscedasticity. Specific patterns:
+**Common patterns and what they mean:**
 
-(1) heteroscedasticity (variance increases with fitted values, forming a "funnel") suggests weighting or transformation,
+- **Funnel shape** in residuals vs fitted → heteroscedasticity. Try a variance-stabilizing transformation (log, sqrt) or weighted least squares.
+- **Curvature / U-shape** → missing nonlinearity. Add polynomial or interaction terms, or move to a non-linear model.
+- **Outliers far from the Q-Q line** → potentially influential observations to investigate (Cook's distance helps identify them).
+- **Time-correlated residuals** → independence violated. Check with the Durbin-Watson statistic; consider time-series models.
 
-(2) nonlinear trends indicate missing polynomial terms or wrong model class,
+**Fixes summarized:**
 
-(3) outliers far from the Q-Q line might be influential observations needing investigation,
+- Transformations (log, sqrt, Box-Cox) for heteroscedasticity or skew.
+- Additional features (polynomials, interactions) for missing structure.
+- Robust regression for heavy-tailed errors.
+- A different model class when the linearity assumption fundamentally fails.
 
-(4) autocorrelation (residuals correlated across time) violates independence—test via Durbin-Watson statistic. Addressing violations: apply transformations (log, sqrt), add features, use robust regression, or switch models. Residual analysis is underrated in practice but essential for model validation.
+Residual analysis is underrated in practice but essential for confirming a linear model is appropriate.
 
 ---
 
 ### Q12: What is gradient descent and how is it applied to linear regression? Explain batch, stochastic, and mini-batch variants.
 
-**A:** Gradient descent iteratively updates coefficients β ← β - η ∇L(β), where ∇L is the gradient of loss and η is the learning rate. For linear regression, the gradient is ∇L = -2 X^T(y - Xβ) / n. Batch gradient descent uses all n samples to compute each gradient—stable but slow on large data.
+**A:** **Gradient descent** iteratively updates the coefficients in the direction of steepest decrease of the loss:
 
-Stochastic gradient descent (SGD) uses one sample per update—fast and noisy, but noise helps escape local minima and scales to huge datasets. Mini-batch gradient descent (typical in practice) uses small batches (32-256 samples)—balances stability and speed.
+```
+β ← β  −  η · ∇L(β)
+```
 
-Learning rate choice is critical: too large causes divergence, too small is slow; adaptive methods (Adam, RMSprop) adjust per parameter. Convergence depends on loss surface shape—linear regression has a single global minimum, so all variants eventually converge.
+where η is the learning rate. For linear regression with squared-error loss, the gradient is:
 
-In interviews, discuss that SGD is standard for online learning, batch for small data or offline scenarios, and mini-batch for deep learning. Modern libraries (scikit-learn, PyTorch) handle this automatically.
+```
+∇L = (−2/n) · Xᵀ · (y − X·β)
+```
+
+**Three variants** by batch size:
+
+- **Batch gradient descent** — use all n samples per update. Stable, exact gradient, but slow on large data and one epoch = one update.
+- **Stochastic gradient descent (SGD)** — one sample per update. Fast and very noisy; noise can help escape local minima and is essential for streaming data.
+- **Mini-batch gradient descent** — small batches (typically 32–256 samples). Standard in practice — balances stability and speed, vectorizes well on GPUs.
+
+**Learning rate matters a lot:**
+
+- Too large → divergence or oscillation.
+- Too small → painfully slow convergence.
+- Adaptive methods like Adam and RMSprop adjust the effective rate per parameter and reduce tuning burden.
+
+**Convergence.** Linear regression's loss is convex with a single global minimum, so all variants converge given a reasonable learning rate.
+
+**When to use which:**
+
+- Mini-batch — the practical default.
+- Pure SGD — online or streaming learning.
+- Batch — small datasets or offline scenarios where compute isn't a constraint.
+
+Modern libraries (scikit-learn, PyTorch) handle the implementation details automatically.
 
 ---
 
 ### Q13: What are generalized linear models (GLMs) and how do they extend linear regression?
 
-**A:** GLMs extend linear regression by modeling E[y|X] via a link function g: g(E[y|X]) = Xβ. Linear regression assumes y ~ Normal with identity link (g = identity), but GLMs allow different distributions and links. For example:
+**A:** **GLMs** extend linear regression by introducing a **link function** g that connects the expected response to the linear predictor:
 
-(1) Binomial with logit link gives logistic regression,
+```
+g( E[y | X] )  =  X · β
+```
 
-(2) Poisson with log link models count data with E[y] = e^(Xβ),
+Different choices of distribution and link function give different familiar models:
 
-(3) Gamma with log link for positive continuous data. The general form uses maximum likelihood estimation on the chosen distribution.
+- **Normal + identity link** — ordinary linear regression. E[y | X] = X·β.
+- **Binomial + logit link** — logistic regression. logit(p) = X·β.
+- **Poisson + log link** — count regression. log(E[y | X]) = X·β, so E[y | X] = exp(X·β).
+- **Gamma + log link** — positive continuous data (insurance claims, durations).
 
-GLMs unify many models under one framework, sharing common properties: exponential family distributions, link functions chosen for interpretation or mathematical convenience, and inference via deviance (generalized R²).
+**Common properties:**
 
-In interviews, GLMs are less common than specific instantiations (logistic regression, Poisson regression), but demonstrating knowledge of the framework shows conceptual depth. Modern alternatives like generalized additive models (GAMs) relax the linearity assumption while keeping interpretability.
+- The response is from an **exponential family** distribution (Normal, Binomial, Poisson, Gamma, etc.).
+- The link function is chosen for interpretability or mathematical convenience.
+- Fitting is via maximum likelihood (often iteratively reweighted least squares).
+- Goodness of fit is measured by **deviance** rather than R².
+
+**Why GLMs matter.** They unify a wide range of models under one framework, making it easier to reason about assumptions and choose the right model for the response variable.
+
+**Modern relatives.** **GAMs (Generalized Additive Models)** relax the linearity assumption by replacing each X·β term with a smooth function f(X), keeping much of the interpretability while handling nonlinearity gracefully.
+
+In interviews, knowing GLMs shows conceptual depth — even if the specific instantiations (logistic, Poisson) come up more often.
 
 ---
 
 ### Q14: Explain how to handle categorical features in linear regression and logistic regression.
 
-**A:** Categorical features must be encoded before fitting linear models. One-hot encoding creates binary columns for each category, allowing interpretation: if a feature has 3 categories {A, B, C}, create columns [is_A, is_B, is_C].
+**A:** Categorical features must be numerically encoded before fitting a linear model.
 
-Drop one column (usually baseline) to avoid multicollinearity—with all 3, the sum is always 1, causing singular X^T X. In logistic regression with one-hot encoding, the dropped category (baseline) becomes the reference; coefficients represent log-odds relative to baseline.
+**One-hot encoding.** Create a binary column for each category. For a feature with categories {A, B, C}, create columns [is_A, is_B, is_C].
 
-Ordinal categories (e.g., education level: high school < bachelor < masters) can be encoded as integers, assuming linear effects. Label encoding (mapping to 0, 1, 2...) treats categories as ordinal even if they're not—use cautiously.
+**Important: drop one column to avoid multicollinearity.** If you keep all three, they sum to 1 for every row, making XᵀX singular. The dropped category becomes the **baseline** — remaining coefficients are interpreted relative to it.
 
-For many categories (e.g., zipcode with 1000+ levels), one-hot creates high-dimensional sparse data; consider grouping rare categories or using target encoding (encode each category as its mean target value). Regularization helps when high-dimensional encoding is unavoidable.
+In logistic regression with one-hot encoding, each remaining coefficient is a log-odds ratio relative to the baseline category.
 
-Always scale continuous features before regularized linear models to ensure fair penalty strength across features.
+**Ordinal categories** (education level, ratings) can sometimes be encoded as integers — but only if the spacing between levels is meaningful and effects are roughly linear in that ordering.
+
+**Plain label encoding** (mapping categories to 0, 1, 2, ...) implicitly treats categories as ordinal even when they aren't — usually a bad idea for linear models with non-ordinal categories.
+
+**High-cardinality features** (zipcode with thousands of levels) need extra care:
+
+- Group rare categories into an "Other" bucket.
+- Use **target encoding** — replace each category with its mean target value (with care to avoid leakage).
+- Use regularization to handle the high-dimensional encoding.
+
+**Always scale continuous features before regularized linear models** so the L1 / L2 penalty applies fairly across features regardless of their original units.
 
 ---
 
 ### Q15: When would you choose linear regression or logistic regression over more complex models, and what are the tradeoffs?
 
-**A:** Linear models excel in interpretability—coefficients directly show feature importance and direction of effects, critical for regulatory compliance and explainability (e.g., loan decisions). They're fast to train and score, need little tuning, and perform well with small sample sizes.
+**A:** Linear models still earn their keep in many situations.
 
-Tradeoffs: they assume linear relationships, which often don't hold; they struggle with nonlinear patterns or feature interactions (unless manually engineered); they lack embedded feature selection (Lasso helps but isn't as powerful as tree-based). Start with linear models as a baseline—if performance is acceptable, use them; if gap to complex models is large, the nonlinearity is significant.
+**Strengths:**
 
-In practice: linear for high-dimensional sparse data (text, genomics), small samples, or regulatory settings; tree-based for tabular data with complex interactions; neural nets for unstructured data (images, text embeddings). A strong interviewer approach is: "I'd fit a linear model first to establish a baseline and ensure I understand the problem, then escalate complexity if needed."
+- **Interpretability** — coefficients directly indicate feature importance and direction of effect. Crucial for regulatory and explainability-sensitive domains (loan decisions, clinical risk scores).
+- **Fast to train and score** — closed-form or quickly converging.
+- **Minimal tuning** — typically just a regularization strength.
+- **Sample-efficient** — perform well with small datasets where complex models would overfit.
+
+**Tradeoffs:**
+
+- Assume linear relationships, which often don't hold.
+- Don't naturally capture nonlinear patterns or feature interactions (unless manually engineered).
+- Lack the rich, embedded feature selection of tree-based models (Lasso is helpful but not equivalent).
+
+**When to reach for which family:**
+
+- **Linear / logistic** — high-dimensional sparse data (text, genomics), small samples, or regulated/explainability-critical settings.
+- **Tree-based (gradient boosting, random forest)** — tabular data with complex interactions.
+- **Neural networks** — unstructured data (images, audio, text embeddings).
+
+**Strong interview answer:** "I'd start with a linear model to establish a baseline, understand the data, and confirm what's already explainable by linear effects. If a more complex model meaningfully outperforms it, that gap tells me how much nonlinearity or interaction the problem has."
 
 ---
 

@@ -16,193 +16,382 @@ Understanding the relationship between p-values, confidence intervals, and effec
 
 ### Q1: Explain point estimation and distinguish between biased and unbiased estimators.
 
-**A:** Point estimation uses sample data to produce a single estimate θ̂ of an unknown parameter θ. An estimator is unbiased if E[θ̂] = θ, meaning on average across repeated samples, it estimates the true value correctly; biased if E[θ̂] ≠ θ.
+**A:** **Point estimation** uses sample data to produce a single estimate θ̂ of an unknown population parameter θ.
 
-For example, the sample mean is an unbiased estimator of the population mean, but the sample variance (using divisor n) is biased, while dividing by (n-1) makes it unbiased. Bias = E[θ̂] - θ, and even biased estimators can be useful if they have lower variance (bias-variance tradeoff).
+An estimator is **unbiased** if its expected value equals the true parameter:
 
-In ML, regularized regression estimators (like ridge regression) are biased but have lower variance than OLS, often giving better predictions. When evaluating an estimator, you care about both bias and variance—mean squared error MSE(θ̂) = Bias² + Var(θ̂), so sometimes accepting small bias trades off for substantial variance reduction.
+```
+E[θ̂] = θ            (unbiased)
+E[θ̂] ≠ θ            (biased — bias = E[θ̂] − θ)
+```
+
+A biased estimator over- or under-estimates θ on average across repeated samples.
+
+**Common examples:**
+
+- The sample mean is an unbiased estimator of the population mean.
+- The sample variance with divisor n is biased; using divisor (n − 1) makes it unbiased.
+
+A biased estimator can still be useful if it has much lower variance — that's the bias–variance tradeoff. The total error of an estimator is captured by **mean squared error**:
+
+```
+MSE(θ̂) = Bias(θ̂)² + Var(θ̂)
+```
+
+In ML, regularized regression estimators like ridge regression are deliberately biased but have lower variance than OLS, often producing better predictions. When evaluating an estimator, both bias and variance matter — sometimes a little bias is well worth a lot of variance reduction.
 
 ---
 
 ### Q2: What are confidence intervals and how do they relate to hypothesis testing?
 
-**A:** A confidence interval (CI) is a range [L, U] constructed from sample data such that if you repeated the sampling procedure many times, approximately (1-α)×100% of the intervals would contain the true parameter (e.g., 95% CI means 95% coverage in repeated samples).
+**A:** A **confidence interval (CI)** is a range [L, U] computed from sample data with the property that if you repeated the sampling procedure many times, about (1 − α) × 100% of the intervals would contain the true parameter. So a 95% CI corresponds to ~95% coverage in repeated samples.
 
-This is NOT a probability statement about the parameter itself—the parameter is fixed, either in [L, U] or it isn't. A 95% CI for a mean obtained via sample mean ± 1.96×SE is closely related to hypothesis testing: if a null value (like zero) falls outside the 95% CI, you'd reject the null at α=0.05 significance level.
+**Critical interpretation:** this is *not* a probability statement about the parameter. The true parameter is fixed — it's either in [L, U] or it isn't. The "95%" describes the long-run behavior of the procedure, not a particular interval.
 
-Conversely, the set of values not rejected by a test forms a CI. In ML reporting, confidence intervals are more informative than point estimates alone because they quantify uncertainty. For instance, reporting "model accuracy = 0.85 ± 0.03" immediately tells stakeholders the range of plausible values, whereas "accuracy = 0.85" alone is ambiguous.
+A standard form for a mean is:
+
+```
+CI = sample_mean ± 1.96 · SE        (95% CI under normal approximation)
+```
+
+**Tight link with hypothesis testing:** if a null value (like zero) falls *outside* the 95% CI, you'd reject the null at α = 0.05. Conversely, the set of values *not* rejected by a test (at level α) forms a (1 − α) CI.
+
+In ML reporting, confidence intervals are far more informative than bare point estimates because they quantify uncertainty. "Model accuracy = 0.85 ± 0.03" immediately conveys the range of plausible values, whereas just "0.85" leaves stakeholders guessing.
 
 ---
 
 ### Q3: Define p-values and explain common misconceptions about their interpretation.
 
-**A:** The p-value is the probability of observing a test statistic as extreme as or more extreme than what you observed, assuming the null hypothesis is true: P(test stat | H₀). A small p-value (typically <0.05) means the observed data is unlikely under H₀, suggesting evidence against H₀. Critical misconceptions:
+**A:** The **p-value** is the probability of observing a test statistic at least as extreme as the one you observed, assuming the null hypothesis is true:
 
-(1) p-value is NOT the probability H₀ is true—H₀ is either true or false, not probabilistic;
+```
+p-value = P(test statistic at least as extreme as observed | H₀)
+```
 
-(2) p-value is NOT the probability the result is due to chance—all results involve randomness;
+A small p-value (typically below 0.05) means the observed data would be unlikely under H₀, which is evidence against H₀.
 
-(3) small p-value doesn't prove large effect size;
+**Critical misconceptions to avoid:**
 
-(4) p-value depends on sample size—with huge n, tiny effects become "significant." The correct interpretation: "If H₀ were true, we'd see data this extreme or more extreme 5% of the time." In practice, overreliance on p-values without considering effect sizes or practical significance leads to spurious discoveries, especially in high-dimensional settings where multiple comparisons inflate false discovery rates.
+- A p-value is **NOT** the probability that H₀ is true. H₀ is either true or false; it isn't probabilistic.
+- A p-value is **NOT** the probability the result is due to chance. All results involve randomness.
+- A small p-value does **NOT** imply a large effect size — it's a statement about evidence, not magnitude.
+- A p-value depends on sample size. With huge n, even trivially small effects become "statistically significant."
+
+**The correct interpretation:** "If H₀ were true, we would see data at least this extreme about p × 100% of the time."
+
+In practice, over-relying on p-values without also reporting effect sizes or considering practical significance leads to spurious discoveries — especially in high-dimensional settings where multiple comparisons inflate false discovery rates.
 
 ---
 
 ### Q4: Explain Type I error, Type II error, and statistical power.
 
-**A:** Type I error (false positive) is rejecting H₀ when it's actually true; its probability is the significance level α. Type II error (false negative) is failing to reject H₀ when it's actually false; its probability is β. Statistical power = 1 - β, the probability of correctly detecting a true effect when one exists.
+**A:** Two ways a hypothesis test can be wrong:
 
-These three quantities (α, β, effect size, sample size) are deeply linked: fix any three and you can solve for the fourth. For example, to achieve 80% power detecting a medium effect at α=0.05 requires roughly n=64 per group in a two-sample t-test.
+- **Type I error (false positive):** rejecting H₀ when it's actually true. Probability = α (the significance level).
+- **Type II error (false negative):** failing to reject H₀ when it's actually false. Probability = β.
 
-In ML, Type I errors (false positives, like flagging benign users as fraudsters) and Type II errors (false negatives, like missing actual fraud) have different costs depending on context. Higher power requires larger sample sizes or stronger true effects.
+**Statistical power** is the complement of Type II error:
 
-When designing A/B tests, you specify desired power (often 80%) and acceptable α (often 0.05), then calculate required sample size to achieve meaningful detection.
+```
+power = 1 − β
+```
+
+It's the probability of correctly detecting a true effect.
+
+**Four-way relationship:** α, β, effect size, and sample size are tightly linked — fix any three and the fourth is determined. For example, achieving 80% power to detect a medium effect at α = 0.05 needs roughly n = 64 per group in a two-sample t-test.
+
+**In ML:** Type I errors (flagging benign users as fraudsters) and Type II errors (missing actual fraud) have very different costs depending on context. Higher power demands larger samples or stronger true effects.
+
+When designing an A/B test, you specify desired power (typically 0.80) and acceptable α (typically 0.05), then calculate the required sample size for the minimum detectable effect.
 
 ---
 
 ### Q5: Compare parametric and non-parametric hypothesis tests and when to use each.
 
-**A:** Parametric tests (t-test, ANOVA, linear regression) assume a specific distribution (usually normal) and estimate parameters of that distribution. Non-parametric tests (Mann-Whitney U, Kruskal-Wallis, Spearman correlation) don't assume a particular distribution and work on ranks instead of raw values.
+**A:** Two big families of hypothesis tests:
 
-Parametric tests are more powerful (better at detecting true effects) when their assumptions hold, but non-parametric tests are robust when assumptions are violated.
+- **Parametric tests** (t-test, ANOVA, linear regression): assume a specific distribution (usually normal) and estimate its parameters.
+- **Non-parametric tests** (Mann-Whitney U, Kruskal-Wallis, Spearman correlation): make no distributional assumptions and operate on ranks rather than raw values.
 
-Use parametric tests when data is approximately normal or sample size is large (CLT makes them robust); use non-parametric when data is clearly non-normal, heavily skewed, contains outliers, or sample size is very small.
+**Tradeoffs:**
 
-In practice, you often try both—if conclusions agree, you're confident; if they differ, non-parametric results are more trustworthy.
+- Parametric tests are *more powerful* when their assumptions hold — they'll detect smaller true effects.
+- Non-parametric tests are *more robust* when assumptions are violated.
 
-For ML practitioners, understanding that rank-based methods are robust helps you design stable evaluation pipelines: using median (non-parametric) instead of mean (parametric) for aggregating across runs is more robust to outlier runs.
+**When to use each:**
+
+- Parametric — data is approximately normal, or the sample size is large enough that the CLT kicks in.
+- Non-parametric — data is clearly non-normal, heavily skewed, contains outliers, or the sample size is very small.
+
+In practice, running both is a useful sanity check: if conclusions agree, you're confident; if they disagree, non-parametric results are usually more trustworthy.
+
+For ML practitioners, understanding that rank-based methods are robust helps you design stable evaluation pipelines — for example, using the median (non-parametric) instead of the mean (parametric) when aggregating across runs is more robust to outlier runs.
 
 ---
 
 ### Q6: Explain the t-test: assumptions, variants, and when to apply each.
 
-**A:** The t-test compares means and assumes normality and equal variances (classical form). Variants include: one-sample t-test (does sample mean differ from a value?), two-sample independent t-test (do two group means differ?), and paired t-test (do paired observations differ?). Welch's t-test relaxes the equal variance assumption.
+**A:** The **t-test** compares means under the assumption of normality and (in classical form) equal variances. The main variants:
 
-All assume independence and approximate normality (robust with larger samples). The test statistic t = (M₁ - M₂) / SE_{diff}, where SE_{diff} is the standard error of the difference; under H₀, t follows a t-distribution with degrees of freedom depending on sample sizes.
+- **One-sample t-test:** does a sample mean differ from a specified value?
+- **Two-sample independent t-test:** do two group means differ?
+- **Paired t-test:** do paired observations differ (e.g., before vs. after on the same units)?
+- **Welch's t-test:** like the two-sample test but relaxes the equal-variance assumption.
 
-With small degrees of freedom, the t-distribution has heavier tails than the normal distribution, making tests slightly more conservative; as df increases, the t-distribution converges to the normal. In ML, paired t-tests compare two models on the same test instances (e.g., baseline vs. new model on same 5 datasets), which is more powerful than independent tests.
+All variants assume independence and approximate normality (which becomes mild for larger samples thanks to the CLT).
 
-Always check assumptions via Shapiro-Wilk test (normality) and Levene's test (equal variances) before reporting t-tests.
+The test statistic for a two-sample test is:
+
+```
+t = (M₁ − M₂) / SE_diff
+```
+
+where SE_diff is the standard error of the difference between sample means. Under H₀, this follows a t-distribution whose degrees of freedom depend on the sample sizes.
+
+**About the t-distribution:** with small degrees of freedom it has heavier tails than the normal, making tests slightly more conservative. As df grows, it converges to the normal.
+
+**In ML:** paired t-tests compare two models on the same test instances (baseline vs. new model on the same 5 datasets, for instance) and are more powerful than independent tests because they remove between-instance variance.
+
+Always check the assumptions before reporting — Shapiro-Wilk for normality and Levene's test for equal variances.
 
 ---
 
 ### Q7: What is ANOVA and how does it extend the t-test?
 
-**A:** ANOVA (Analysis of Variance) tests whether means differ across k≥3 groups by partitioning total variance into between-group variance (explained by group membership) and within-group variance (residual). The F-statistic = MS_{between} / MS_{within}, where MS are mean squares; large F suggests groups differ.
+**A:** **ANOVA (Analysis of Variance)** tests whether the means differ across k ≥ 3 groups by partitioning total variability into two pieces:
 
-One-way ANOVA tests one categorical factor; two-way ANOVA tests two factors and their interaction. ANOVA assumes normality, equal variances across groups (Levene's test), and independence. If ANOVA rejects H₀ (not all means equal), post-hoc tests (Tukey HSD, Bonferroni) identify which pairs differ. Kruskal-Wallis is the non-parametric alternative.
+- **Between-group variance** — variability explained by group membership.
+- **Within-group variance** — residual variability inside each group.
 
-In ML, ANOVA compares multiple models or hyperparameter settings: fit models across k settings, compute ANOVA on held-out test results to see if setting significantly affects performance. The extension from t-test (2 groups) to ANOVA (k groups) avoids repeatedly running pairwise tests, which would inflate Type I error.
+The test statistic is the **F-statistic**, the ratio of the corresponding mean squares:
+
+```
+F = MS_between / MS_within
+```
+
+A large F suggests the group means differ.
+
+**Variants:**
+
+- **One-way ANOVA** — one categorical factor.
+- **Two-way ANOVA** — two factors plus their interaction.
+
+**Assumptions:** normality, equal variances across groups (test with Levene's), and independence. If ANOVA rejects the null (not all means are equal), follow up with **post-hoc tests** like Tukey HSD or Bonferroni-corrected pairwise tests to identify which specific pairs differ. The non-parametric alternative is the **Kruskal-Wallis** test.
+
+**In ML:** ANOVA compares multiple models or hyperparameter settings — fit k settings, run ANOVA on the held-out test metric, and check whether the setting significantly affects performance. The extension from t-test (2 groups) to ANOVA (k groups) is important because running many pairwise t-tests would inflate Type I error.
 
 ---
 
 ### Q8: Explain the chi-square test and its applications.
 
-**A:** The chi-square test compares observed frequencies in categorical data to expected frequencies under a null hypothesis. The test statistic χ² = Σ (O_i - E_i)² / E_i, where O_i is observed count and E_i is expected count under H₀; under H₀, χ² approximately follows a chi-square distribution with k degrees of freedom (k = number of categories - 1, minus parameters estimated).
+**A:** The **chi-square test** compares observed frequencies in categorical data to the frequencies expected under a null hypothesis. The test statistic is:
 
-Applications:
+```
+χ² = Σᵢ (Oᵢ − Eᵢ)² / Eᵢ
+```
 
-(1) goodness-of-fit: does data follow a specific distribution?
+where Oᵢ is the observed count and Eᵢ is the expected count under H₀. Under H₀, χ² approximately follows a chi-square distribution with k degrees of freedom (k = number of categories − 1, minus any estimated parameters).
 
-(2) independence: are two categorical variables independent?
+**Three common applications:**
 
-(3) homogeneity: do k populations have the same distribution? Assumptions: observations are independent, categories are mutually exclusive, expected frequency ≥5 in each cell (merge small categories if violated).
+- **Goodness-of-fit:** does the data follow a specific distribution?
+- **Independence:** are two categorical variables independent?
+- **Homogeneity:** do k populations share the same distribution?
 
-In ML, chi-square tests evaluate whether predicted class distributions match observed (e.g., classifier outputting wrong class proportions), or whether feature distribution differs significantly between training and deployed data (indicator of data drift).
+**Assumptions:** observations are independent, categories are mutually exclusive, and expected frequency ≥ 5 in each cell. If a cell is too small, merge categories.
+
+**In ML:** chi-square tests check whether predicted class distributions match observed counts (a classifier that outputs the wrong class proportions), or whether a feature's distribution has shifted significantly between training and deployed data — a signal of data drift.
 
 ---
 
 ### Q9: What is maximum likelihood estimation and why is it powerful?
 
-**A:** Maximum likelihood estimation (MLE) finds the parameter value θ that maximizes the likelihood function L(θ; x) = P(x | θ) (or log-likelihood ℓ(θ) = log L(θ)). Intuitively, MLE finds the parameter value making the observed data most probable.
+**A:** **Maximum likelihood estimation (MLE)** finds the parameter θ that makes the observed data most probable. The likelihood function is:
 
-For a sample of independent observations, L(θ; x₁, ..., xₙ) = ∏ᵢ P(xᵢ | θ), and we maximize by taking derivatives: dℓ/dθ = 0. MLEs have desirable asymptotic properties (consistency, asymptotic normality, efficiency), so with large samples, MLE is approximately optimal.
+```
+L(θ ; x) = P(x | θ)
+```
 
-In practice, you maximize log-likelihood (numerically stable, easier to differentiate) using gradient descent or closed-form solutions.
+In practice we maximize the **log-likelihood** because it's numerically stable and turns products into sums:
 
-In ML, logistic regression finds MLE of class probabilities, Gaussian mixture models use EM algorithm to compute MLE's for mixture parameters, and neural networks trained with cross-entropy loss are implicitly finding MLE. Understanding MLE helps you see why particular loss functions (like cross-entropy) are natural choices for different problems.
+```
+ℓ(θ) = log L(θ)
+```
+
+For a sample of independent observations, the likelihood factors:
+
+```
+L(θ ; x₁, ..., xₙ) = Πᵢ P(xᵢ | θ)
+ℓ(θ)              = Σᵢ log P(xᵢ | θ)
+```
+
+Maximization typically proceeds by setting the derivative to zero:
+
+```
+dℓ/dθ = 0
+```
+
+solved either in closed form or numerically (gradient descent, Newton's method).
+
+**Why MLE is so widely used:** it has excellent asymptotic properties — consistency, asymptotic normality, and efficiency — so with enough data, MLE is approximately the best estimator possible.
+
+**In ML it shows up everywhere:**
+
+- Logistic regression finds the MLE of class probabilities.
+- Gaussian mixture models use the EM algorithm to compute MLE of mixture parameters.
+- Neural networks trained with cross-entropy loss are implicitly performing MLE.
+
+Understanding MLE helps you see why particular loss functions (like cross-entropy) are natural choices for different problems.
 
 ---
 
 ### Q10: Explain the method of moments and compare it to MLE.
 
-**A:** Method of moments equates sample moments (like sample mean, sample variance) to theoretical moments under the distributional model, then solves for parameters. For example, for a normal distribution, E[X] = μ and Var(X) = σ², so the method of moments estimators are μ̂ = sample mean and σ̂² = sample variance.
+**A:** The **method of moments** equates sample moments to theoretical moments under the distributional model, then solves for the parameters.
 
-Method of moments is computationally simpler than MLE (just solve equations rather than optimize) and often provides good initial guesses for numerical optimization. However, method of moments estimators are generally less efficient than MLEs—they converge more slowly to the true value and have higher variance.
+Example for the normal distribution: theory says E[X] = μ and Var(X) = σ², so the method-of-moments estimators are simply:
 
-Both are consistent and asymptotically normal. Method of moments is useful when likelihood is difficult to specify (e.g., mixture models) or when quick estimates suffice, but for formal inference with small samples, MLE is preferred. Interviewers appreciate understanding the tradeoff: computational simplicity vs. statistical efficiency.
+```
+μ̂  = sample mean
+σ̂² = sample variance
+```
+
+**Compared to MLE:**
+
+- *Method of moments* — easier to compute (just solve equations), works when the likelihood is hard to specify, often provides good starting points for numerical optimization. Less statistically efficient — slower convergence to truth and higher variance.
+- *MLE* — typically more efficient, with the asymptotic optimality properties from Q9. More work to compute, especially when no closed form exists.
+
+Both are consistent and asymptotically normal. The method of moments is useful when likelihood is difficult to specify (mixture models, for example) or when quick estimates suffice, but for formal inference with small samples, MLE is preferred. Interviewers appreciate the framing as *computational simplicity vs. statistical efficiency*.
 
 ---
 
 ### Q11: What is Fisher information and what does it tell you about an estimator?
 
-**A:** Fisher information I(θ) = -E[d²ℓ/dθ² | θ] quantifies how much information the data carries about parameter θ. Large Fisher information means the likelihood is sharply peaked at the true θ (data constrains θ well), while small information means likelihood is flat (data tells you little about θ).
+**A:** **Fisher information** I(θ) measures how much information the data carries about a parameter θ. It's defined as the negative expected second derivative of the log-likelihood:
 
-The Cramér-Rao lower bound states that for unbiased estimator θ̂ of θ, Var(θ̂) ≥ 1/I(θ), meaning the inverse Fisher information is the minimum possible variance. MLEs achieve this lower bound asymptotically (efficient estimators).
+```
+I(θ) = − E[ d²ℓ/dθ² | θ ]
+```
 
-In practice, Fisher information drives standard errors of parameter estimates: SE(θ̂) ≈ 1/√I(θ) (in large samples), so you can evaluate how precisely you can estimate a parameter before collecting data.
+Intuitively, large Fisher information means the likelihood is sharply peaked at the true θ — the data constrains θ tightly. Small information means the likelihood is flat — the data tells you little about θ.
 
-In ML, Fisher information matrix appears in optimization (preconditioners in second-order methods) and in uncertainty quantification for neural network weights. Understanding Fisher information helps you reason about what sample sizes suffice for achieving desired estimation precision.
+The **Cramér-Rao lower bound** says that for any unbiased estimator θ̂:
+
+```
+Var(θ̂) ≥ 1 / I(θ)
+```
+
+That is, the inverse Fisher information is the *minimum possible variance* of any unbiased estimator. MLEs reach this bound asymptotically — they're efficient estimators.
+
+The link to standard errors:
+
+```
+SE(θ̂) ≈ 1 / √I(θ)        (in large samples)
+```
+
+so you can predict how precisely you can estimate a parameter *before* collecting data — useful for sample-size planning.
+
+**In ML:** the Fisher information matrix shows up as a preconditioner in second-order optimization methods (natural gradient descent) and in uncertainty quantification for neural network weights. Understanding Fisher information helps you reason about what sample sizes suffice for achieving desired estimation precision.
 
 ---
 
 ### Q12: Define sufficient statistics and explain their role in inference.
 
-**A:** A sufficient statistic T(X) captures all information in the data relevant to parameter θ—the distribution of X given T(X) doesn't depend on θ. For normal distribution with unknown mean and variance, the pair (sample mean, sample variance) is sufficient; for Poisson with unknown rate λ, the sample sum Σxᵢ is sufficient.
+**A:** A **sufficient statistic** T(X) captures all the information in the data that's relevant to a parameter θ — the distribution of X given T(X) doesn't depend on θ. Once you know T(X), the raw data x adds nothing new for inference about θ.
 
-Factorization criterion: T is sufficient if likelihood factors as L(θ; x) = g(T(x), θ) h(x), where h doesn't depend on θ. Practical importance: once you compute T(x), the original data x is irrelevant for likelihood-based inference—you can discard x and work with T(x).
+**Examples:**
 
-This enables data compression: for Poisson data, you only need to track the sum and sample size, not all individual observations. In Bayesian inference, sufficient statistics determine the posterior, so identifying them helps you understand which aspects of data matter.
+- Normal distribution with unknown mean and variance — the pair (sample mean, sample variance) is sufficient.
+- Poisson distribution with unknown rate λ — the sample sum Σ xᵢ is sufficient.
 
-For example, in linear regression, the sufficient statistic involves X^T X and X^T Y, explaining why these appear in normal equations.
+**Factorization criterion** — a quick way to check sufficiency. T is sufficient if the likelihood factors as:
+
+```
+L(θ ; x) = g(T(x), θ) · h(x)
+```
+
+where h(x) doesn't depend on θ.
+
+**Why it matters in practice:**
+
+- **Data compression** — for Poisson data, you only need the sum and sample size, not every observation.
+- **Bayesian inference** — sufficient statistics determine the posterior, so identifying them tells you which aspects of the data actually matter.
+- **Linear regression** — the sufficient statistic involves XᵀX and XᵀY, which is exactly why those terms appear in the normal equations.
 
 ---
 
 ### Q13: What is the Neyman-Pearson Lemma and why is it important?
 
-**A:** The Neyman-Pearson Lemma states that for testing H₀: θ = θ₀ vs. H₁: θ = θ₁, the most powerful test (highest power for given α) rejects H₀ when likelihood ratio L(θ₁; x) / L(θ₀; x) exceeds a threshold. This test is uniformly most powerful (UMP) among all tests with that significance level.
+**A:** The **Neyman-Pearson Lemma** says: for testing a simple null versus a simple alternative,
 
-The lemma provides a principled way to construct optimal tests: find the likelihood ratio and threshold it. Many classical tests can be derived this way—t-test, F-test, chi-square test all emerge as likelihood ratio tests with simple structures.
+```
+H₀ : θ = θ₀     vs.     H₁ : θ = θ₁
+```
 
-In practice, likelihood ratio tests generalize beyond simple vs. simple hypotheses (where we compare nested models). The lemma justifies why statistical tests often take the form "reject if test statistic > threshold"—that threshold is derived to optimize power.
+the **most powerful test** at significance level α rejects H₀ whenever the likelihood ratio exceeds a threshold:
 
-Understanding this helps you appreciate that classical hypothesis tests aren't arbitrary but derived from principled optimality criteria.
+```
+L(θ₁ ; x) / L(θ₀ ; x)  >  c
+```
+
+This test is uniformly most powerful (UMP) among all tests with that significance level.
+
+**Why it matters:**
+
+- It gives a principled recipe for constructing optimal tests: form the likelihood ratio and threshold it.
+- Many classical tests are likelihood ratio tests in disguise — t-test, F-test, chi-square test all emerge from this framework.
+- Likelihood ratio tests generalize beyond simple-vs-simple hypotheses to comparisons of nested models.
+
+The lemma is also why so many statistical tests have the form "reject if test statistic > threshold." That threshold isn't arbitrary — it's derived to optimize power against the alternative. Understanding this helps you see classical hypothesis tests as principled, not ad hoc.
 
 ---
 
 ### Q14: Explain multiple testing correction and its relevance to ML model selection.
 
-**A:** When you perform many hypothesis tests, the family-wise error rate (FWER, probability of ≥1 false positive) exceeds the per-test significance level. Bonferroni correction sets individual test significance to α/m (for m tests), guaranteeing FWER ≤ α; this is conservative but simple.
+**A:** When you perform many hypothesis tests, the **family-wise error rate (FWER)** — the probability of at least one false positive — climbs well above the per-test significance level.
 
-False discovery rate (FDR) controls the expected fraction of false discoveries among rejected hypotheses; Benjamini-Hochberg procedure controls FDR and is less stringent than Bonferroni, often preferred for exploratory analysis.
+Two main approaches to controlling for this:
 
-In ML hyperparameter tuning, trying many settings inflates false discovery: a setting appears "best" just by chance if you test enough settings. Cross-validation partially addresses this by holding out test data.
+- **Bonferroni correction:** test each hypothesis at α/m (for m tests). Guarantees FWER ≤ α — simple and safe but conservative.
+- **False discovery rate (FDR):** controls the expected *fraction* of false discoveries among rejected hypotheses. The **Benjamini-Hochberg** procedure achieves this and is less stringent than Bonferroni, often preferred for exploratory analysis.
 
-When doing feature selection (testing which of 1000 features matter), without correction, ~50 will appear significant at p<0.05 by chance alone.
+**Why this matters in ML:**
 
-Interviewers expect you to know that reporting results from exploratory analysis without correction overstates evidence, and that validation on held-out data is essential to verify true improvement vs. overfitting to the test set.
+- **Hyperparameter tuning:** trying many settings inflates false discovery — a setting can appear "best" just by chance if you test enough alternatives. Cross-validation only partially addresses this.
+- **Feature selection:** if you test 1000 features, about 50 will look significant at p < 0.05 *by chance alone*, even if none are really useful.
+
+Interviewers expect you to know that reporting results from exploratory analysis without correction overstates evidence, and that validation on held-out data is essential for distinguishing true improvement from overfitting to the test set.
 
 ---
 
 ### Q15: How do you design A/B tests and determine sample size requirements?
 
-**A:** A/B testing compares two variants (control A and treatment B) on randomly assigned users, measuring a primary metric (e.g., conversion rate). Design steps:
+**A:** **A/B testing** compares two variants (control A and treatment B) on randomly assigned users, measuring a primary metric like conversion rate.
 
-(1) specify primary metric and hypothesis (one-sided or two-sided),
+**Design steps:**
 
-(2) specify minimum detectable effect size (e.g., 10% relative lift),
+1. Specify the primary metric and hypothesis (one-sided or two-sided).
+2. Specify the minimum detectable effect size (e.g., 10% relative lift).
+3. Choose significance level α (typically 0.05) and power (typically 0.80).
+4. Calculate the required sample size n per variant.
+5. Run the test with proper randomization and blinding.
+6. Analyze via t-test or proportion test at the specified α level.
 
-(3) choose significance level α (often 0.05) and power (often 0.80),
+**Sample size formula for comparing proportions** (rule of thumb, per arm):
 
-(4) calculate sample size n per variant,
+```
+n ≈ 2 · (z_α + z_β)² · p · (1 − p) / Δ²
+```
 
-(5) run test with proper randomization and blinding,
+where p is the (assumed common) baseline rate and Δ is the minimum detectable effect. This is an approximation that assumes the two groups have similar baseline proportions; for materially different p₁ and p₂, use the more general formula `n ≈ (z_α + z_β)² · [ p₁(1−p₁) + p₂(1−p₂) ] / Δ²` or a power-analysis tool (e.g., `statsmodels.stats.power`).
 
-(6) analyze via t-test or proportion test at specified α level. Sample size formula for comparing proportions: n ≈ 2(z_α + z_β)²p(1-p) / Δ², where p is baseline rate and Δ is effect size.
+**Practical considerations:**
 
-Practical considerations: avoid peeking at results during test (inflates α), use sequential testing for early stopping, account for multiple comparisons if testing multiple metrics, and pre-register analysis plan to prevent p-hacking.
+- **Don't peek** at results mid-test — repeated checks inflate α. Use sequential testing if you want early stopping.
+- Apply multiple-comparison corrections if testing multiple metrics.
+- **Pre-register** the analysis plan to prevent p-hacking.
 
-In ML contexts, A/B tests validate that model improvements generalize (online metrics matter more than offline metrics), and understanding this framework helps you propose tests that convince stakeholders of real value.
+**In ML:** A/B tests are how you validate that model improvements actually generalize — online metrics matter more than offline metrics, and a clean A/B test is what convinces stakeholders the change is real.
 
 ---
 
